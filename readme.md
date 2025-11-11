@@ -20,3 +20,4 @@
 -- nombre
 -- generos que tocan
 -- fecha de creacion
+-- especificaciones
