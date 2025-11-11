@@ -9,6 +9,7 @@
 -- Biografía
 
 - Espacio
+-- ID
 -- Nombre
 -- Ubicacion
 -- fotos
@@ -18,6 +19,7 @@
 -- tamaño (prqueña, mediana, grande)
 
 - Bandas
+-- ID
 -- integrantes (users)
 -- nombre
 -- generos que tocan
