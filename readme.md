@@ -25,3 +25,4 @@
 -- generos que tocan
 -- fecha de creacion
 -- Descripcion/biografia
+-- links de redes sociales/contacto
