@@ -1,38 +1,21 @@
 body{
-    background-color: rgb(17, 16, 16);
-
+    display:flex;
+    background-color: rgb(25,20,20);
+    justify-content: center;
 }
 
-.display{
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.navbar{
-    background-color: gray;
-    width: 100%;
-    height: 80px;
-    border: none;
-    border-radius: 10px;
-}
-
-.carta{
-    padding: 5px;
-    font-family: sans-serif;
-    height: 350px;
+.cartaPerfil{
+    position:relative;
+    margin-top: 2%;
+    border-radius: 15px;
+    height: 500px;
     width: 300px;
-    margin: 10px;
-    background-color: rgba(255, 255, 255, 0.538);
-    border-radius: 10px;
+    background-color: rgba(245, 245, 245, 0.548);
+    text-align: center;
 }
 
-#datos{
-    justify-self: center;
-}
-
-.boton{
-    border-style: none;
+.foto{
     border-radius: 10px;
-    background-color: white;
-    color: black;
+    border-style: solid;
+    height: 200px;
 }
