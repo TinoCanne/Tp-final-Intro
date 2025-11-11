@@ -17,7 +17,8 @@
 -- biografía/descripcion
 -- contacto del dueño (numero/email)
 -- horarios de atencion
--- tamaño (prqueña, mediana, grande)
+-- tamaño (prqueña, mediana, grande)?
+-- precio por hora
 
 - Bandas
 -- ID
