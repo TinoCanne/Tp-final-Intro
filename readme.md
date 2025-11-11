@@ -7,6 +7,7 @@
 -- instrumentos (tag)
 -- generos favoritos (tag)
 -- Biografía
+-- redes sociales/contacto
 
 - Espacio
 -- ID
