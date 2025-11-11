@@ -14,10 +14,11 @@
 -- fotos
 -- biografía/descripcion
 -- contacto del dueño (numero/email)
+-- horarios de atencion
+-- tamaño (prqueña, mediana, grande)
 
 - Bandas
 -- integrantes (users)
 -- nombre
 -- generos que tocan
 -- fecha de creacion
--- especificaciones (tamaño, cosas que tienen y cosas que no)
