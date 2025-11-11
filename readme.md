@@ -24,3 +24,4 @@
 -- nombre
 -- generos que tocan
 -- fecha de creacion
+-- Descripcion/biografia
