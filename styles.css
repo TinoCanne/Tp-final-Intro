@@ -14,12 +14,18 @@ body{
     margin-left: 15px;
 }
 
-.cartas{
+.cartaPerfil img{
+    height: 200px;
+    width: auto;
+    max-width: 280px;
+}
+
+.filaPerfiles{
     display: flex;
     justify-content: center;
 }
 
-.foto{
+.fotoPerfil{
     border-radius: 10px;
     border-style: solid;
     height: 200px;
