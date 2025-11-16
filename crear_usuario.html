@@ -5,12 +5,14 @@
     </head>
     <body>
         <h1>Completa el siguiente formulario para crear tu cuenta Jameet!</h1>
-            <form>
-                <label for="nombre_completo">Ingrese su nombre completo:</label><br>
-                <input type="text" id="nombre_completo" name="nombre_completo"><br>
-                <label for="email">Ingrese su email:</label><br>
-                <input type="text" id="email" name="email"><br>
-                <input type="submit" value="Submit">
-            </form>
+        <form>
+            <label for="nombre_completo">Ingrese su nombre completo:</label><br>
+            <input type="text" id="nombre_completo" name="nombre_completo" required placeholder="Ingresa tu nombre completo"><br>
+            <label for="email">Ingrese su corre electrónico:</label><br>
+            <input type="text" id="email" name="email" required placeholder="Ingresa tu correo electrónico"><br>
+            <label for="contraseña">Cree una contraseña</label><br>
+            <input type="text" id="contraseña" name="contraseña" required placeholder="Ingresa tu constraseña"><br>
+            <input type="submit" value="Enviar datos">
+        </form>
     </body>
 </html>
