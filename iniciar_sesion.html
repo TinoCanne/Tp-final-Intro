@@ -11,16 +11,14 @@
     </head>
 
     <body>
-        <div>
-            <h1>inicia sesion</h1>
-        </div>
-        <div>
-            <label>ingresa tu mail</label>
-            <input id="nombre_usuario" type="text">            
-        </div>
-        <div>
-            <label>ingresa tu contraseña</label>
-            <input id="contraseña_usuario" type="text">
-        </div>
+        <h1>inicia sesion</h1>
+        <form>
+            <label for="email">ingresa tu email</label>
+            <input id="nombre_usuario" type="email" name="email"><br>         
+            <label for="contraseña_usuario">ingresa tu contraseña</label>
+            <input id="contraseña_usuario" type="password">
+            <button type="mostrar_contraseña" id="mostrar_contraseña">mostrar_contraseña</button>
+            <input type="submit" value="submit">
+        </form>
     </body>
 </html>
