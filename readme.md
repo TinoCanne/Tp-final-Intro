@@ -1,6 +1,7 @@
 ## Entidades
 - Usuarios
--- nombre
+-- nombre de usuario
+-- nombre real
 -- ID
 -- contraseña
 -- email
