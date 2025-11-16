@@ -14,11 +14,28 @@
         <h1>inicia sesion</h1>
         <form>
             <label for="email">ingresa tu email</label>
-            <input id="nombre_usuario" type="email" name="email"><br>         
+            <input id="nombre_usuario" type="email" name="email" placeholder="Tu_correo@Jameet.com"><br>         
             <label for="contraseña_usuario">ingresa tu contraseña</label>
-            <input id="contraseña_usuario" type="password">
-            <button type="mostrar_contraseña" id="mostrar_contraseña">mostrar_contraseña</button>
+            <input id="contraseña_usuario" type="password" placeholder="Tu contraseña">
+            <button type="mostrar_contraseña" id="mostrar_contraseña">mostrar_contraseña</button><br>
             <input type="submit" value="submit">
         </form>
+
+        <script>
+            function mostrar_contraseña(){
+                let contraseña = document.getElementById('contraseña_usuario');
+                let boton_mostrar_contraseña = document.getElementById('mostrar_contraseña');
+                boton_mostrar_contraseña.addEventListener('click', function(){
+                    if (contraseña.type == 'password'){
+                        contraseña.type = 'text';
+                    }
+                    else{
+                        contraseña.type = 'password';
+                    }
+                })
+            }
+            
+
+        </script>
     </body>
 </html>
