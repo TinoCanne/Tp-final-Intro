@@ -1,6 +1,8 @@
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR (100),
+    username VARCHAR(100) NOT NULL,
     contraseña VARCHAR(200) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     instrumentos VARCHAR(150),
