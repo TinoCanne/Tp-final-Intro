@@ -1,0 +1,29 @@
+@import url('basico.css');
+
+
+.buttonIniciarSesion{
+    border-style: none;
+    border-radius: 10px;
+
+}
+
+.formIniciarSesion {
+    position: fixed;
+    left: 39%;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 400px;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.labelIniciarSesion{
+    color: rgb(25,20,20);
+}
+
+.textInput{
+    width: 150px;
+    height: 5px;
+}
