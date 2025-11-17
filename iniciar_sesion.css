@@ -23,6 +23,10 @@
     color: rgb(25,20,20);
 }
 
+.h1IniciarSesion{
+    background-color: gray;
+}
+
 .textInput{
     width: 150px;
     height: 5px;
