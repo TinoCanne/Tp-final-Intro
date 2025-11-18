@@ -8,15 +8,44 @@
         <title>Crear tu nueva cuenta Jameet!</title>
     </head>
     <body>
-        <h1>Completa el siguiente formulario para crear tu cuenta Jameet!</h1>
-        <form>
-            <label for="nombre_completo">Ingrese su nombre completo:</label><br>
-            <input type="text" id="nombre_completo" name="nombre_completo" required placeholder="Ingresa tu nombre completo"><br>
-            <label for="email">Ingrese su corre electrónico:</label><br>
-            <input type="text" id="email" name="email" required placeholder="Ingresa tu correo electrónico"><br>
-            <label for="contraseña">Cree una contraseña</label><br>
-            <input type="text" id="contraseña" name="contraseña" required placeholder="Ingresa tu constraseña"><br>
-            <input type="submit" value="Enviar datos">
-        </form>
+        <h1 class="h1_crear_usuario">Completa el siguiente formulario para crear tu cuenta Jameet!</h1>
+        <div class="form_crear_usuario">
+            <form>
+                <br>
+                <label for="nombre_completo" class="label_crear_usaurio">Ingrese su nombre completo:</label><br>
+                <input type="text" id="nombre_completo" name="nombre_completo" required placeholder="Ingresa tu nombre completo"><br>
+                <label for="email" class="label_crear_usaurio">Ingrese su corre electrónico:</label><br>
+                <input type="text" id="email" name="email" required placeholder="Ingresa tu correo electrónico"><br>
+                <label for="contraseña" class="label_crear_usaurio">Cree una contraseña</label><br>
+                <input type="password" id="contraseña_usuario" name="contraseña" required placeholder="Ingresa tu constraseña"><br>
+                <label for="constraseña" class="label_crear_usaurio">Repita la contraseña</label><br>
+                <input type="password" id="contraseña_usuario_repetida" name="contraseña" required placeholder="Repite su contraseña"><br>
+                <button class ="buttonIniciarSesion" type="button" id="mostrar_contraseña" class="buttom_crear_usuario">Mostrar contraseña</button><br><br>
+                <input type="submit" value="crear usuario" class="buttom_crear_usuario">
+            </form>
+        </div>
+        <script>
+            function mostrar_contraseña(){
+                let contraseña = document.getElementById('contraseña_usuario');
+                let contraseña_repetida = document.getElementById('contraseña_usuario_repetida');
+                let boton_mostrar_contraseña = document.getElementById('mostrar_contraseña');
+                boton_mostrar_contraseña.addEventListener('click', function(){
+                    if (contraseña.type == 'password'){
+                        contraseña.type = 'text';
+                    }
+                    else{
+                        contraseña.type = 'password';
+                    }
+                    if (contraseña_repetida.type == 'password'){
+                        contraseña_repetida.type = 'text';
+                    }
+                    else{
+                        contraseña_repetida.type = 'password';
+                    }
+                })
+            }
+            mostrar_contraseña();
+
+        </script>
     </body>
 </html>

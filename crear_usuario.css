@@ -1,29 +1,27 @@
 @import url('basico.css');
 
-
-.buttonIniciarSesion{
+.button_crear_usuario{
     border-style: none;
     border-radius: 10px;
-
 }
 
-.formIniciarSesion {
+.form_crear_usuario{
     position: fixed;
     left: 39%;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     width: 300px;
-    height: 250px;
+    height: 300px;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-.labelIniciarSesion{
+.label_crear_usaurio{
     color: rgb(25,20,20);
 }
 
-.h1IniciarSesion{
+.hi_crear_usuario{
     background-color: gray;
 }
 
