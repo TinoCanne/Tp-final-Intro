@@ -7,12 +7,14 @@
     text-align: center;
     margin-right: 15px;
     margin-left: 15px;
+    justify-self: center;
 }
 
 .cartaPerfil img{
-    height: 200px;
+    height: 170px;
     width: auto;
     max-width: 280px;
+    margin-top: 10px;
 }
 
 .filaPerfiles{
@@ -24,4 +26,26 @@
     border-radius: 10px;
     border-style: solid;
     height: 200px;
+    width: 270px;
+    justify-self: center;
+}
+
+.biografia{
+    max-width: 270px;
+    justify-self: center;
+    text-wrap-mode: wrap;
+    text-align: center;
+}
+
+
+.tag{
+    justify-self: center;
+    background-color: rgb(151, 120, 40);
+    border-radius: 10px;
+    border-color: white;
+    min-width: 100px;
+    max-width: 150px;
+    height: 20px;
+    color: white;
+    justify-content: center;
 }
