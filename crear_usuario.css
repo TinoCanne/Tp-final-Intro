@@ -1,11 +1,11 @@
 @import url('basico.css');
 
-.button_crear_usuario{
+.buttonCrearUsuario{
     border-style: none;
     border-radius: 10px;
 }
 
-.form_crear_usuario{
+.formCrearUsuario{
     position: fixed;
     left: 39%;
     border-radius: 10px;
@@ -17,11 +17,11 @@
     background-color: rgba(255, 255, 255, 0.75);
 }
 
-.label_crear_usaurio{
+.labelCrearUsuario{
     color: rgb(25,20,20);
 }
 
-.hi_crear_usuario{
+.hiCrearUsuario{
     background-color: gray;
 }
 
