@@ -43,3 +43,15 @@ nav{
     background-color: whitesmoke;
 }
 
+.boton{
+    justify-self: left;
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 100%;
+    border-style: solid;
+    height: 50px;
+    width: 50px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+}
