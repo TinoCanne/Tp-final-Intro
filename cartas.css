@@ -1,13 +1,14 @@
 .cartaPerfil{
-    margin-top: 2%;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
     border-radius: 15px;
     height: 500px;
     width: 300px;
     background-color: rgba(245, 245, 245, 0.548);
     text-align: center;
-    margin-right: 15px;
-    margin-left: 15px;
-    justify-self: center;
+    
+    justify-content: center;
 }
 
 .cartaPerfil img{
@@ -22,13 +23,6 @@
 .filaPerfiles{
     display: flex;
     justify-content: center;
-}
-
-.biografia{
-    max-width: 270px;
-    justify-self: center;
-    text-wrap-mode: wrap;
-    text-align: center;
 }
 
 .tag{
