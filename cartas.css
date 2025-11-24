@@ -23,6 +23,11 @@
     justify-content: center;
 }
 
+.tags{
+    justify-content: center;
+    margin-bottom: -5px;
+}
+
 .tag{
     background-color: rgb(151, 120, 40);
     border-radius: 10px;
