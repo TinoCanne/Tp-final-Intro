@@ -7,7 +7,6 @@
     width: 300px;
     background-color: rgba(245, 245, 245, 0.548);
     text-align: center;
-    justify-content: center;
 }
 
 .cartaPerfil img{
@@ -19,19 +18,17 @@
     border-style: solid;
 }
 
-.filaPerfiles{
+.filaPerfil{
     display: flex;
     justify-content: center;
 }
 
 .tag{
-    justify-self: center;
     background-color: rgb(151, 120, 40);
     border-radius: 10px;
     border-color: white;
-    min-width: 100px;
-    max-width: 150px;
-    height: 20px;
+    width: 140px;
     color: white;
     justify-content: center;
+    display: inline-block;
 }
