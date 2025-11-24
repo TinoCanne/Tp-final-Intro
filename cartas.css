@@ -15,19 +15,13 @@
     width: auto;
     max-width: 280px;
     margin-top: 10px;
+    border-radius: 10px;
+    border-style: solid;
 }
 
 .filaPerfiles{
     display: flex;
     justify-content: center;
-}
-
-.fotoPerfil{
-    border-radius: 10px;
-    border-style: solid;
-    height: 200px;
-    width: 270px;
-    justify-self: center;
 }
 
 .biografia{
@@ -36,7 +30,6 @@
     text-wrap-mode: wrap;
     text-align: center;
 }
-
 
 .tag{
     justify-self: center;
