@@ -19,6 +19,11 @@
     border-style: solid;
 }
 
+.filaPerfiles{
+    display: flex;
+    justify-content: center;
+}
+
 .biografia{
     max-width: 270px;
     justify-self: center;
