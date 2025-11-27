@@ -1,7 +1,7 @@
 .buttonIniciarSesion{
     border-style: none;
+    width: 80px;
     border-radius: 10px;
-
 }
 
 .formIniciarSesion {
@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 300px;
-    height: 250px;
+    height: 270px;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.75);
 }

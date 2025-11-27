@@ -1,5 +1,6 @@
 .buttonCrearUsuario{
     border-style: none;
+    width: 80px;
     border-radius: 10px;
 }
 
@@ -10,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 300px;
-    height: 300px;
+    height: 320px;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.75);
 }
