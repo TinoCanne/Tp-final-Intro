@@ -3,7 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <title>Perfil del Usuario</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="perfil_usuario.css">
+
+
+        <script>
+
+            function editorPerfil(){
+                const editor = document.getElementById("formularioDeEdicion");
+                editor.style.display = "block"
+            }
+
+            document.addEventListener("DOMContentLoaded", function(){
+                const boton = document.getElementById("botonDeEdicion");
+                boton.onclick =function(){
+                    editorPerfil();
+                };
+            })
+        </script>
     </head>
     
     <body>
@@ -23,7 +39,6 @@
                  alt="Foto de perfil">
         
             <h2>Informacion</h2>
-        
             <ul>
                 <li><strong>Email:</strong> Tu_correo@Jameet.com</li>
                 <li><strong>Instrumentos:</strong> Guitarra, Batería</li>
@@ -31,7 +46,18 @@
                 <li><strong>Bio:</strong> Soy musico y busco gente para tocar.</li>
                 <li><strong>Contacto:</strong> +54 1 2345-6789</li>
             </ul>
-        
+            
+            <button id = "botonDeEdicion">Editar perfil</button>
+            <div id="formularioDeEdicion">
+                <form action="">
+                    <input type="text" placeholder = "Nombre de usuario">
+                    <br>
+                    <textarea name="Biografía" id="bio"></textarea>
+                    <br>
+                    <input type="submit" value="Guardar cambios">
+                </form>
+            </div>
+
         </div>
     
     </body>
