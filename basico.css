@@ -37,8 +37,9 @@ button{
     text-align: center;
     border-radius: 10px;
     border-style: solid;
-    height: 50px;
-    width: 50px;
+    border-color: white;
+    height: 35px;
+    width: 100px;
     color:white;
     background-color: rgb(151, 120, 40);
 }
@@ -50,8 +51,9 @@ button:hover{
     text-align: center;
     border-radius: 10px;
     border-style: solid;
-    height: 50px;
-    width: 50px;
+    border-color:black;
+    height: 35px;
+    width: 100px;
     color:black;
     background-color: rgb(255, 255, 255);
 }
