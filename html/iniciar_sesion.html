@@ -4,11 +4,11 @@
     <head>
         <nav>
             <a href="index.html">
-                <img src="Jameet.png" alt="logo" class="logo">
+                <img src="../Jameet.png" alt="logo" class="logo">
             </a>
         </nav>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="../css/styles.css">
         <title>Iniciar sesion en Jameet</title>
     </head>
 
@@ -26,21 +26,6 @@
             </form>
         </div>
 
-        <script>
-            function mostrar_contraseña(){
-                let contraseña = document.getElementById('contraseña_usuario');
-                let boton_mostrar_contraseña = document.getElementById('mostrar_contraseña');
-                boton_mostrar_contraseña.addEventListener('click', function(){
-                    if (contraseña.type == 'password'){
-                        contraseña.type = 'text';
-                    }
-                    else{
-                        contraseña.type = 'password';
-                    }
-                })
-            }
-            mostrar_contraseña();
-
-        </script>
+        <script src="../js/iniciarSesion.js"></script>
     </body>
 </html>
