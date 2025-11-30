@@ -18,11 +18,6 @@
     border-style: solid;
 }
 
-.filaPerfil{
-    display: flex;
-    justify-content: center;
-}
-
 .tags{
     justify-content: center;
     margin-bottom: 5px;
@@ -36,4 +31,19 @@
     color: white;
     justify-content: center;
     display: inline-block;
+}
+
+.cartaFiltro{
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-radius: 15px;
+    height: 500px;
+    width: 300px;
+    background-color: rgba(245, 245, 245, 0.548);
+    text-align: center;
+}
+
+.cartaFiltro button{
+    width: 80px;
 }

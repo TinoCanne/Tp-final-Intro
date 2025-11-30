@@ -20,7 +20,55 @@
         <div>
             <h1>Jameet</h1>
         </div>
-        <div class="filaPerfil">
+        <div class="filaPerfilyFiltro">
+            <div class="cartaFiltro">
+                <h2>Busqueda por filtro</h2>
+                <button id="botonMostrarFiltrosMusicos">Musicos</button>
+                <button id="botonMostrarFiltrosBandas">Bandas</button>
+                <button id="botonMostrarFiltrosSalas">Salas</button>
+
+                <div id="filtroMusicos" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un genero">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un instrumento">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroBandas" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un genero">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroSalas" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese una ubicacion">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un horario">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un tamaño de sala">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio maximo">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+            </div>
             <div class="cartaPerfil">
                 <br>
                 <div>
@@ -37,6 +85,7 @@
                 </div>
             </div>
         </div>
+        <script src="../js/index.js"></script>
     </body>
 
 </html>
