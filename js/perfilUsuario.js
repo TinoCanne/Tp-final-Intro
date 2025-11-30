@@ -5,7 +5,5 @@ function editorPerfil(){
 
             document.addEventListener("DOMContentLoaded", function(){
                 const boton = document.getElementById("botonDeEdicion");
-                boton.onclick =function(){
-                    editorPerfil();
-                };
+                boton.onclick = editorPerfil;
             })
