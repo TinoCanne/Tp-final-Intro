@@ -1,30 +1,51 @@
 .buttonIniciarSesion{
     border-style: none;
-    width: 80px;
-    border-radius: 10px;
-}
+    width: 65%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+} 
 
-.formIniciarSesion {
+.formIniciarSesion{
     position: fixed;
-    left: 39%;
-    border-radius: 10px;
+    left: 32%;
+    margin-top: 40px;
+    border-radius: 15px;
     display: flex;
     flex-wrap: wrap;
-    width: 300px;
+    width: 350px;
     height: 270px;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
 }
 
 .labelIniciarSesion{
-    color: rgb(25,20,20);
+    color: white;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .h1IniciarSesion{
     background-color: gray;
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
 }
 
 .textInput{
     width: 150px;
     height: 5px;
+}
+
+.formIniciarSesion input[type="email"],
+.formIniciarSesion input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
 }
