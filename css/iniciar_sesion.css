@@ -7,8 +7,8 @@
 } 
 
 .formIniciarSesion{
-    position: fixed;
-    left: 32%;
+    position: relative;
+    left: 39%;
     margin-top: 40px;
     border-radius: 15px;
     display: flex;
@@ -48,4 +48,21 @@
     color: white;
     font-size: 15px;
     outline: none;
+}
+
+.crearCuentaBox {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+}
+
+.botonCrearCuenta {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
 }
