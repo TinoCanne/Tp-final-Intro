@@ -1,4 +1,4 @@
-.buttonCrearUsuario{
+.botonCrearUsuario{
     border-style: none;
     width: 65%;
     height: 25px;
@@ -11,17 +11,22 @@
     margin-top: 8px;
 }
 
-.buttonMostrarContrasena {
+.botonMostrarContrasenaCrearUsuario {
     width: 65%;
-    border-radius: 10px;
+    border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
     cursor: pointer;
-    color: black;
-    margin-top: 2px;
+    background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
 }
 
-.buttonMostrarContrasena:hover {
+.botonMostrarContrasenaCrearUsuario:hover {
     width: 65%;
     border-radius: 10px;
     border-style: none;
@@ -54,7 +59,7 @@
     margin-top: 40px;
 }
 
-.textInput{
+.textInputCrearUsuario{
     width: 150px;
     height: 5px;
 }

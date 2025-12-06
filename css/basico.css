@@ -48,34 +48,6 @@ label {
     margin-left: 10px; 
 }
 
-.botonIndex {
-    align-self: center;
-    align-content: center;
-    text-align: center;
-    border-radius: 8px;
-    border-style: solid;
-    border-color: white;
-    height: 35px;
-    width: 100px;
-    color:white;
-    background-color: rgb(151, 120, 40);
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.botonIndex:hover {
-    align-self: center;
-    align-content: center;
-    text-align: center;
-    border-radius: 8px;
-    border-style: solid;
-    border-color:black;
-    height: 35px;
-    width: 100px;
-    color:black;
-    background-color: rgb(255, 255, 255);
-}
-
 .logo {
     height: 35px;
     width: 100px;

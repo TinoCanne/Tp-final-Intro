@@ -1,4 +1,4 @@
-.buttonIniciarSesion{
+.botonIniciarSesion{
     border-style: none;
     width: 65%;
     height: 25px;
@@ -10,7 +10,7 @@
     margin: 0 auto;
 }
 
-.buttonMostrarContrasena {
+.botonMostrarContrasenaIniciarSesion {
     width: 65%;
     border-radius: 8px;
     border-style: none;
@@ -25,14 +25,14 @@
     color: white;
 }
 
-.buttonMostrarContrasena:hover {
+.botonMostrarContrasenaIniciarSesion:hover {
     width: 65%;
     border-radius: 8px;
     border-style: none;
     box-sizing: border-box;
 }
 
-.buttonCrearCuenta {
+.botonLlevarCrearCuenta {
     display: inline-block;
     margin-top: 8px;
     padding: 10px 15px;
@@ -56,7 +56,7 @@
     padding: 30px;
 }
 
-.formCrearCuenta {
+.seccionCrearCuenta {
     margin-top: 20px;
     text-align: center;
     color: white;
@@ -75,7 +75,7 @@
     margin-top: 40px;
 }
 
-.textInput{
+.textInputInicarSesion{
     width: 150px;
     height: 5px;
 }

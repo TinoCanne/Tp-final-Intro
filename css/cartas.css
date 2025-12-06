@@ -18,12 +18,12 @@
     border-style: solid;
 }
 
-.tags{
+.cartaTags{
     justify-content: center;
     margin-bottom: 5px;
 }
 
-.tag{
+.cartaTag{
     background-color: rgb(151, 120, 40);
     border-radius: 10px;
     border-color: white;
