@@ -17,6 +17,7 @@
     box-sizing: border-box;
     cursor: pointer;
     color: white;
+    background-color: rgb(151, 120, 40);
 }
 
 .buttonMostrarContrasena:hover {
