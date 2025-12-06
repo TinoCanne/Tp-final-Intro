@@ -16,8 +16,13 @@
     border-style: none;
     box-sizing: border-box;
     cursor: pointer;
-    color: white;
     background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
 }
 
 .buttonMostrarContrasena:hover {
