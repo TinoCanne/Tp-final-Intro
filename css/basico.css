@@ -1,55 +1,73 @@
-body{
+body {
     background-color: rgb(25,20,20);
     justify-content: center;
     color: white;
 }
 
-h1,h2{
+h1,h2 {
     text-align: center;
     color: white;
 }
 
 
-nav{
+nav {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
     background-color: whitesmoke;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-right: 20px;
+    padding-left: 10px;
     align-content: center;
     border-radius: 10px;
-    height: 30px;
 }
 
-nav a{
-    padding-right: 20px;
-    padding-left: 20px;
-}
-
-label{
+label {
     color: whitesmoke;
 }
 
-button{
-    justify-self: left;
+.botonNav {
     align-self: center;
     align-content: center;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 12px;
+    border-style: solid;
+    border-color: white;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 18px;
+}
+
+.botonNav:first-of-type {
+    margin-left: 10px; 
+}
+
+.botonIndex {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 8px;
     border-style: solid;
     border-color: white;
     height: 35px;
     width: 100px;
     color:white;
     background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
 }
 
-button:hover{
-    justify-self: left;
+.botonIndex:hover {
     align-self: center;
     align-content: center;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 8px;
     border-style: solid;
     border-color:black;
     height: 35px;
@@ -58,7 +76,7 @@ button:hover{
     background-color: rgb(255, 255, 255);
 }
 
-.logo{
+.logo {
     height: 35px;
     width: 100px;
 }
