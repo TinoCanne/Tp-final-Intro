@@ -8,8 +8,8 @@ CREATE TABLE usuarios (
     instrumentos VARCHAR(150),
     generosFavoritos VARCHAR(150),
     biografia VARCHAR(150),
-    redesSociales VARCHAR(150)
-    linkFoto
+    redesSociales VARCHAR(150),
+    linkFoto = VARCHAR(300)
 );
 
 CREATE TABLE espacios (
