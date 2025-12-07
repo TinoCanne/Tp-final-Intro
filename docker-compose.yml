@@ -1,0 +1,14 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: Admin
+      POSTGRES_PASSWORD: Admin
+      POSTGRES_DB: base_datos_tp
+    ports: 
+      - "8090:8090"
+    volumes:
+      - ./VolumenBaseDatos1:/var/lib/postgresql/data
+      - ./tablas.sql:/docker-entrypoint-initdb.d/init.sql
