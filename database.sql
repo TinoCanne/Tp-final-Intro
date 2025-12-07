@@ -6,9 +6,10 @@ CREATE TABLE usuarios (
     contraseña VARCHAR(200) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     instrumentos VARCHAR(150),
-    generos_favoritos VARCHAR(150),
+    generosFavoritos VARCHAR(150),
     biografia VARCHAR(150),
-    redes_sociales VARCHAR(150)
+    redesSociales VARCHAR(150)
+    linkFoto
 );
 
 CREATE TABLE espacios (
@@ -20,14 +21,14 @@ CREATE TABLE espacios (
     contacto VARCHAR(100),
     horarios VARCHAR(150),
     tamaño VARCHAR(20),
-    precio_por_hora INT
+    precioPorHora INT
 );
 
 CREATE TABLE bandas (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     generos VARCHAR(100),
-    fecha_creacion INT,
+    fechaCreacion INT,
     descripcion VARCHAR(150),
-    redes_sociales VARCHAR(100)
+    redesSociales VARCHAR(100)
 );
