@@ -9,11 +9,18 @@
     display: block;
     margin: 0 auto;
     margin-top: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.botonCrearUsuario:hover{
+    border-radius: 10px;
 }
 
 .botonMostrarContrasenaCrearUsuario {
     width: 65%;
-    border-radius: 8px;
+    border-radius: 15px;
     border-style: none;
     box-sizing: border-box;
     cursor: pointer;
@@ -24,14 +31,13 @@
     border-color: white;
     height: 35px;
     color: white;
+    font-family: inherit;
+    margin-top: 2px;
+    transition: 0.2s;
 }
 
 .botonMostrarContrasenaCrearUsuario:hover {
-    width: 65%;
     border-radius: 10px;
-    border-style: none;
-    box-sizing: border-box;
-    margin-top: 2px;
 }
 
 .formCrearUsuario{
@@ -40,7 +46,7 @@
     border-radius: 15px;
     display: flex;
     width: 350px;
-    height: 425px;
+    height: 430px;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 30px;
