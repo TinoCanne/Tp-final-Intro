@@ -72,6 +72,19 @@ app.get("/espacios/:id", async (req, res) => {
     }
 });
 
+app.post("/crear_usuario", async (req, res) => {
+    try {
+        const query = `INSERT INTO usuarios (nombre, username, contraseña, email)
+        VALUES ('${req.body.nombre}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}')`;
+        await pool.query(query);
+        res.json();
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
