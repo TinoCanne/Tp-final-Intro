@@ -20,6 +20,12 @@ nav {
     padding-left: 10px;
     align-content: center;
     border-radius: 10px;
+    height: 35px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
 }
 
 label {
@@ -27,9 +33,6 @@ label {
 }
 
 .botonNav {
-    align-self: center;
-    align-content: center;
-    text-align: center;
     border-radius: 15px;
     border-style: solid;
     border-color: white;
@@ -42,6 +45,7 @@ label {
     padding-left: 20px;
     font-family: inherit;
     font-size: 18px;
+    transition: 0.2s;
 }
 
 .botonNav:first-of-type {
@@ -53,6 +57,6 @@ label {
 }
 
 .logo {
-    height: 35px;
+    height: 40px;
     width: 100px;
 }
