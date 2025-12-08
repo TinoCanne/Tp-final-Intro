@@ -1,3 +1,19 @@
-#formularioDeEdicion{
+#formularioDeEdicion {
     display: none;
+}
+
+#botonDeEdicion {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+#botonDeEdicion:hover {
+    border-radius: 10px;
 }
