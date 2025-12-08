@@ -28,6 +28,50 @@ app.get("/usuarios/:id", async (req, res) => {
     }
 });
 
+// Mostrar todas las bandas
+app.get("/bandas", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM bandas");
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+});
+
+// Mostrar una banda por id
+app.get("/bandas/:id", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+});
+
+// Mostrar todos los espacios
+app.get("/espacios", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM espacios");
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+});
+
+// Mostrar un espacio por id
+app.get("/espacios/:id", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.id}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
