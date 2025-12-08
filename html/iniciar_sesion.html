@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <html lang="es">
+    <head>
+        <nav>
+            <a href="index.html">
+                <img src="../Jameet.png" alt="logo" class="logo">
+            </a>
+        </nav>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/styles.css">
+        <title>Iniciar sesion en Jameet</title>
+    </head>
+
+    <body>
+        <h1 class="h1IniciarSesion">Iniciar sesion</h1>
+        <div class="formIniciarSesion">
+            <form>
+                <br>
+                <label for="email" class="labelIniciarSesion">Ingrese su email</label><br>
+                <input id="nombre_usuario" type="email" name="email" placeholder="Tu_correo@Jameet.com"><br><br>         
+                <label for="contraseña_usuario" class="labelIniciarSesion">Ingrese su contraseña</label><br>
+                <input id="contraseña_usuario" type="password" placeholder="Tu contraseña"><br>
+                <button class ="botonMostrarContrasenaIniciarSesion" type="button" id="mostrar_contraseña">Mostrar contraseña</button><br><br><br>
+                <input type="submit" value="Iniciar sesion" class ="botonIniciarSesion">
+            </form>
+        </div>
+
+	<div class="seccionCrearCuenta">
+		<p>¿No tenes una cuenta?</p>
+		<a href="crear_usuario.html" class="botonLlevarCrearCuenta">Crear una cuenta</a>
+	</div>
+
+        <script src="../js/iniciarSesion.js"></script>
+    </body>
+</html>
