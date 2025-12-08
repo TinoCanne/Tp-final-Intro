@@ -30,7 +30,7 @@ label {
     align-self: center;
     align-content: center;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 15px;
     border-style: solid;
     border-color: white;
     color:white;
@@ -46,6 +46,10 @@ label {
 
 .botonNav:first-of-type {
     margin-left: 10px; 
+}
+
+.botonNav:hover {
+    border-radius: 8px;
 }
 
 .logo {
