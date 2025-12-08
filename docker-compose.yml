@@ -1,13 +1,13 @@
 services:
   db:
-    image: postgres:17
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: tpDb
-    volumes:
-      - ./VolumenBaseDatos1:/var/lib/postgresql/data/
-      - ./tablas:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    volumes:
+      - ./VolumenBaseDatos1:/var/lib/postgresql/data/
+      - ./tablas:/docker-entrypoint-initdb.d
