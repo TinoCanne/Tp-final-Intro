@@ -1,0 +1,62 @@
+body {
+    background-color: rgb(25,20,20);
+    justify-content: center;
+    color: white;
+}
+
+h1,h2 {
+    text-align: center;
+    color: white;
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: whitesmoke;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    align-content: center;
+    border-radius: 10px;
+    height: 35px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    color: whitesmoke;
+}
+
+.botonNav {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.botonNav:first-of-type {
+    margin-left: 10px; 
+}
+
+.botonNav:hover {
+    border-radius: 8px;
+}
+
+.logo {
+    height: 40px;
+    width: 100px;
+}

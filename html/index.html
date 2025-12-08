@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<html lang="es">
+    <head>
+        <nav>
+		<img src="../Jameet.png" alt="logo" class="logo">
+		<a href="crear_usuario.html" class="botonNav">Crear Usuario</a>
+		<a href="iniciar_sesion.html" class="botonNav">Inicar Sesion</a>
+		<a href="perfil.html" class="botonNav">Mi Perfil</a>
+		<a href="contactos.html" class="botonNav">Contactos</a>
+		<a href="perfil_espacio.html" class="botonNav">Estudios</a>
+		<button id = "botonBuscador" class="botonNav">Buscar</button>
+	    </nav>
+		<meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
+        <title>Jameet</title>
+    </head>
+
+    <body>
+        <div class="filaPerfilyFiltroIndex">
+            <div class="cartaFiltro" id = "cartaBuscador" style="display: none;">
+                <h2>Busqueda por filtro</h2>
+                <button id="botonMostrarFiltrosMusicos" class="botonIndex">Musicos</button>
+                <button id="botonMostrarFiltrosBandas" class="botonIndex">Bandas</button>
+                <button id="botonMostrarFiltrosSalas" class="botonIndex">Salas</button>
+
+                <div id="filtroMusicos" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un genero">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un instrumento">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroBandas" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un genero">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroSalas" class="hidden">
+                    <form>
+                        <br>
+                        <input type="text" placeholder = "Ingrese una ubicacion">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un horario">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un tamaño de sala">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio maximo">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+            </div>
+            <div class="cartaPerfil">
+                <br>
+                <div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPTki1Y2xrFjXux243NVKaF7XpTvBtKVYI8A&s" alt="Imagen no disponible">
+                </div>
+                <div>
+                    <h1>Paul</h1>
+                    <p>Yo invente el heavy metal. aguante El Pity y aguante Los Beatles</p>
+                </div>
+                <div class="cartaTags">
+                    <p class="cartaTag">Rock</p>
+                    <p class="cartaTag">Jazz</p>
+                    <p class="cartaTag">Rock</p>
+                    <p class="cartaTag">Jazz</p>
+                </div>
+
+                <div>
+                    <button id = "botonSi" class="botonIndex">Vamo' Arriba</button>
+                    <button id = "botonNo" class="botonIndex">Ni ahí</button>
+                </div>
+            </div>
+        </div>
+        <script src="../js/index.js"></script>
+    </body>
+
+</html>

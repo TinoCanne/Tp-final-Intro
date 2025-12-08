@@ -1,0 +1,83 @@
+.botonCrearUsuario {
+    border-style: none;
+    width: 65%;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    display: block;
+    margin: 0 auto;
+    margin-top: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.botonCrearUsuario:hover {
+    border-radius: 10px;
+}
+
+.botonMostrarContrasenaCrearUsuario {
+    width: 65%;
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
+    font-family: inherit;
+    margin-top: 2px;
+    transition: 0.2s;
+}
+
+.botonMostrarContrasenaCrearUsuario:hover {
+    border-radius: 10px;
+}
+
+.formCrearUsuario {
+    position: relative;
+    margin: 40px auto;
+    border-radius: 15px;
+    display: flex;
+    width: 350px;
+    height: 430px;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+}
+
+.labelCrearUsuario {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.h1CrearUsuario {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+.textInputCrearUsuario {
+    width: 150px;
+    height: 5px;
+}
+
+.formCrearUsuario input[type="email"],
+.formCrearUsuario input[type="password"],
+.formCrearUsuario input[type="text"] {
+    width: 91%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
