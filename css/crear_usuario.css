@@ -1,4 +1,4 @@
-.botonCrearUsuario{
+.botonCrearUsuario {
     border-style: none;
     width: 65%;
     height: 25px;
@@ -14,7 +14,7 @@
     transition: 0.2s;
 }
 
-.botonCrearUsuario:hover{
+.botonCrearUsuario:hover {
     border-radius: 10px;
 }
 
@@ -40,7 +40,7 @@
     border-radius: 10px;
 }
 
-.formCrearUsuario{
+.formCrearUsuario {
     position: relative;
     margin: 40px auto;
     border-radius: 15px;
@@ -52,26 +52,26 @@
     padding: 30px;
 }
 
-.labelCrearUsuario{
+.labelCrearUsuario {
     color: white;
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-.h1CrearUsuario{
+.h1CrearUsuario {
     text-align: center;
     font-size: 28px;
     margin-top: 40px;
 }
 
-.textInputCrearUsuario{
+.textInputCrearUsuario {
     width: 150px;
     height: 5px;
 }
 
 .formCrearUsuario input[type="email"],
 .formCrearUsuario input[type="password"],
-.formCrearUsuario input[type="text"]{
+.formCrearUsuario input[type="text"] {
     width: 91%;
     padding: 10px;
     border-radius: 10px;

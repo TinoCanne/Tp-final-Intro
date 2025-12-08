@@ -1,10 +1,10 @@
-.filaPerfilyFiltroIndex{
+.filaPerfilyFiltroIndex {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
