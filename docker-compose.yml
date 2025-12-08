@@ -9,5 +9,13 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./VolumenBaseDatos1:/var/lib/postgresql/data/
-      - ./tablas:/docker-entrypoint-initdb.d
+    - type: bind
+      source: ./VolumenBaseDatos1
+      target: /var/lib/postgresql/data
+      bind:
+        create_host_path: true
+    - type: bind
+      source: ./tablas
+      target: /docker-entrypoint-initdb.d
+      bind:
+        create_host_path: true
