@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba
+// Mostrar todos los usuarios
 app.get("/usuarios", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM usuarios");
@@ -17,7 +17,18 @@ app.get("/usuarios", async (req, res) => {
     }
 });
 
+// Mostrar un usuario por id
+app.get("/usuarios/:id", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM usuarios where id = ${req.params.id}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("Servidor corriendo en http://localhost:" + PORT);
+  console.log("Servidor corriendo en http://localunuhost:" + PORT);
 });
