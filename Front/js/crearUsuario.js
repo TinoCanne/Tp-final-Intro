@@ -32,6 +32,7 @@ async function crear_usuario(event){
         const redessociales = document.getElementById('redessociales');
         const contraseña = document.getElementById('contraseña_usuario');
         const email = document.getElementById('email');
+        const linkfoto = document.getElementById('linkfoto');
 
         const url = "http://localhost:3000/crear_usuario";
         const response = await fetch(url, {
@@ -48,7 +49,8 @@ async function crear_usuario(event){
                 instrumentos: instrumentos.value,
                 generosfavoritos: generosfavoritos.value,
                 biografia: biografia.value,
-                redessociales: redessociales.value
+                redessociales: redessociales.value,
+                linkfoto: linkfoto.value
             })
         });
     }
