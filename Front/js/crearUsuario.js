@@ -19,9 +19,28 @@ function mostrar_contraseña(){
 }
 mostrar_contraseña();
 
-async function crear_usuario(event){
+function asegurar_contraseñas_iguales(event){
+    let contraseña = document.getElementById('contraseña_usuario');
+    let contraseña_repetida = document.getElementById('contraseña_usuario_repetida');
+    let err = document.getElementById('error_contraseña');
+    
+    if (contraseña.value !== contraseña_repetida.value){
+        err.innerHTML = "Las contraseñas no coinciden.";
+        return false;
+    }
+    else{
+        err.innerHTML = "";
+        return true;
+    }
+}
 
+async function crear_usuario(event){
     event.preventDefault();
+
+    if (!asegurar_contraseñas_iguales(event)){
+        return
+    }
+
     try{
         const nombre = document.getElementById('nombre');
         const apellido = document.getElementById('apellido');
