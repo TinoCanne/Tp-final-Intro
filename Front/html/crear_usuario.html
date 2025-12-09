@@ -14,12 +14,14 @@
     <body>
         <h1 class="h1CrearUsuario">Completa el siguiente formulario para crear tu cuenta Jameet!</h1>
         <div class="formCrearUsuario">
-            <form>
+            <form onsubmit="crear_usuario(event)">
                 <br>
-		        <label for="nombre_completo" class="labelCrearUsuario">Ingrese su nombre completo:</label><br>
-                <input type="text" id="nombre_completo" name="nombre_completo" required placeholder="Ingresa tu nombre completo"><br><br>
+		        <label for="nombre" class="labelCrearUsuario">Ingrese su nombre completo:</label><br>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo"><br><br>
+                <label for="username" class="labelCrearUsuario">Ingrese su nombre de usuario</label><br>
+                <input type="text" id="username" name="username" required placeholder="Ingresa tu nombre completo"><br><br>
                 <label for="email" class="labelCrearUsuario">Ingrese su corre electrónico:</label><br>
-                <input type="text" id="email" name="email" required placeholder="Ingresa tu correo electrónico"><br><br>
+                <input type="email" id="email" name="email" required placeholder="Ingresa tu correo electrónico"><br><br>
                 <label for="contraseña" class="labelCrearUsuario">Cree una contraseña:</label><br>
                 <input type="password" id="contraseña_usuario" name="contraseña" required placeholder="Ingresa tu constraseña"><br><br>
                 <label for="constraseña" class="labelCrearUsuario">Repita la contraseña:</label><br>
@@ -28,28 +30,6 @@
                 <input type="submit" value="Crear usuario" class="botonCrearUsuario">
             </form>
         </div>
-        <script>
-            function mostrar_contraseña(){
-                let contraseña = document.getElementById('contraseña_usuario');
-                let contraseña_repetida = document.getElementById('contraseña_usuario_repetida');
-                let boton_mostrar_contraseña = document.getElementById('mostrar_contraseña');
-                boton_mostrar_contraseña.addEventListener('click', function(){
-                    if (contraseña.type == 'password'){
-                        contraseña.type = 'text';
-                    }
-                    else{
-                        contraseña.type = 'password';
-                    }
-                    if (contraseña_repetida.type == 'password'){
-                        contraseña_repetida.type = 'text';
-                    }
-                    else{
-                        contraseña_repetida.type = 'password';
-                    }
-                })
-            }
-            mostrar_contraseña();
-
-        </script>
+        <script src="../js/crearUsuario.js"></script>
     </body>
 </html>
