@@ -21,3 +21,26 @@ function editorPerfil(){
     })
 }
 editorPerfil()
+
+function mostrarBanda(tieneBanda) {
+    const divBanda = document.getElementById("infoBanda");
+
+    if (tieneBanda) {
+        divBanda.classList.remove("hiddenBanda");
+    } else {
+        divBanda.classList.add("hiddenBanda");
+    }
+}
+
+function cargarDatosBanda(usuario) {
+    if (!usuario.banda) {
+        mostrarBanda(false);
+    } else {
+        mostrarBanda(true);
+
+        document.getElementById("nombreBanda").nextElementSibling.textContent = usuario.banda.nombre;
+        document.getElementById("generosBanda").nextElementSibling.textContent = usuario.banda.generos;
+        document.getElementById("descripcionBanda").nextElementSibling.textContent = usuario.banda.descripcion;
+        document.getElementById("integrantesBanda").nextElementSibling.textContent = usuario.banda.integrantes.join(", ");
+    }
+}
