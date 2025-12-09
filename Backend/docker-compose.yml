@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: tpDb
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - ./tablas:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
