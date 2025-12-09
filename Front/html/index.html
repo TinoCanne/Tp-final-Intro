@@ -29,7 +29,7 @@
                 <div id="filtroMusicos" class="hidden">
                     <form onsubmit="aplicar_filtros_musicos(event)">
                         <br>
-                        <input type="text" placeholder = "Ingrese un genero" id="genero">
+                        <input type="text" placeholder = "Ingrese un genero" id="genero-musicos">
                         <br>
                         <br>
                         <input type="text" placeholder = "Ingrese un instrumento" id="instrumento">
@@ -40,9 +40,9 @@
                 </div>
 
                 <div id="filtroBandas" class="hidden">
-                    <form>
+                    <form onsubmit="aplicar_filtros_bandas(event)">
                         <br>
-                        <input type="text" placeholder = "Ingrese un genero">
+                        <input type="text" placeholder = "Ingrese un genero" id="genero-bandas">
                         <br>
                         <br>
                         <input type="submit" value="Aplicar filtros">
@@ -50,18 +50,18 @@
                 </div>
 
                 <div id="filtroSalas" class="hidden">
-                    <form>
+                    <form onsubmit="aplicar_filtros_espacios(event)">
                         <br>
-                        <input type="text" placeholder = "Ingrese una ubicacion">
-                        <br>
-                        <br>
-                        <input type="text" placeholder = "Ingrese un horario">
+                        <input type="text" placeholder = "Ingrese una ubicacion" id="ubicacion">
                         <br>
                         <br>
-                        <input type="text" placeholder = "Ingrese un tamaño de sala">
+                        <input type="text" placeholder = "Ingrese un horario" id="horarios">
                         <br>
                         <br>
-                        <input type="text" placeholder = "Ingrese un precio maximo">
+                        <input type="text" placeholder = "Ingrese un tamaño de sala" id="tamaño">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio maximo" id="precioPorHora">
                         <br>
                         <br>
                         <input type="submit" value="Aplicar filtros">
