@@ -12,7 +12,8 @@
 
 .formCrearUsuario input[type="email"],
 .formCrearUsuario input[type="password"],
-.formCrearUsuario input[type="text"] {
+.formCrearUsuario input[type="text"],
+.formCrearUsuario input[type="url"] {
     width: 91%;
     padding: 10px;
     border-radius: 10px;
