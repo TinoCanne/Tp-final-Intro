@@ -24,6 +24,7 @@ async function crear_usuario(event){
     event.preventDefault();
     try{
         const nombre = document.getElementById('nombre');
+        const apellido = document.getElementById('apellido');
         const username = document.getElementById('username');
         const contraseña = document.getElementById('contraseña_usuario');
         const email = document.getElementById('email');
@@ -36,6 +37,7 @@ async function crear_usuario(event){
             },
             body: JSON.stringify({
                 nombre: nombre.value,
+                apellido: apellido.value,
                 username: username.value,
                 contraseña: contraseña.value,
                 email: email.value
