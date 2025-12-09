@@ -27,12 +27,12 @@
                 <button id="botonMostrarFiltrosSalas" class="botonIndex">Salas</button>
 
                 <div id="filtroMusicos" class="hidden">
-                    <form>
+                    <form onsubmit="aplicar_filtros_musicos(event)">
                         <br>
-                        <input type="text" placeholder = "Ingrese un genero">
+                        <input type="text" placeholder = "Ingrese un genero" id="genero">
                         <br>
                         <br>
-                        <input type="text" placeholder = "Ingrese un instrumento">
+                        <input type="text" placeholder = "Ingrese un instrumento" id="instrumento">
                         <br>
                         <br>
                         <input type="submit" value="Aplicar filtros">

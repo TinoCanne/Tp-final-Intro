@@ -85,6 +85,29 @@ app.post("/crear_usuario", async (req, res) => {
     }
 })
 
+app.get("/filtro_musicos", async (req, res) => {
+    try{
+        const { genero, instrumento } = req.query;
+        console.log("Full Query Object:", req.query);
+        console.log("Genero received:", `'${req.query.genero}'`);
+        console.log("Instrumento received:", `'${req.query.instrumento}'`);
+
+
+        let query = `SELECT * FROM usuarios WHERE 1=1`;
+        if (genero != "''"){
+            query += ` AND generosFavoritos = ${genero}`;
+        }
+        if (instrumento != "''")
+            query += ` AND instrumentos = ${instrumento}`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);

@@ -52,3 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
     botonSi.addEventListener("click", testBotones);
     botonNo.addEventListener("click", testBotones);
 })
+
+async function aplicar_filtros_musicos(event){
+    event.preventDefault();
+    try{
+        const genero = document.getElementById('genero').value;
+        const instrumento = document.getElementById('instrumento').value;
+        const url = `http://localhost:3000/filtro_musicos?genero='${genero}'&instrumento='${instrumento}'`;
+        
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+        const data = await response.json();
+        console.log("Results:", data);
+    }
+    catch (error){
+        console.log(error);
+    }
+    event.target.reset();
+}
