@@ -60,4 +60,7 @@ async function crear_usuario(event){
     event.target.reset();
 }
 
-
+function mostrarImagen() {
+    const url = document.getElementById("linkfoto").value;
+    document.getElementById("vistaPrevia").src = url;
+}
