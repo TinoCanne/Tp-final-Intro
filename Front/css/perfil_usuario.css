@@ -1,4 +1,4 @@
-#botonDeEdicion {
+#botonDeEdicionPerfil {
     display: inline-block;
     margin-top: 8px;
     padding: 10px 15px;
@@ -11,7 +11,24 @@
     font-family: inherit;
 }
 
-#botonDeEdicion:hover {
+#botonDeEdicionPerfil:hover {
+    border-radius: 10px;
+}
+
+#botonDeEdicionBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonDeEdicionBanda:hover {
     border-radius: 10px;
 }
 

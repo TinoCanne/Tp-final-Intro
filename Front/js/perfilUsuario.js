@@ -1,6 +1,6 @@
 function editorPerfil(){
     document.addEventListener("DOMContentLoaded", function () {
-        const boton= document.getElementById("botonDeEdicion");
+        const boton= document.getElementById("botonDeEdicionPerfil");
         boton.onclick= function(){
             const datos= document.querySelectorAll(".spanDatosPerfil");
             datos.forEach(elemento => {
@@ -21,6 +21,30 @@ function editorPerfil(){
     })
 }
 editorPerfil()
+
+function editorBanda(){
+    document.addEventListener("DOMContentLoaded", function () {
+        const boton= document.getElementById("botonDeEdicionBanda");
+        boton.onclick= function(){
+            const datos= document.querySelectorAll(".spanDatosBanda");
+            datos.forEach(elemento => {
+                if (elemento.contentEditable === "true"){
+                    elemento.contentEditable = "false";
+                }
+                else{
+                    elemento.contentEditable = "true";
+                }
+            })
+            if (boton.textContent === "Editar banda"){
+                boton.textContent = "Guardar cambios";
+            }
+            else{
+                boton.textContent = "Editar banda"
+            }
+        }
+    })
+}
+editorBanda()
 
 function mostrarBanda(tieneBanda) {
     const divBanda = document.getElementById("infoBanda");
