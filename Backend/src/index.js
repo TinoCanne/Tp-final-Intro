@@ -129,6 +129,63 @@ app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
     }
 })
 
+app.get("/filtro_musicos", async (req, res) => {
+    try{
+        const { genero, instrumento } = req.query;
+        let query = `SELECT * FROM usuarios WHERE 1=1`;
+        if (genero != "''"){
+            query += ` AND generosFavoritos = ${genero}`;
+        }
+        if (instrumento != "''")
+            query += ` AND instrumentos = ${instrumento}`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
+app.get("/filtro_bandas", async (req, res) => {
+    try{
+        const { genero } = req.query;
+        let query = `SELECT * FROM bandas`;
+        if (genero != "''"){
+            query += ` WHERE generos = ${genero}`;
+        }
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
+app.get("/filtro_espacios", async (req, res) => {
+    try{
+        const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
+        let query = `SELECT * FROM espacios WHERE 1=1`;
+        if (ubicacion != "''"){
+            query += ` AND ubicacion = ${ubicacion}`;
+        }
+        if (tamaño != "''"){
+            query += ` AND tamaño = ${tamaño}`;
+        }
+        if (precioPorHora != ""){
+            let precioPorHoraInt = parseInt(precioPorHora);
+            query += ` AND precioPorHora <= ${precioPorHoraInt}`;
+        }
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
