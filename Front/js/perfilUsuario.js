@@ -87,52 +87,34 @@ async function cargarDatosBandas(){
     const id = data.id_bandas;
     if (id) {
         console.log("La banda es la " + id);
+
+        try{
+            const response = await fetch(`http://localhost:3000/bandas/${id}`);
+            const datos = await response.json();
+            console.log(datos);
+
+            const nombreBanda = document.getElementById('nombreBanda');
+            nombreBanda.textContent = datos.nombre;
+
+            const integrantesBanda = document.getElementById('integrantesBanda');
+            integrantesBanda.textContent = datos.integrantes;
+
+            const descripcionBanda = document.getElementById('descripcionBanda');
+            descripcionBanda.textContent = datos.descripcion;
+            
+            const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
+            fechaCreacionBanda.textContent = datos.fechaCreacion;
+
+            const redesBanda = document.getElementById('redesBanda');
+            redesBanda.textContent = datos.redsocial;
+            divBanda.classList.remove("hiddenBanda");
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }    
     }
-    try{
-        const response = await fetch(`http://localhost:3000/bandas/${id}`);
-        const datos = await response.json();
-        console.log(datos);
-
-        const nombreBanda = document.getElementById('nombreBanda');
-        nombreBanda.textContent = datos.nombre;
-
-        const integrantesBanda = document.getElementById('integrantesBanda');
-        integrantesBanda.textContent = datos.integrantes;
-
-        const descripcionBanda = document.getElementById('descripcionBanda');
-        descripcionBanda.textContent = datos.descripcion;
-        
-        const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
-        fechaCreacionBanda.textContent = datos.fechaCreacion;
-
-        const redesBanda = document.getElementById('redesBanda');
-        redesBanda.textContent = datos.redsocial;
-    }
-    catch (error) {
-        console.error("Error:", error);
-    }    
-}
-
-function mostrarBanda(tieneBanda) {
-    const divBanda = document.getElementById("infoBanda");
-
-    if (tieneBanda) {
-        divBanda.classList.remove("hiddenBanda");
-    } else {
+    else{
         divBanda.classList.add("hiddenBanda");
     }
 }
 
-function cargarDatosEnBanda(usuario) {
-    if (!usuario.banda) {
-        mostrarBanda(false);
-    } else {
-        mostrarBanda(true);
-
-        document.getElementById("nombreBanda").nextElementSibling.textContent = usuario.banda.nombre;
-        document.getElementById("generosBanda").nextElementSibling.textContent = usuario.banda.generos;
-        document.getElementById("descripcionBanda").nextElementSibling.textContent = usuario.banda.descripcion;
-        document.getElementById("integrantesBanda").nextElementSibling.textContent = usuario.banda.integrantes.join(", ");
-        document.getElementById("fechaCreacionBanda").nextElementSibling.textContent = usuario.banda.fechacreacion;
-    }
-}
