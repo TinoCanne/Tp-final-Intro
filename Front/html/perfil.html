@@ -11,6 +11,7 @@
     
     <body>
         <script>cargarDatosPerfil()</script>
+	<script>cargarDatosBandas()</script>
         <nav>
             <a href="index.html">
                 <img src="../Jameet.png" alt="logo" class="logo">
@@ -56,14 +57,19 @@
 	    <h2>Mi Banda</h2>
 
 	    <form class="info">
-		<label id="nombreBanda"><strong>Nombre:</strong></label>
-		    <span class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
-    		<label id="generosBanda"><strong>Genero/s:</strong></label>
+		<label><strong>Nombre:</strong></label>
+		    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
+    		<label><strong>Genero/s:</strong></label>
     		    <span class="spanDatosBanda" contenteditable="false">Rock, Blues</span></label><br>
-		<label id="descripcionBanda"><strong>Descripción:</strong></label>
-		    <span class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-	    	<label id="integrantesBanda"><strong>Integrantes:</strong></label>
-                    <span class="spanDatosBanda" contenteditable="false">Juan Pedro Manuel</span></label><br>
+		<label><strong>Descripción:</strong></label>
+		    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
+	    	<label><strong>Integrantes:</strong></label>
+                    <span id="integrantesBanda" class="spanDatosBanda" contenteditable="false">Juan Pedro Manuel</span></label><br>
+	    	<label><strong>Fecha de creación:</strong></label>
+                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
+	    	<label><strong>Redes:</strong></label>
+                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+
 	    </form>
 
 	    <button id="botonDeEdicionBanda">Editar banda</button>
