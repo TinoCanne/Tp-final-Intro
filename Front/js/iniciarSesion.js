@@ -11,3 +11,32 @@ function mostrar_contraseña(){
                 })
             }
             mostrar_contraseña();
+
+async function obtenerId(event) {
+    event.preventDefault();
+    try{
+        const email = document.getElementById('email_usuario').value;
+        const contraseña = document.getElementById('contraseña_usuario').value;
+
+        const url = "http://localhost:3000/login";
+        
+        const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    contraseña: contraseña
+                })
+            });
+        const data = await response.json();
+        const id = data.id;
+
+        console.log("Login exitoso. ID guardado:", id);
+        localStorage.setItem('usuarioId', id);
+    }
+    catch(error){
+        console.log(error);
+    }
+}

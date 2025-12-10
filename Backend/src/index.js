@@ -186,9 +186,10 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 })
 
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
     try {
-        const { email, contraseña } = req.query;
+        const email = req.body.email;
+        const contraseña = req.body.contraseña;
         
         if (!email || !contraseña) {
             return res.status(400).json({ error: "Faltan datos" });
@@ -196,7 +197,7 @@ app.get("/login", async (req, res) => {
         
         const query = `SELECT id FROM usuarios WHERE email = '${email}' AND contraseña = '${contraseña}'`;
         const result = await pool.query(query);
-        res.json(result.rows);
+        res.json(result.rows[0]);
         
     } catch (err) {
         console.error(err);
