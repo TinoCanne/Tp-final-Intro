@@ -28,8 +28,9 @@ CREATE TABLE usuarios (
     biografia VARCHAR(150),
     redSocial VARCHAR(150),
     linkFotoPerfil VARCHAR(300),
-    id_bandas INT,
-    FOREIGN KEY (id_bandas) REFERENCES bandas(id)
+    contacto VARCHAR(30),
+    id_banda INT,
+    FOREIGN KEY (id_banda) REFERENCES bandas(id)
 );
 
 CREATE TABLE generos_usuarios (
@@ -45,15 +46,15 @@ CREATE TABLE instrumentos (
 );
 
 CREATE TABLE integrantes_bandas (
-    id_bandas INT,
+    id_banda INT,
     id_integrante INT,
-    PRIMARY KEY (id_bandas, id_integrante),
-    FOREIGN KEY (id_bandas) REFERENCES bandas(id),
+    PRIMARY KEY (id_banda, id_integrante),
+    FOREIGN KEY (id_banda) REFERENCES bandas(id),
     FOREIGN KEY (id_integrante) REFERENCES usuarios(id)
 );
 
 CREATE TABLE generos_bandas (
-    id_bandas INT,
+    id_banda INT,
     genero VARCHAR(30),
-    FOREIGN KEY (id_bandas) REFERENCES bandas(id)
+    FOREIGN KEY (id_banda) REFERENCES bandas(id)
 );

@@ -80,11 +80,12 @@ async function cargarDatosPerfil(){
     }    
 }
 
-async function cargarDatosBandas(){
+async function cargarDatosBanda(){
     const idUsuario = localStorage.getItem('usuarioId');
     const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
     const data = await responseIdBandas.json();
-    const id = data.id_bandas;
+    const id = data.id_banda;
+    const divBanda = document.getElementById('infoBanda')
     if (id) {
         console.log("La banda es la " + id);
 
