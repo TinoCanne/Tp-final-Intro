@@ -19,19 +19,40 @@ function mostrar_contraseña(){
 }
 mostrar_contraseña();
 
-async function crear_usuario(event){
+function asegurar_contraseñas_iguales(event){
+    let contraseña = document.getElementById('contraseña_usuario');
+    let contraseña_repetida = document.getElementById('contraseña_usuario_repetida');
+    let err = document.getElementById('error_contraseña');
 
+    if (contraseña.value !== contraseña_repetida.value){
+        err.innerHTML = "Las contraseñas no coinciden.";
+        return false;
+    }
+    else{
+        err.innerHTML = "";
+        return true;
+    }
+}
+
+async function crear_usuario(event){
     event.preventDefault();
+
+    if (!asegurar_contraseñas_iguales(event)){
+        return
+    }
+
     try{
         const nombre = document.getElementById('nombre');
         const apellido = document.getElementById('apellido');
         const username = document.getElementById('username');
         const instrumentos = document.getElementById('instrumentos');
-        const generosfavoritos = document.getElementById('generosfavoritos');
+        const generosFavoritos = document.getElementById('generosfavoritos');
         const biografia = document.getElementById('biografia');
-        const redessociales = document.getElementById('redessociales');
+        const redesSociales = document.getElementById('redessociales');
         const contraseña = document.getElementById('contraseña_usuario');
         const email = document.getElementById('email');
+        const linkfoto = document.getElementById('linkfoto');
+        const contacto = document.getElementById('contacto');
 
         const url = "http://localhost:3000/crear_usuario";
         const response = await fetch(url, {
@@ -46,9 +67,11 @@ async function crear_usuario(event){
                 contraseña: contraseña.value,
                 email: email.value,
                 instrumentos: instrumentos.value,
-                generosfavoritos: generosfavoritos.value,
+                generosFavoritos: generosFavoritos.value,
                 biografia: biografia.value,
-                redessociales: redessociales.value
+                redesSociales: redesSociales.value,
+                linkFoto: linkfoto.value,
+                contacto: contacto.value
             })
         });
     }
@@ -56,4 +79,25 @@ async function crear_usuario(event){
         console.log(error);
     }
     event.target.reset();
+}
+
+function es_url_valido(url){
+    if (!url){
+        return false
+    }
+    return true
+}
+
+function mostrar_imagen_por_defecto(){
+    document.getElementById("vista_previa").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+}
+
+function mostrar_imagen() {
+    const url = document.getElementById("linkfoto").value;
+    const url_perfil_sin_foto = document.getElementById("vista_previa").src;
+    if (!es_url_valido(url)){
+        return
+    }
+    
+    document.getElementById("vista_previa").src = url;
 }
