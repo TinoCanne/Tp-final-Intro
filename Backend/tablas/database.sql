@@ -58,26 +58,26 @@ CREATE TABLE generos_bandas (
     FOREIGN KEY (id_banda) REFERENCES bandas(id)
 );
 
-CREATE TABLE contactos_usuarios {
+CREATE TABLE contactos_usuarios (
     id_usuario INT,
     id_contacto_usuario INT,
     PRIMARY KEY (id_usuario, id_contacto_usuario),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_contacto_usuario) REFERENCES usuarios(id)
-}
+);
 
-CREATE TABLE contactos_bandas {
+CREATE TABLE contactos_bandas (
     id_usuario INT,
     id_contacto_bandas INT,
     PRIMARY KEY (id_usuario, id_contacto_bandas),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_contacto_bandas) REFERENCES bandas(id)
-}
+);
 
-CREATE TABLE contactos_espacios {
+CREATE TABLE contactos_espacios (
     id_usuario INT,
     id_contacto_espacio INT,
     PRIMARY KEY (id_usuario, id_contacto_espacio),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_contacto_espacio) REFERENCES espacios(id)
-}
+);
