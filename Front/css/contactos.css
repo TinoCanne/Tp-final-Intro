@@ -1,0 +1,25 @@
+.marco{
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 1000px;
+    width: 1000px;
+}
+
+.miniCarta{
+    border-radius: 10px;
+    height: 325px;
+    width: 240px;
+    background-color: rgba(255, 255, 255, 0.385);
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.miniCarta img{
+    height: 170px;
+    width: 215px;
+    margin: 10px;
+    border-radius: 10px;
+    border-style: solid;
+}
