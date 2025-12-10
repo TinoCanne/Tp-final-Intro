@@ -23,7 +23,7 @@ function asegurar_contraseñas_iguales(event){
     let contraseña = document.getElementById('contraseña_usuario');
     let contraseña_repetida = document.getElementById('contraseña_usuario_repetida');
     let err = document.getElementById('error_contraseña');
-    
+
     if (contraseña.value !== contraseña_repetida.value){
         err.innerHTML = "Las contraseñas no coinciden.";
         return false;
@@ -81,7 +81,23 @@ async function crear_usuario(event){
     event.target.reset();
 }
 
-function mostrarImagen() {
+function es_url_valido(url){
+    if (!url){
+        return false
+    }
+    return true
+}
+
+function mostrar_imagen_por_defecto(){
+    document.getElementById("vista_previa").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+}
+
+function mostrar_imagen() {
     const url = document.getElementById("linkfoto").value;
-    document.getElementById("vistaPrevia").src = url;
+    const url_perfil_sin_foto = document.getElementById("vista_previa").src;
+    if (!es_url_valido(url)){
+        return
+    }
+    
+    document.getElementById("vista_previa").src = url;
 }
