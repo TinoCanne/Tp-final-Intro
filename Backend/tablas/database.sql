@@ -5,7 +5,6 @@ CREATE TABLE espacios (
     linkFotoEspacio VARCHAR(250),
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
-    horarios VARCHAR(150),
     tamaño VARCHAR(20),
     precioPorHora INT
 );
