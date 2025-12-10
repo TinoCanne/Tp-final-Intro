@@ -46,6 +46,19 @@ function editorBanda(){
 }
 editorBanda()
 
+async function cargarGeneros(id_usuario) {
+    const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+    const generos_usuario = await response.json();
+    let string_generos = '';
+    generos_usuario.forEach(generos_usuario => {
+        string_generos += ` ${generos_usuario.genero},`;
+    })
+    let string_generos_limpia = string_generos.slice(0, -1);
+
+    const generosPaginaUsuario = document.getElementById('generosUsuario');
+    generosPaginaUsuario.textContent = string_generos_limpia;
+}
+
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
     if (id) {
@@ -73,6 +86,11 @@ async function cargarDatosPerfil(){
 
         const bioUsuario = document.getElementById('biografia');
         bioUsuario.textContent = datos.biografia;
+
+        const contactoUsuario = document.getElementById('contacto');
+        contactoUsuario.textContent = datos.contacto;
+
+        cargarGeneros(id);
 
     }
     catch (error) {

@@ -85,6 +85,18 @@ app.post("/crear_usuario", async (req, res) => {
     }
 })
 
+app.get("/generos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
