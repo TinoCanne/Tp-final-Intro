@@ -1,15 +1,3 @@
-CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR (100),
-    username VARCHAR(100) NOT NULL,
-    contraseña VARCHAR(200) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    biografia VARCHAR(150),
-    redSocial VARCHAR(150),
-    linkFotoPerfil VARCHAR(300)
-);
-
 CREATE TABLE espacios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(120) NOT NULL,
@@ -30,6 +18,20 @@ CREATE TABLE bandas (
     redSocial VARCHAR(100)
 );
 
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR (100),
+    username VARCHAR(100) NOT NULL,
+    contraseña VARCHAR(200) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    biografia VARCHAR(150),
+    redSocial VARCHAR(150),
+    linkFotoPerfil VARCHAR(300),
+    id_bandas INT,
+    FOREIGN KEY (id_bandas) REFERENCES bandas(id)
+);
+
 CREATE TABLE generos_usuarios (
     id_usuario INT,
     genero VARCHAR(30),
@@ -45,6 +47,7 @@ CREATE TABLE instrumentos (
 CREATE TABLE integrantes_bandas (
     id_bandas INT,
     id_integrante INT,
+    PRIMARY KEY (id_bandas, id_integrante),
     FOREIGN KEY (id_bandas) REFERENCES bandas(id),
     FOREIGN KEY (id_integrante) REFERENCES usuarios(id)
 );
