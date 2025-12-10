@@ -55,6 +55,25 @@ async function cargarDatosPerfil(){
         const response = await fetch(`http://localhost:3000/usuarios/${id}`);
         const datos = await response.json();
         console.log(datos);
+
+        const nombreUsuario = document.getElementById('nombre');
+        nombreUsuario.textContent = datos.nombre;
+
+        const apellidoUsuario = document.getElementById('apellido');
+        apellidoUsuario.textContent = datos.apellido;
+
+        const usernameUsuario = document.getElementById('username');
+        usernameUsuario.textContent = datos.username;
+
+        const redSocialUsuario = document.getElementById('redSocial');
+        redSocialUsuario.textContent = datos.redsocial;
+
+        const emailUsuario = document.getElementById('email');
+        emailUsuario.textContent = datos.email;
+
+        const bioUsuario = document.getElementById('biografia');
+        bioUsuario.textContent = datos.biografia;
+
     }
     catch (error) {
         console.error("Error:", error);
