@@ -186,6 +186,33 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 })
 
+app.post("/login", async (req, res) => {
+    try {
+        const { email, contraseña } = req.body;
+
+        if (!email || !contraseña) {
+            return res.status(400).json({ error: "Faltan datos" });
+        }
+
+        const query = "SELECT * FROM usuarios WHERE email = $1";
+        const result = await pool.query(query, [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(401).json({ error: "Email o contraseña incorrectos" });
+        }
+
+        const usuario = result.rows[0];
+
+        if (usuario.contraseña !== contraseña) {
+            return res.status(401).json({ error: "Email o contraseña incorrectos" });
+        };
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error del servidor" });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
