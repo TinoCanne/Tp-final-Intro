@@ -28,14 +28,9 @@ CREATE TABLE usuarios (
     biografia VARCHAR(150),
     redSocial VARCHAR(150),
     linkFotoPerfil VARCHAR(300),
-<<<<<<< HEAD
-    id_bandas INT,
-    FOREIGN KEY (id_bandas) REFERENCES bandas(id)
-=======
     contacto VARCHAR(30),
     id_banda INT,
     FOREIGN KEY (id_banda) REFERENCES bandas(id)
->>>>>>> feature/miperfil
 );
 
 CREATE TABLE generos_usuarios (
