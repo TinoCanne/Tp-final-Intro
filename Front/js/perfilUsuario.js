@@ -46,6 +46,21 @@ function editorBanda(){
 }
 editorBanda()
 
+async function cargarDatosPerfil(){
+    const id = localStorage.getItem('usuarioId');
+    if (id) {
+        console.log("El usuario es el " + id);
+    }
+    try{
+        const response = await fetch(`http://localhost:3000/usuarios/${id}`);
+        const datos = await response.json();
+        console.log(datos);
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }    
+}
+
 function mostrarBanda(tieneBanda) {
     const divBanda = document.getElementById("infoBanda");
 
