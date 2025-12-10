@@ -46,17 +46,30 @@ function editorBanda(){
 }
 editorBanda()
 
-async function cargarGeneros(id_usuario) {
+async function cargarGenerosUsuario(id_usuario) {
     const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
-    const generos_usuario = await response.json();
+    const datos_generos = await response.json();
     let string_generos = '';
-    generos_usuario.forEach(generos_usuario => {
+    datos_generos.forEach(generos_usuario => {
         string_generos += ` ${generos_usuario.genero},`;
     })
     let string_generos_limpia = string_generos.slice(0, -1);
 
     const generosPaginaUsuario = document.getElementById('generosUsuario');
     generosPaginaUsuario.textContent = string_generos_limpia;
+}
+
+async function cargarInstrumentos(id_usuario) {
+    const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+    const datos_instrumentos = await response.json();
+    let string_instrumentos = '';
+    datos_instrumentos.forEach(instrumentos_usuario => {
+        string_instrumentos += ` ${instrumentos_usuario.instrumento},`;
+    })
+    let string_instrumentos_limpia = string_instrumentos.slice(0, -1);
+
+    const generosPaginaUsuario = document.getElementById('instrumentosUsuario');
+    generosPaginaUsuario.textContent = string_instrumentos_limpia;
 }
 
 async function cargarDatosPerfil(){
@@ -90,7 +103,8 @@ async function cargarDatosPerfil(){
         const contactoUsuario = document.getElementById('contacto');
         contactoUsuario.textContent = datos.contacto;
 
-        cargarGeneros(id);
+        cargarGenerosUsuario(id);
+        cargarInstrumentos(id);
 
     }
     catch (error) {
