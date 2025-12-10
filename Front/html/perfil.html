@@ -10,7 +10,8 @@
     </head>
     
     <body>
-    
+        <script>cargarDatosPerfil()</script>
+	<script>cargarDatosBanda()</script>
         <nav>
             <a href="index.html">
                 <img src="https://i.ibb.co/zWNLt568/Jameet.png" alt="logo" class="logo">
@@ -26,23 +27,55 @@
                  alt="Foto de perfil">
         
             <h2>Informacion</h2>
-            <ul class="info">
-		<li><strong>Email:</strong>
-                    <span class="spanDatosPerfil" name="email" contenteditable="false"> Tu_correo@Jameet.com</span></li>
-		<li><strong>Instrumentos:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false">Guitarra, Batería</span></li>
-		<li><strong>Generos favoritos:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false">Rock, Blues</span></li>
-	        <li><strong>Bio:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false">Soy musico y busco gente para tocar.</span></li>
-		<li><strong>Contacto:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false">+54 1 2345-6789</span></li>
-            </ul>
+            <form class="info">
+		<label><strong>Nombre:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="nombre">Juan</span></label><br>
+		<label><strong>Apellido:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="apellido">Perez</span></label><br>
+	    	<label><strong>Nombre de usuario:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="username">ElJuancho</span></label><br>
+	    	<label><strong>Redes sociales:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="redSocial">@ElJuancho</span></label><br>
+		<label><strong>Email:</strong>
+			<span class="spanDatosPerfil" name="email" contenteditable="false" id="email"> Tu_correo@Jameet.com</span></label><br>
+		<label><strong>Instrumentos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario">Guitarra, Batería</span></label><br>
+		<label><strong>Generos favoritos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario">Rock, Blues</span></label><br>
+	        <label><strong>Bio:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="biografia">Soy musico y busco gente para tocar.</span></label><br>
+		<label><strong>Contacto:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="contacto">+54 1 2345-6789</span></label><br>
+            </form>
             
-            <button id="botonDeEdicion">Editar perfil</button>
+            <button id="botonDeEdicionPerfil">Editar perfil</button>
 
-        </div>
-    
+       	</div>
+
+	<div id="infoBanda" class="hiddenBanda">
+    	
+	    <h2>Mi Banda</h2>
+
+	    <form class="info">
+		<label><strong>Nombre:</strong></label>
+		    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
+    		<label><strong>Genero/s:</strong></label>
+    		    <span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
+		<label><strong>Descripción:</strong></label>
+		    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
+	    	<label><strong>Integrantes:</strong></label>
+                    <span id="integrantesBanda" class="spanDatosBanda" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
+	    	<label><strong>Fecha de creación:</strong></label>
+                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
+	    	<label><strong>Redes:</strong></label>
+                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+
+	    </form>
+
+	    <button id="botonDeEdicionBanda">Editar banda</button>
+
+	</div>
+
     </body>
     
 </html>

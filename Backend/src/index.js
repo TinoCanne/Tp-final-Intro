@@ -85,66 +85,49 @@ app.post("/crear_usuario", async (req, res) => {
     }
 })
 
-app.get("/filtro_musicos", async (req, res) => {
-    try{
-        const { genero, instrumento } = req.query;
-        let query = `SELECT * FROM usuarios WHERE 1=1`;
-        if (genero != "''"){
-            query += ` AND generosFavoritos = ${genero}`;
-        }
-        if (instrumento != "''")
-            query += ` AND instrumentos = ${instrumento}`;
-        const result = await pool.query(query);
+app.get("/generos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
         res.json(result.rows);
     }
-    catch (err){
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+app.get("/generos_bandas/:id_banda", async (req, res) => {
+    try{
+        const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
+        res.json(result.rows);
+    }
+    catch(err){
         console.error(err);
         res.status(500).json({ error: "DB error"});
     }
 })
 
-app.get("/filtro_bandas", async (req, res) => {
+app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
     try{
-        const { genero } = req.query;
-        let query = `SELECT * FROM bandas`;
-        if (genero != "''"){
-            query += ` WHERE generos = ${genero}`;
-        }
-        const result = await pool.query(query);
+        const result = await pool.query(`select usuarios.username from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
         res.json(result.rows);
     }
-    catch (err){
+    catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error" });
     }
 })
-
-app.get("/filtro_espacios", async (req, res) => {
-    try{
-        const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
-        let query = `SELECT * FROM espacios WHERE 1=1`;
-        if (ubicacion != "''"){
-            query += ` AND ubicacion = ${ubicacion}`;
-        }
-        if (horarios != "''"){
-            query += ` AND horarios = ${horarios}`;
-        }
-        if (tamaño != "''"){
-            query += ` AND tamaño = ${tamaño}`;
-        }
-        if (precioPorHora != ""){
-            let precioPorHoraInt = parseInt(precioPorHora);
-            query += ` AND precioPorHora <= ${precioPorHoraInt}`;
-        }
-        const result = await pool.query(query);
-        res.json(result.rows);
-    }
-    catch (err){
-        console.error(err);
-        res.status(500).json({ error: "DB error"});
-    }
-})
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
