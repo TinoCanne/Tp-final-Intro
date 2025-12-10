@@ -96,6 +96,17 @@ app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     }
 });
 
+app.get("/generos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
 app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
@@ -107,9 +118,31 @@ app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     }
 });
 
+app.get("/instrumentos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
 app.get("/generos_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
+app.get("/generos_bandas", async (req, res) => {
+    try{
+        const result = await pool.query(`SELECT * FROM generos_bandas`);
         res.json(result.rows);
     }
     catch(err){
@@ -132,12 +165,12 @@ app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
 app.get("/filtro_musicos", async (req, res) => {
     try{
         const { genero, instrumento } = req.query;
-        let query = `SELECT * FROM usuarios WHERE 1=1`;
+        let query = `SELECT * FROM usuarios `;
         if (genero != "''"){
-            query += ` AND generosFavoritos = ${genero}`;
+            query += ` JOIN generos_usuarios ON usuarios.id = generos_usuarios.id_usuario AND generos_usuarios.genero = '${genero}'`;
         }
         if (instrumento != "''")
-            query += ` AND instrumentos = ${instrumento}`;
+            query += ` JOIN instrumentos ON usuarios.id = instrumentos.id_usuario AND instrumentos.instrumento = '${instrumento}'`;
         const result = await pool.query(query);
         res.json(result.rows);
     }
@@ -152,7 +185,7 @@ app.get("/filtro_bandas", async (req, res) => {
         const { genero } = req.query;
         let query = `SELECT * FROM bandas`;
         if (genero != "''"){
-            query += ` WHERE generos = ${genero}`;
+            query += ` JOIN generos_bandas ON generos_bandas.id_banda = bandas.id AND generos_bandas.generos = '${genero}'`;
         }
         const result = await pool.query(query);
         res.json(result.rows);
