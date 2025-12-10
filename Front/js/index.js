@@ -132,6 +132,7 @@ async function aceptar_persona(){
     const idPersona = document.getElementById("idPersona");
     const id_persona_actual = parseInt(idPersona.value);
     const url = `http://localhost:3000/usuarios/${id_persona_actual+1}`;
+    const url_generos = `http://localhost:3000/generos_usuarios/${id_persona_actual+1}`
 
     idPersona.value = toString(id_persona_actual+1);
 
@@ -140,7 +141,13 @@ async function aceptar_persona(){
             method:"GET", headers: {"Content-Type": "application/json",}
         });
 
+        const generos = await fetch(url_generos, {
+            method:"GET", headers: {"Content-Type": "application/json",}
+        });
+
         const usuario_json = await siguiente_usuario.json();
+        const generos_json = await generos.json();
+
         console.log(usuario_json);
 
         nombre.innerHTML = usuario_json.nombre;
@@ -149,11 +156,10 @@ async function aceptar_persona(){
 
         tags.replaceChildren();
 
-        let generos = usuario_json.generosfavoritos.split(",")
-        generos.forEach(genero => {
+        generos_json.forEach(genero => {
             const nuevo_Tag = document.createElement("p");
             nuevo_Tag.className = "cartaTag";
-            nuevo_Tag.innerHTML = genero;
+            nuevo_Tag.innerHTML = genero.genero;
             tags.appendChild(nuevo_Tag);
         });
 
