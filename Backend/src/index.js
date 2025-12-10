@@ -107,6 +107,27 @@ app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     }
 });
 
+app.get("/generos_bandas/:id_banda", async (req, res) => {
+    try{
+        const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
+})
+
+app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
+    try{
+        const result = await pool.query(`select usuarios.username from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

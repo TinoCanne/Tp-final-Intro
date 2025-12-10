@@ -47,29 +47,39 @@ function editorBanda(){
 editorBanda()
 
 async function cargarGenerosUsuario(id_usuario) {
-    const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
-    const datos_generos = await response.json();
-    let string_generos = '';
-    datos_generos.forEach(generos_usuario => {
-        string_generos += ` ${generos_usuario.genero},`;
-    })
-    let string_generos_limpia = string_generos.slice(0, -1);
+    try{
+        const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+        const datos_generos = await response.json();
+        let string_generos = '';
+        datos_generos.forEach(generos_usuario => {
+            string_generos += ` ${generos_usuario.genero},`;
+        })
+        let string_generos_limpia = string_generos.slice(0, -1);
 
-    const generosPaginaUsuario = document.getElementById('generosUsuario');
-    generosPaginaUsuario.textContent = string_generos_limpia;
+        const generosPaginaUsuario = document.getElementById('generosUsuario');
+        generosPaginaUsuario.textContent = string_generos_limpia;
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }   
 }
 
 async function cargarInstrumentos(id_usuario) {
-    const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
-    const datos_instrumentos = await response.json();
-    let string_instrumentos = '';
-    datos_instrumentos.forEach(instrumentos_usuario => {
-        string_instrumentos += ` ${instrumentos_usuario.instrumento},`;
-    })
-    let string_instrumentos_limpia = string_instrumentos.slice(0, -1);
+    try{
+        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const datos_instrumentos = await response.json();
+        let string_instrumentos = '';
+        datos_instrumentos.forEach(instrumentos_usuario => {
+            string_instrumentos += ` ${instrumentos_usuario.instrumento},`;
+        })
+        let string_instrumentos_limpia = string_instrumentos.slice(0, -1);
 
-    const generosPaginaUsuario = document.getElementById('instrumentosUsuario');
-    generosPaginaUsuario.textContent = string_instrumentos_limpia;
+        const generosPaginaUsuario = document.getElementById('instrumentosUsuario');
+        generosPaginaUsuario.textContent = string_instrumentos_limpia;
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }   
 }
 
 async function cargarDatosPerfil(){
@@ -112,6 +122,42 @@ async function cargarDatosPerfil(){
     }    
 }
 
+async function cargarGenerosBanda(id_banda){
+    try{
+        const response = await fetch(`http://localhost:3000/generos_bandas/${id_banda}`);
+        const datos_generos = await response.json();
+        let string_generos = '';
+        datos_generos.forEach(generos_banda => {
+            string_generos += ` ${generos_banda.genero},`;
+        })
+        let string_generos_limpia = string_generos.slice(0, -1);
+
+        const generosPaginaBanda = document.getElementById('generosBanda');
+        generosPaginaBanda.textContent = string_generos_limpia;
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }   
+}
+
+async function cargarIntegrantesBanda(id_banda){
+    try{
+        const response = await fetch(`http://localhost:3000/username_integrantes_bandas/${id_banda}`);
+        const username_integrantes = await response.json();
+        let string_username_integrantes = '';
+        username_integrantes.forEach(integrante => {
+            string_username_integrantes += ` ${integrante.username},`;
+        })
+        let string_username_integrantes_limpia = string_username_integrantes.slice(0, -1);
+
+        const integrantesPaginaBanda = document.getElementById('integrantesBanda');
+        integrantesPaginaBanda.textContent = string_username_integrantes_limpia;
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }   
+}
+
 async function cargarDatosBanda(){
     const idUsuario = localStorage.getItem('usuarioId');
     const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
@@ -136,11 +182,14 @@ async function cargarDatosBanda(){
             descripcionBanda.textContent = datos.descripcion;
             
             const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
-            fechaCreacionBanda.textContent = datos.fechaCreacion;
+            fecha = String(datos.fechacreacion);
+            fechaCreacionBanda.textContent = fecha;
 
             const redesBanda = document.getElementById('redesBanda');
             redesBanda.textContent = datos.redsocial;
             divBanda.classList.remove("hiddenBanda");
+            cargarGenerosBanda(id);
+            cargarIntegrantesBanda(id);
         }
         catch (error) {
             console.error("Error:", error);
