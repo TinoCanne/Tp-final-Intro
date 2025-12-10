@@ -74,8 +74,8 @@ app.get("/espacios/:id", async (req, res) => {
 
 app.post("/crear_usuario", async (req, res) => {
     try {
-        const query = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, instrumentos, generosfavoritos, biografia, redessociales)
-        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.instrumentos}', '${req.body.generosfavoritos}', '${req.body.biografia}', '${req.body.redessociales}')`;
+        const query = `INSERT INTO usuarios (nombre, username, contraseña, email)
+        VALUES ('${req.body.nombre}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}')`;
         await pool.query(query);
         res.json();
     }

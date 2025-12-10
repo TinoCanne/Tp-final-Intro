@@ -24,12 +24,7 @@ async function crear_usuario(event){
     event.preventDefault();
     try{
         const nombre = document.getElementById('nombre');
-        const apellido = document.getElementById('apellido');
         const username = document.getElementById('username');
-        const instrumentos = document.getElementById('instrumentos');
-        const generosfavoritos = document.getElementById('generosfavoritos');
-        const biografia = document.getElementById('biografia');
-        const redessociales = document.getElementById('redessociales');
         const contraseña = document.getElementById('contraseña_usuario');
         const email = document.getElementById('email');
 
@@ -41,14 +36,9 @@ async function crear_usuario(event){
             },
             body: JSON.stringify({
                 nombre: nombre.value,
-                apellido: apellido.value,
                 username: username.value,
                 contraseña: contraseña.value,
-                email: email.value,
-                instrumentos: instrumentos.value,
-                generosfavoritos: generosfavoritos.value,
-                biografia: biografia.value,
-                redessociales: redessociales.value
+                email: email.value
             })
         });
     }
