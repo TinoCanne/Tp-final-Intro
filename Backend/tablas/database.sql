@@ -9,8 +9,7 @@ CREATE TABLE usuarios (
     generosFavoritos VARCHAR(150),
     biografia VARCHAR(150),
     redesSociales VARCHAR(150),
-    linkFoto VARCHAR(300),
-    contacto VARCHAR(15)
+    linkFoto VARCHAR(300)
 );
 
 CREATE TABLE espacios (
