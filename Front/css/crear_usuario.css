@@ -106,9 +106,10 @@
 }
 
 .fotoDePerfil {
-    width:200px;
+    width: 200px;
+    border-radius: 100px;
 }
 
 .errorContraseña {
-    color:#F51F15;
+    color: #F51F15;
 }
