@@ -186,6 +186,20 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 })
 
+//carga los contactos de un usuario basado en su ID
+app.get("/contactos/:id_usuario", async function(req, res){
+    try{
+        const idUsuario = req.params.id_usuario;
+        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario}`
+        const response = await pool.query(Q);
+        res.json(response.rows);
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({error: "DB error"})
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
