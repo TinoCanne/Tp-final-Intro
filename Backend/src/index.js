@@ -166,10 +166,10 @@ app.get("/filtro_musicos", async (req, res) => {
     try{
         const { genero, instrumento } = req.query;
         let query = `SELECT * FROM usuarios `;
-        if (genero != "''"){
+        if (genero != ""){
             query += ` JOIN generos_usuarios ON usuarios.id = generos_usuarios.id_usuario AND generos_usuarios.genero = '${genero}'`;
         }
-        if (instrumento != "''")
+        if (instrumento != "")
             query += ` JOIN instrumentos ON usuarios.id = instrumentos.id_usuario AND instrumentos.instrumento = '${instrumento}'`;
         const result = await pool.query(query);
         res.json(result.rows);
@@ -184,8 +184,8 @@ app.get("/filtro_bandas", async (req, res) => {
     try{
         const { genero } = req.query;
         let query = `SELECT * FROM bandas`;
-        if (genero != "''"){
-            query += ` JOIN generos_bandas ON generos_bandas.id_banda = bandas.id AND generos_bandas.generos = '${genero}'`;
+        if (genero){
+            query += ` JOIN generos_bandas ON generos_bandas.id_banda = bandas.id AND generos_bandas.genero = '${genero}'`;
         }
         const result = await pool.query(query);
         res.json(result.rows);
@@ -200,11 +200,11 @@ app.get("/filtro_espacios", async (req, res) => {
     try{
         const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
         let query = `SELECT * FROM espacios WHERE 1=1`;
-        if (ubicacion != "''"){
-            query += ` AND ubicacion = ${ubicacion}`;
+        if (ubicacion != ""){
+            query += ` AND ubicacion = '${ubicacion}'`;
         }
-        if (tamaño != "''"){
-            query += ` AND tamaño = ${tamaño}`;
+        if (tamaño != ""){
+            query += ` AND tamaño = '${tamaño}'`;
         }
         if (precioPorHora != ""){
             let precioPorHoraInt = parseInt(precioPorHora);
