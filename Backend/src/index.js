@@ -1,11 +1,16 @@
 import express from "express";
 import cors from "cors";
 import { pool } from "./db.js";
+import path from "path";
+import { fileURLToPath } from 'url';
 
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 const app = express();
-app.use(cors());
 app.use(express.json());
-
+app.use(cors());
+const frontendPath = path.join(dirname, '../../Front');
+app.use(express.static(frontendPath));
 // Mostrar todos los usuarios
 app.get("/usuarios", async (req, res) => {
     try {
