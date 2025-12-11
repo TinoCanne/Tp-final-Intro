@@ -1,13 +1,3 @@
-.filaPerfilyFiltroIndex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hidden {
-    display: none;
-}
-
 .botonIndex {
     align-self: center;
     align-content: center;
@@ -21,6 +11,7 @@
     background-color: rgb(151, 120, 40);
     cursor: pointer;
     font-family: inherit;
+    margin-top: 15px;
 }
 
 .botonIndex:hover {
@@ -34,4 +25,21 @@
     width: 100px;
     color:black;
     background-color: rgb(255, 255, 255);
+    margin-top: 15px;
+}
+
+#instrumento, #generos, #redsocial{
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#bio {
+    margin-top: -1px;
+    justify-content: center;
+    display: inline-block;
+}
+
+.carta label {
+    color: rgb(151, 120, 40);
 }
