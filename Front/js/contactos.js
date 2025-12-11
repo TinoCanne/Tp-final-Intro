@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    let id_user = 2;
+    let id_user = localStorage.getItem('usuarioId');
 
     const boton_usuarios = document.getElementById("botonUsuarios");
     const boton_bandas = document.getElementById("botonBandas");
