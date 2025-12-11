@@ -81,7 +81,7 @@ app.get("/espacios/:id", async (req, res) => {
 app.post("/crear_usuario", async (req, res) => {
     try {
         const query_usuario = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, biografia, redSocial, linkFotoPerfil, contacto)
-        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redessociales}', '${req.body.linkfoto}', '${req.body.contacto}')`;
+        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redesSociales}', '${req.body.linkFoto}', '${req.body.contacto}')`;
         await pool.query(query_usuario);
 
         const query_id = `SELECT id from usuarios where email = '${req.body.email}'`;
@@ -89,7 +89,7 @@ app.post("/crear_usuario", async (req, res) => {
         const id = result_id.rows[0].id;
 
         let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
-        let instrumentos = req.body.instrumentos.split(" ", 4);
+        let instrumentos = req.body.instrumentos.split(", ", 4);
         instrumentos.forEach(instrumento => {
             query_instrumentos += `(${id}, '${instrumento}'),`;
         });
@@ -97,7 +97,7 @@ app.post("/crear_usuario", async (req, res) => {
         await pool.query(query_instrumentos_limpia);
 
         let query_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
-        let generos = req.body.generos.split(" ", 4);
+        let generos = req.body.generos.split(", ", 4);
         generos.forEach(genero => {
             query_generos += `(${id}, '${genero}'),`;
         })
