@@ -18,70 +18,40 @@
             </a>
         </nav>
     
-        <div class="perfilContainer">
+        <div class="perfil-container">
         
             <h1 class="h1Perfil">Datos del usuario</h1>
         
-            <img class="fotoPerfilGrande" id="linkFotoUsuario" 
+            <img class="foto-perfil-grande" 
                  src="https://cdn-icons-png.flaticon.com/256/847/847969.png"
-                 alt="Foto de perfil" onerror="mostrarImagenPorDefecto()"><br>
-            <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                 alt="Foto de perfil">
         
             <h2>Informacion</h2>
             <form class="info">
-	    	<label><strong>Nombre:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
-    		<label><strong>Apellido:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
+		<label><strong>Nombre:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="nombre">Juan</span></label><br>
+		<label><strong>Apellido:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="apellido">Perez</span></label><br>
 	    	<label><strong>Nombre de usuario:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
+                    <span class="spanDatosPerfil" contenteditable="false" id="username">ElJuancho</span></label><br>
 	    	<label><strong>Redes sociales:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
-		    <label><strong>Email:</strong>
-			    <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
-    		<label><strong>Instrumentos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
-	    	<label><strong>Generos favoritos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
+                    <span class="spanDatosPerfil" contenteditable="false" id="redSocial">@ElJuancho</span></label><br>
+		<label><strong>Email:</strong>
+			<span class="spanDatosPerfil" name="email" contenteditable="false" id="email"> Tu_correo@Jameet.com</span></label><br>
+		<label><strong>Instrumentos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario">Guitarra, Batería</span></label><br>
+		<label><strong>Generos favoritos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario">Rock, Blues</span></label><br>
 	        <label><strong>Bio:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
-		    <label><strong>Contacto:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
+                    <span class="spanDatosPerfil" contenteditable="false" id="biografia">Soy musico y busco gente para tocar.</span></label><br>
+		<label><strong>Contacto:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="contacto">+54 1 2345-6789</span></label><br>
             </form>
             
             <button id="botonDeEdicionPerfil">Editar perfil</button>
-       	</div>
-    <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
-            <div class="crearBanda">
-                <h2>Crea tu banda Jameet!</h2>
-                <br>
-                <form class="crearBandaForm" onsubmit="crearBanda(event)">
-                    <label><strong>Nombre de la banda:</strong>
-                        <input class="inputDatosPerfil"  id="nombreCrearBanda"></input></label><br>
-                    <label><strong>Red social:</strong>
-                        <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
-                    <label><strong>Generos favoritos:</strong>
-                        <input class="inputDatosPerfil"  id="generosUsuarioCrearBanda"></input></label><br>
-                    <label><strong>Descripción:</strong>
-                        <input class="inputDatosPerfil"  id="descripcionCrearBanda"></input></label><br>
-                    <label><strong>Contraseña de la banda:</strong>
-                        <input class="inputDatosPerfil"  id="contraseñaCrearBanda"></input></label><br>
-                    <button id="botonCrearBanda">Crea tu banda!</button>        
-                </form>
-            </div>
 
-            <div class="unirseBanda">
-                <h2>Unete a una banda Jameet!</h2>
-                <br>
-                <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
-                    <label><strong>Ingrese el nombre de la banda:</strong>
-                        <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
-                    <label><strong>Ingrese la contraseña para unirse:</strong>
-                        <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
-                    <br><br><br><button id="botonUnirseBanda">Unete a una banda!</button>        
-                </form>
-            </div>
-    </div>
+       	</div>
+
 	<div id="infoBanda" class="hiddenBanda">
     	
 	    <h2>Mi Banda</h2>
@@ -89,16 +59,16 @@
 	    <form class="info">
 		<label><strong>Nombre:</strong></label>
 		    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
-    	<label><strong>Genero/s:</strong></label>
-    		<span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
+    		<label><strong>Genero/s:</strong></label>
+    		    <span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
 		<label><strong>Descripción:</strong></label>
 		    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-	    <label><strong>Integrantes:</strong></label>
-            <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
-    	<label><strong>Fecha de creación:</strong></label>
-            <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
-	    <label><strong>Redes:</strong></label>
-            <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+	    	<label><strong>Integrantes:</strong></label>
+                    <span id="integrantesBanda" class="spanDatosBanda" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
+	    	<label><strong>Fecha de creación:</strong></label>
+                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
+	    	<label><strong>Redes:</strong></label>
+                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
 
 	    </form>
 

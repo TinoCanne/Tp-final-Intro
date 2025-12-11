@@ -11,11 +11,10 @@ CREATE TABLE espacios (
 
 CREATE TABLE bandas (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) UNIQUE NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
     fechaCreacion INT,
     descripcion VARCHAR(150),
-    redSocial VARCHAR(100),
-    contraseñaParaIngresar VARCHAR(50)
+    redSocial VARCHAR(100)
 );
 
 CREATE TABLE usuarios (
