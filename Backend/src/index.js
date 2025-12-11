@@ -86,7 +86,42 @@ app.post("/crear_usuario", async (req, res) => {
 })
 
 app.post("/perfil_usuario", async(req, res) =>{
+    try {
+        const userId = req.body.id;
+        const query_usuario = `UPDATE usuarios SET nombre = '${req.body.nombre}', apellido = '${req.body.apellido}', username = '${req.body.username}', email = '${req.body.email}', biografia =  '${req.body.biografia}', redsocial =  '${req.body.redesSociales}', linkfotoperfil = '${req.body.linkFoto}', contacto = '${req.body.contacto}'
+        WHERE id = ${userId}`;
+        await pool.query(query_usuario);
+        
+        const instrumentos = req.body.instrumentos.split(", ", 4);
+        let query_borrar_instrumentos = `DELETE FROM instrumentos WHERE id_usuario = ${userId}`;
+        await pool.query(query_borrar_instrumentos);
+        
+        let query_insertar_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
+        instrumentos.forEach(instrumento => {
+            query_insertar_instrumentos += `(${userId}, '${instrumento}'),`;
+        });
 
+        const query_instrumentos_limpia = query_insertar_instrumentos.slice(0, -1);
+        await pool.query(query_instrumentos_limpia);
+        
+        const generos = req.body.generos.split(", ", 4);
+        let query_borrar_generos = `DELETE FROM generos_usuarios WHERE id_usuario = ${userId}`;
+        await pool.query(query_borrar_generos);
+        
+        let query_insertar_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
+        generos.forEach(genero => {
+            query_insertar_generos += `(${userId}, '${genero}'),`;
+        });
+
+        const query_generos_limpia = query_insertar_generos.slice(0, -1);
+        await pool.query(query_generos_limpia);
+
+        res.json({ message: "Perfil editado con exito."})
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error"});
+    }
 })
 
 app.get("/generos_usuarios/:id_usuario", async (req, res) => {

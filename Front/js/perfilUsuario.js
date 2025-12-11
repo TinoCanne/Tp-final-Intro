@@ -6,32 +6,33 @@ async function perfil_usuario(event){
         const nombre = document.getElementById('nombre');
         const apellido = document.getElementById('apellido');
         const username = document.getElementById('username');
-        const redesSociales = document.getElementById('redessociales');
+        const redesSociales = document.getElementById('redSocial');
         const email = document.getElementById('email');
-        const linkfoto = document.getElementById('linkfoto');
-        const instrumentos = document.getElementById('instrumentos');
+        const instrumentos = document.getElementById('instrumentosUsuario');
+        const generos = document.getElementById('generosUsuario')
         const biografia = document.getElementById('biografia');
-        const generos = document.getElementById('generosfavoritos')
         const contacto = document.getElementById('contacto');
+        const linkfoto = document.getElementById('linkFotoUsuario').src;
+        const id = localStorage.getItem('usuarioId');
 
-        const url = "http://localhost:3000/crear_usuario";
+        const url = "http://localhost:3000/perfil_usuario";
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body:JSON.stringify({
-                nombre: nombre.value,
-                apellido: apellido.value,
-                username: username.value,
-                contraseña: contraseña.value,
-                email: email.value,
-                biografia: biografia.value,
-                redesSociales: redesSociales.value,
-                linkFoto: linkfoto.value,
-                contacto: contacto.value,
-                instrumentos: instrumentos.value,
-                generos: generos.value
+                nombre: nombre.textContent,
+                apellido: apellido.textContent,
+                username: username.textContent,
+                email: email.textContent,
+                biografia: biografia.textContent,
+                redesSociales: redesSociales.textContent,
+                linkFoto: linkfoto,
+                contacto: contacto.textContent,
+                instrumentos: instrumentos.textContent,
+                generos: generos.textContent,
+                id: id
             })
         });
     }
@@ -186,9 +187,6 @@ async function cargarDatosPerfil(){
 
         const usernameUsuario = document.getElementById('username');
         usernameUsuario.textContent = datos.username;
-        
-        const constraseña = document.getElementById('contraseña');
-        constraseña.textContent = datos.contraseña;
 
         const redSocialUsuario = document.getElementById('redSocial');
         redSocialUsuario.textContent = datos.redsocial;
