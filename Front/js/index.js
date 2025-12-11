@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
 
-    idUsuario.value = localStorage.getItem('usuarioId')
-
     function ocultarTodo() {
             filtroMusicos.classList.add('hidden');
             filtroBandas.classList.add('hidden');
@@ -137,80 +135,31 @@ async function aceptar_persona(){
     idPersona.value = toString(id_persona_actual+1);
 
     try{
-        const genero = document.getElementById('genero-musicos').value;
-        const instrumento = document.getElementById('instrumento').value;
-        const url = `http://localhost:3000/filtro_musicos?genero='${genero}'&instrumento='${instrumento}'`;
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
+        const siguiente_usuario = await fetch(url, {
+            method:"GET", headers: {"Content-Type": "application/json",}
         });
-        const data = await response.json();
-        console.log("Results:", data);
+
+        const usuario_json = await siguiente_usuario.json();
+        console.log(usuario_json);
+
+        nombre.innerHTML = usuario_json.nombre;
+        bio.innerHTML = usuario_json.biografia;
+        foto.src = usuario_json.foto
+
+        tags.replaceChildren();
+
+        let generos = usuario_json.generosfavoritos.split(",")
+        generos.forEach(genero => {
+            const nuevo_Tag = document.createElement("p");
+            nuevo_Tag.className = "cartaTag";
+            nuevo_Tag.innerHTML = genero;
+            tags.appendChild(nuevo_Tag);
+        });
+
+        idPersona.value = id_persona_actual + 1;
+
     }
-    catch (error){
+    catch(error){
         console.log(error);
     }
-    event.target.reset();
 }
-
-async function aplicar_filtros_bandas(event){
-    event.preventDefault();
-    try{
-        const genero = document.getElementById('genero-bandas').value;
-        const url = `http://localhost:3000/filtro_bandas?genero='${genero}'`;
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-        const data = await response.json();
-        console.log("Results:", data);
-    }
-    catch (error){
-        console.log(error);
-    }
-    event.target.reset();
-}
-
-async function aplicar_filtros_espacios(event){
-    event.preventDefault();
-    try{
-        const ubicacion = document.getElementById('ubicacion').value;
-        const horarios = document.getElementById('horarios').value;
-        const tamaño = document.getElementById('tamaño').value;
-        const precioPorHora = document.getElementById('precioPorHora').value;
-
-        const url = `http://localhost:3000/filtro_espacios?ubicacion='${ubicacion}'&horarios='${horarios}'&tamaño='${tamaño}'&precioPorHora=${precioPorHora}`;
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-        const data = await response.json();
-        console.log("Results:", data);
-    }
-    catch (error){
-        console.log(error);
-    }
-    event.target.reset();
-}
-
-async function agregar_a_contactos(idPropio, idContacto){
-    url = `http://localhost:3000/`
-    const subida = await fetch(url, {
-        method:"POST", 
-        headers: {"Content-Type": "application/json"}, 
-        body: {
-            id_propia:idPropio,
-            id_contacto:idContacto
-        }
-    })
-}
-
