@@ -39,6 +39,7 @@ async function login(event) {
                     window.location.href = "index.html";
                 }
                 else{
+                    event.target.reset();
                     
                 }
             }
@@ -46,5 +47,3 @@ async function login(event) {
                 console.log(error);
                 }
             }
-            event.target.reset();
-

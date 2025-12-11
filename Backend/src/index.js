@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 const frontendPath = path.join(__dirname, '../../Front');
 app.use(express.static(frontendPath));
 
