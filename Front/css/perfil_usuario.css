@@ -49,8 +49,18 @@
     font-family: inherit;
 }
 
-.hiddenBanda{
+.hiddenBanda {
     display: none;
 }
 
+.fotoPerfilGrande {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+}
 
+.inputNuevoLink {
+    border-radius: 20px;
+    display: relative;
+    left: 100px;
+}

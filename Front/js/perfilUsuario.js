@@ -1,26 +1,107 @@
-function editorPerfil(){
-    document.addEventListener("DOMContentLoaded", function () {
-        const boton= document.getElementById("botonDeEdicionPerfil");
-        boton.onclick= function(){
-            const datos= document.querySelectorAll(".spanDatosPerfil");
-            datos.forEach(elemento => {
-                if (elemento.contentEditable === "true"){
-                    elemento.contentEditable = "false";
-                }
-                else{
-                    elemento.contentEditable = "true";
-                }
+
+async function perfil_usuario(event){
+    event.preventDefault();
+
+    try{
+        const nombre = document.getElementById('nombre');
+        const apellido = document.getElementById('apellido');
+        const username = document.getElementById('username');
+        const redesSociales = document.getElementById('redessociales');
+        const email = document.getElementById('email');
+        const linkfoto = document.getElementById('linkfoto');
+        const instrumentos = document.getElementById('instrumentos');
+        const biografia = document.getElementById('biografia');
+        const generos = document.getElementById('generosfavoritos')
+        const contacto = document.getElementById('contacto');
+
+        const url = "http://localhost:3000/crear_usuario";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombre: nombre.value,
+                apellido: apellido.value,
+                username: username.value,
+                contraseña: contraseña.value,
+                email: email.value,
+                biografia: biografia.value,
+                redesSociales: redesSociales.value,
+                linkFoto: linkfoto.value,
+                contacto: contacto.value,
+                instrumentos: instrumentos.value,
+                generos: generos.value
             })
-            if (boton.textContent === "Editar perfil"){
-                boton.textContent = "Guardar cambios";
+        });
+    }
+    catch (error){
+        console.log(error);
+    }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const boton= document.getElementById("botonDeEdicionPerfil");
+    const datos= document.querySelectorAll(".spanDatosPerfil");
+    const fotoPerfil= document.getElementById("linkFotoUsuario");
+    const inputNuevoLink= document.getElementById("inputNuevoLink");
+    
+    function prevenirSaltoDeLinea(event) {
+        if (event.keyCode === 13){      //Enter
+            event.preventDefault();
+            event.target.blur();
+        }
+    }
+
+    function cambiarFotoPerfil(event) {
+        if (event.keyCode === 13){
+            event.preventDefault();
+            if (inputNuevoLink.value !== ""){
+                fotoPerfil.src = inputNuevoLink.value;
+                inputNuevoLink.value = "";
+            }
+            inputNuevoLink.type = "hidden";
+        }
+    }
+    
+    function mostrarInputNuevoLink() {
+        if (inputNuevoLink.type === "hidden"){
+            inputNuevoLink.type= "url";
+            inputNuevoLink.addEventListener('keydown', cambiarFotoPerfil)
+        }
+        else{
+            inputNuevoLink.type= "hidden";
+        }
+    }
+
+    boton.onclick= function(event){
+        datos.forEach(elemento => {
+            if (elemento.contentEditable === "true"){
+                elemento.contentEditable = "false";
+                elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
+                fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
+                if (inputNuevoLink.type !== "hidden"){
+                    inputNuevoLink.type = "hidden";
+                }
             }
             else{
-                boton.textContent = "Editar perfil"
+                elemento.contentEditable = "true";
+                elemento.addEventListener('keydown', prevenirSaltoDeLinea);
+                fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
             }
+        })
+        if (boton.textContent === "Editar perfil"){
+            boton.textContent = "Guardar cambios";
         }
-    })
-}
-editorPerfil()
+        else{
+            boton.textContent = "Editar perfil"
+            perfil_usuario(event);
+        }
+    }
+})
+
 
 function editorBanda(){
     document.addEventListener("DOMContentLoaded", function () {
@@ -95,6 +176,7 @@ async function cargarDatosPerfil(){
         const response = await fetch(`http://localhost:3000/usuarios/${id}`);
         const datos = await response.json();
         console.log(datos);
+        console.log("el link es: " + datos.linkfotoperfil);
 
         const nombreUsuario = document.getElementById('nombre');
         nombreUsuario.textContent = datos.nombre;
@@ -104,6 +186,9 @@ async function cargarDatosPerfil(){
 
         const usernameUsuario = document.getElementById('username');
         usernameUsuario.textContent = datos.username;
+        
+        const constraseña = document.getElementById('contraseña');
+        constraseña.textContent = datos.contraseña;
 
         const redSocialUsuario = document.getElementById('redSocial');
         redSocialUsuario.textContent = datos.redsocial;
@@ -118,7 +203,8 @@ async function cargarDatosPerfil(){
         contactoUsuario.textContent = datos.contacto;
 
         const urlImagenUsuario = document.getElementById('linkFotoUsuario');
-        urlImagenUsuario.src = datos.linkFotoUsuario;
+        urlImagenUsuario.src = datos.linkfotoperfil;
+
 
         cargarGenerosUsuario(id);
         cargarInstrumentos(id);
@@ -209,3 +295,6 @@ async function cargarDatosBanda(){
     }
 }
 
+function cambioDeContraseña() {
+
+}

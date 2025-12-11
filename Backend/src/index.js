@@ -85,6 +85,10 @@ app.post("/crear_usuario", async (req, res) => {
     }
 })
 
+app.post("/perfil_usuario", async(req, res) =>{
+
+})
+
 app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
