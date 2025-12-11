@@ -11,6 +11,7 @@
     background-color: rgb(151, 120, 40);
     cursor: pointer;
     font-family: inherit;
+    margin-top: 15px;
 }
 
 .botonBandas:hover {
@@ -24,5 +25,21 @@
     width: 100px;
     color:black;
     background-color: rgb(255, 255, 255);
+    margin-top: 15px;
 }
 
+#instrumentosBanda, #generosBanda, #redsocialBanda{
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#bioBanda {
+    margin-top: -1px;
+    justify-content: center;
+    display: inline-block;
+}
+
+.carta label {
+    color: rgb(151, 120, 40);
+}
