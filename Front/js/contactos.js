@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-    cargar_contactos("2");
+
+    const path_usuarios = "contactos_usuarios";
+    const path_bandas = "contactos_bandas"
+    const path_espacios = "contactos_espacios"
+
+    cargar_contactos("2", "contactos_usuarios");
 })
 
-async function cargar_contactos(userId){
-    const url = `http://localhost:3000/contactos/${userId}`
+async function cargar_contactos(userId, path){
+    const url = `http://localhost:3000/${path}/${userId}`
     try{
         const contactos = await fetch(url, {
             method: "GET",
@@ -15,7 +20,7 @@ async function cargar_contactos(userId){
         console.log(contactos_json);
 
         contactos_json.forEach(contacto =>{
-            cargar_info(contacto.id_contacto_usuario)
+            cargar_info(contacto.id_contacto_usuario, path)
         });
     }
     catch(error){
@@ -23,9 +28,9 @@ async function cargar_contactos(userId){
     }
 }
 
-async function cargar_info(id){
+async function cargar_info(id, path){
     try{
-        const usuario = await fetch(`http://localhost:3000/usuarios/${id}`, {
+        const usuario = await fetch(`http://localhost:3000/${path}/${id}`, {
             method: "GET",
             headers:{
                 "Content-Type": "application/json",
@@ -52,7 +57,11 @@ async function cargar_info(id){
 
     }
     catch(error){
-        console.log(error)
+        console.log("DB error")
     }
     
+}
+
+async function cargar_contactos_bandas(){
+
 }

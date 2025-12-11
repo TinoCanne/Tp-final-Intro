@@ -192,12 +192,39 @@ app.get("/filtro_espacios", async (req, res) => {
 })
 
 //carga los contactos de un usuario basado en su ID
-app.get("/contactos/:id_usuario", async function(req, res){
+app.get("/contactos_usuarios/:id_usuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} LIMIT 10`
+        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} LIMIT 10`;
         const response = await pool.query(Q);
         res.json(response.rows);
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({error: "DB error"})
+    }
+})
+
+//carga las bandas guardadadas de un usuario basado en su id
+app.get("/contactos_bandas/:id_usuario", async function(req, res){
+    try{
+        const idUsuario = req.params.id_usuario;
+        let Q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${idUsuario} LIMIT 10`;
+        const response = await pool.query(Q);
+        res.json({error: "DB error"});
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({error: "DB error"})
+    }
+})
+
+app.get("/contactos_espacios/:id:usuario", async function(req, res){
+    try{
+        const idUsuario = req.params.id_usuario;
+        let Q = `SELECT * FROM contactos_espacios WHERE id_usuario = ${idUsuario} LIMIT 10`;
+        const response = await pool.query(Q);
+        res.json({error: "DB error"});
     }
     catch(error){
         console.error(error)
