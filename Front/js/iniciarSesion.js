@@ -12,9 +12,8 @@ function mostrar_contraseña(){
             }
             mostrar_contraseña();
 
-async function obtenerId(event) {
+async function login(event) {
     event.preventDefault();
-    
     try {
         const email = document.getElementById('email_usuario').value;
         const contraseña = document.getElementById('contraseña_usuario').value;
@@ -32,14 +31,20 @@ async function obtenerId(event) {
                         }) 
                     });
                 const data = await response.json();
-                const id = data.id;
                 
-                console.log("Login exitoso. ID guardado:", id);
-                localStorage.setItem('usuarioId', id);
-                
-                window.location.href = "index.html";
+                if (data){
+                    const id = data.id;
+                    localStorage.setItem('usuarioId', id);
+                    
+                    window.location.href = "perfil.html";
+                }
+                else{
+                    
+                }
             }
             catch(error){
                 console.log(error);
                 }
             }
+            event.target.reset();
+

@@ -13,9 +13,10 @@
     </head>
 
     <body>
+        <script>localStorage.removeItem('usuarioId');</script>
         <h1 class="h1IniciarSesion">Iniciar sesion</h1>
         <div class="formIniciarSesion">
-            <form onsubmit="obtenerId(event)">
+            <form onsubmit="login(event)">
                 <br>
                 <label for="email" class="labelIniciarSesion">Ingrese su email</label><br>
                 <input id="email_usuario" type="email" name="email" placeholder="Tu_correo@Jameet.com"><br><br>         
@@ -30,7 +31,6 @@
 		<p>¿No tenes una cuenta?</p>
 		<a href="crear_usuario.html" class="botonLlevarCrearCuenta">Crear una cuenta</a>
 	</div>
-
-        <script src="../js/iniciarSesion.js"></script>
     </body>
+    <script src="../js/iniciarSesion.js"></script>
 </html>

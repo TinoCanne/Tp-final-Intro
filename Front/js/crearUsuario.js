@@ -45,14 +45,14 @@ async function crear_usuario(event){
         const nombre = document.getElementById('nombre');
         const apellido = document.getElementById('apellido');
         const username = document.getElementById('username');
-        const instrumentos = document.getElementById('instrumentos');
-        const generosFavoritos = document.getElementById('generosfavoritos');
         const biografia = document.getElementById('biografia');
         const redesSociales = document.getElementById('redessociales');
         const contraseña = document.getElementById('contraseña_usuario');
         const email = document.getElementById('email');
         const linkfoto = document.getElementById('linkfoto');
         const contacto = document.getElementById('contacto');
+        const instrumentos = document.getElementById('instrumentos');
+        const generos = document.getElementById('generosfavoritos')
 
         const url = "http://localhost:3000/crear_usuario";
         const response = await fetch(url, {
@@ -66,12 +66,12 @@ async function crear_usuario(event){
                 username: username.value,
                 contraseña: contraseña.value,
                 email: email.value,
-                instrumentos: instrumentos.value,
-                generosFavoritos: generosFavoritos.value,
                 biografia: biografia.value,
                 redesSociales: redesSociales.value,
                 linkFoto: linkfoto.value,
-                contacto: contacto.value
+                contacto: contacto.value,
+                instrumentos: instrumentos.value,
+                generos: generos.value
             })
         });
         window.location.href = "inciar_sesion.html";
@@ -79,7 +79,7 @@ async function crear_usuario(event){
     catch (error){
         console.log(error);
     }
-    event.target.reset();
+    
 }
 
 function es_url_valido(url){

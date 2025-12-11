@@ -80,10 +80,31 @@ app.get("/espacios/:id", async (req, res) => {
 
 app.post("/crear_usuario", async (req, res) => {
     try {
-        const query = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, instrumentos, generosfavoritos, biografia, redessociales, linkFoto, contacto)
-        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.instrumentos}', '${req.body.generosfavoritos}', '${req.body.biografia}', '${req.body.redessociales}', '${req.body.linkfoto}', '${req.body.contacto}')`;
-        await pool.query(query);
-        res.json();
+        const query_usuario = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, biografia, redSocial, linkFotoPerfil, contacto)
+        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redessociales}', '${req.body.linkfoto}', '${req.body.contacto}')`;
+        await pool.query(query_usuario);
+
+        const query_id = `SELECT id from usuarios where email = '${req.body.email}'`;
+        const result_id = await pool.query(query_id);
+        const id = result_id.rows[0].id;
+
+        let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
+        let instrumentos = req.body.instrumentos.split(" ", 4);
+        instrumentos.forEach(instrumento => {
+            query_instrumentos += `(${id}, '${instrumento}'),`;
+        });
+        const query_instrumentos_limpia = query_instrumentos.slice(0, -1);
+        await pool.query(query_instrumentos_limpia);
+
+        let query_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
+        let generos = req.body.generos.split(" ", 4);
+        generos.forEach(genero => {
+            query_generos += `(${id}, '${genero}'),`;
+        })
+        const query_generos_limpia = query_generos.slice(0, -1);
+        await pool.query(query_generos_limpia);
+
+        res.json({ message: "Usuario creado" });
     }
     catch (err){
         console.error(err);
