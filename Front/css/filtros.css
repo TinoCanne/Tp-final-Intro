@@ -1,0 +1,71 @@
+.botonFiltro {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: white;
+    height: 35px;
+    width: 100px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.botonFiltro:hover {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 8px;
+    border-style: solid;
+    border-color:black;
+    height: 35px;
+    width: 100px;
+    color:black;
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+#filtroMusicos input[type="text"],
+#filtroBandas input[type="text"],
+#filtroSalas input[type="text"] {
+    width: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#filtroMusicos input[type="submit"],
+#filtroBandas input[type="submit"],
+#filtroSalas input[type="submit"] {
+    border-style: none;
+    width: 65%;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    display: block;
+    margin: 0 auto;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+#filtroMusicos input[type="submit"]:hover,
+#filtroBandas input[type="submit"]:hover,
+#filtroSalas input[type="submit"]:hover {
+    border-radius: 10px;
+}

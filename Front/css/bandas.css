@@ -1,4 +1,4 @@
-.botonIndex {
+.botonBandas {
     align-self: center;
     align-content: center;
     text-align: center;
@@ -13,7 +13,7 @@
     font-family: inherit;
 }
 
-.botonIndex:hover {
+.botonBandas:hover {
     align-self: center;
     align-content: center;
     text-align: center;

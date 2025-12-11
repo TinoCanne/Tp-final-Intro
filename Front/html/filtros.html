@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+        <html lang="es">
+    <head>
+        <nav>
+            <a href="index.html">
+                <img src="../Jameet.png" alt="logo" class="logo">
+            </a>
+        </nav>
+                <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/styles.css">
+        
+        <title>Filtros</title>
+    </head>
+
+    <body>
+	<h1 class="h1filtro">Busqueda por filtro</h1>
+        <div class="boxCarta">
+            <div class="cartaFiltro" id = "cartaBuscador">
+                <button id="botonMostrarFiltrosMusicos" class="botonFiltro">Musicos</button>
+                <button id="botonMostrarFiltrosBandas" class="botonFiltro">Bandas</button>
+                <button id="botonMostrarFiltrosSalas" class="botonFiltro">Salas</button>
+
+                <div id="filtroMusicos" class="hidden">
+                    <form onsubmit="aplicar_filtros_musicos(event)">
+                        <br>
+                        <input type="text" placeholder = "Ingrese un genero" id="genero-musicos">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un instrumento" id="instrumento">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroBandas" class="hidden">
+                    <form onsubmit="aplicar_filtros_bandas(event)">
+			<br>
+                        <input type="text" placeholder = "Ingrese un genero" id="genero-bandas">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+
+                <div id="filtroSalas" class="hidden">
+                    <form onsubmit="aplicar_filtros_espacios(event)">
+                        <br>
+                        <input type="text" placeholder = "Ingrese una ubicacion" id="ubicacion">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un tamaño de sala" id="tamaño">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio maximo" id="precioPorHora">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+            </div>
+        <script src="../js/filtros.js"></script>
+    </body>
+
+</html>
