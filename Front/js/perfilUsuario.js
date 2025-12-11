@@ -1,38 +1,157 @@
-function editorPerfil(){
-    document.addEventListener("DOMContentLoaded", function () {
-        const boton= document.getElementById("botonDeEdicionPerfil");
-        boton.onclick= function(){
-            const datos= document.querySelectorAll(".spanDatosPerfil");
-            datos.forEach(elemento => {
-                if (elemento.contentEditable === "true"){
-                    elemento.contentEditable = "false";
-                }
-                else{
-                    elemento.contentEditable = "true";
-                }
+
+async function perfil_usuario(event){
+    event.preventDefault();
+
+    try{
+        const nombre = document.getElementById('nombre');
+        const apellido = document.getElementById('apellido');
+        const username = document.getElementById('username');
+        const redesSociales = document.getElementById('redSocial');
+        const email = document.getElementById('email');
+        const instrumentos = document.getElementById('instrumentosUsuario');
+        const generos = document.getElementById('generosUsuario')
+        const biografia = document.getElementById('biografia');
+        const contacto = document.getElementById('contacto');
+        const linkfoto = document.getElementById('linkFotoUsuario').src;
+        const id = localStorage.getItem('usuarioId');
+
+        const url = "http://localhost:3000/perfil_usuario";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombre: nombre.textContent,
+                apellido: apellido.textContent,
+                username: username.textContent,
+                email: email.textContent,
+                biografia: biografia.textContent,
+                redesSociales: redesSociales.textContent,
+                linkFoto: linkfoto,
+                contacto: contacto.textContent,
+                instrumentos: instrumentos.textContent,
+                generos: generos.textContent,
+                id: id
             })
-            if (boton.textContent === "Editar perfil"){
-                boton.textContent = "Guardar cambios";
+        });
+    }
+    catch (error){
+        console.log(error);
+    }
+}
+
+function prevenirSaltoDeLinea(event) {
+    if (event.keyCode === 13){      //Enter
+        event.preventDefault();
+        event.target.blur();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const boton= document.getElementById("botonDeEdicionPerfil");
+    const datos= document.querySelectorAll(".spanDatosPerfil");
+    const fotoPerfil= document.getElementById("linkFotoUsuario");
+    const inputNuevoLink= document.getElementById("inputNuevoLink");
+
+    function cambiarFotoPerfil(event) {
+        if (event.keyCode === 13){
+            event.preventDefault();
+            if (inputNuevoLink.value !== ""){
+                fotoPerfil.src = inputNuevoLink.value;
+                inputNuevoLink.value = "";
+            }
+            inputNuevoLink.type = "hidden";
+        }
+    }
+    
+    function mostrarInputNuevoLink() {
+        if (inputNuevoLink.type === "hidden"){
+            inputNuevoLink.type= "url";
+            inputNuevoLink.addEventListener('keydown', cambiarFotoPerfil)
+        }
+        else{
+            inputNuevoLink.type= "hidden";
+        }
+    }
+
+    boton.onclick= function(event){
+        datos.forEach(elemento => {
+            if (elemento.contentEditable === "true"){
+                elemento.contentEditable = "false";
+                elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
+                fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
+                if (inputNuevoLink.type !== "hidden"){
+                    inputNuevoLink.type = "hidden";
+                }
             }
             else{
-                boton.textContent = "Editar perfil"
+                elemento.contentEditable = "true";
+                elemento.addEventListener('keydown', prevenirSaltoDeLinea);
+                fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
             }
+        })
+        if (boton.textContent === "Editar perfil"){
+            boton.textContent = "Guardar cambios";
         }
-    })
+        else{
+            boton.textContent = "Editar perfil"
+            perfil_usuario(event);
+        }
+    }
+})
+
+async function banda_usuario(event){
+    event.preventDefault();
+
+    try{
+        const nombreBanda = document.getElementById('nombreBanda');
+        const genersoBanda = document.getElementById('generosBanda');
+        const descripcionBanda = document.getElementById('descripcionBanda');
+        const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
+        const redesBanda = document.getElementById('redesBanda');
+        const idUsuario = localStorage.getItem('usuarioId');
+        
+        const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
+        const data = await responseIdBandas.json();
+        const idBanda = data.id_banda;
+
+        const url = "http://localhost:3000/banda_usuario";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombre: nombreBanda.textContent,
+                fechaCreacion: fechaCreacionBanda.textContent,
+                descripcion: descripcionBanda.textContent,
+                redes: redesBanda.textContent,
+                generos: genersoBanda.textContent,
+                idUsuario: idUsuario,
+                idBanda: idBanda
+            })
+        });
+    }
+    catch (error){
+        console.log(error);
+    }
 }
-editorPerfil()
+
 
 function editorBanda(){
     document.addEventListener("DOMContentLoaded", function () {
         const boton= document.getElementById("botonDeEdicionBanda");
-        boton.onclick= function(){
+        boton.onclick= function(event){
             const datos= document.querySelectorAll(".spanDatosBanda");
             datos.forEach(elemento => {
                 if (elemento.contentEditable === "true"){
                     elemento.contentEditable = "false";
+                    elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
                 }
                 else{
                     elemento.contentEditable = "true";
+                    elemento.addEventListener('keydown', prevenirSaltoDeLinea)
                 }
             })
             if (boton.textContent === "Editar banda"){
@@ -40,6 +159,7 @@ function editorBanda(){
             }
             else{
                 boton.textContent = "Editar banda"
+                banda_usuario(event);
             }
         }
     })
@@ -74,12 +194,16 @@ async function cargarInstrumentos(id_usuario) {
         })
         let string_instrumentos_limpia = string_instrumentos.slice(0, -1);
 
-        const generosPaginaUsuario = document.getElementById('instrumentosUsuario');
-        generosPaginaUsuario.textContent = string_instrumentos_limpia;
+        const generosInstrumentosUsuario = document.getElementById('instrumentosUsuario');
+        generosInstrumentosUsuario.textContent = string_instrumentos_limpia;
     }
     catch (error) {
         console.error("Error:", error);
     }   
+}
+
+function mostrarImagenPorDefecto() {
+    document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
 
 async function cargarDatosPerfil(){
@@ -91,6 +215,7 @@ async function cargarDatosPerfil(){
         const response = await fetch(`http://localhost:3000/usuarios/${id}`);
         const datos = await response.json();
         console.log(datos);
+        console.log("el link es: " + datos.linkfotoperfil);
 
         const nombreUsuario = document.getElementById('nombre');
         nombreUsuario.textContent = datos.nombre;
@@ -112,6 +237,10 @@ async function cargarDatosPerfil(){
 
         const contactoUsuario = document.getElementById('contacto');
         contactoUsuario.textContent = datos.contacto;
+
+        const urlImagenUsuario = document.getElementById('linkFotoUsuario');
+        urlImagenUsuario.src = datos.linkfotoperfil;
+
 
         cargarGenerosUsuario(id);
         cargarInstrumentos(id);
@@ -163,7 +292,8 @@ async function cargarDatosBanda(){
     const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
     const data = await responseIdBandas.json();
     const id = data.id_banda;
-    const divBanda = document.getElementById('infoBanda')
+    const divBanda = document.getElementById('infoBanda');
+    const divBandaOpciones = document.getElementById('opcionesBanda');
     if (id) {
         console.log("La banda es la " + id);
 
@@ -188,6 +318,7 @@ async function cargarDatosBanda(){
             const redesBanda = document.getElementById('redesBanda');
             redesBanda.textContent = datos.redsocial;
             divBanda.classList.remove("hiddenBanda");
+            divBandaOpciones.style.display = "none";
             cargarGenerosBanda(id);
             cargarIntegrantesBanda(id);
         }
@@ -200,3 +331,63 @@ async function cargarDatosBanda(){
     }
 }
 
+async function unirseBanda(event) {
+    event.preventDefault();
+    
+    const idUsuario = localStorage.getItem('usuarioId');
+    const nombreBanda = document.getElementById('nombreUnirseBanda').value;
+    const contraseñaBanda = document.getElementById('contraseñaUnirseBanda').value;
+
+    try {
+        const response = await fetch("http://localhost:3000/unirse_banda", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreBanda,
+                contraseña: contraseñaBanda,
+                idUsuario: idUsuario
+            })
+        });
+
+        const datos = await response.json();
+        console.log(datos);
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
+}
+
+async function crearBanda(event){
+    event.preventDefault();
+    const idUsuario = localStorage.getItem('usuarioId');
+    const nombreBanda = document.getElementById('nombreCrearBanda').value;
+    const redSocial = document.getElementById('redSocialCrearBanda').value;
+    const generos = document.getElementById('generosUsuarioCrearBanda').value;
+    const descripcion = document.getElementById('descripcionCrearBanda').value;
+    const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
+
+    try {
+        const response = await fetch("http://localhost:3000/crear_banda", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreBanda,
+                contraseña: contraseñaBanda,
+                descripcion: descripcion,
+                redSocial: redSocial,
+                idUsuario: idUsuario,
+                generos: generos
+            })
+        });
+
+        const datos = await response.json();
+        console.log(datos);
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
+}
