@@ -375,58 +375,24 @@ app.post("/crear_banda", async (req, res) => {
     }
 })
 
-//carga los contactos de un usuario basado en su ID
-app.get("/contactos_usuarios/:id_usuario", async (req, res) => {
-    try{
-        let Q = `
-            SELECT usuarios.* FROM usuarios 
-            INNER JOIN contactos_usuarios ON usuarios.id = contactos_usuarios.id_contacto_usuario
-            WHERE contactos_usuarios.id_usuario = ${req.params.id_usuario}`;
-        const response = await pool.query(Q);
-        res.json(response.rows);
+app.post("/login", async (req, res) => {
+    try {
+        const email = req.body.email;
+        const contraseña = req.body.contraseña;
+        
+        if (!email || !contraseña) {
+            return res.status(400).json({ error: "Faltan datos" });
+        }
+        
+        const query = `SELECT id FROM usuarios WHERE email = '${email}' AND contraseña = '${contraseña}'`;
+        const result = await pool.query(query);
+        res.json(result.rows[0]);
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error del servidor" });
     }
-    catch(error){
-        console.error(error)
-        res.status(500).json({error: "DB error"})
-    }
-})
-
-//carga las bandas guardadadas de un usuario basado en su id
-app.get("/contactos_bandas/:id_usuario", async function(req, res){
-    try{
-        let QueryBandas = `
-            SELECT bandas.* FROM bandas 
-            INNER JOIN contactos_bandas ON bandas.id = contactos_bandas.id_contacto_bandas
-            WHERE contactos_bandas.id_usuario = ${req.params.id_usuario}`;
-        const response = await pool.query(QueryBandas);
-        res.json(response.rows);
-    }
-    catch(error){
-        console.error(error)
-        res.status(500).json({error: "DB error"})
-    }
-})
-
-app.get("/contactos_espacios/:id_usuario", async function(req, res){
-    try{
-        let QueryBandas = `
-            SELECT espacios.* FROM espacios 
-            INNER JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio
-            WHERE contactos_espacios.id_usuario = ${req.params.id_usuario}`;
-        const response = await pool.query(QueryBandas);
-        res.json(response.rows);
-    }
-    catch(error){
-        console.error(error)
-        res.status(500).json({error: "DB error"})
-    }
-})
-
-app.post("/agregar_contacto_usuario", async function (req, res){
-    q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_propia}, ${req.body.id_contacto});`;
-    console.log(req.body)
-    res.send(res.json());
-})
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
