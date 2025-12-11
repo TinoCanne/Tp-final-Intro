@@ -74,8 +74,8 @@ async function cargarInstrumentos(id_usuario) {
         })
         let string_instrumentos_limpia = string_instrumentos.slice(0, -1);
 
-        const generosPaginaUsuario = document.getElementById('instrumentosUsuario');
-        generosPaginaUsuario.textContent = string_instrumentos_limpia;
+        const generosInstrumentosUsuario = document.getElementById('instrumentosUsuario');
+        generosInstrumentosUsuario.textContent = string_instrumentos_limpia;
     }
     catch (error) {
         console.error("Error:", error);
@@ -112,6 +112,8 @@ async function cargarDatosPerfil(){
 
         const contactoUsuario = document.getElementById('contacto');
         contactoUsuario.textContent = datos.contacto;
+
+        const urlImagenUsuario = document.getElementById('linkfoto')
 
         cargarGenerosUsuario(id);
         cargarInstrumentos(id);
