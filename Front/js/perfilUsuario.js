@@ -41,20 +41,18 @@ async function perfil_usuario(event){
     }
 }
 
-
+function prevenirSaltoDeLinea(event) {
+    if (event.keyCode === 13){      //Enter
+        event.preventDefault();
+        event.target.blur();
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const boton= document.getElementById("botonDeEdicionPerfil");
     const datos= document.querySelectorAll(".spanDatosPerfil");
     const fotoPerfil= document.getElementById("linkFotoUsuario");
     const inputNuevoLink= document.getElementById("inputNuevoLink");
-    
-    function prevenirSaltoDeLinea(event) {
-        if (event.keyCode === 13){      //Enter
-            event.preventDefault();
-            event.target.blur();
-        }
-    }
 
     function cambiarFotoPerfil(event) {
         if (event.keyCode === 13){
@@ -103,18 +101,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 })
 
+async function banda_usuario(event){
+    event.preventDefault();
+
+    try{
+        const nombreBanda = document.getElementById('nombreBanda');
+        const genersoBanda = document.getElementById('generosBanda');
+        const descripcionBanda = document.getElementById('descripcionBanda');
+        const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
+        const redesBanda = document.getElementById('redesBanda');
+        const idUsuario = localStorage.getItem('usuarioId');
+        
+        const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
+        const data = await responseIdBandas.json();
+        const idBanda = data.id_banda;
+
+        const url = "http://localhost:3000/banda_usuario";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombre: nombreBanda.textContent,
+                fechaCreacion: fechaCreacionBanda.textContent,
+                descripcion: descripcionBanda.textContent,
+                redes: redesBanda.textContent,
+                generos: genersoBanda.textContent,
+                idUsuario: idUsuario,
+                idBanda: idBanda
+            })
+        });
+    }
+    catch (error){
+        console.log(error);
+    }
+}
+
 
 function editorBanda(){
     document.addEventListener("DOMContentLoaded", function () {
         const boton= document.getElementById("botonDeEdicionBanda");
-        boton.onclick= function(){
+        boton.onclick= function(event){
             const datos= document.querySelectorAll(".spanDatosBanda");
             datos.forEach(elemento => {
                 if (elemento.contentEditable === "true"){
                     elemento.contentEditable = "false";
+                    elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
                 }
                 else{
                     elemento.contentEditable = "true";
+                    elemento.addEventListener('keydown', prevenirSaltoDeLinea)
                 }
             })
             if (boton.textContent === "Editar banda"){
@@ -122,6 +159,7 @@ function editorBanda(){
             }
             else{
                 boton.textContent = "Editar banda"
+                banda_usuario(event);
             }
         }
     })
@@ -291,8 +329,4 @@ async function cargarDatosBanda(){
     else{
         divBanda.classList.add("hiddenBanda");
     }
-}
-
-function cambioDeContraseña() {
-
 }

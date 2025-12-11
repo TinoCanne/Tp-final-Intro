@@ -120,8 +120,39 @@ app.post("/perfil_usuario", async(req, res) =>{
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error" });
     }
+})
+
+app.post("/banda_usuario", async(req, res) =>{
+    try{
+        const userId = req.body.idUsuario;
+        const bandaId = req.body.idBanda;
+    
+        const query_banda = `UPDATE bandas SET nombre = '${req.body.nombre}', fechaCreacion = '${req.body.fechaCreacion}', descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
+        WHERE id = ${bandaId}`;
+        await pool.query(query_banda);
+
+        const generos_banda = req.body.generos.split(", ", 4);
+        let query_borrar_generos_banda = `DELETE FROM generos_bandas WHERE id_banda = ${bandaId}`;
+        await pool.query(query_borrar_generos_banda);
+        
+        let query_insertar_generos_banda = `INSERT INTO generos_bandas (id_banda, genero) VALUES `;
+        generos_banda.forEach(genero => {
+            query_insertar_generos_banda += `(${bandaId}, '${genero}'),`;
+        });
+
+        const query_generos_banda_limpia = query_insertar_generos_banda.slice(0, -1);
+        await pool.query(query_generos_banda_limpia);
+
+        res.json({ message: "Banda editada con exito."});
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+
+
 })
 
 app.get("/generos_usuarios/:id_usuario", async (req, res) => {
