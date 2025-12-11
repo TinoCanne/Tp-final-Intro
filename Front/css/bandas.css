@@ -1,4 +1,4 @@
-.botonIndex {
+.botonBandas {
     align-self: center;
     align-content: center;
     text-align: center;
@@ -14,7 +14,7 @@
     margin-top: 15px;
 }
 
-.botonIndex:hover {
+.botonBandas:hover {
     align-self: center;
     align-content: center;
     text-align: center;
@@ -28,13 +28,13 @@
     margin-top: 15px;
 }
 
-#instrumento, #generos, #redsocial{
+#instrumentosBanda, #generosBanda, #redsocialBanda{
     margin-top: -4px;
     justify-content: center;
     display: inline-block;
 }
 
-#bio {
+#bioBanda {
     margin-top: -1px;
     justify-content: center;
     display: inline-block;
