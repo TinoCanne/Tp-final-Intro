@@ -192,10 +192,12 @@ app.get("/filtro_espacios", async (req, res) => {
 })
 
 //carga los contactos de un usuario basado en su ID
-app.get("/contactos_usuarios/:id_usuario", async function(req, res){
+app.get("/contactos_usuarios/:id_usuario", async (req, res) => {
     try{
-        const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} DESC LIMIT 10`;
+        let Q = `
+            SELECT usuarios.* FROM usuarios 
+            INNER JOIN contactos_usuarios ON usuarios.id = contactos_usuarios.id_contacto_usuario
+            WHERE contactos_usuarios.id_usuario = ${req.params.id_usuario}`;
         const response = await pool.query(Q);
         res.json(response.rows);
     }

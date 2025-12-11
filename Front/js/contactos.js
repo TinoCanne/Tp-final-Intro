@@ -19,76 +19,6 @@ function test_botones(){
     console.log("click");
 }
 
-function mostrar_usuarios(id){
-    const div_usuarios = document.getElementById("marco_usuario");
-    const div_espacios = document.getElementById("marco_espacios");
-    const div_bandas = document.getElementById("marco_bandas")
-
-    div_bandas.style.display = "none";
-    div_espacios.style.display = "none";
-    div_usuarios.style.display = "block";
-
-    cargar_contactos(id, "usuarios");
-}
-
-function mostrar_bandas(id){
-    const div_usuarios = document.getElementById("marco_usuario");
-    const div_espacios = document.getElementById("marco_espacios");
-    const div_bandas = document.getElementById("marco_bandas")
-
-    div_bandas.style.display = "block";
-    div_espacios.style.display = "none";
-    div_usuarios.style.display = "none";
-
-    cargar_contactos(id, "bandas");
-}
-
-function mastrar_espacios(id){
-    const div_usuarios = document.getElementById("marco_usuario");
-    const div_espacios = document.getElementById("marco_espacios");
-    const div_bandas = document.getElementById("marco_bandas")
-
-    div_bandas.style.display = "none";
-    div_espacios.style.display = "block";
-    div_usuarios.style.display = "none";
-
-    cargar_contactos(id, "contactos_espacios");
-}
-
-async function cargar_contactos(userId, path){
-    const url = `http://localhost:3000/${path}/${userId}`
-    console.log(url);
-    try{
-        const contactos = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-        const contactos_json = await contactos.json();
-        console.log(contactos_json);
-
-        if(path === "contactos_usuarios"){
-            contactos_json.forEach(contacto => {
-                cargar_info_usuarios(contacto.id_contacto_usuario, "usuarios")
-            });
-        }
-        else if(path === "contactos_bandas"){
-            contactos_json.forEach(contacto => {
-                cargar_info_bandas(contacto.id_contacto_bandas, "bandas")
-            });
-        }
-        else if(path === "contactos_espacios"){
-            contactos_json.forEach(contacto => {
-                cargar_info_espacios(contacto.id_contacto_espacio, "espacios")
-            });
-        }
-    }
-    catch(error){
-        console.log(error);
-    }
-}
-
 async function cargar_info_usuarios(id, path){
     try{
         const usuario = await fetch(`http://localhost:3000/${path}/${id}`, {
@@ -160,4 +90,74 @@ async function cargar_info_bandas(id, path){
 
 async function cargar_info_espacios(id, path){
 
+}
+
+async function cargar_contactos(userId, path){
+    const url = `http://localhost:3000/${path}/${userId}`
+    console.log(url);
+    try{
+        const contactos = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+        const contactos_json = await contactos.json();
+        console.log(contactos_json);
+
+        if(path === "contactos_usuarios"){
+            contactos_json.forEach(contacto => {
+                cargar_info_usuarios(contacto.id_contacto_usuario, "usuarios")
+            });
+        }
+        else if(path === "contactos_bandas"){
+            contactos_json.forEach(contacto => {
+                cargar_info_bandas(contacto.id_contacto_bandas, "bandas")
+            });
+        }
+        else if(path === "contactos_espacios"){
+            contactos_json.forEach(contacto => {
+                cargar_info_espacios(contacto.id_contacto_espacio, "espacios")
+            });
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+function mostrar_usuarios(id){
+    const div_usuarios = document.getElementById("marco_usuario");
+    const div_espacios = document.getElementById("marco_espacios");
+    const div_bandas = document.getElementById("marco_bandas")
+
+    div_bandas.style.display = "none";
+    div_espacios.style.display = "none";
+    div_usuarios.style.display = "block";
+
+    cargar_contactos(id, "contactos_usuarios");
+}
+
+function mostrar_bandas(id){
+    const div_usuarios = document.getElementById("marco_usuario");
+    const div_espacios = document.getElementById("marco_espacios");
+    const div_bandas = document.getElementById("marco_bandas")
+
+    div_bandas.style.display = "block";
+    div_espacios.style.display = "none";
+    div_usuarios.style.display = "none";
+
+    cargar_contactos(id, "bandas");
+}
+
+function mastrar_espacios(id){
+    const div_usuarios = document.getElementById("marco_usuario");
+    const div_espacios = document.getElementById("marco_espacios");
+    const div_bandas = document.getElementById("marco_bandas")
+
+    div_bandas.style.display = "none";
+    div_espacios.style.display = "block";
+    div_usuarios.style.display = "none";
+
+    cargar_contactos(id, "contactos_espacios");
 }
