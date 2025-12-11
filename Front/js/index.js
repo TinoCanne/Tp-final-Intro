@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
-    
+    let idPersonaActual = parseInt(document.getElementById("idPersona").value);
+
     botonSi.addEventListener("click", function(){
         aceptar_persona(idPersonaActual)
     })
@@ -14,8 +15,9 @@ async function aceptar_persona(){
 
     const nombre = document.getElementById("nombre");
     const bio = document.getElementById("bio");
-    const tags = document.getElementById("tags");
+    const generos = document.getElementById("generos");
     const foto = document.getElementById("foto");
+    const instrumento = document.getElementById("instrumento");
     const idPersona = document.getElementById("idPersona");
     const id_persona_actual = parseInt(idPersona.value);
     const url = `http://localhost:3000/usuarios/${id_persona_actual+1}`;

@@ -146,8 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        mostrarCartaMusico(musicos[0]);  // Mostrar el primero
+        mostrarCartaMusico(musicos[0]);
         localStorage.removeItem("musicos_filtrados");
     }
 });
-
