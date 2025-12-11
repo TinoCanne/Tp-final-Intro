@@ -210,10 +210,12 @@ app.get("/contactos_usuarios/:id_usuario", async (req, res) => {
 //carga las bandas guardadadas de un usuario basado en su id
 app.get("/contactos_bandas/:id_usuario", async function(req, res){
     try{
-        const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${idUsuario} DESC LIMIT 10`;
-        const response = await pool.query(Q);
-        res.json({error: "DB error"});
+        let QueryBandas = `
+            SELECT bandas.* FROM bandas 
+            INNER JOIN contactos_bandas ON bandas.id = contactos_bandas.id_contacto_bandas
+            WHERE contactos_bandas.id_usuario = ${req.params.id_usuario}`;
+        const response = await pool.query(QueryBandas);
+        res.json(response.rows);
     }
     catch(error){
         console.error(error)
@@ -221,7 +223,7 @@ app.get("/contactos_bandas/:id_usuario", async function(req, res){
     }
 })
 
-app.get("/contactos_espacios/:idusuario", async function(req, res){
+app.get("/contactos_espacios/:id_usuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
         let Q = `SELECT * FROM contactos_espacios WHERE id_usuario = ${idUsuario} LIMIT 10 desc`;
