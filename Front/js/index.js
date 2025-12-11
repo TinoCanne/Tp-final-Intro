@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const botonBuscador = document.getElementById("botonBuscador");
     
+    const idUsuario = document.getElementById("idUsuario");
+
     const botonMusicos = document.getElementById('botonMostrarFiltrosMusicos');
     const botonBandas = document.getElementById('botonMostrarFiltrosBandas');
     const botonSalas = document.getElementById('botonMostrarFiltrosSalas');
@@ -11,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
+
+    idUsuario.value = localStorage.getItem()
 
     function ocultarTodo() {
             filtroMusicos.classList.add('hidden');
