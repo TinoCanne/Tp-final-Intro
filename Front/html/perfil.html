@@ -51,7 +51,37 @@
             
             <button id="botonDeEdicionPerfil">Editar perfil</button>
        	</div>
+    <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
+            <div class="crearBanda">
+                <h2>Crea tu banda Jameet!</h2>
+                <br>
+                <form class="crearBandaForm" onsubmit="crearBanda(event)">
+                    <label><strong>Nombre de la banda:</strong>
+                        <input class="inputDatosPerfil"  id="nombreCrearBanda"></input></label><br>
+                    <label><strong>Red social:</strong>
+                        <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
+                    <label><strong>Generos favoritos:</strong>
+                        <input class="inputDatosPerfil"  id="generosUsuarioCrearBanda"></input></label><br>
+                    <label><strong>Descripción:</strong>
+                        <input class="inputDatosPerfil"  id="descripcionCrearBanda"></input></label><br>
+                    <label><strong>Contraseña de la banda:</strong>
+                        <input class="inputDatosPerfil"  id="contraseñaCrearBanda"></input></label><br>
+                    <button id="botonCrearBanda">Crea tu banda!</button>        
+                </form>
+            </div>
 
+            <div class="unirseBanda">
+                <h2>Unete a una banda Jameet!</h2>
+                <br>
+                <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
+                    <label><strong>Ingrese el nombre de la banda:</strong>
+                        <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
+                    <label><strong>Ingrese la contraseña para unirse:</strong>
+                        <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
+                    <br><br><br><button id="botonUnirseBanda">Unete a una banda!</button>        
+                </form>
+            </div>
+    </div>
 	<div id="infoBanda" class="hiddenBanda">
     	
 	    <h2>Mi Banda</h2>

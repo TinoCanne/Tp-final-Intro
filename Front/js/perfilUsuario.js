@@ -251,8 +251,6 @@ async function cargarDatosPerfil(){
     }    
 }
 
-
-
 async function cargarGenerosBanda(id_banda){
     try{
         const response = await fetch(`http://localhost:3000/generos_bandas/${id_banda}`);
@@ -294,7 +292,8 @@ async function cargarDatosBanda(){
     const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
     const data = await responseIdBandas.json();
     const id = data.id_banda;
-    const divBanda = document.getElementById('infoBanda')
+    const divBanda = document.getElementById('infoBanda');
+    const divBandaOpciones = document.getElementById('opcionesBanda');
     if (id) {
         console.log("La banda es la " + id);
 
@@ -319,6 +318,7 @@ async function cargarDatosBanda(){
             const redesBanda = document.getElementById('redesBanda');
             redesBanda.textContent = datos.redsocial;
             divBanda.classList.remove("hiddenBanda");
+            divBandaOpciones.style.display = "none";
             cargarGenerosBanda(id);
             cargarIntegrantesBanda(id);
         }
@@ -329,4 +329,65 @@ async function cargarDatosBanda(){
     else{
         divBanda.classList.add("hiddenBanda");
     }
+}
+
+async function unirseBanda(event) {
+    event.preventDefault();
+    
+    const idUsuario = localStorage.getItem('usuarioId');
+    const nombreBanda = document.getElementById('nombreUnirseBanda').value;
+    const contraseñaBanda = document.getElementById('contraseñaUnirseBanda').value;
+
+    try {
+        const response = await fetch("http://localhost:3000/unirse_banda", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreBanda,
+                contraseña: contraseñaBanda,
+                idUsuario: idUsuario
+            })
+        });
+
+        const datos = await response.json();
+        console.log(datos);
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
+}
+
+async function crearBanda(event){
+    event.preventDefault();
+    const idUsuario = localStorage.getItem('usuarioId');
+    const nombreBanda = document.getElementById('nombreCrearBanda').value;
+    const redSocial = document.getElementById('redSocialCrearBanda').value;
+    const generos = document.getElementById('generosUsuarioCrearBanda').value;
+    const descripcion = document.getElementById('descripcionCrearBanda').value;
+    const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
+
+    try {
+        const response = await fetch("http://localhost:3000/crear_banda", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreBanda,
+                contraseña: contraseñaBanda,
+                descripcion: descripcion,
+                redSocial: redSocial,
+                idUsuario: idUsuario,
+                generos: generos
+            })
+        });
+
+        const datos = await response.json();
+        console.log(datos);
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
 }
