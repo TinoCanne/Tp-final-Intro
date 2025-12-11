@@ -1,10 +1,16 @@
 import express from "express";
 import cors from "cors";
 import { pool } from "./db.js";
+import path from "path";
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+const frontendPath = path.join(__dirname, '../../Front');
+app.use(express.static(frontendPath));
 
 // Mostrar todos los usuarios
 app.get("/usuarios", async (req, res) => {
@@ -74,10 +80,31 @@ app.get("/espacios/:id", async (req, res) => {
 
 app.post("/crear_usuario", async (req, res) => {
     try {
-        const query = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, instrumentos, generosfavoritos, biografia, redessociales, linkFoto, contacto)
-        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.instrumentos}', '${req.body.generosfavoritos}', '${req.body.biografia}', '${req.body.redessociales}', '${req.body.linkfoto}', '${req.body.contacto}')`;
-        await pool.query(query);
-        res.json();
+        const query_usuario = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, biografia, redSocial, linkFotoPerfil, contacto)
+        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redessociales}', '${req.body.linkfoto}', '${req.body.contacto}')`;
+        await pool.query(query_usuario);
+
+        const query_id = `SELECT id from usuarios where email = '${req.body.email}'`;
+        const result_id = await pool.query(query_id);
+        const id = result_id.rows[0].id;
+
+        let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
+        let instrumentos = req.body.instrumentos.split(" ", 4);
+        instrumentos.forEach(instrumento => {
+            query_instrumentos += `(${id}, '${instrumento}'),`;
+        });
+        const query_instrumentos_limpia = query_instrumentos.slice(0, -1);
+        await pool.query(query_instrumentos_limpia);
+
+        let query_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
+        let generos = req.body.generos.split(" ", 4);
+        generos.forEach(genero => {
+            query_generos += `(${id}, '${genero}'),`;
+        })
+        const query_generos_limpia = query_generos.slice(0, -1);
+        await pool.query(query_generos_limpia);
+
+        res.json({ message: "Usuario creado" });
     }
     catch (err){
         console.error(err);
@@ -219,7 +246,27 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 })
 
+app.post("/login", async (req, res) => {
+    try {
+        const email = req.body.email;
+        const contraseña = req.body.contraseña;
+        
+        if (!email || !contraseña) {
+            return res.status(400).json({ error: "Faltan datos" });
+        }
+        
+        const query = `SELECT id FROM usuarios WHERE email = '${email}' AND contraseña = '${contraseña}'`;
+        const result = await pool.query(query);
+        res.json(result.rows[0]);
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error del servidor" });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
+  console.log('Serving frontend from:', frontendPath);
 });
