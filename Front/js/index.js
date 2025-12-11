@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const botonSi = document.getElementById("botonSi");
+    const botonNo = document.getElementById("botonNo");
+    
+    botonSi.addEventListener("click", function(){
+        aceptar_persona(idPersonaActual)
+    })
+    botonNo.addEventListener("click", function(){
+        aceptar_persona(idPersonaActual)
+    });
+})
+
 async function aceptar_persona(){
 
     const nombre = document.getElementById("nombre");

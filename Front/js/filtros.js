@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const botonBuscador = document.getElementById("botonBuscador");
     
     const botonMusicos = document.getElementById('botonMostrarFiltrosMusicos');
     const botonBandas = document.getElementById('botonMostrarFiltrosBandas');
@@ -8,9 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtroMusicos = document.getElementById('filtroMusicos');
     const filtroBandas = document.getElementById('filtroBandas');
     const filtroSalas = document.getElementById('filtroSalas');
-
-    const botonSi = document.getElementById("botonSi");
-    const botonNo = document.getElementById("botonNo");
 
     function ocultarTodo() {
             filtroMusicos.classList.add('hidden');
@@ -43,16 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ocultarTodo(); 
         filtroSalas.classList.remove('hidden'); 
     });
-
-    botonBuscador.addEventListener("click", mostrarBuscador);
-    let idPersonaActual = parseInt(document.getElementById("idPersona").value);
-
-    botonSi.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
-    })
-    botonNo.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
-    });
 })
 
 async function aplicar_filtros_musicos(event){
@@ -70,11 +56,14 @@ async function aplicar_filtros_musicos(event){
         });
         const data = await response.json();
         console.log("Results:", data);
+        
+        localStorage.setItem("musicos_filtrados", JSON.stringify(data));
     }
     catch (error){
         console.log(error);
     }
     event.target.reset();
+    window.location.href = "index.html";
 }
 
 async function aplicar_filtros_bandas(event){
@@ -96,6 +85,7 @@ async function aplicar_filtros_bandas(event){
         console.log(error);
     }
     event.target.reset();
+    window.location.href = "bandas.html";
 }
 
 async function aplicar_filtros_espacios(event){
@@ -120,4 +110,44 @@ async function aplicar_filtros_espacios(event){
         console.log(error);
     }
     event.target.reset();
+    window.location.href = "perfil_espacio.html";
 }
+
+function mostrarCartaMusico(musico) {
+    document.getElementById("idPersona").value = musico.id;
+    document.getElementById("nombre").textContent = musico.nombre;
+
+    document.getElementById("instrumento").textContent =
+        musico.instrumentos || "Sin datos";
+
+    document.getElementById("generos").textContent =
+        musico.generos_favoritos || "Sin datos";
+
+    document.getElementById("bio").textContent =
+        musico.biografia || "Sin biografía";
+
+    document.getElementById("redsocial").textContent =
+        musico.redsocial || "No disponible";
+
+    if (musico.foto) {
+        document.getElementById("foto").src = musico.foto;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const resultado = localStorage.getItem("musicos_filtrados");
+
+    if (resultado) {
+        const musicos = JSON.parse(resultado);
+
+        if (musicos.length === 0) {
+            mostrarMensajeSinResultados();
+            return;
+        }
+
+        mostrarCartaMusico(musicos[0]);  // Mostrar el primero
+        localStorage.removeItem("musicos_filtrados");
+    }
+});
+
