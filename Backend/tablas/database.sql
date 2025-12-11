@@ -2,7 +2,7 @@ CREATE TABLE espacios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(120) NOT NULL,
     ubicacion VARCHAR(150) NOT NULL,
-    linkFotoEspacio VARCHAR(250),
+    linkFotoEspacio VARCHAR(5000),
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
     tamaño VARCHAR(20),
