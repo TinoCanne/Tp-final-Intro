@@ -11,8 +11,8 @@
     background-color: rgb(151, 120, 40);
     cursor: pointer;
     font-family: inherit;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 .botonFiltro:hover {
@@ -26,8 +26,8 @@
     width: 100px;
     color:black;
     background-color: rgb(255, 255, 255);
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 .hidden {
