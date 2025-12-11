@@ -82,6 +82,10 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
+function mostrarImagenPorDefecto() {
+    document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+}
+
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
     if (id) {
@@ -113,7 +117,8 @@ async function cargarDatosPerfil(){
         const contactoUsuario = document.getElementById('contacto');
         contactoUsuario.textContent = datos.contacto;
 
-        const urlImagenUsuario = document.getElementById('linkfoto')
+        const urlImagenUsuario = document.getElementById('linkFotoUsuario');
+        urlImagenUsuario.src = datos.linkFotoUsuario;
 
         cargarGenerosUsuario(id);
         cargarInstrumentos(id);
@@ -123,6 +128,8 @@ async function cargarDatosPerfil(){
         console.error("Error:", error);
     }    
 }
+
+
 
 async function cargarGenerosBanda(id_banda){
     try{
