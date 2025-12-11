@@ -195,7 +195,7 @@ app.get("/filtro_espacios", async (req, res) => {
 app.get("/contactos_usuarios/:id_usuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} LIMIT 10`;
+        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} DESC LIMIT 10`;
         const response = await pool.query(Q);
         res.json(response.rows);
     }
@@ -209,7 +209,7 @@ app.get("/contactos_usuarios/:id_usuario", async function(req, res){
 app.get("/contactos_bandas/:id_usuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${idUsuario} LIMIT 10`;
+        let Q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${idUsuario} DESC LIMIT 10`;
         const response = await pool.query(Q);
         res.json({error: "DB error"});
     }
@@ -219,10 +219,10 @@ app.get("/contactos_bandas/:id_usuario", async function(req, res){
     }
 })
 
-app.get("/contactos_espacios/:id:usuario", async function(req, res){
+app.get("/contactos_espacios/:idusuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_espacios WHERE id_usuario = ${idUsuario} LIMIT 10`;
+        let Q = `SELECT * FROM contactos_espacios WHERE id_usuario = ${idUsuario} LIMIT 10 desc`;
         const response = await pool.query(Q);
         res.json({error: "DB error"});
     }
