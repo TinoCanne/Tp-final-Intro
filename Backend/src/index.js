@@ -225,10 +225,12 @@ app.get("/contactos_bandas/:id_usuario", async function(req, res){
 
 app.get("/contactos_espacios/:id_usuario", async function(req, res){
     try{
-        const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_espacios WHERE id_usuario = ${idUsuario} LIMIT 10 desc`;
-        const response = await pool.query(Q);
-        res.json({error: "DB error"});
+        let QueryBandas = `
+            SELECT espacios.* FROM espacios 
+            INNER JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio
+            WHERE contactos_espacios.id_usuario = ${req.params.id_usuario}`;
+        const response = await pool.query(QueryBandas);
+        res.json(response.rows);
     }
     catch(error){
         console.error(error)
