@@ -238,6 +238,12 @@ app.get("/contactos_espacios/:id_usuario", async function(req, res){
     }
 })
 
+app.post("/agregar_contacto_usuario", async function (req, res){
+    q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_propia}, ${req.body.id_contacto});`;
+    console.log(req.body)
+    res.send(res.json());
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);

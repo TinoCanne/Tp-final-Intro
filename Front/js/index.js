@@ -123,9 +123,22 @@ async function aplicar_filtros_espacios(event){
     event.target.reset();
 }
 
+async function agregar_a_contactos(idPropio, idContacto){
+    url = `http://localhost:3000/`
+    const subida = await fetch(url, {
+        method:"POST", 
+        headers: {"Content-Type": "application/json"}, 
+        body: {
+            id_propia:idPropio,
+            id_contacto:idContacto
+        }
+    })
+}
+
 async function aceptar_persona(){
 
     const nombre = document.getElementById("nombre");
+    const id_propio = document.getElementById("idPropia")
     const bio = document.getElementById("bio");
     const tags = document.getElementById("tags");
     const foto = document.getElementById("foto");
@@ -162,6 +175,8 @@ async function aceptar_persona(){
             nuevo_Tag.innerHTML = genero.genero;
             tags.appendChild(nuevo_Tag);
         });
+
+        agregar_a_contactos(id_propio, id_persona_actual)
 
         idPersona.value = id_persona_actual + 1;
 
