@@ -74,7 +74,7 @@ async function crear_usuario(event){
                 generos: generos.value
             })
         });
-        window.location.href = "inciar_sesion.html";
+        window.location.href = "iniciar_sesion.html";
     }
     catch (error){
         console.log(error);
