@@ -195,7 +195,7 @@ app.get("/filtro_espacios", async (req, res) => {
 app.get("/contactos/:id_usuario", async function(req, res){
     try{
         const idUsuario = req.params.id_usuario;
-        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario}`
+        let Q = `SELECT * FROM contactos_usuarios WHERE id_usuario = ${idUsuario} LIMIT 10`
         const response = await pool.query(Q);
         res.json(response.rows);
     }
