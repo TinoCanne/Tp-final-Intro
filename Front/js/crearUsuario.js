@@ -74,6 +74,7 @@ async function crear_usuario(event){
                 contacto: contacto.value
             })
         });
+        window.location.href = "inciar_sesion.html";
     }
     catch (error){
         console.log(error);

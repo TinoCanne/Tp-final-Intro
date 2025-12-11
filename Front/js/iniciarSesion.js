@@ -37,7 +37,7 @@ async function obtenerId(event) {
                 console.log("Login exitoso. ID guardado:", id);
                 localStorage.setItem('usuarioId', id);
                 
-                window.location.href = "perfil.html";
+                window.location.href = "index.html";
             }
             catch(error){
                 console.log(error);
