@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
 
-    idUsuario.value = localStorage.getItem()
+    idUsuario.value = localStorage.getItem('usuarioId')
 
     function ocultarTodo() {
             filtroMusicos.classList.add('hidden');
