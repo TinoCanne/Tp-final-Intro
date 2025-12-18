@@ -53,3 +53,65 @@ async function aceptar_persona(){
         console.log(error);
     }
 }
+
+function mostrarCartaMusico(musico) {
+    document.getElementById("idPersona").value = musico.id;
+    document.getElementById("nombre").textContent = musico.nombre;
+    document.getElementById("instrumento").textContent = musico.instrumentos || "Sin datos";
+    document.getElementById("generos").textContent = musico.generos_favoritos || "Sin datos";
+    document.getElementById("bio").textContent = musico.biografia || "Sin biografía";
+    document.getElementById("redsocial").textContent = musico.redsocial || "No disponible";
+
+    if (musico.linkfotoperfil) {
+        document.getElementById("foto").src = musico.linkfotoperfil;
+    }
+    
+    cargarInstrumentos(musico.id);
+    cargarGenerosUsuario(musico.id);
+}
+
+async function cargarInstrumentos(id_usuario) {
+    try {
+        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const datos = await response.json();
+
+        let instrumentos = "";
+        datos.forEach(i => {
+            instrumentos += i.instrumento + " ";
+        });
+
+        document.getElementById("instrumento").textContent =
+            instrumentos || "Sin datos";
+    } catch (error) {
+        console.error("Error cargando instrumentos:", error);
+    }
+}
+
+async function cargarGenerosUsuario(id_usuario) {
+    try {
+        const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+        const datos = await response.json();
+
+        let generos = "";
+        datos.forEach(g => {
+            generos += g.genero + " ";
+        });
+
+        document.getElementById("generos").textContent =
+            generos || "Sin datos";
+    } catch (error) {
+        console.error("Error cargando géneros:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const lista = localStorage.getItem("musicos_filtrados");
+
+    if (!lista) return;
+
+    const musicos = JSON.parse(lista);
+
+    if (musicos.length > 0) {
+        mostrarCartaMusico(musicos[0]);
+    }
+});
