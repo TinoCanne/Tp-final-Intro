@@ -1,17 +1,42 @@
 import express from "express";
 import cors from "cors";
-import { pool } from "./db.js";
-import path from "path";
-import { fileURLToPath } from 'url';
+import pkg from 'pg'; // 1. Import the pg library
+const { Pool } = pkg; // 2. Extract the Pool class
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const app = express();
+
 app.use(express.json());
 app.use(cors());
+
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-const frontendPath = path.join(__dirname, '../../Front');
-app.use(express.static(frontendPath));
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
+});
+
+// 1. Simple Web Test
+app.get('/', (req, res) => {
+  res.send('✅ Express is running!');
+});
+
+// 2. Database Connection Test
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()'); // Simple query to check connection
+    res.json({ 
+      status: 'success', 
+      message: 'Database Connected!', 
+      time: result.rows[0].now 
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ 
+      status: 'error', 
+      message: 'Database connection failed', 
+      error: err.message 
+    });
+  }
+});
 
 // Mostrar todos los usuarios
 app.get("/usuarios", async (req, res) => {
@@ -398,5 +423,4 @@ app.post("/login", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
-  console.log('Serving frontend from:', frontendPath);
 });
