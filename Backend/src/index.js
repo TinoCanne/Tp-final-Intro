@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import pkg from 'pg'; // 1. Import the pg library
-const { Pool } = pkg; // 2. Extract the Pool class
+import pkg from 'pg'; 
+const { Pool } = pkg; 
 
 const app = express();
 
@@ -12,30 +12,6 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
-});
-
-// 1. Simple Web Test
-app.get('/', (req, res) => {
-  res.send('✅ Express is running!');
-});
-
-// 2. Database Connection Test
-app.get('/test-db', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()'); // Simple query to check connection
-    res.json({ 
-      status: 'success', 
-      message: 'Database Connected!', 
-      time: result.rows[0].now 
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ 
-      status: 'error', 
-      message: 'Database connection failed', 
-      error: err.message 
-    });
-  }
 });
 
 // Mostrar todos los usuarios
