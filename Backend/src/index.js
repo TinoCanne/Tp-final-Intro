@@ -1,17 +1,18 @@
 import express from "express";
 import cors from "cors";
-import { pool } from "./db.js";
-import path from "path";
-import { fileURLToPath } from 'url';
+import pkg from 'pg'; 
+const { Pool } = pkg; 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const app = express();
+
 app.use(express.json());
 app.use(cors());
+
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-const frontendPath = path.join(__dirname, '../../Front');
-app.use(express.static(frontendPath));
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
+});
 
 // Mostrar todos los usuarios
 app.get("/usuarios", async (req, res) => {
@@ -398,5 +399,4 @@ app.post("/login", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
-  console.log('Serving frontend from:', frontendPath);
 });
