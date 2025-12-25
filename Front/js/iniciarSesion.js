@@ -36,7 +36,7 @@ async function login(event) {
                     const id = data.id;
                     localStorage.setItem('usuarioId', id);
                     
-                    window.location.href = "index.html";
+                    window.location.href = "../index.html";
                 }
                 else{
                     event.target.reset();
