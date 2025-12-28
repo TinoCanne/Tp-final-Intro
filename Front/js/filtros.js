@@ -63,7 +63,7 @@ async function aplicar_filtros_musicos(event){
         console.log(error);
     }
     event.target.reset();
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 }
 
 async function aplicar_filtros_bandas(event){

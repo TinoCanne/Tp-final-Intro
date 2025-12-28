@@ -11,6 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })
 
+document.addEventListener("DOMContentLoaded", () => {
+    const id_usuario = localStorage.getItem('usuarioId');
+    if (!id_usuario){
+        window.location.href = "/html/iniciar_sesion.html";
+    }
+})
+
 async function aceptar_persona(){
 
     const nombre = document.getElementById("nombre");
