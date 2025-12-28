@@ -11,15 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })
 
-function verificar_sesion_inicada(){
+document.addEventListener("DOMContentLoaded", () => {
     const id_usuario = localStorage.getItem('usuarioId');
     if (!id_usuario){
         window.location.href = "/html/iniciar_sesion.html";
     }
-    console.log("WORKS!");
-}
-
-document.addEventListener('DOMContentLoaded', verificar_sesion_inicada);
+})
 
 async function aceptar_persona(){
 
