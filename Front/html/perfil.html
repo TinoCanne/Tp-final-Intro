@@ -51,7 +51,7 @@
             
             <button id="botonDeEdicionPerfil">Editar perfil</button>
        	</div>
-    <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
+        <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
                 <h2>Crea tu banda Jameet!</h2>
                 <br>
@@ -81,30 +81,49 @@
                     <br><br><br><button id="botonUnirseBanda">Unete a una banda!</button>        
                 </form>
             </div>
-    </div>
-	<div id="infoBanda" class="hiddenBanda">
+        </div>
+	    <div id="infoBanda" class="hiddenBanda">
     	
-	    <h2>Mi Banda</h2>
+            <h2>Mi Banda</h2>
 
-	    <form class="info">
-		<label><strong>Nombre:</strong></label>
-		    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
-    	<label><strong>Genero/s:</strong></label>
-    		<span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
-		<label><strong>Descripción:</strong></label>
-		    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-	    <label><strong>Integrantes:</strong></label>
-            <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
-    	<label><strong>Fecha de creación:</strong></label>
-            <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
-	    <label><strong>Redes:</strong></label>
-            <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+            <form class="info">
+            <label><strong>Nombre:</strong></label>
+                <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
+            <label><strong>Genero/s:</strong></label>
+                <span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
+            <label><strong>Descripción:</strong></label>
+                <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
+            <label><strong>Integrantes:</strong></label>
+                <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
+            <label><strong>Fecha de creación:</strong></label>
+                <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
+            <label><strong>Redes:</strong></label>
+                <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
 
-	    </form>
+            </form>
 
-	    <button id="botonDeEdicionBanda">Editar banda</button>
+            <button id="botonDeEdicionBanda">Editar banda</button>
 
-	</div>
+	    </div>
+    <div class="crearEspacio">
+        <h2>Publica tu espacio Jameet!</h2>
+
+        <form class="crearEspacioForm" onsubmit=crearEspacio(event)>
+            <label><strong>Nombre del espacio:</strong>
+                <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
+            <label><strong>Ubicacion:</strong>
+                <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
+            <label><strong>Descripcion: </strong>
+                <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
+            <label><strong>Contacto:</strong>
+                <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
+            <label><strong>Tamaño del espacio:</strong>
+                <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
+            <label><strong>Precio por hora:</strong>
+                <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
+            <button id="botonCrearBanda">Publica tu espacio!</button> 
+        </form>
+    </div>
 
     </body>
     

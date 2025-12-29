@@ -391,3 +391,36 @@ async function crearBanda(event){
     }
     event.target.reset();
 }
+
+async function crearEspacio(event){
+    event.preventDefault();
+    const nombreEspacio = document.getElementById('nombreCrearEspacio').value;
+    const ubicacionEspacio = document.getElementById('ubicacionCrearEspacio').value;
+    const descripcionEspacio = document.getElementById('descripcionCrearEspacio').value;
+    const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
+    const tamañoEspacio = document.getElementById('tamañoCrearEspacio').value;
+    const precioEspacio = document.getElementById('precioPorHoraCrearEspacio').value;
+
+    try {
+        const response = await fetch("http://localhost:3000/espacios", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreEspacio,
+                ubicacion: ubicacionEspacio,
+                descripcion: descripcionEspacio,
+                contacto: contactoEspacio,
+                tamaño: tamañoEspacio,
+                precio: precioEspacio
+            })
+        });
+
+        const datos = await response.json();
+        console.log(datos);
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
+}

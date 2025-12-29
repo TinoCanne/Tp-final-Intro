@@ -396,6 +396,18 @@ app.post("/login", async (req, res) => {
     }
 });
 
+app.post("/espacios", async (req, res) => {
+    try{
+        const query = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES (${req.body.nombre}, ${req.body.ubicacion}, ${req.body.descripcion}, ${req.body.contacto}, ${req.body.tamaño}, ${req.body.precio})`
+        await pool.query(query);
+        res.json({ message: "Espacio creado" });  
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" });
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
