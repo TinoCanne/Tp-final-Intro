@@ -400,12 +400,15 @@ app.post("/espacios", async (req, res) => {
     try{
         const precio = parseInt(req.body.precio);
         const idUsuario = parseInt(req.body.idUsuario);
-        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora, idUsuarioPropietario) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
-        await pool.query(query_espacio);
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}) RETURNING id`;
+        const res_espacio = await pool.query(query_espacio);
+        const id_espacio = res_espacio.rows[0].id;
+        
+        const query_actualizar_id_espacio = `UPDATE usuarios SET id_espacio = ${id_espacio} WHERE id = ${idUsuario}`;
+        await pool.query(query_actualizar_id_espacio);
         res.json({ message: "Espacio creado" });  
     }
-    catch (err) {
-        console.error("EL ERROR EXACTO ES:", err.message); 
+    catch (error) {
         res.status(500).json({ error: "No se pudo crear el espacio" });
     }
 });

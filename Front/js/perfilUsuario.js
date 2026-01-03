@@ -426,3 +426,52 @@ async function crearEspacio(event){
     }
     event.target.reset();
 }
+
+async function cargarDatosEspacio(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const responseIdEspacios = await fetch(`http://localhost:3000/usuarios/${idUsuario}`);
+    const data = await responseIdEspacios.json();
+    const id = data.id_espacio;
+    const divEspacio = document.getElementById('infoEspacio');
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    console.log("ACA");
+    if (id) {
+        console.log("El espacio es el " + id);
+
+        try{
+            const response = await fetch(`http://localhost:3000/espacios/${id}`);
+            const datos = await response.json();
+            console.log(datos);
+
+            const nombreEspacio = document.getElementById('nombreEspacio');
+            nombreEspacio.textContent = datos.nombre;
+
+            const ubicacionEspacio = document.getElementById('ubicacionEspacio');
+            ubicacionEspacio.textContent = datos.ubicacion;
+
+            const descripcionEspacio = document.getElementById('descripcionEspacio');
+            descripcionEspacio.textContent = datos.descripcion;
+            
+            const contactoEspacio = document.getElementById('contactoEspacio');
+            contactoEspacio.textContent = datos.contacto;
+
+            const tamañoEspacio = document.getElementById('tamañoEspacio');
+            tamañoEspacio.textContent = datos.tamaño;
+
+            const precioEspacio = document.getElementById('precioEspacio');
+            const precio = String(datos.precioporhora);
+            precioEspacio.textContent = precio;   
+
+    
+            divEspacio.classList.remove("hiddenEspacio");
+            divCrearEspacio.classList.add("hiddenEspacio");
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }    
+    }
+    else{
+        divEspacio.classList.add("hiddenEspacio");
+        divCrearEspacio.classList.remove("hiddenEspacio");
+    }
+}
