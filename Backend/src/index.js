@@ -375,7 +375,7 @@ app.post("/crear_banda", async (req, res) => {
         console.error(err);
         res.status(500).json({ error: "DB error" });
     }
-})
+});
 
 app.post("/login", async (req, res) => {
     try {
@@ -398,15 +398,17 @@ app.post("/login", async (req, res) => {
 
 app.post("/espacios", async (req, res) => {
     try{
-        const query = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES (${req.body.nombre}, ${req.body.ubicacion}, ${req.body.descripcion}, ${req.body.contacto}, ${req.body.tamaño}, ${req.body.precio})`
-        await pool.query(query);
+        const precio = parseInt(req.body.precio);
+        const idUsuario = parseInt(req.body.idUsuario);
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora, idUsuarioPropietario) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
+        await pool.query(query_espacio);
         res.json({ message: "Espacio creado" });  
     }
-    catch (err){
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
+    catch (err) {
+        console.error("EL ERROR EXACTO ES:", err.message); 
+        res.status(500).json({ error: "No se pudo crear el espacio" });
     }
-})
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

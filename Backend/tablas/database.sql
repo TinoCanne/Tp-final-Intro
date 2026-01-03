@@ -1,14 +1,3 @@
-CREATE TABLE espacios (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(120) NOT NULL,
-    ubicacion VARCHAR(150) NOT NULL,
-    linkFotoEspacio VARCHAR(5000),
-    descripcion VARCHAR(150),
-    contacto VARCHAR(100),
-    tamaño VARCHAR(20),
-    precioPorHora INT
-);
-
 CREATE TABLE bandas (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) UNIQUE NOT NULL,
@@ -31,6 +20,19 @@ CREATE TABLE usuarios (
     contacto VARCHAR(30),
     id_banda INT,
     FOREIGN KEY (id_banda) REFERENCES bandas(id)
+);
+
+CREATE TABLE espacios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(120) NOT NULL,
+    ubicacion VARCHAR(150) NOT NULL,
+    linkFotoEspacio VARCHAR(5000),
+    descripcion VARCHAR(150),
+    contacto VARCHAR(100),
+    tamaño VARCHAR(20),
+    precioPorHora INT,
+    idUsuarioPropietario INT,
+    FOREIGN KEY (idUsuarioPropietario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE generos_usuarios (

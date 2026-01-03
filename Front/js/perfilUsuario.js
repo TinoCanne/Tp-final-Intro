@@ -400,6 +400,7 @@ async function crearEspacio(event){
     const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
     const tamañoEspacio = document.getElementById('tamañoCrearEspacio').value;
     const precioEspacio = document.getElementById('precioPorHoraCrearEspacio').value;
+    const idUsuario = localStorage.getItem('usuarioId');
 
     try {
         const response = await fetch("http://localhost:3000/espacios", {
@@ -413,7 +414,8 @@ async function crearEspacio(event){
                 descripcion: descripcionEspacio,
                 contacto: contactoEspacio,
                 tamaño: tamañoEspacio,
-                precio: precioEspacio
+                precio: precioEspacio,
+                idUsuario: idUsuario
             })
         });
 
