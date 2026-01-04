@@ -208,14 +208,9 @@ function mostrarImagenPorDefecto() {
 
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
-    if (id) {
-        console.log("El usuario es el " + id);
-    }
     try{
         const response = await fetch(`http://localhost:3000/usuarios/${id}`);
         const datos = await response.json();
-        console.log(datos);
-        console.log("el link es: " + datos.linkfotoperfil);
 
         const nombreUsuario = document.getElementById('nombre');
         nombreUsuario.textContent = datos.nombre;
@@ -295,12 +290,9 @@ async function cargarDatosBanda(){
     const divBanda = document.getElementById('infoBanda');
     const divBandaOpciones = document.getElementById('opcionesBanda');
     if (id) {
-        console.log("La banda es la " + id);
-
         try{
             const response = await fetch(`http://localhost:3000/bandas/${id}`);
             const datos = await response.json();
-            console.log(datos);
 
             const nombreBanda = document.getElementById('nombreBanda');
             nombreBanda.textContent = datos.nombre;
@@ -352,7 +344,6 @@ async function unirseBanda(event) {
         });
 
         const datos = await response.json();
-        console.log(datos);
     } catch (error) {
         console.error("Error de red:", error);
     }
@@ -368,6 +359,9 @@ async function crearBanda(event){
     const descripcion = document.getElementById('descripcionCrearBanda').value;
     const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
 
+    const fechaCompleta = new Date();
+    const fechaCreacion = String(fechaCompleta.getDate()) + '/' + String(fechaCompleta.getMonth() +1) + '/' + String(fechaCompleta.getFullYear());
+
     try {
         const response = await fetch("http://localhost:3000/crear_banda", {
             method: 'POST',
@@ -376,6 +370,7 @@ async function crearBanda(event){
             },
             body: JSON.stringify({
                 nombre: nombreBanda,
+                fecha: fechaCreacion,
                 contraseña: contraseñaBanda,
                 descripcion: descripcion,
                 redSocial: redSocial,
@@ -385,7 +380,6 @@ async function crearBanda(event){
         });
 
         const datos = await response.json();
-        console.log(datos);
     } catch (error) {
         console.error("Error de red:", error);
     }
@@ -420,7 +414,6 @@ async function crearEspacio(event){
         });
 
         const datos = await response.json();
-        console.log(datos);
     } catch (error) {
         console.error("Error de red:", error);
     }
@@ -434,14 +427,10 @@ async function cargarDatosEspacio(){
     const id = data.id_espacio;
     const divEspacio = document.getElementById('infoEspacio');
     const divCrearEspacio = document.getElementById('crearEspacio');
-    console.log("ACA");
     if (id) {
-        console.log("El espacio es el " + id);
-
         try{
             const response = await fetch(`http://localhost:3000/espacios/${id}`);
             const datos = await response.json();
-            console.log(datos);
 
             const nombreEspacio = document.getElementById('nombreEspacio');
             nombreEspacio.textContent = datos.nombre;
@@ -475,3 +464,4 @@ async function cargarDatosEspacio(){
         divCrearEspacio.classList.remove("hiddenEspacio");
     }
 }
+

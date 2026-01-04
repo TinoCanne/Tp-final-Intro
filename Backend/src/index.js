@@ -345,8 +345,8 @@ app.post("/unirse_banda", async (req, res) => {
 
 app.post("/crear_banda", async (req, res) => {
     try {
-        const query_banda = `INSERT INTO bandas (nombre, descripcion, redSocial, contraseñaParaIngresar)
-        VALUES ('${req.body.nombre}', '${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
+        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
+        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
         await pool.query(query_banda);
 
         const query_id_banda = `SELECT id from bandas where nombre = '${req.body.nombre}'`;
