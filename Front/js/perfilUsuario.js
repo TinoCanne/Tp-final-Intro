@@ -15,9 +15,9 @@ async function perfil_usuario(event){
         const linkfoto = document.getElementById('linkFotoUsuario').src;
         const id = localStorage.getItem('usuarioId');
 
-        const url = "http://localhost:3000/perfil_usuario";
+        const url = "http://localhost:3000/usuarios";
         const response = await fetch(url, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -108,7 +108,8 @@ async function banda_usuario(event){
         const nombreBanda = document.getElementById('nombreBanda');
         const genersoBanda = document.getElementById('generosBanda');
         const descripcionBanda = document.getElementById('descripcionBanda');
-        const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
+        const fechaCompleta = new Date();
+        const fechaCreacionBanda = String(fechaCompleta.getDate()) + '/' + String(fechaCompleta.getMonth() +1) + '/' + String(fechaCompleta.getFullYear());
         const redesBanda = document.getElementById('redesBanda');
         const idUsuario = localStorage.getItem('usuarioId');
         
@@ -116,9 +117,9 @@ async function banda_usuario(event){
         const data = await responseIdBandas.json();
         const idBanda = data.id_banda;
 
-        const url = "http://localhost:3000/banda_usuario";
+        const url = "http://localhost:3000/bandas";
         const response = await fetch(url, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
