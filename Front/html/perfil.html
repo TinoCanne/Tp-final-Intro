@@ -10,8 +10,6 @@
     </head>
     
     <body>
-        <script>cargarDatosPerfil()</script>
-	<script>cargarDatosBanda()</script>
         <nav>
             <a href="../index.html">
                 <img src="../Jameet.png" alt="logo" class="logo">
@@ -29,29 +27,29 @@
         
             <h2>Informacion</h2>
             <form class="info">
-	    	<label><strong>Nombre:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
-    		<label><strong>Apellido:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
-	    	<label><strong>Nombre de usuario:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
-	    	<label><strong>Redes sociales:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
-		    <label><strong>Email:</strong>
-			    <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
-    		<label><strong>Instrumentos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
-	    	<label><strong>Generos favoritos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
-	        <label><strong>Bio:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
-		    <label><strong>Contacto:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
+                <label><strong>Nombre:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
+                <label><strong>Apellido:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
+                <label><strong>Nombre de usuario:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
+                <label><strong>Redes sociales:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
+                <label><strong>Email:</strong>
+                    <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
+                <label><strong>Instrumentos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
+                <label><strong>Generos favoritos:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
+                <label><strong>Bio:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
+                <label><strong>Contacto:</strong>
+                    <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
             </form>
             
             <button id="botonDeEdicionPerfil">Editar perfil</button>
        	</div>
-    <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
+        <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
                 <h2>Crea tu banda Jameet!</h2>
                 <br>
@@ -81,31 +79,74 @@
                     <br><br><br><button id="botonUnirseBanda">Unete a una banda!</button>        
                 </form>
             </div>
-    </div>
-	<div id="infoBanda" class="hiddenBanda">
+        </div>
+	    <div id="infoBanda" class="hiddenBanda">
     	
-	    <h2>Mi Banda</h2>
+            <h2>Mi Banda</h2>
 
-	    <form class="info">
-		<label><strong>Nombre:</strong></label>
-		    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
-    	<label><strong>Genero/s:</strong></label>
-    		<span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
-		<label><strong>Descripción:</strong></label>
-		    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-	    <label><strong>Integrantes:</strong></label>
-            <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
-    	<label><strong>Fecha de creación:</strong></label>
-            <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
-	    <label><strong>Redes:</strong></label>
-            <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+            <form class="info">
+            <label><strong>Nombre:</strong></label>
+                <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
+            <label><strong>Genero/s:</strong></label>
+                <span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
+            <label><strong>Descripción:</strong></label>
+                <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
+            <label><strong>Integrantes:</strong></label>
+                <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
+            <label><strong>Fecha de creación:</strong></label>
+                <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
+            <label><strong>Redes:</strong></label>
+                <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
 
-	    </form>
+            </form>
 
-	    <button id="botonDeEdicionBanda">Editar banda</button>
+            <button id="botonDeEdicionBanda">Editar banda</button>
 
-	</div>
+	    </div>
+        <div id="crearEspacio" class="hiddenEspacio">
+            <h2>Publica tu espacio Jameet!</h2>
 
+            <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
+                <label><strong>Nombre del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
+                <label><strong>Ubicacion:</strong>
+                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
+                <label><strong>Descripcion: </strong>
+                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
+                <label><strong>Contacto:</strong>
+                    <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
+                <label><strong>Tamaño del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
+                <label><strong>Precio por hora:</strong>
+                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
+                <button id="botonCrearBanda">Publica tu espacio!</button> 
+            </form>
+        </div>
+        <div id="infoEspacio" class="hiddenEspacio">
+    	
+            <h2>Mi espacio</h2>
+
+            <form class="info">
+                <label><strong>Nombre:</strong></label>
+                    <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false">AAAA</span></label><br>
+                <label><strong>Ubicacion:</strong></label>
+                    <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio">Rock, Blues</span></label><br>
+                <label><strong>Descripción:</strong></label>
+                    <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
+                <label><strong>Contacto:</strong></label>
+                    <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false">Juan Pedro Manuel</span></label><br>
+                <label><strong>Tamaño:</strong></label>
+                    <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false">Chica</span></label><br>
+                <label><strong>Precio por hora:</strong></label>
+                    <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false">@losbandidos</span></label><br>
+            </form>
+
+	    </div>
+        <script>
+            cargarDatosPerfil()
+	        cargarDatosBanda()
+            cargarDatosEspacio()
+        </script>
     </body>
     
 </html>

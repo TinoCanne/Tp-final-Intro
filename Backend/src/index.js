@@ -345,8 +345,8 @@ app.post("/unirse_banda", async (req, res) => {
 
 app.post("/crear_banda", async (req, res) => {
     try {
-        const query_banda = `INSERT INTO bandas (nombre, descripcion, redSocial, contraseñaParaIngresar)
-        VALUES ('${req.body.nombre}', '${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
+        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
+        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
         await pool.query(query_banda);
 
         const query_id_banda = `SELECT id from bandas where nombre = '${req.body.nombre}'`;
@@ -375,7 +375,7 @@ app.post("/crear_banda", async (req, res) => {
         console.error(err);
         res.status(500).json({ error: "DB error" });
     }
-})
+});
 
 app.post("/login", async (req, res) => {
     try {
@@ -393,6 +393,23 @@ app.post("/login", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "DB error del servidor" });
+    }
+});
+
+app.post("/espacios", async (req, res) => {
+    try{
+        const precio = parseInt(req.body.precio);
+        const idUsuario = parseInt(req.body.idUsuario);
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}) RETURNING id`;
+        const res_espacio = await pool.query(query_espacio);
+        const id_espacio = res_espacio.rows[0].id;
+        
+        const query_actualizar_id_espacio = `UPDATE usuarios SET id_espacio = ${id_espacio} WHERE id = ${idUsuario}`;
+        await pool.query(query_actualizar_id_espacio);
+        res.json({ message: "Espacio creado" });  
+    }
+    catch (error) {
+        res.status(500).json({ error: "No se pudo crear el espacio" });
     }
 });
 

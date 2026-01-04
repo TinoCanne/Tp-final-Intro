@@ -105,3 +105,7 @@
     display: relative;
     left: 100px;
 }
+
+.hiddenEspacio {
+    display: none;
+}

@@ -208,14 +208,9 @@ function mostrarImagenPorDefecto() {
 
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
-    if (id) {
-        console.log("El usuario es el " + id);
-    }
     try{
         const response = await fetch(`http://localhost:3000/usuarios/${id}`);
         const datos = await response.json();
-        console.log(datos);
-        console.log("el link es: " + datos.linkfotoperfil);
 
         const nombreUsuario = document.getElementById('nombre');
         nombreUsuario.textContent = datos.nombre;
@@ -295,12 +290,9 @@ async function cargarDatosBanda(){
     const divBanda = document.getElementById('infoBanda');
     const divBandaOpciones = document.getElementById('opcionesBanda');
     if (id) {
-        console.log("La banda es la " + id);
-
         try{
             const response = await fetch(`http://localhost:3000/bandas/${id}`);
             const datos = await response.json();
-            console.log(datos);
 
             const nombreBanda = document.getElementById('nombreBanda');
             nombreBanda.textContent = datos.nombre;
@@ -352,7 +344,6 @@ async function unirseBanda(event) {
         });
 
         const datos = await response.json();
-        console.log(datos);
     } catch (error) {
         console.error("Error de red:", error);
     }
@@ -368,6 +359,9 @@ async function crearBanda(event){
     const descripcion = document.getElementById('descripcionCrearBanda').value;
     const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
 
+    const fechaCompleta = new Date();
+    const fechaCreacion = String(fechaCompleta.getDate()) + '/' + String(fechaCompleta.getMonth() +1) + '/' + String(fechaCompleta.getFullYear());
+
     try {
         const response = await fetch("http://localhost:3000/crear_banda", {
             method: 'POST',
@@ -376,6 +370,7 @@ async function crearBanda(event){
             },
             body: JSON.stringify({
                 nombre: nombreBanda,
+                fecha: fechaCreacion,
                 contraseña: contraseñaBanda,
                 descripcion: descripcion,
                 redSocial: redSocial,
@@ -385,9 +380,88 @@ async function crearBanda(event){
         });
 
         const datos = await response.json();
-        console.log(datos);
     } catch (error) {
         console.error("Error de red:", error);
     }
     event.target.reset();
 }
+
+async function crearEspacio(event){
+    event.preventDefault();
+    const nombreEspacio = document.getElementById('nombreCrearEspacio').value;
+    const ubicacionEspacio = document.getElementById('ubicacionCrearEspacio').value;
+    const descripcionEspacio = document.getElementById('descripcionCrearEspacio').value;
+    const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
+    const tamañoEspacio = document.getElementById('tamañoCrearEspacio').value;
+    const precioEspacio = document.getElementById('precioPorHoraCrearEspacio').value;
+    const idUsuario = localStorage.getItem('usuarioId');
+
+    try {
+        const response = await fetch("http://localhost:3000/espacios", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: nombreEspacio,
+                ubicacion: ubicacionEspacio,
+                descripcion: descripcionEspacio,
+                contacto: contactoEspacio,
+                tamaño: tamañoEspacio,
+                precio: precioEspacio,
+                idUsuario: idUsuario
+            })
+        });
+
+        const datos = await response.json();
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+    event.target.reset();
+}
+
+async function cargarDatosEspacio(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const responseIdEspacios = await fetch(`http://localhost:3000/usuarios/${idUsuario}`);
+    const data = await responseIdEspacios.json();
+    const id = data.id_espacio;
+    const divEspacio = document.getElementById('infoEspacio');
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    if (id) {
+        try{
+            const response = await fetch(`http://localhost:3000/espacios/${id}`);
+            const datos = await response.json();
+
+            const nombreEspacio = document.getElementById('nombreEspacio');
+            nombreEspacio.textContent = datos.nombre;
+
+            const ubicacionEspacio = document.getElementById('ubicacionEspacio');
+            ubicacionEspacio.textContent = datos.ubicacion;
+
+            const descripcionEspacio = document.getElementById('descripcionEspacio');
+            descripcionEspacio.textContent = datos.descripcion;
+            
+            const contactoEspacio = document.getElementById('contactoEspacio');
+            contactoEspacio.textContent = datos.contacto;
+
+            const tamañoEspacio = document.getElementById('tamañoEspacio');
+            tamañoEspacio.textContent = datos.tamaño;
+
+            const precioEspacio = document.getElementById('precioEspacio');
+            const precio = String(datos.precioporhora);
+            precioEspacio.textContent = precio;   
+
+    
+            divEspacio.classList.remove("hiddenEspacio");
+            divCrearEspacio.classList.add("hiddenEspacio");
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }    
+    }
+    else{
+        divEspacio.classList.add("hiddenEspacio");
+        divCrearEspacio.classList.remove("hiddenEspacio");
+    }
+}
+
