@@ -572,6 +572,19 @@ app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
     }
 })
 
+app.get("/pedir_bandas/:id_usuario", async(req, res) => {
+    const q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${req.params.id_usuario}`;
+
+    try{
+        const response = await pool.query(q);
+        res.json(response.rows);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
