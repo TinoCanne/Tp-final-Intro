@@ -1,7 +1,7 @@
 CREATE TABLE bandas (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) UNIQUE NOT NULL,
-    fechaCreacion VARCHAR(15),
+    fechaCreacion DATE,
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
     contraseñaParaIngresar VARCHAR(50)

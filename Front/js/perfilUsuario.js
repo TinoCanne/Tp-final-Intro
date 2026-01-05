@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 })
 
-async function banda_usuario(event){
+async function editar_banda_usuario(event){
     event.preventDefault();
 
     try{
@@ -109,7 +109,7 @@ async function banda_usuario(event){
         const genersoBanda = document.getElementById('generosBanda');
         const descripcionBanda = document.getElementById('descripcionBanda');
         const fechaCompleta = new Date();
-        const fechaCreacionBanda = String(fechaCompleta.getDate()) + '/' + String(fechaCompleta.getMonth() +1) + '/' + String(fechaCompleta.getFullYear());
+        const fechaCreacionBanda = String(fechaCompleta.getFullYear() + '-' + String(fechaCompleta.getMonth() +1) + '-' + String(fechaCompleta.getDate()));
         const redesBanda = document.getElementById('redesBanda');
         const idUsuario = localStorage.getItem('usuarioId');
         
@@ -160,7 +160,7 @@ function editorBanda(){
             }
             else{
                 boton.textContent = "Editar banda"
-                banda_usuario(event);
+                editar_banda_usuario(event);
             }
         }
     })
@@ -267,10 +267,10 @@ async function cargarGenerosBanda(id_banda){
 
 async function cargarIntegrantesBanda(id_banda){
     try{
-        const response = await fetch(`http://localhost:3000/username_integrantes_bandas/${id_banda}`);
-        const username_integrantes = await response.json();
+        const response = await fetch(`http://localhost:3000/integrantes_bandas/${id_banda}`);
+        const integrantes = await response.json();
         let string_username_integrantes = '';
-        username_integrantes.forEach(integrante => {
+        integrantes.forEach(integrante => {
             string_username_integrantes += ` ${integrante.username},`;
         })
         let string_username_integrantes_limpia = string_username_integrantes.slice(0, -1);
@@ -361,7 +361,7 @@ async function crearBanda(event){
     const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
 
     const fechaCompleta = new Date();
-    const fechaCreacion = String(fechaCompleta.getDate()) + '/' + String(fechaCompleta.getMonth() +1) + '/' + String(fechaCompleta.getFullYear());
+    const fechaCreacion = String(fechaCompleta.getFullYear() + '-' + String(fechaCompleta.getMonth() +1) + '-' + String(fechaCompleta.getDate()));
 
     try {
         const response = await fetch("http://localhost:3000/crear_banda", {

@@ -14,7 +14,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
 });
 
-// Mostrar todos los usuarios
+// Devolver todos los usuarios
 app.get("/usuarios", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM usuarios");
@@ -25,7 +25,7 @@ app.get("/usuarios", async (req, res) => {
     }
 });
 
-// Mostrar un usuario por id
+// Devolver un usuario por id
 app.get("/usuarios/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM usuarios where id = ${req.params.id}`);
@@ -69,7 +69,7 @@ app.post("/usuarios", async (req, res) => {
     }
 })
 
-// Actualizar la informacion de un usuario
+// Editar la informacion de un usuario
 app.patch("/usuarios", async(req, res) =>{
     try {
         const userId = req.body.id;
@@ -109,7 +109,55 @@ app.patch("/usuarios", async(req, res) =>{
     }
 })
 
-// Mostrar todas las bandas
+// Devolver todos los generos de los usuarios
+app.get("/generos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+// Devolver todos los generos de un usuario por id
+app.get("/generos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+// Devolver todos los instrumentos de los usuarios
+app.get("/instrumentos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+// Devolver todos los instrumentos de un usuario por id
+app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+// Devolver todas las bandas
 app.get("/bandas", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM bandas");
@@ -120,7 +168,7 @@ app.get("/bandas", async (req, res) => {
     }
 });
 
-// Mostrar una banda por id
+// Devolver una banda por id
 app.get("/bandas/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
@@ -223,7 +271,7 @@ app.post("/unirse_banda", async (req, res) => {
     }
 });
 
-// Mostrar todos los espacios
+// Devolver todos los espacios
 app.get("/espacios", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM espacios");
@@ -234,7 +282,7 @@ app.get("/espacios", async (req, res) => {
     }
 });
 
-// Mostrar un espacio por id
+// Devolver un espacio por id
 app.get("/espacios/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.id}`);
@@ -329,9 +377,9 @@ app.get("/generos_bandas", async (req, res) => {
     }
 });
 
-app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
+app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     try{
-        const result = await pool.query(`select usuarios.username from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
+        const result = await pool.query(`select * from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
         res.json(result.rows);
     }
     catch(err){
