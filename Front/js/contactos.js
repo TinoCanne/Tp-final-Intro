@@ -1,16 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(){
     const boton_usuarios = document.getElementById("botonUsuarios");
     const boton_bandas = document.getElementById("botonBandas");
-    const boton_espacios = document.getElementById("botonEspacios");
     const id_usuario = localStorage.getItem('usuarioId')
     boton_usuarios.onclick = function(){
         mostrar_contactos_usuarios(1);
     }
     boton_bandas.onclick=function(){
         testBoton(2);
-    }
-    boton_espacios.onclick=function(){
-        testBoton(3);
     }
 })
 
