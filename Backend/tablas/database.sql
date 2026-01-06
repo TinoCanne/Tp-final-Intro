@@ -84,3 +84,13 @@ CREATE TABLE contactos_espacios (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_contacto_espacio) REFERENCES espacios(id)
 );
+
+CREATE TABLE reservas_usuario (
+    id_usuario INT,
+    id_espacio INT,
+    fecha_reserva DATE,
+    hora_reserva TIME,
+    PRIMARY KEY (id_usuario, id_espacio),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_espacio) REFERENCES espacios(id)
+)
