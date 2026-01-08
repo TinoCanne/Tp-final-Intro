@@ -117,7 +117,7 @@ app.get("/generos_usuarios", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
     }
 });
 
@@ -129,7 +129,7 @@ app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios/id_usuario" });
     }
 });
 
@@ -141,7 +141,7 @@ app.get("/instrumentos_usuarios", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios" });
     }
 });
 
@@ -153,7 +153,7 @@ app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios/id_usuario" });
     }
 });
 
@@ -210,7 +210,7 @@ app.post("/bandas", async (req, res) => {
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo POST: bandas" });
     }
 });
 
@@ -239,7 +239,7 @@ app.patch("/bandas", async(req, res) =>{
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo PATCH: bandas" });
     }
 
 
@@ -263,11 +263,13 @@ app.post("/unirse_banda", async (req, res) => {
 
         const queryUpdate = `UPDATE usuarios SET id_banda = ${idBanda} WHERE id = ${idUsuario}`;
         await pool.query(queryUpdate);
+
+        const queryIntegranteNuevo = `INSERT INTO integrantes_bandas (id_banda, id_integrante) VALUES (${idBanda}, ${idUsuario})`
         res.json("EXITO");
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo POST: unirse_banda" });
     }
 });
 
@@ -307,10 +309,11 @@ app.post("/espacios", async (req, res) => {
         res.json({ message: "Espacio creado" });  
     }
     catch (error) {
-        res.status(500).json({ error: "No se pudo crear el espacio" });
+        res.status(500).json({ error: "DB error en el metodo POST: espacios" });
     }
 });
 
+// Devolver todos los generos de un usuario
 app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
@@ -318,10 +321,11 @@ app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios/id_usuario" });
     }
 });
 
+// Devolver todos los generos de todos los usuarios
 app.get("/generos_usuarios", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM generos_usuarios`);
@@ -329,10 +333,11 @@ app.get("/generos_usuarios", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
     }
 });
 
+// Devolver todos los instrumentos de un usuario
 app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
@@ -340,10 +345,11 @@ app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios/id_usuario" });
     }
 });
 
+// Devolver todos los intrumentos de todos los usuarios
 app.get("/instrumentos_usuarios", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM instrumentos`);
@@ -351,10 +357,11 @@ app.get("/instrumentos_usuarios", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios" });
     }
 });
 
+// Devolver todos los generos de una banda
 app.get("/generos_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
@@ -362,10 +369,11 @@ app.get("/generos_bandas/:id_banda", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas/id_banda"});
     }
 });
 
+// Devolver todos los generos de todas las bandas
 app.get("/generos_bandas", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas`);
@@ -373,10 +381,11 @@ app.get("/generos_bandas", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas"});
     }
 });
 
+//Devolver todos los integrantes de una banda
 app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`select * from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
@@ -384,7 +393,7 @@ app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo GET: integrantes_bandas/id_banda" });
     }
 });
 
@@ -445,6 +454,7 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 });
 
+// Devuelve el ID correspodiente en caso de coincidir el email y contraseña
 app.post("/login", async (req, res) => {
     try {
         const email = req.body.email;
@@ -460,7 +470,7 @@ app.post("/login", async (req, res) => {
         
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error del servidor" });
+        res.status(500).json({ error: "DB error en el metodo POST: login" });
     }
 });
 
