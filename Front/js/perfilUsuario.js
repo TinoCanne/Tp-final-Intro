@@ -1,5 +1,5 @@
 
-async function perfil_usuario(event){
+async function editar_perfil_usuario(event){
     event.preventDefault();
 
     try{
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else{
             boton.textContent = "Editar perfil"
-            perfil_usuario(event);
+            editar_perfil_usuario(event);
         }
     }
 })

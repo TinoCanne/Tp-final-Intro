@@ -235,17 +235,8 @@ app.patch("/bandas", async(req, res) =>{
         res.json({ message: "Banda editada con exito."});
     }
     catch (err){
-        // PRINT THE REAL ERROR
-        console.error("--------------- ERROR DEBUG ---------------");
-        console.error("Message:", err.message);
-        console.error("Detail:", err.detail); // Postgres often puts the clue here
-        console.error("Table/Column:", err.table, err.column);
-        console.error("-------------------------------------------");
-        
-        res.status(500).json({ 
-            error: "DB Error", 
-            details: err.message // Send this to frontend to see it in Network tab
-        });
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo PATCH: bandas" });
     }
 });
 
@@ -396,6 +387,7 @@ app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     }
 });
 
+// Devuelve el id_banda correspondiente al id_usuario
 app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
     try{
         const query_obtener_id_banda = `SELECT id_banda FROM integrantes_bandas WHERE id_integrante = ${req.params.id_usuario}`;
@@ -408,6 +400,7 @@ app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
     }
 });
 
+// Devuelve el id_espacio correspondiente al id_usuario
 app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
     try{
         const query_obtener_id_espacio = `SELECT id FROM espacios WHERE id_dueño = ${req.params.id_usuario}`;
