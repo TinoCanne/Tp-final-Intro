@@ -105,16 +105,15 @@ async function editar_banda_usuario(event){
     event.preventDefault();
 
     try{
-        const nombreBanda = document.getElementById('nombreBanda');
-        const genersoBanda = document.getElementById('generosBanda');
+        const generosBanda = document.getElementById('generosBanda');
         const descripcionBanda = document.getElementById('descripcionBanda');
-        const fechaCompleta = new Date();
-        const fechaCreacionBanda = String(fechaCompleta.getFullYear() + '-' + String(fechaCompleta.getMonth() +1) + '-' + String(fechaCompleta.getDate()));
         const redesBanda = document.getElementById('redesBanda');
         const idUsuario = localStorage.getItem('usuarioId');
         
-        const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
+        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`)
         const data = await responseIdBandas.json();
+
+    
         const idBanda = data.id_banda;
 
         const url = "http://localhost:3000/bandas";
@@ -124,11 +123,9 @@ async function editar_banda_usuario(event){
                 "Content-Type": "application/json",
             },
             body:JSON.stringify({
-                nombre: nombreBanda.textContent,
-                fechaCreacion: fechaCreacionBanda.textContent,
                 descripcion: descripcionBanda.textContent,
                 redes: redesBanda.textContent,
-                generos: genersoBanda.textContent,
+                generos: generosBanda.textContent,
                 idUsuario: idUsuario,
                 idBanda: idBanda
             })
@@ -285,7 +282,7 @@ async function cargarIntegrantesBanda(id_banda){
 
 async function cargarDatosBanda(){
     const idUsuario = localStorage.getItem('usuarioId');
-    const responseIdBandas = await fetch(`http://localhost:3000/usuarios/${idUsuario}`)
+    const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`)
     const data = await responseIdBandas.json();
     const id = data.id_banda;
     const divBanda = document.getElementById('infoBanda');
@@ -423,9 +420,9 @@ async function crearEspacio(event){
 
 async function cargarDatosEspacio(){
     const idUsuario = localStorage.getItem('usuarioId');
-    const responseIdEspacios = await fetch(`http://localhost:3000/usuarios/${idUsuario}`);
-    const data = await responseIdEspacios.json();
-    const id = data.id_espacio;
+    const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+    const datos = await responseIdEspacios.json();
+    const id = datos.id;
     const divEspacio = document.getElementById('infoEspacio');
     const divCrearEspacio = document.getElementById('crearEspacio');
     if (id) {

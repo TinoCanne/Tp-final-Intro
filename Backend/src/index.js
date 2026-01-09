@@ -203,9 +203,6 @@ app.post("/bandas", async (req, res) => {
         let query_integrante = `INSERT INTO integrantes_bandas (id_banda, id_integrante) values (${id_banda}, ${req.body.idUsuario})`;
         await pool.query(query_integrante);
 
-        let query_actualizar_id_bandas = `UPDATE usuarios SET id_banda = ${id_banda} WHERE id = ${req.body.idUsuario}`;
-        await pool.query(query_actualizar_id_bandas);
-
         res.json({ message: "Banda creada" });
     }
     catch (err){
@@ -217,9 +214,9 @@ app.post("/bandas", async (req, res) => {
 // Editar la informacion de una banda
 app.patch("/bandas", async(req, res) =>{
     try{
-        const bandaId = req.body.idBanda;
+        const bandaId = parseInt(req.body.idBanda);
     
-        const query_banda = `UPDATE bandas SET nombre = '${req.body.nombre}', fechaCreacion = '${req.body.fechaCreacion}', descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
+        const query_banda = `UPDATE bandas SET descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
         WHERE id = ${bandaId}`;
         await pool.query(query_banda);
 
@@ -238,11 +235,18 @@ app.patch("/bandas", async(req, res) =>{
         res.json({ message: "Banda editada con exito."});
     }
     catch (err){
-        console.error(err);
-        res.status(500).json({ error: "DB error en el metodo PATCH: bandas" });
+        // PRINT THE REAL ERROR
+        console.error("--------------- ERROR DEBUG ---------------");
+        console.error("Message:", err.message);
+        console.error("Detail:", err.detail); // Postgres often puts the clue here
+        console.error("Table/Column:", err.table, err.column);
+        console.error("-------------------------------------------");
+        
+        res.status(500).json({ 
+            error: "DB Error", 
+            details: err.message // Send this to frontend to see it in Network tab
+        });
     }
-
-
 });
 
 // Unirse a un banda
@@ -261,10 +265,8 @@ app.post("/unirse_banda", async (req, res) => {
         }
         const idBanda = result.rows[0].id;
 
-        const queryUpdate = `UPDATE usuarios SET id_banda = ${idBanda} WHERE id = ${idUsuario}`;
-        await pool.query(queryUpdate);
-
-        const queryIntegranteNuevo = `INSERT INTO integrantes_bandas (id_banda, id_integrante) VALUES (${idBanda}, ${idUsuario})`
+        const queryIntegranteNuevo = `INSERT INTO integrantes_bandas (id_banda, id_integrante) VALUES (${idBanda}, ${idUsuario})`;
+        await pool.query(queryIntegranteNuevo);
         res.json("EXITO");
 
     } catch (err) {
@@ -300,12 +302,9 @@ app.post("/espacios", async (req, res) => {
     try{
         const precio = parseInt(req.body.precio);
         const idUsuario = parseInt(req.body.idUsuario);
-        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}) RETURNING id`;
-        const res_espacio = await pool.query(query_espacio);
-        const id_espacio = res_espacio.rows[0].id;
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora, id_dueño) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
+        await pool.query(query_espacio);
         
-        const query_actualizar_id_espacio = `UPDATE usuarios SET id_espacio = ${id_espacio} WHERE id = ${idUsuario}`;
-        await pool.query(query_actualizar_id_espacio);
         res.json({ message: "Espacio creado" });  
     }
     catch (error) {
@@ -394,6 +393,30 @@ app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     catch(err){
         console.error(err);
         res.status(500).json({ error: "DB error en el metodo GET: integrantes_bandas/id_banda" });
+    }
+});
+
+app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_banda = `SELECT id_banda FROM integrantes_bandas WHERE id_integrante = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_banda);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
+    }
+});
+
+app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_espacio = `SELECT id FROM espacios WHERE id_dueño = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_espacio);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_espacio/id_usuario" });
     }
 });
 
