@@ -10,21 +10,37 @@ async function armarCartaEstudio(){
                 "Content-Type":"application/json",
             }
         }
-    )
-    
-    
-        const estudios_json = await estudios.json();
-        estudios_json.forEach(estudio =>{      
+    )    
+        const estudiosJson = await estudios.json();
+        estudiosJson.forEach(estudio =>{      
             const carta = document.createElement("div");
             carta.className = "cartaEstudio";
         
-            const foto_estudio = document.createElement("img");
-            foto_estudio.src = estudio.linkFotoEspacio;
+            const fotoEstudio = document.createElement("img");
+            fotoEstudio.src = estudio.linkfotoespacio;
+            fotoEstudio.className = "fotoEstudio";
     
             const nombre = document.createElement("p");
             nombre.textContent = estudio.nombre;
-            carta.appendChild(foto_estudio);
+
+            const barrio = document.createElement("p");
+            barrio.textContent = estudio.ubicacion;
+
+            const precio = document.createElement("p");
+            precio.textContent = `$${estudio.precioporhora}/h`;
+
+            const botonReserva = document.createElement('button');
+            botonReserva.textContent = "Reservar";
+            botonReserva.className = "botonReservar";
+            botonReserva.id = "botonReservar";
+
+
+            carta.appendChild(fotoEstudio);
             carta.appendChild(nombre);
+            carta.appendChild(barrio);
+            carta.appendChild(precio);
+
+            carta.appendChild(botonReserva);
             container.appendChild(carta);
 
         })

@@ -4,6 +4,8 @@
 }
 
 .cartaEstudio {
+    display: flex;
+    flex-direction: column;
     position: relative;
     margin-top: 15px;
     margin-right: 15px;
@@ -15,8 +17,12 @@
     text-align: center;
 }
 
-.cartaEstudio img {
+.fotoEstudio{
+    width: 250px;
+    height: 250px;
     border-radius: 15px;
+    display:block;
+    overflow: hidden;
 }
 
 .imagenEnlace {
@@ -25,8 +31,6 @@
     border-radius: 20px;
 }
 
-.enlaces {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
+.botonReservar {
+    margin-top: auto;
 }
