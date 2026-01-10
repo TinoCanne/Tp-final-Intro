@@ -174,7 +174,7 @@ app.get("/bandas", async (req, res) => {
 app.get("/bandas/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
-        res.json(result.rows[0]);
+        res.json(result.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "DB error en el metodo GET: bandas/id" });
@@ -573,17 +573,24 @@ app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
 })
 
 app.get("/pedir_bandas/:id_usuario", async(req, res) => {
-    const q = `SELECT * FROM contactos_bandas WHERE id_usuario = ${req.params.id_usuario}`;
+    const q = `SELECT b.id_banda FROM integrantes_bandas b INNER JOIN usuarios u ON u.id = b.id_integrante WHERE U.ID = ${req.params.id_usuario}`;
 
     try{
         const response = await pool.query(q);
-        res.json(response.rows);
+        res.json(response.rows)
     }
     catch(err){
-        console.log(err);
+        console.log(err)
         res.status(500).json({ error : "DB error" });
     }
 })
+
+app.post("/aceptar_usuarios/", async (req, res)=>{
+    const q = `INSERT INTO contactos (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req_body.id_contacto_usuario});`
+    await pool.query(q);
+    res.send(200);
+})
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

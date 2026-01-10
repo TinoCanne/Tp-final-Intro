@@ -122,3 +122,18 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarCartaMusico(musicos[0]);
     }
 });
+
+async function aceptar_persona(id_persona, id_usuario){
+    const url = `http://localhost:3000/aceptar_usuarios`;
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+            id_usuario:id_usuario,
+            id_contacto_usuario:id_persona
+        })
+    })
+}
+
+async function rechazar_persona(id_persona){
+    
+}

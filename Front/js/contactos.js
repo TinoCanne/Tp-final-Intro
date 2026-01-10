@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
         mostrar_contactos_usuarios(1);
     }
     boton_bandas.onclick=function(){
-        testBoton(2);
+        mostrar_contactos_bandas(1);
     }
 })
 
@@ -49,6 +49,28 @@ async function armarCartaUsuario(id){
     }
 }
 
+async function aramrCartaBanda(id_banda){
+    const url = `http://localhost:3000/bandas/${id_banda}`;
+
+    try{
+        const data_banda = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type":"application/json",
+            },
+        })
+
+        const data_banda_json = await data_banda.json();
+
+        const marco = document.getElementById("marco_bandas");
+
+        console.log("funciona");
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 
 async function mostrar_contactos_usuarios(id_usuario){
     const url = `http://localhost:3000/pedir_contactos/${id_usuario}`
@@ -65,6 +87,25 @@ async function mostrar_contactos_usuarios(id_usuario){
         
 }
 
-function mostrar_contactos_bandas(id_usuario){
+async function mostrar_contactos_bandas(id_usuario){
+    const url = `http://localhost:3000/pedir_bandas/${id_usuario}`;
+    const usuarios = document.getElementById("marco_usuario");
+    usuarios.innerHTML = "";
 
+    try{
+            const data = await fetch(url, {
+            method:"GET",
+            headers: {
+                "Contnent-Type": "application/json",
+            },
+        });
+
+        const data_json = await data.json();
+        data_json.forEach(banda => {
+            aramrCartaBanda(banda.id_banda);          
+        });
+    }
+    catch(err){
+        console.log(err);
+    }
 }
