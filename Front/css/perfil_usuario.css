@@ -149,3 +149,18 @@
 .hiddenEspacio {
     display: none;
 }
+
+.inputDatosPerfil {
+    width: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.h2perfil {
+    padding-right: 60px;
+}

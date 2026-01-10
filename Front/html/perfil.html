@@ -55,7 +55,7 @@
 	</div>
         <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
-                <h2>Crea tu banda!</h2>
+                <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
@@ -73,14 +73,14 @@
             </div>
 
             <div class="unirseBanda">
-                <h2>Unete a una banda!</h2>
+                <h2 class="h2perfil">Unete a una banda!</h2>
                 <br>
                 <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
                     <label><strong>Ingrese el nombre de la banda:</strong>
                         <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
                     <label><strong>Ingrese la contraseña para unirse:</strong>
                         <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
-                    <br><br><br><button id="botonUnirseBanda">Unirse a la banda</button>        
+                    <button id="botonUnirseBanda">Unirse a la banda</button>        
                 </form>
             </div>
         </div>
@@ -89,18 +89,18 @@
             <h2>Mi Banda</h2>
 
             <form class="info">
-            <label><strong>Nombre:</strong></label>
-                <span id="nombreBanda" class="spanDatosBanda" contenteditable="false">Los Bandidos</span></label><br>
-            <label><strong>Genero/s:</strong></label>
-                <span class="spanDatosBanda" contenteditable="false" id="generosBanda">Rock, Blues</span></label><br>
-            <label><strong>Descripción:</strong></label>
-                <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-            <label><strong>Integrantes:</strong></label>
-                <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda">Juan Pedro Manuel</span></label><br>
-            <label><strong>Fecha de creación:</strong></label>
-                <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false">9/12/2018</span></label><br>
-            <label><strong>Redes:</strong></label>
-                <span id="redesBanda" class="spanDatosBanda" contenteditable="false">@losbandidos</span></label><br>
+            <label class="filaPerfil"><strong>Nombre:</strong></label>
+                <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+            <label class="filaPerfil"><strong>Genero/s:</strong></label>
+                <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
+            <label class="filaPerfil"><strong>Descripción:</strong></label>
+	    	<span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+            <label class="filaPerfil"><strong>Integrantes:</strong></label>
+                <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda"></span></label><br>
+            <label class="filaPerfil"><strong>Fecha de creación:</strong></label>
+                <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+            <label class="filaPerfil"><strong>Redes:</strong></label>
+                <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
 
             </form>
 
