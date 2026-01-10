@@ -17,33 +17,35 @@
         </nav>
     
         <div class="perfilContainer">
+
+	    <h1 class="h1Perfil">Mi perfil</h1>
+
+	    <div class="contenedorFotoPerfil">
         
-            <h1 class="h1Perfil">Datos del usuario</h1>
-        
-            <img class="fotoPerfilGrande" id="linkFotoUsuario" 
-                 src="https://cdn-icons-png.flaticon.com/256/847/847969.png"
-                 alt="Foto de perfil" onerror="mostrarImagenPorDefecto()"><br>
-            <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-        
-            <h2>Informacion</h2>
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" 
+                     src="https://cdn-icons-png.flaticon.com/256/847/847969.png"
+                     alt="Foto de perfil" onerror="mostrarImagenPorDefecto()"><br>
+                <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+	    </div>
+
             <form class="info">
-                <label><strong>Nombre:</strong>
+                <label class="filaPerfil"><strong>Nombre:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
-                <label><strong>Apellido:</strong>
+                <label class="filaPerfil"><strong>Apellido:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
-                <label><strong>Nombre de usuario:</strong>
+                <label class="filaPerfil"><strong>Nombre de usuario:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
-                <label><strong>Redes sociales:</strong>
+                <label class="filaPerfil"><strong>Redes sociales:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
-                <label><strong>Email:</strong>
+                <label class="filaPerfil"><strong>Email:</strong>
                     <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
-                <label><strong>Instrumentos:</strong>
+                <label class="filaPerfil"><strong>Instrumentos:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
-                <label><strong>Generos favoritos:</strong>
+                <label class="filaPerfil"><strong>Generos favoritos:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
-                <label><strong>Bio:</strong>
+                <label class="filaPerfil"><strong>Bio:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
-                <label><strong>Contacto:</strong>
+                <label class="filaPerfil"><strong>Contacto:</strong>
                     <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
             </form>
             
@@ -51,7 +53,7 @@
        	</div>
         <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
-                <h2>Crea tu banda Jameet!</h2>
+                <h2>Crea tu banda!</h2>
                 <br>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
@@ -64,19 +66,19 @@
                         <input class="inputDatosPerfil"  id="descripcionCrearBanda"></input></label><br>
                     <label><strong>Contraseña de la banda:</strong>
                         <input class="inputDatosPerfil"  id="contraseñaCrearBanda"></input></label><br>
-                    <button id="botonCrearBanda">Crea tu banda!</button>        
+                    <button id="botonCrearBanda">Crear banda</button>        
                 </form>
             </div>
 
             <div class="unirseBanda">
-                <h2>Unete a una banda Jameet!</h2>
+                <h2>Unete a una banda!</h2>
                 <br>
                 <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
                     <label><strong>Ingrese el nombre de la banda:</strong>
                         <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
                     <label><strong>Ingrese la contraseña para unirse:</strong>
                         <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
-                    <br><br><br><button id="botonUnirseBanda">Unete a una banda!</button>        
+                    <br><br><br><button id="botonUnirseBanda">Unirse a la banda</button>        
                 </form>
             </div>
         </div>
@@ -104,7 +106,7 @@
 
 	    </div>
         <div id="crearEspacio" class="hiddenEspacio">
-            <h2>Publica tu espacio Jameet!</h2>
+            <h2>Publica tu espacio!</h2>
 
             <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
                 <label><strong>Nombre del espacio:</strong>
@@ -119,7 +121,7 @@
                     <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
                 <label><strong>Precio por hora:</strong>
                     <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
-                <button id="botonCrearBanda">Publica tu espacio!</button> 
+                <button id="botonCrearBanda">Publicar espacio</button> 
             </form>
         </div>
         <div id="infoEspacio" class="hiddenEspacio">

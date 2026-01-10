@@ -13,6 +13,8 @@
 
 #botonDeEdicionPerfil:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonDeEdicionBanda {
@@ -30,6 +32,8 @@
 
 #botonDeEdicionBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonCrearBanda {
@@ -47,6 +51,8 @@
 
 #botonUnirseBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonUnirseBanda {
@@ -64,6 +70,8 @@
 
 #botonCrearBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 .opcionesBanda {
@@ -71,6 +79,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 50px;
+    font-size: 17px;
+    font-family: inherit;
 }
 
 .h1Perfil {
@@ -84,20 +94,51 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
+    padding-bottom: 10px;
     color: white;
     line-height: 1.7;
     font-size: 17px;
     font-family: inherit;
 }
 
+.filaPerfil {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.filaPerfil:last-child {
+    border-bottom: none;
+}
+
+.filaPerfil strong {
+    font-size: 17px;
+    opacity: 0.7;
+}
+
+.spanDatosPerfil {
+    font-size: 17px;
+    max-width: 220px;
+    text-align: right;
+}
+
 .hiddenBanda {
     display: none;
 }
 
+.contenedorFotoPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .fotoPerfilGrande {
     height: 200px;
     width: 200px;
     border-radius: 100px;
+    padding-top: 30px;
+    display: flex;
 }
 
 .inputNuevoLink {
