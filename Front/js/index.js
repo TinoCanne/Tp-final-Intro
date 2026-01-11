@@ -1,20 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
-    let idPersonaActual = parseInt(document.getElementById("idPersona").value);
+    let idPersonaActual = 1;
 
     botonSi.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
+        aceptar_persona(idPersonaActual);
+        idPersonaActual = idPersonaActual+1;
     })
     botonNo.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
+        rechazar_persona(idPersonaActual);
+        idPersonaActual=idPersonaActual+1;
     });
 })
 
 document.addEventListener("DOMContentLoaded", () => {
     const id_usuario = localStorage.getItem('usuarioId');
     if (!id_usuario){
-        window.location.href = "/html/iniciar_sesion.html";
+        window.location.href = "html/iniciar_sesion.html";
     }
 })
 
@@ -27,9 +29,25 @@ async function aceptar_persona(){
     const instrumento = document.getElementById("instrumento");
     const idPersona = document.getElementById("idPersona");
     const id_persona_actual = parseInt(idPersona.value);
-    const url = `http://localhost:3000/usuarios/${id_persona_actual+1}`;
+    idPersona.value = id_persona_actual;
+    const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
+    idPersona.value = toString(id_persona_actual);
 
-    idPersona.value = toString(id_persona_actual+1);
+    const url_agregar_contacto = `http://localhost:3000/aceptar_usuarios`
+    const agregar_a_contactos = await fetch(url_agregar_contacto, {
+        method:"POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            id_usuario:localStorage.getItem("usuarioId"),
+            id_contacto_usuario:id_persona_actual
+        })
+    })
+
+    console.log("exito");
+
+    console.log(id_persona_actual)
 
     try{
         const siguiente_usuario = await fetch(url, {
@@ -42,17 +60,6 @@ async function aceptar_persona(){
         nombre.innerHTML = usuario_json.nombre;
         bio.innerHTML = usuario_json.biografia;
         foto.src = usuario_json.foto
-
-        tags.replaceChildren();
-
-        let generos = usuario_json.generosfavoritos.split(",")
-        generos.forEach(genero => {
-            const nuevo_Tag = document.createElement("p");
-            nuevo_Tag.className = "cartaTag";
-            nuevo_Tag.innerHTML = genero;
-            tags.appendChild(nuevo_Tag);
-        });
-
         idPersona.value = id_persona_actual + 1;
 
     }
@@ -123,17 +130,65 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-async function aceptar_persona(id_persona, id_usuario){
-    const url = `http://localhost:3000/aceptar_usuarios`;
-    const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            id_usuario:id_usuario,
-            id_contacto_usuario:id_persona
-        })
-    })
+async function cargar_info_persona(id_persona){
+    const id_persona_actual = document.getElementById("idPersona").value;
+    const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
+    const data_usuario = await fetch(url, {
+        method:"GET",
+        headers:{
+            "Content-Type":"application/json",
+        }
+    });
+
+    data_usuario_json = await data_usuario.json();
+    reemplazar_data_carta(data_usuario_json);
+
+
+}
+
+function reemplazar_data_carta(data){
+    const carta = document.getElementById("carta");
+    const nombre = document.getElementById("nombre");
+    const instrumentos = document.getElementById("instrumento");
+    const generos = document.getElementById("generos");
+    const redes = document.getElementById("redsocial");
+    const bio = document.getElementById("bio");
+    const foto = document.getElementById("foto");
+
+    console.log(data);
 }
 
 async function rechazar_persona(id_persona){
-    
+    const nombre = document.getElementById("nombre");
+    const bio = document.getElementById("bio");
+    const generos = document.getElementById("generos");
+    const foto = document.getElementById("foto");
+    const instrumento = document.getElementById("instrumento");
+    const idPersona = document.getElementById("idPersona");
+    const id_persona_actual = parseInt(idPersona.value);
+    idPersona.value = id_persona_actual;
+    const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
+    idPersona.value = toString(id_persona_actual);
+
+     console.log("exito");
+
+    console.log(id_persona_actual)
+
+    try{
+        const siguiente_usuario = await fetch(url, {
+            method:"GET", headers: {"Content-Type": "application/json",}
+        });
+
+        const usuario_json = await siguiente_usuario.json();
+        console.log(usuario_json);
+
+        nombre.innerHTML = usuario_json.nombre;
+        bio.innerHTML = usuario_json.biografia;
+        foto.src = usuario_json.foto
+        idPersona.value = id_persona_actual + 1;
+
+    }
+    catch(error){
+        console.log(error);
+    }
 }

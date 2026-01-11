@@ -586,9 +586,9 @@ app.get("/pedir_bandas/:id_usuario", async(req, res) => {
 })
 
 app.post("/aceptar_usuarios/", async (req, res)=>{
-    const q = `INSERT INTO contactos (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req_body.id_contacto_usuario});`
+    const q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_usuario});`
     await pool.query(q);
-    res.send(200);
+    console.log("agregado exitoso");
 })
 
 

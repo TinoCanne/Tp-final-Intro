@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", function(){
     const boton_bandas = document.getElementById("botonBandas");
     const id_usuario = localStorage.getItem('usuarioId')
     boton_usuarios.onclick = function(){
-        mostrar_contactos_usuarios(1);
+        mostrar_contactos_usuarios(id_usuario);
     }
     boton_bandas.onclick=function(){
-        mostrar_contactos_bandas(1);
+        mostrar_contactos_bandas(id_usuario);
     }
 })
 
