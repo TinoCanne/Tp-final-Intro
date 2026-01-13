@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
-    let idPersonaActual = 1;
-
-    botonSi.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual);
-        idPersonaActual = idPersonaActual+1;
-    })
-    botonNo.addEventListener("click", function(){
-        rechazar_persona(idPersonaActual);
-        idPersonaActual=idPersonaActual+1;
-    });
+    armar_primer_carta();
+    // botonSi.addEventListener("click", function(){
+    //     const id_persona = parseInt(document.getElementById("idPersona").value);
+    //     aceptar_persona(id_persona);
+    // })
+    // botonNo.addEventListener("click", function(){
+    //     const id_persona = parseInt(document.getElementById("idPersona").value);
+    //     rechazar_persona(id_persona);
+    // });
 })
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 })
 
-async function aceptar_persona(){
+async function aceptar_persona(id_persona){
 
     const nombre = document.getElementById("nombre");
     const bio = document.getElementById("bio");
@@ -28,10 +27,9 @@ async function aceptar_persona(){
     const foto = document.getElementById("foto");
     const instrumento = document.getElementById("instrumento");
     const idPersona = document.getElementById("idPersona");
-    const id_persona_actual = parseInt(idPersona.value);
+    const id_persona_actual = parseInt(idPersona.value)+1;
     idPersona.value = id_persona_actual;
     const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
-    idPersona.value = toString(id_persona_actual);
 
     const url_agregar_contacto = `http://localhost:3000/aceptar_usuarios`
     const agregar_a_contactos = await fetch(url_agregar_contacto, {
@@ -41,7 +39,7 @@ async function aceptar_persona(){
         },
         body: JSON.stringify({
             id_usuario:localStorage.getItem("usuarioId"),
-            id_contacto_usuario:id_persona_actual
+            id_contacto_usuario:id_persona
         })
     })
 
@@ -60,8 +58,6 @@ async function aceptar_persona(){
         nombre.innerHTML = usuario_json.nombre;
         bio.innerHTML = usuario_json.biografia;
         foto.src = usuario_json.foto
-        idPersona.value = id_persona_actual + 1;
-
     }
     catch(error){
         console.log(error);
@@ -161,14 +157,12 @@ function reemplazar_data_carta(data){
 async function rechazar_persona(id_persona){
     const nombre = document.getElementById("nombre");
     const bio = document.getElementById("bio");
-    const generos = document.getElementById("generos");
     const foto = document.getElementById("foto");
-    const instrumento = document.getElementById("instrumento");
     const idPersona = document.getElementById("idPersona");
-    const id_persona_actual = parseInt(idPersona.value);
+    const id_persona_actual = parseInt(idPersona.value)+1;
     idPersona.value = id_persona_actual;
     const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
-    idPersona.value = toString(id_persona_actual);
+
 
      console.log("exito");
 
@@ -185,10 +179,33 @@ async function rechazar_persona(id_persona){
         nombre.innerHTML = usuario_json.nombre;
         bio.innerHTML = usuario_json.biografia;
         foto.src = usuario_json.foto
-        idPersona.value = id_persona_actual + 1;
 
     }
     catch(error){
         console.log(error);
     }
+}
+
+async function armar_primer_carta(){
+    const url = `http://localhost:3000/usuarios/1`;
+
+    const data_primer_usuario = await fetch(url, {
+        method: "GET",
+        headers:{
+            "Content-Type":"application:json"
+        }
+    })
+    const primer_usuario_json = await data_primer_usuario.json();
+    console.log(primer_usuario_json);
+
+    const nombre = document.getElementById("nombre");
+    const bio = document.getElementById("bio");
+    const foto = document.getElementById("foto");
+    const redes = document.getElementById("redsocial");
+
+    nombre.innerText = primer_usuario_json.nombre;
+    bio.innerText = primer_usuario_json.biografia;
+    foto.src = primer_usuario_json.linkFotoPerfil;
+    redes.innerText = primer_usuario_json.redSocial;
+
 }
