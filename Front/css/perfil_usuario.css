@@ -106,7 +106,6 @@
 
 .filaPerfil {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.15);
@@ -120,7 +119,15 @@
 .spanDatosPerfil {
     font-size: 17px;
     max-width: 220px;
-    text-align: right;
+}
+
+.modo-edicion .spanDatosPerfil {
+    cursor: pointer;
+}
+
+.modo-edicion .spanDatosPerfil:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 6px;
 }
 
 .hiddenBanda {

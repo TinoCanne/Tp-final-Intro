@@ -1,4 +1,3 @@
-
 async function perfil_usuario(event){
     event.preventDefault();
 
@@ -51,6 +50,7 @@ function prevenirSaltoDeLinea(event) {
 document.addEventListener("DOMContentLoaded", function () {
     const boton= document.getElementById("botonDeEdicionPerfil");
     const datos= document.querySelectorAll(".spanDatosPerfil");
+    const perfilContainer = document.getElementById("perfilContainer");
     const fotoPerfil= document.getElementById("linkFotoUsuario");
     const inputNuevoLink= document.getElementById("inputNuevoLink");
 
@@ -75,9 +75,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    boton.onclick= function(event){
+    boton.onclick = function(event){
+
+        const enEdicion = perfilContainer.classList.toggle("modo-edicion");
+
         datos.forEach(elemento => {
-            if (elemento.contentEditable === "true"){
+            if (enEdicion){
+                elemento.contentEditable = "true";
+                elemento.addEventListener('keydown', prevenirSaltoDeLinea);
+                fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
+            }
+            else{
                 elemento.contentEditable = "false";
                 elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
                 fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
@@ -85,21 +93,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputNuevoLink.type = "hidden";
                 }
             }
-            else{
-                elemento.contentEditable = "true";
-                elemento.addEventListener('keydown', prevenirSaltoDeLinea);
-                fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
-            }
-        })
-        if (boton.textContent === "Editar perfil"){
-            boton.textContent = "Guardar cambios";
-        }
-        else{
-            boton.textContent = "Editar perfil"
+        });
+
+        boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
+
+        if (!enEdicion){
             perfil_usuario(event);
         }
-    }
-})
+    };
+});
 
 async function banda_usuario(event){
     event.preventDefault();
