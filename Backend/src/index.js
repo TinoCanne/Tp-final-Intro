@@ -109,6 +109,21 @@ app.patch("/usuarios", async(req, res) =>{
     }
 })
 
+// Borrar la informacion completa de un usuario con su id.
+app.delete("/usuarios/:id", async (req, res) => {
+    try{
+        const query_eliminar_contactos_espacios = `
+        DELETE FROM usuarios WHERE id = ${req.params.id};
+        `;
+        await pool.query(query_eliminar_contactos_espacios);
+        res.status(200).send("Usuario eliminado");
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).send("DB error en el metodo DELETE: usuarios/id");
+    }
+});
+
 // Devolver todos los generos de los usuarios
 app.get("/generos_usuarios", async (req, res) => {
     try {

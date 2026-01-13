@@ -463,3 +463,29 @@ async function cargarDatosEspacio(){
     }
 }
 
+async function eliminarPerfil() {
+    const idUsuario = localStorage.getItem('usuarioId');
+    
+    if (!idUsuario) {
+        alert("ERROR: No hay ID en localStorage");
+        return;
+    }
+
+    try {
+        
+        const response = await fetch(`http://localhost:3000/usuarios/${idUsuario}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const textoError = await response.text();
+            throw new Error(textoError); 
+        }
+
+        localStorage.removeItem('usuarioId'); 
+        window.location.href = "/html/iniciar_sesion.html"; 
+
+    } catch (error) {
+        console.error(error);
+    }
+}
