@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonSi = document.getElementById("botonSi");
     const botonNo = document.getElementById("botonNo");
     armar_primer_carta();
-    // botonSi.addEventListener("click", function(){
-    //     const id_persona = parseInt(document.getElementById("idPersona").value);
-    //     aceptar_persona(id_persona);
-    // })
-    // botonNo.addEventListener("click", function(){
-    //     const id_persona = parseInt(document.getElementById("idPersona").value);
-    //     rechazar_persona(id_persona);
-    // });
+    botonSi.addEventListener("click", function(){
+        const id_persona = parseInt(document.getElementById("idPersona").value);
+        aceptar_persona(id_persona);
+    })
+    botonNo.addEventListener("click", function(){
+        const id_persona = parseInt(document.getElementById("idPersona").value);
+        rechazar_persona(id_persona);
+    });
 })
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,9 +27,9 @@ async function aceptar_persona(id_persona){
     const foto = document.getElementById("foto");
     const instrumento = document.getElementById("instrumento");
     const idPersona = document.getElementById("idPersona");
-    const id_persona_actual = parseInt(idPersona.value)+1;
-    idPersona.value = id_persona_actual;
-    const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
+    const id_persona_siguiente = parseInt(idPersona.value)+1;
+    idPersona.value = id_persona_siguiente;
+    const url = `http://localhost:3000/usuarios/${id_persona_siguiente}`;
 
     const url_agregar_contacto = `http://localhost:3000/aceptar_usuarios`
     const agregar_a_contactos = await fetch(url_agregar_contacto, {
@@ -202,10 +202,41 @@ async function armar_primer_carta(){
     const bio = document.getElementById("bio");
     const foto = document.getElementById("foto");
     const redes = document.getElementById("redsocial");
+    const id = document.getElementById("idPersona");
 
+    cargar_generos(parseInt(id.value));
+    
+    const id_persona_siguiente = parseInt(id.value)+1;
+    id.value = id_persona_siguiente;
     nombre.innerText = primer_usuario_json.nombre;
     bio.innerText = primer_usuario_json.biografia;
     foto.src = primer_usuario_json.linkFotoPerfil;
     redes.innerText = primer_usuario_json.redSocial;
 
+}
+
+async function cargar_generos(id_usuario){
+    const url = `http://localhost:3000/pedir_generos/${id_usuario}`;
+
+    try{
+        const generos_data = await fetch(url, {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+        const generos_json = await generos_data.json();
+
+        let generos_string = "";
+
+        generos_json.forEach(genero=> {
+            generos_string+=genero.genero+" ";
+        });
+
+        const generos = document.getElementById("generos");
+        generos.innerText = generos_string
+    }
+    catch(err){
+        console.log(err);
+    }
 }
