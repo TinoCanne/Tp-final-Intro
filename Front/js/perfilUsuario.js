@@ -420,63 +420,63 @@ async function crearEspacio(event){
 
 async function cargarDatosEspacio(){
     const idUsuario = localStorage.getItem('usuarioId');
-    const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
-    const datos = await responseIdEspacios.json();
-    const id = datos.id;
     const divEspacio = document.getElementById('infoEspacio');
     const divCrearEspacio = document.getElementById('crearEspacio');
-    if (id) {
-        try{
+
+    try {
+        const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+
+        if (!responseIdEspacios.ok) {
+            console.log("No tiene espacio (404), mostrando formulario.");
+            divEspacio.classList.add("hiddenEspacio");
+            divCrearEspacio.classList.remove("hiddenEspacio");
+            return; 
+        }
+        
+        const datosId = await responseIdEspacios.json(); 
+        const id = datosId.id;
+
+        if (id) {
             const response = await fetch(`http://localhost:3000/espacios/${id}`);
+        
+            if(!response.ok) throw new Error("Error al cargar detalles");
+
             const datos = await response.json();
 
-            const nombreEspacio = document.getElementById('nombreEspacio');
-            nombreEspacio.textContent = datos.nombre;
-
-            const ubicacionEspacio = document.getElementById('ubicacionEspacio');
-            ubicacionEspacio.textContent = datos.ubicacion;
-
-            const descripcionEspacio = document.getElementById('descripcionEspacio');
-            descripcionEspacio.textContent = datos.descripcion;
+            document.getElementById('nombreEspacio').textContent = datos.nombre;
+            document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
+            document.getElementById('descripcionEspacio').textContent = datos.descripcion;
+            document.getElementById('contactoEspacio').textContent = datos.contacto;
+            document.getElementById('tamañoEspacio').textContent = datos.tamaño;
             
-            const contactoEspacio = document.getElementById('contactoEspacio');
-            contactoEspacio.textContent = datos.contacto;
-
-            const tamañoEspacio = document.getElementById('tamañoEspacio');
-            tamañoEspacio.textContent = datos.tamaño;
-
-            const precioEspacio = document.getElementById('precioEspacio');
-            const precio = String(datos.precioporhora);
-            precioEspacio.textContent = precio;   
-
+            const precio = String(datos.precioporhora || 0);
+            document.getElementById('precioEspacio').textContent = precio;   
     
             divEspacio.classList.remove("hiddenEspacio");
             divCrearEspacio.classList.add("hiddenEspacio");
         }
-        catch (error) {
-            console.error("Error:", error);
-        }    
-    }
-    else{
+        else {
+            divEspacio.classList.add("hiddenEspacio");
+            divCrearEspacio.classList.remove("hiddenEspacio");
+        }
+
+    } catch (error) {
+        console.error("Error de red o servidor:", error);
         divEspacio.classList.add("hiddenEspacio");
         divCrearEspacio.classList.remove("hiddenEspacio");
-    }
+    }    
 }
 
 async function eliminarPerfil() {
     const idUsuario = localStorage.getItem('usuarioId');
-    
     if (!idUsuario) {
         alert("ERROR: No hay ID en localStorage");
         return;
     }
-
     try {
-        
         const response = await fetch(`http://localhost:3000/usuarios/${idUsuario}`, {
             method: 'DELETE'
         });
-
         if (!response.ok) {
             const textoError = await response.text();
             throw new Error(textoError); 
@@ -486,6 +486,40 @@ async function eliminarPerfil() {
         window.location.href = "/html/iniciar_sesion.html"; 
 
     } catch (error) {
+        console.error(error);
+    }
+};
+
+async function dejarBanda() {
+    try{
+        const idUsuario = localStorage.getItem('usuarioId');
+        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
+        const data_banda = await responseIdBandas.json();
+        const idBanda = data_banda.id_banda;
+        const responseCantidadIntegrantes = await fetch(`http://localhost:3000/obtener_cantidad_personas_banda/${idBanda}`);
+        const dataCantidadIntegrantes = await responseCantidadIntegrantes.json();
+        const cantidadIntegrantes = dataCantidadIntegrantes.count;
+        if (parseInt(cantidadIntegrantes) > 1){
+            const response = await fetch(`http://localhost:3000/dejar_banda/${idUsuario}/${idBanda}`, {
+                method: 'DELETE'
+            }); 
+            if (!response.ok) {
+                const textoError = await response.text();
+                throw new Error(textoError); 
+            }
+        }
+        else if (parseInt(cantidadIntegrantes) == 1){
+            const response = await fetch(`http://localhost:3000/bandas/${idBanda}`, {
+                method: 'DELETE'
+            }); 
+            if (!response.ok) {
+                const textoError = await response.text();
+                throw new Error(textoError); 
+            }
+        }
+    
+    }
+    catch(error){
         console.error(error);
     }
 }
