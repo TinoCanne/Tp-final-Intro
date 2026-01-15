@@ -403,6 +403,19 @@ app.post("/espacios", async (req, res) => {
     }
 });
 
+app.delete("/espacios/:idEspacio", async (req, res) => {
+    try{
+        const idEspacioINT = parseInt(req.params.idEspacio);
+        const queryEliminarEspacio = `DELETE FROM espacios WHERE id = ${idEspacioINT}`;
+        await pool.query(queryEliminarEspacio);
+        res.status(200).send("Espacio eliminado!");
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send("DB error en el metodo DELETE: espacios/idEspacio");
+    }
+})
+
 // Devuelve el id_espacio correspondiente al id_usuario
 app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
     try{

@@ -523,3 +523,18 @@ async function dejarBanda() {
         console.error(error);
     }
 }
+
+async function eliminarEspacio(){
+    try{
+        const idUsuario = localStorage.getItem('usuarioId');
+        const dataEspacio = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+        const Espacio = await dataEspacio.json();
+        const idEspacio = Espacio.id;
+        const response = await fetch(`http://localhost:3000/espacios/${idEspacio}` , {
+            method: 'DELETE'
+        });
+    }
+    catch(error){
+        console.error(error);
+    }
+}
