@@ -52,6 +52,7 @@
 	    <div class="contenedorBotonEdicionPerfil">
             	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button>
 	    </div>
+      <button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
 	</div>
         <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
@@ -111,7 +112,8 @@
 	    <div class="contenedorBotonEdicionBanda">
 	    	<button id="botonDeEdicionBanda">Editar banda</button>
 	    </div>
-	    
+	    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
+
 	    </div>
         <div id="crearEspacio" class="hiddenEspacio">
             <h2>Publica tu espacio!</h2>
@@ -152,6 +154,7 @@
                 <label><strong>Precio por hora:</strong></label>
                     <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false">@losbandidos</span></label><br>
             </form>
+            <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
 
 	    </div>
         <script>

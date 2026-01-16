@@ -54,7 +54,7 @@ async function crear_usuario(event){
         const instrumentos = document.getElementById('instrumentos');
         const generos = document.getElementById('generosfavoritos')
 
-        const url = "http://localhost:3000/crear_usuario";
+        const url = "http://localhost:3000/usuarios";
         const response = await fetch(url, {
             method: "POST",
             headers: {

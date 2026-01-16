@@ -14,81 +14,36 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
 });
 
-// Mostrar todos los usuarios
+// Devolver todos los usuarios
 app.get("/usuarios", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM usuarios");
         res.json(result.rows);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo GET: usuarios" });
     }
 });
 
-// Mostrar un usuario por id
+// Devolver un usuario por id
 app.get("/usuarios/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM usuarios where id = ${req.params.id}`);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo GET: usuarios/id" });
     }
 });
 
-// Mostrar todas las bandas
-app.get("/bandas", async (req, res) => {
-    try {
-        const result = await pool.query("SELECT * FROM bandas");
-        res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-// Mostrar una banda por id
-app.get("/bandas/:id", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
-        res.json(result.rows[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-// Mostrar todos los espacios
-app.get("/espacios", async (req, res) => {
-    try {
-        const result = await pool.query("SELECT * FROM espacios");
-        res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-// Mostrar un espacio por id
-app.get("/espacios/:id", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.id}`);
-        res.json(result.rows[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-app.post("/crear_usuario", async (req, res) => {
+// Crear un usuario 
+app.post("/usuarios", async (req, res) => {
     try {
         const query_usuario = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, biografia, redSocial, linkFotoPerfil, contacto)
-        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redesSociales}', '${req.body.linkFoto}', '${req.body.contacto}')`;
-        await pool.query(query_usuario);
+        VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redesSociales}', '${req.body.linkFoto}', '${req.body.contacto}') RETURNING id`;
+        result_usuario = await pool.query(query_usuario);
 
-        const query_id = `SELECT id from usuarios where email = '${req.body.email}'`;
-        const result_id = await pool.query(query_id);
-        const id = result_id.rows[0].id;
+        const id = result_usuario.rows[0].id;
 
         let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
         let instrumentos = req.body.instrumentos.split(" ", 4);
@@ -110,11 +65,12 @@ app.post("/crear_usuario", async (req, res) => {
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo POST: usuarios" });
     }
 })
 
-app.post("/perfil_usuario", async(req, res) =>{
+// Editar la informacion de un usuario
+app.patch("/usuarios", async(req, res) =>{
     try {
         const userId = req.body.id;
         const query_usuario = `UPDATE usuarios SET nombre = '${req.body.nombre}', apellido = '${req.body.apellido}', username = '${req.body.username}', email = '${req.body.email}', biografia =  '${req.body.biografia}', redsocial =  '${req.body.redesSociales}', linkfotoperfil = '${req.body.linkFoto}', contacto = '${req.body.contacto}'
@@ -149,16 +105,133 @@ app.post("/perfil_usuario", async(req, res) =>{
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo PATCH: usuarios" });
     }
 })
 
-app.post("/banda_usuario", async(req, res) =>{
+// Borrar la informacion completa de un usuario con su id.
+app.delete("/usuarios/:id", async (req, res) => {
     try{
-        const userId = req.body.idUsuario;
-        const bandaId = req.body.idBanda;
+        const query_eliminar_contactos_espacios = `
+        DELETE FROM usuarios WHERE id = ${req.params.id};
+        `;
+        await pool.query(query_eliminar_contactos_espacios);
+        res.status(200).send("Usuario eliminado");
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).send("DB error en el metodo DELETE: usuarios/id");
+    }
+});
+
+// Devolver todos los generos de los usuarios
+app.get("/generos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
+    }
+});
+
+// Devolver todos los generos de un usuario por id
+app.get("/generos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios/id_usuario" });
+    }
+});
+
+// Devolver todos los instrumentos de los usuarios
+app.get("/instrumentos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios" });
+    }
+});
+
+// Devolver todos los instrumentos de un usuario por id
+app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios/id_usuario" });
+    }
+});
+
+// Devolver todas las bandas
+app.get("/bandas", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM bandas");
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: bandas" });
+    }
+});
+
+// Devolver una banda por id
+app.get("/bandas/:id", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: bandas/id" });
+    }
+});
+
+// Crear una banda
+app.post("/bandas", async (req, res) => {
+    try {
+        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
+        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
+        await pool.query(query_banda);
+
+        const query_id_banda = `SELECT id from bandas where nombre = '${req.body.nombre}'`;
+        const result_id_banda = await pool.query(query_id_banda);
+        const id_banda = result_id_banda.rows[0].id;
+
+        let query_generos = `INSERT INTO generos_bandas (id_banda, genero) VALUES `;
+        let generos = req.body.generos.split(" ", 4);
+        generos.forEach(genero => {
+            query_generos += `(${id_banda}, '${genero}'),`;
+        })
+        const query_generos_limpia = query_generos.slice(0, -1);
+        await pool.query(query_generos_limpia);
+
+        console.log(req.body.idUsuario, id_banda);
+
+        let query_integrante = `INSERT INTO integrantes_bandas (id_banda, id_integrante) values (${id_banda}, ${req.body.idUsuario})`;
+        await pool.query(query_integrante);
+
+        res.json({ message: "Banda creada" });
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo POST: bandas" });
+    }
+});
+
+// Editar la informacion de una banda
+app.patch("/bandas", async(req, res) =>{
+    try{
+        const bandaId = parseInt(req.body.idBanda);
     
-        const query_banda = `UPDATE bandas SET nombre = '${req.body.nombre}', fechaCreacion = '${req.body.fechaCreacion}', descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
+        const query_banda = `UPDATE bandas SET descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
         WHERE id = ${bandaId}`;
         await pool.query(query_banda);
 
@@ -178,56 +251,11 @@ app.post("/banda_usuario", async(req, res) =>{
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-
-
-})
-
-app.get("/generos_usuarios/:id_usuario", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error" });
+        res.status(500).json({ error: "DB error en el metodo PATCH: bandas" });
     }
 });
 
-app.get("/generos_usuarios", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM generos_usuarios`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error" });
-    }
-});
-
-app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error" });
-    }
-});
-
-app.get("/instrumentos_usuarios", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM instrumentos`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error" });
-    }
-});
-
+// Devolver todos los generos de una banda
 app.get("/generos_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
@@ -235,10 +263,11 @@ app.get("/generos_bandas/:id_banda", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas/id_banda"});
     }
 });
 
+// Devolver todos los generos de todas las bandas
 app.get("/generos_bandas", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas`);
@@ -246,18 +275,205 @@ app.get("/generos_bandas", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error"});
+        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas"});
     }
 });
 
-app.get("/username_integrantes_bandas/:id_banda", async (req, res) => {
+//Devolver todos los integrantes de una banda
+app.get("/integrantes_bandas/:id_banda", async (req, res) => {
     try{
-        const result = await pool.query(`select usuarios.username from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
+        const result = await pool.query(`select * from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
         res.json(result.rows);
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error" });
+        res.status(500).json({ error: "DB error en el metodo GET: integrantes_bandas/id_banda" });
+    }
+});
+
+// Devuelve el id_banda correspondiente al id_usuario
+app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_banda = `SELECT id_banda FROM integrantes_bandas WHERE id_integrante = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_banda);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
+    }
+});
+
+app.get("/obtener_cantidad_personas_banda/:id_banda", async (req, res) => {
+    try{
+        const query = `SELECT COUNT(*) FROM integrantes_bandas WHERE id_banda = ${req.params.id_banda}`;
+        const result = await pool.query(query);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET:obtener_cantidad_personas_banda/id_banda" });
+    }
+});
+
+// Unirse a un banda
+app.post("/unirse_banda", async (req, res) => {
+    const { nombre, contraseña, idUsuario } = req.body; 
+    try {
+        const queryVerificacion = `
+            SELECT id FROM bandas 
+            WHERE bandas.nombre = '${nombre}' AND bandas.contraseñaParaIngresar = '${contraseña}'
+        `;
+        
+        const result = await pool.query(queryVerificacion);
+        if (result.rows.length === 0) {
+            console.log("No se encontró la banda o la contraseña es incorrecta");
+            return res.status(400).json({ error: "Credenciales incorrectas" });
+        }
+        const idBanda = result.rows[0].id;
+
+        const queryIntegranteNuevo = `INSERT INTO integrantes_bandas (id_banda, id_integrante) VALUES (${idBanda}, ${idUsuario})`;
+        await pool.query(queryIntegranteNuevo);
+        res.json("EXITO");
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo POST: unirse_banda" });
+    }
+});
+
+app.delete("/dejar_banda/:id_usuario/:id_banda", async (req, res) => {
+    try{
+        const query = `DELETE FROM integrantes_bandas WHERE id_banda = ${req.params.id_banda} AND id_integrante = ${req.params.id_usuario}`
+        await pool.query(query);
+        res.status(200).send("Banda dejada");
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo DELETE: dejar_banda/id_usuario" });
+    }
+});
+
+app.delete("/bandas/:id_banda", async (req, res) => {
+    try{
+        const query = `DELETE FROM bandas WHERE id = ${req.params.id_banda}`
+        await pool.query(query);
+        res.status(200).send("Banda eliminada");
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo DELETE: bandas/id_banda" });
+    }
+})
+
+// Devolver todos los espacios
+app.get("/espacios", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM espacios");
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: espacios" });
+    }
+});
+
+// Devolver un espacio por id
+app.get("/espacios/:id", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.id}`);
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: espacios/id" });
+    }
+});
+
+// Crear un espacio nuevo
+app.post("/espacios", async (req, res) => {
+    try{
+        const precio = parseInt(req.body.precio);
+        const idUsuario = parseInt(req.body.idUsuario);
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora, id_dueño) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
+        await pool.query(query_espacio);
+        
+        res.json({ message: "Espacio creado" });  
+    }
+    catch (error) {
+        res.status(500).json({ error: "DB error en el metodo POST: espacios" });
+    }
+});
+
+app.delete("/espacios/:idEspacio", async (req, res) => {
+    try{
+        const idEspacioINT = parseInt(req.params.idEspacio);
+        const queryEliminarEspacio = `DELETE FROM espacios WHERE id = ${idEspacioINT}`;
+        await pool.query(queryEliminarEspacio);
+        res.status(200).send("Espacio eliminado!");
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send("DB error en el metodo DELETE: espacios/idEspacio");
+    }
+})
+
+// Devuelve el id_espacio correspondiente al id_usuario
+app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_espacio = `SELECT id FROM espacios WHERE id_dueño = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_espacio);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_espacio/id_usuario" });
+    }
+});
+
+// Devolver todos los generos de un usuario
+app.get("/generos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios/id_usuario" });
+    }
+});
+
+// Devolver todos los generos de todos los usuarios
+app.get("/generos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
+    }
+});
+
+// Devolver todos los instrumentos de un usuario
+app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios/id_usuario" });
+    }
+});
+
+// Devolver todos los intrumentos de todos los usuarios
+app.get("/instrumentos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM instrumentos`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios" });
     }
 });
 
@@ -318,65 +534,7 @@ app.get("/filtro_espacios", async (req, res) => {
     }
 });
 
-app.post("/unirse_banda", async (req, res) => {
-    const { nombre, contraseña, idUsuario } = req.body; 
-    try {
-        const queryVerificacion = `
-            SELECT id FROM bandas 
-            WHERE bandas.nombre = '${nombre}' AND bandas.contraseñaParaIngresar = '${contraseña}'
-        `;
-        
-        const result = await pool.query(queryVerificacion);
-        if (result.rows.length === 0) {
-            console.log("No se encontró la banda o la contraseña es incorrecta");
-            return res.status(400).json({ error: "Credenciales incorrectas" });
-        }
-        const idBanda = result.rows[0].id;
-
-        const queryUpdate = `UPDATE usuarios SET id_banda = ${idBanda} WHERE id = ${idUsuario}`;
-        await pool.query(queryUpdate);
-        res.json("EXITO");
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-app.post("/crear_banda", async (req, res) => {
-    try {
-        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
-        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
-        await pool.query(query_banda);
-
-        const query_id_banda = `SELECT id from bandas where nombre = '${req.body.nombre}'`;
-        const result_id_banda = await pool.query(query_id_banda);
-        const id_banda = result_id_banda.rows[0].id;
-
-        let query_generos = `INSERT INTO generos_bandas (id_banda, genero) VALUES `;
-        let generos = req.body.generos.split(" ", 4);
-        generos.forEach(genero => {
-            query_generos += `(${id_banda}, '${genero}'),`;
-        })
-        const query_generos_limpia = query_generos.slice(0, -1);
-        await pool.query(query_generos_limpia);
-
-        console.log(req.body.idUsuario, id_banda);
-
-        let query_integrante = `INSERT INTO integrantes_bandas (id_banda, id_integrante) values (${id_banda}, ${req.body.idUsuario})`;
-        await pool.query(query_integrante);
-
-        let query_actualizar_id_bandas = `UPDATE usuarios SET id_banda = ${id_banda} WHERE id = ${req.body.idUsuario}`;
-        await pool.query(query_actualizar_id_bandas);
-
-        res.json({ message: "Banda creada" });
-    }
-    catch (err){
-        console.error(err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
+// Devuelve el ID correspodiente en caso de coincidir el email y contraseña
 app.post("/login", async (req, res) => {
     try {
         const email = req.body.email;
@@ -392,24 +550,7 @@ app.post("/login", async (req, res) => {
         
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error del servidor" });
-    }
-});
-
-app.post("/espacios", async (req, res) => {
-    try{
-        const precio = parseInt(req.body.precio);
-        const idUsuario = parseInt(req.body.idUsuario);
-        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}) RETURNING id`;
-        const res_espacio = await pool.query(query_espacio);
-        const id_espacio = res_espacio.rows[0].id;
-        
-        const query_actualizar_id_espacio = `UPDATE usuarios SET id_espacio = ${id_espacio} WHERE id = ${idUsuario}`;
-        await pool.query(query_actualizar_id_espacio);
-        res.json({ message: "Espacio creado" });  
-    }
-    catch (error) {
-        res.status(500).json({ error: "No se pudo crear el espacio" });
+        res.status(500).json({ error: "DB error en el metodo POST: login" });
     }
 });
 
