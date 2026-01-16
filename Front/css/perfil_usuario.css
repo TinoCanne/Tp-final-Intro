@@ -13,6 +13,8 @@
 
 #botonDeEdicionPerfil:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonDeEdicionBanda {
@@ -30,6 +32,8 @@
 
 #botonDeEdicionBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonCrearBanda {
@@ -47,6 +51,8 @@
 
 #botonUnirseBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
 }
 
 #botonUnirseBanda {
@@ -64,6 +70,23 @@
 
 #botonCrearBanda:hover {
     border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+.contenedorBotonEdicionPerfil {
+    padding-left: 17px;
+}
+
+.contenedorBotonEdicionBanda {
+    padding-left: 17px;
+}
+
+.contenedorBotonCrearBanda, .contenedorBotonUnirseBanda {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding-right: 50px;
 }
 
 .opcionesBanda {
@@ -71,6 +94,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 50px;
+    font-size: 17px;
+    font-family: inherit;
 }
 
 .h1Perfil {
@@ -86,18 +111,64 @@
     padding-top: 20px;
     color: white;
     line-height: 1.7;
-    font-size: 17px;
+    font-size: 14px;
     font-family: inherit;
+}
+
+.filaPerfil {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.filaPerfil strong {
+    font-size: 17px;
+    opacity: 0.7;
+    color: #cfcfcf;
+    font-weight: 500;
+}
+
+.spanDatosPerfil {
+    font-size: 17px;
+    max-width: 220px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.spanDatosBanda,
+.spanDatosBandaNoEditable {
+    font-size: 17px;
+    max-width: 220px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.modo-edicion .spanDatosPerfil {
+    cursor: pointer;
+}
+
+.modo-edicion .spanDatosPerfil:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 6px;
 }
 
 .hiddenBanda {
     display: none;
 }
 
+.contenedorFotoPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .fotoPerfilGrande {
     height: 200px;
     width: 200px;
     border-radius: 100px;
+    padding-top: 30px;
+    display: flex;
 }
 
 .inputNuevoLink {
@@ -108,4 +179,25 @@
 
 .hiddenEspacio {
     display: none;
+}
+
+.inputDatosPerfil {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.h2perfil {
+    text-align: center;
+    padding-right: 30px;
+}
+
+#crearEspacio {
+    max-width: 600px;
+    margin: 80px auto;
 }
