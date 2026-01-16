@@ -59,17 +59,19 @@
                 <br>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
-                        <input class="inputDatosPerfil"  id="nombreCrearBanda"></input></label><br>
-                    <label><strong>Red social:</strong>
+                        <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
+		    <label><strong>Red social:</strong><br>
                         <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
                     <label><strong>Generos favoritos:</strong>
-                        <input class="inputDatosPerfil"  id="generosUsuarioCrearBanda"></input></label><br>
+                        <input class="inputDatosPerfil" id="generosUsuarioCrearBanda"></input></label><br>
                     <label><strong>Descripción:</strong>
-                        <input class="inputDatosPerfil"  id="descripcionCrearBanda"></input></label><br>
+                        <input class="inputDatosPerfil" id="descripcionCrearBanda"></input></label><br>
                     <label><strong>Contraseña de la banda:</strong>
-                        <input class="inputDatosPerfil"  id="contraseñaCrearBanda"></input></label><br>
-                    <button id="botonCrearBanda">Crear banda</button>        
-                </form>
+                        <input class="inputDatosPerfil" id="contraseñaCrearBanda"></input></label><br>
+                    <div class="contenedorBotonCrearBanda">
+			<button id="botonCrearBanda">Crear banda</button>        
+                    </div>
+		</form>
             </div>
 
             <div class="unirseBanda">
@@ -80,8 +82,10 @@
                         <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
                     <label><strong>Ingrese la contraseña para unirse:</strong>
                         <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
-                    <button id="botonUnirseBanda">Unirse a la banda</button>        
-                </form>
+		<div class="contenedorBotonUnirseBanda">
+		    <button id="botonUnirseBanda">Unirse a la banda</button>        
+                </div>
+		</form>
             </div>
         </div>
 	    <div id="infoBanda" class="hiddenBanda">
@@ -104,27 +108,31 @@
 
             </form>
 
-            <button id="botonDeEdicionBanda">Editar banda</button>
-
+	    <div class="contenedorBotonEdicionBanda">
+	    	<button id="botonDeEdicionBanda">Editar banda</button>
+	    </div>
+	    
 	    </div>
         <div id="crearEspacio" class="hiddenEspacio">
             <h2>Publica tu espacio!</h2>
-
+	    <br>
             <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
-                <label><strong>Nombre del espacio:</strong>
+		<label><strong>Nombre del espacio:</strong><br>
                     <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
-                <label><strong>Ubicacion:</strong>
+	    	<label><strong>Ubicacion:</strong><br>
                     <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
-                <label><strong>Descripcion: </strong>
+	    	<label><strong>Descripcion: </strong><br>
                     <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
-                <label><strong>Contacto:</strong>
+	    	<label><strong>Contacto:</strong><br>
                     <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
-                <label><strong>Tamaño del espacio:</strong>
+	   	<label><strong>Tamaño del espacio:</strong><br>
                     <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
-                <label><strong>Precio por hora:</strong>
+	    	<label><strong>Precio por hora:</strong><br>
                     <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
-                <button id="botonCrearBanda">Publicar espacio</button> 
-            </form>
+            	<div class="contenedorBotonCrearBanda">    
+	    	    <button id="botonCrearBanda">Publicar espacio</button> 
+            	</div>
+	    </form>
         </div>
         <div id="infoEspacio" class="hiddenEspacio">
     	
@@ -148,7 +156,7 @@
 	    </div>
         <script>
             cargarDatosPerfil()
-	        cargarDatosBanda()
+	    cargarDatosBanda()
             cargarDatosEspacio()
         </script>
     </body>
