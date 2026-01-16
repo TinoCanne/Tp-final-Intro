@@ -78,6 +78,10 @@
     padding-left: 17px;
 }
 
+.contenedorBotonEdicionBanda {
+    padding-left: 17px;
+}
+
 .contenedorBotonCrearBanda, .contenedorBotonUnirseBanda {
     display: flex;
     justify-content: center;
@@ -127,6 +131,14 @@
 }
 
 .spanDatosPerfil {
+    font-size: 17px;
+    max-width: 220px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.spanDatosBanda,
+.spanDatosBandaNoEditable {
     font-size: 17px;
     max-width: 220px;
     text-align: left;
@@ -189,5 +201,3 @@
     max-width: 600px;
     margin: 80px auto;
 }
-
-
