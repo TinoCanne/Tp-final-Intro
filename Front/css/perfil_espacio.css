@@ -1,6 +1,6 @@
 .marcoEstudios {
     display: flex;
-    flex-direction: row;
+    flex-direction: row;    
 }
 
 .cartaEstudio {
@@ -17,18 +17,13 @@
     text-align: center;
 }
 
-.fotoEstudio{
+.cartaEstudio img{
     width: 250px;
     height: 250px;
     border-radius: 15px;
     display:block;
     overflow: hidden;
-}
-
-.imagenEnlace {
-    height: 50px;
-    width: 50px;
-    border-radius: 20px;
+    margin-top: 10px;
 }
 
 .botonReservar {
