@@ -363,7 +363,7 @@ async function crearBanda(event){
     const fechaCreacion = String(fechaCompleta.getFullYear() + '-' + String(fechaCompleta.getMonth() +1) + '-' + String(fechaCompleta.getDate()));
 
     try {
-        const response = await fetch("http://localhost:3000/crear_banda", {
+        const response = await fetch("http://localhost:3000/bandas", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
