@@ -462,6 +462,7 @@ app.get("/filtro_bandas", async (req, res) => {
     }
 });
 
+
 app.get("/filtro_espacios", async (req, res) => {
     try{
         const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
