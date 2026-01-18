@@ -19,70 +19,65 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 })
 
-async function aceptar_persona(id_persona){
-
-    const nombre = document.getElementById("nombre");
-    const bio = document.getElementById("bio");
-    const generos = document.getElementById("generos");
-    const foto = document.getElementById("foto");
-    const instrumento = document.getElementById("instrumento");
-    const idPersona = document.getElementById("idPersona");
-    const id_persona_siguiente = parseInt(idPersona.value)+1;
-    idPersona.value = id_persona_siguiente;
-    const url = `http://localhost:3000/usuarios/${id_persona_siguiente}`;
-
-    const url_agregar_contacto = `http://localhost:3000/aceptar_usuarios`
-    const agregar_a_contactos = await fetch(url_agregar_contacto, {
-        method:"POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify({
-            id_usuario:localStorage.getItem("usuarioId"),
-            id_contacto_usuario:id_persona
+//agregar persona a tus contactos
+async function aceptar_persona(id_usuario){
+    const id_actual = parseInt(document.getElementById("idPersona").value);
+    const url_agregar = `http://localhost:3000/aceptar_usuarios/`;
+    try{
+        const exito_agregar = await fetch(url_agregar, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                id_usuario:localStorage.getItem("usuarioId"),
+                id_contacto_usuario:id_usuario
+            })
         })
-    })
+    }
+    catch(err){
+        console.log(err);
+    }
 
-    console.log("exito");
-
-    console.log(id_persona_actual)
+    const id_siguiente = id_actual+1;
+    const url_buscar_data = `http://localhost:3000/usuarios/${id_siguiente}`;
 
     try{
-        const siguiente_usuario = await fetch(url, {
-            method:"GET", headers: {"Content-Type": "application/json",}
-        });
+        const data_nueva = await fetch(url_buscar_data, {
+        method: "GET",
+        headers:{
+            "Content-Type":"application/json"
+        }
+        })
+        const data_nueva_json = await data_nueva.json();
+        console.log(data_nueva_json)
 
-        const usuario_json = await siguiente_usuario.json();
-        console.log(usuario_json);
+        
+        const nombre = document.getElementById("nombre");
+        const foto = document.getElementById("foto");
+        const redes = document.getElementById("redsocial");
+        const biografia = document.getElementById("bio");
+        const id_persona = document.getElementById("idPersona");
 
-        nombre.innerHTML = usuario_json.nombre;
-        bio.innerHTML = usuario_json.biografia;
-        foto.src = usuario_json.foto
+        nombre.innerText = data_nueva_json.nombre;
+        biografia.innerText = data_nueva_json.biografia;
+        foto.src = data_nueva_json.linkFotoPerfil;
+        redes.innerText = data_nueva_json.redSocial;
+        id_persona.value = id_siguiente;
+        cargarGenerosUsuario(id_siguiente);
+        cargarInstrumentos(id_siguiente);
+        console.log("exito");
     }
-    catch(error){
-        console.log(error);
+    catch(err){
+        console.log(err);
     }
-}
 
-function mostrarCartaMusico(musico) {
-    document.getElementById("idPersona").value = musico.id;
-    document.getElementById("nombre").textContent = musico.nombre;
-    document.getElementById("instrumento").textContent = musico.instrumentos || "Sin datos";
-    document.getElementById("generos").textContent = musico.generos_favoritos || "Sin datos";
-    document.getElementById("bio").textContent = musico.biografia || "Sin biografía";
-    document.getElementById("redsocial").textContent = musico.redsocial || "No disponible";
 
-    if (musico.linkfotoperfil) {
-        document.getElementById("foto").src = musico.linkfotoperfil;
-    }
-    
-    cargarInstrumentos(musico.id);
-    cargarGenerosUsuario(musico.id);
 }
 
 async function cargarInstrumentos(id_usuario) {
     try {
-        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://lodcalhost:3000/instrumentos_usuarios/${id_usuario}`);
         const datos = await response.json();
 
         let instrumentos = "";
@@ -154,6 +149,7 @@ function reemplazar_data_carta(data){
     console.log(data);
 }
 
+//funcion para rechazar a un usuario
 async function rechazar_persona(id_persona){
     const nombre = document.getElementById("nombre");
     const bio = document.getElementById("bio");
@@ -162,9 +158,6 @@ async function rechazar_persona(id_persona){
     const id_persona_actual = parseInt(idPersona.value)+1;
     idPersona.value = id_persona_actual;
     const url = `http://localhost:3000/usuarios/${id_persona_actual}`;
-
-
-     console.log("exito");
 
     console.log(id_persona_actual)
 
@@ -186,57 +179,7 @@ async function rechazar_persona(id_persona){
     }
 }
 
+//funcion para mostrar la primera carta de la homepage
 async function armar_primer_carta(){
-    const url = `http://localhost:3000/usuarios/1`;
-
-    const data_primer_usuario = await fetch(url, {
-        method: "GET",
-        headers:{
-            "Content-Type":"application:json"
-        }
-    })
-    const primer_usuario_json = await data_primer_usuario.json();
-    console.log(primer_usuario_json);
-
-    const nombre = document.getElementById("nombre");
-    const bio = document.getElementById("bio");
-    const foto = document.getElementById("foto");
-    const redes = document.getElementById("redsocial");
-    const id = document.getElementById("idPersona");
-
-    cargar_generos(parseInt(id.value));
     
-    const id_persona_siguiente = parseInt(id.value)+1;
-    id.value = id_persona_siguiente;
-    nombre.innerText = primer_usuario_json.nombre;
-    bio.innerText = primer_usuario_json.biografia;
-    foto.src = primer_usuario_json.linkFotoPerfil;
-    redes.innerText = primer_usuario_json.redSocial;
-
-}
-
-async function cargar_generos(id_usuario){
-    const url = `http://localhost:3000/pedir_generos/${id_usuario}`;
-
-    try{
-        const generos_data = await fetch(url, {
-            method:"GET",
-            headers:{
-                "Content-Type":"application/json"
-            }
-        })
-        const generos_json = await generos_data.json();
-
-        let generos_string = "";
-
-        generos_json.forEach(genero=> {
-            generos_string+=genero.genero+" ";
-        });
-
-        const generos = document.getElementById("generos");
-        generos.innerText = generos_string
-    }
-    catch(err){
-        console.log(err);
-    }
 }

@@ -591,20 +591,6 @@ app.post("/aceptar_usuarios/", async (req, res)=>{
     console.log("agregado exitoso");
 })
 
-app.get("/pedir_generos/:id_usuario", async (req, res)=>{
-    const q = `SELECT genero from generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`
-
-    try{
-        const response = await pool.query(q);
-        res.json(response.rows);
-    }
-    catch(err){
-        console.log(err);
-        res.send(500);
-    }
-})
-
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
