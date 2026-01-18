@@ -181,5 +181,8 @@ async function rechazar_persona(id_persona){
 
 //funcion para mostrar la primera carta de la homepage
 async function armar_primer_carta(){
+    const nombre = document.getElementById("nombre");
+
+    const url = `http://localhost:3000/usuarios/1`;
     
 }
