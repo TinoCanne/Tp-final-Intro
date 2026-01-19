@@ -1,9 +1,11 @@
-.listaEstudios {
+.marcoEstudios {
     display: flex;
-    flex-direction: row;
+    flex-direction: row;    
 }
 
 .cartaEstudio {
+    display: flex;
+    flex-direction: column;
     position: relative;
     margin-top: 15px;
     margin-right: 15px;
@@ -15,18 +17,16 @@
     text-align: center;
 }
 
-.cartaEstudio img {
+.cartaEstudio img{
+    width: 250px;
+    height: 250px;
     border-radius: 15px;
+    display: block;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 25px;
 }
 
-.imagenEnlace {
-    height: 50px;
-    width: 50px;
-    border-radius: 20px;
-}
-
-.enlaces {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
+.botonReservar {
+    margin-top: auto;
 }
