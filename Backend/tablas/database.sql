@@ -91,4 +91,4 @@ CREATE TABLE reservas_usuario (
     PRIMARY KEY (id_usuario, id_espacio),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_espacio) REFERENCES espacios(id)
-)
+);
