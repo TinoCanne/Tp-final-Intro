@@ -30,10 +30,6 @@
     margin-bottom: 10px;
 }
 
-.hidden {
-    display: none;
-}
-
 #filtroMusicos input[type="text"],
 #filtroBandas input[type="text"],
 #filtroSalas input[type="text"] {

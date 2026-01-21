@@ -67,3 +67,7 @@
 .carta label {
     color: rgb(151, 120, 40);
 }
+
+.hidden {
+    display: none;
+}

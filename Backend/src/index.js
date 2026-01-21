@@ -600,12 +600,38 @@ app.get("/usuarios_index/:id_usuario", async (req, res) => {
         console.log(err)
         res.status(500).json({ error : "DB error" });
     }
-})
+});
+
+app.get("/bandas_index/:id_usuario", async (req, res) => {
+    try{
+        const query = `SELECT bandas.* FROM bandas
+            LEFT JOIN contactos_bandas
+            ON bandas.id = contactos_bandas.id_contacto_bandas AND contactos_bandas.id_usuario = ${req.params.id_usuario} 
+            WHERE contactos_bandas.id_contacto_bandas IS NULL`;
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+});
 
 app.post("/aceptar_usuarios/", async (req, res) =>{
-    const q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_usuario});`
+    const q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_usuario})`
     await pool.query(q);
     console.log("agregado exitoso");
+})
+
+app.post("/aceptar_banda", async (req, res) => {
+    try{
+        const query = `INSERT INTO contactos_bandas (id_usuario, id_contacto_bandas) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_banda})`
+        await pool.query(query);
+        res.status(200);
+    }
+    catch(error){
+        res.status(500).json({ error : "Error en la db" });
+    }
 })
 
 const PORT = process.env.PORT || 3000;
