@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const id_usuario = localStorage.getItem('usuarioId');
     const marco_usuario = document.getElementById('marco_usuario');
     const marco_bandas = document.getElementById('marco_bandas');
+    marco_usuario.innerHTML = "";
+    marco_bandas.innerHTML = "";
     boton_usuarios.onclick = function(){
         mostrar_contactos_usuarios(id_usuario);
         marco_bandas.classList.add("hidden");  
@@ -20,102 +22,74 @@ function testBoton(num){
     console.log(`click ${num}`);
 }
 
-async function armarCartaUsuario(id){
-    const url = `http://localhost:3000/usuarios/${id}`;
+async function armarCartaUsuario(usuario){
+
     const container = document.getElementById("marco_usuario");
-    container.innerHTML = "";
     const carta = document.createElement("div");
     carta.className = "miniCarta";
+    
+    const foto_usuario = document.createElement("img");
+    foto_usuario.src = usuario.linkfotoperfil;
 
-    try{
-        const data_usuario = await fetch(url, {
-                method: "GET",
-                headers: {
-                        "Content-Type":"application/json",
-                }
-            }
-        )
-
-        const data_usuario_json = await data_usuario.json()
-        console.log(data_usuario_json);
-
-
-        const foto_usuario = document.createElement("img");
-        foto_usuario.src = data_usuario_json.linkFotoPerfil;
-
-        const nombre = document.createElement("p");
-        nombre.textContent = data_usuario_json.nombre;
-        carta.appendChild(foto_usuario);
-        carta.appendChild(nombre);
-        container.appendChild(carta);
-
-    }
-    catch(err){
-        console.log(err);
-    }
+    const nombre = document.createElement("p");
+    nombre.textContent = usuario.nombre;
+    carta.appendChild(foto_usuario);
+    carta.appendChild(nombre);
+    container.appendChild(carta);
 }
 
-async function armarCartaBanda(id_banda){
-    const url = `http://localhost:3000/bandas/${id_banda}`;
+async function armarCartaBanda(banda){
     const container = document.getElementById("marco_bandas");
-    container.innerHTML = "";
     const carta = document.createElement("div");
     carta.className = "miniCarta";
 
-
-    try{
-        const data_banda = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type":"application/json",
-            },
-        })
-
-        const data_banda_json = await data_banda.json();
-        console.log(data_banda_json);
-
-        const nombre = document.createElement("p");
-        nombre.textContent = data_banda_json[0].nombre;
-        carta.appendChild(nombre);
-        container.appendChild(carta);
-    }
-    catch(err){
-        console.log(err);
-    }
+    const nombre = document.createElement("p");
+    nombre.textContent = banda.nombre;
+    carta.appendChild(nombre);
+    container.appendChild(carta);
 }
 
 
 async function mostrar_contactos_usuarios(id_usuario){
-    const url = `http://localhost:3000/pedir_contactos/${id_usuario}`
-    const contactos = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type":"application/json",
-        },
-    });
-    const contactos_json = await contactos.json();
-    contactos_json.forEach(contacto => {
-        armarCartaUsuario(contacto.id_contacto_usuario);
-    });
+    try{
+        const container = document.getElementById("marco_usuario"); 
+        container.innerHTML = "";
+        const url = `http://localhost:3000/pedir_contactos/${id_usuario}`
+        const contactos = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type":"application/json",
+            },
+        });
+        const contactos_json = await contactos.json();
+        contactos_json.forEach(contacto => {
+            armarCartaUsuario(contacto);
+        });
+    }
+    catch(error){
+        console.log(error);
+    }
+    
         
 }
 
 async function mostrar_contactos_bandas(id_usuario){
+    const container = document.getElementById("marco_bandas"); 
+    container.innerHTML = "";
     const url = `http://localhost:3000/pedir_bandas/${id_usuario}`;
-    const usuarios = document.getElementById("marco_usuario");
-    usuarios.innerHTML = "";
 
     try{
             const data = await fetch(url, {
             method:"GET",
             headers: {
-                "Contnent-Type": "application/json",
+                "Content-Type": "application/json",
             },
         });
 
         const data_json = await data.json();
+        console.log(data_json);
         data_json.forEach(banda => {
-            armarCartaBanda(banda.id_banda);          
+            armarCartaBanda(banda);          
         });
     }
     catch(err){

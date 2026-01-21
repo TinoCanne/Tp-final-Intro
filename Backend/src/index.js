@@ -561,7 +561,7 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
 });
         //devuelve todos los contactos de un usuario dado su id
 app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
-    const q = ` SELECT * FROM contactos_usuarios WHERE id_usuario = ${req.params.id_usuario}`;
+    const q = `SELECT usuarios.* FROM usuarios INNER JOIN contactos_usuarios ON usuarios.id = contactos_usuarios.id_contacto_usuario WHERE contactos_usuarios.id_usuario = ${req.params.id_usuario}`;
 
     try{
         const response = await pool.query(q);
@@ -574,7 +574,7 @@ app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
 })
 
 app.get("/pedir_bandas/:id_usuario", async(req, res) => {
-    const q = `SELECT b.id_banda FROM integrantes_bandas b INNER JOIN usuarios u ON u.id = b.id_integrante WHERE U.ID = ${req.params.id_usuario}`;
+    const q = `SELECT bandas.* FROM bandas INNER JOIN contactos_bandas ON bandas.id = contactos_bandas.id_contacto_bandas WHERE contactos_bandas.id_usuario = ${req.params.id_usuario}`;
 
     try{
         const response = await pool.query(q);
