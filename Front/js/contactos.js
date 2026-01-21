@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", function(){
     const boton_usuarios = document.getElementById("botonUsuarios");
     const boton_bandas = document.getElementById("botonBandas");
-    const id_usuario = localStorage.getItem('usuarioId')
+    const id_usuario = localStorage.getItem('usuarioId');
+    const marco_usuario = document.getElementById('marco_usuario');
+    const marco_bandas = document.getElementById('marco_bandas');
     boton_usuarios.onclick = function(){
         mostrar_contactos_usuarios(id_usuario);
+        marco_bandas.classList.add("hidden");  
+        marco_usuario.classList.remove("hidden");
     }
     boton_bandas.onclick=function(){
         mostrar_contactos_bandas(id_usuario);
+        marco_bandas.classList.remove("hidden");  
+        marco_usuario.classList.add("hidden");
     }
 })
 
@@ -49,8 +55,13 @@ async function armarCartaUsuario(id){
     }
 }
 
-async function aramrCartaBanda(id_banda){
+async function armarCartaBanda(id_banda){
     const url = `http://localhost:3000/bandas/${id_banda}`;
+    const container = document.getElementById("marco_bandas");
+    container.innerHTML = "";
+    const carta = document.createElement("div");
+    carta.className = "miniCarta";
+
 
     try{
         const data_banda = await fetch(url, {
@@ -61,10 +72,12 @@ async function aramrCartaBanda(id_banda){
         })
 
         const data_banda_json = await data_banda.json();
+        console.log(data_banda_json);
 
-        const marco = document.getElementById("marco_bandas");
-
-        console.log("funciona");
+        const nombre = document.createElement("p");
+        nombre.textContent = data_banda_json[0].nombre;
+        carta.appendChild(nombre);
+        container.appendChild(carta);
     }
     catch(err){
         console.log(err);
@@ -102,7 +115,7 @@ async function mostrar_contactos_bandas(id_usuario){
 
         const data_json = await data.json();
         data_json.forEach(banda => {
-            aramrCartaBanda(banda.id_banda);          
+            armarCartaBanda(banda.id_banda);          
         });
     }
     catch(err){
