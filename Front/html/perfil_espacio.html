@@ -10,10 +10,41 @@
         <link rel="stylesheet" href="../css/styles.css">
         <title>Perfil del Espacio</title>
     </head>
-
     <body>
-
         <div class="marcoEstudios" id="marco_estudios"></div>
+        <div class="fondoReservas" id="fondo_reservas"></div>
+        <div class="cuadroReservas" id="cuadro_reservas">
+            <button class="botonCerrarCalendario" onclick="cerrarCalendario()">X</button>
+            <table class="calendarioReservas" id="calendario_reservas">
+                <caption class="ubicacionEnCalendario" id="ubicacion_en_calendario"></caption>
+                <thead>
+                    <tr>
+                        <th>
+                            Lun
+                        </th>
+                        <th>
+                            Mar
+                        </th>
+                        <th>
+                            Mie
+                        </th>
+                        <th>
+                            Jue
+                        </th>
+                        <th>
+                            Vie
+                        </th>
+                        <th>
+                            Sab
+                        </th>
+                        <th>
+                            Dom
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="contenidoCalendario" id="contenido_calendario"></tbody>
+            </table>
+        </div>
     </body>
     <script src="../js/perfilEspacio.js"></script>
 </html>
