@@ -25,6 +25,8 @@ CREATE TABLE espacios (
     nombre VARCHAR(120) NOT NULL,
     ubicacion VARCHAR(150) NOT NULL,
     linkFotoEspacio VARCHAR(5000),
+    horarioApertura INT,
+    horarioCierre INT,
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
     tamaño VARCHAR(20),
