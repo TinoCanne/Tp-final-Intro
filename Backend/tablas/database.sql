@@ -89,6 +89,6 @@ CREATE TABLE reservas_usuario (
     fecha_reserva DATE,
     hora_reserva TIME,
     PRIMARY KEY (id_usuario, id_espacio),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_espacio) REFERENCES espacios(id)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );
