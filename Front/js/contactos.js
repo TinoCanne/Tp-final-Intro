@@ -26,6 +26,7 @@ async function armarCartaUsuario(usuario){
 
     const container = document.getElementById("marco_usuario");
     const carta = document.createElement("div");
+    const contacto = document.createElement("p");
     carta.className = "miniCarta";
     
     const foto_usuario = document.createElement("img");
@@ -33,8 +34,10 @@ async function armarCartaUsuario(usuario){
 
     const nombre = document.createElement("p");
     nombre.textContent = usuario.nombre;
+    contacto.innerText = usuario.email;
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
+    carta.appendChild(contacto);
     container.appendChild(carta);
 }
 
@@ -64,6 +67,7 @@ async function mostrar_contactos_usuarios(id_usuario){
         const contactos_json = await contactos.json();
         contactos_json.forEach(contacto => {
             armarCartaUsuario(contacto);
+            console.log(contacto);
         });
     }
     catch(error){
