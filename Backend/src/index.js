@@ -554,6 +554,24 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
+app.post("/reservas", async(req, res) => {
+    try {
+        const id_usuario = parseInt(req.body.id_usuario);
+        const id_espacio = parseInt(req.body.id_espacio);
+        const hora_reserva = parseInt(req.body.hora_reserva);
+        const query_reserva = `INSERT INTO reservas (id_usuario, id_espacio, fecha_reserva, hora_reserva) VALUES (${id_usuario}, ${id_espacio}, '${req.body.fecha_reserva}', ${hora_reserva}) `
+        
+        await pool.query(query_reserva);
+        
+        res.json({message: "Reserva realizada con exito"}); 
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo POST: reservas"})
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);

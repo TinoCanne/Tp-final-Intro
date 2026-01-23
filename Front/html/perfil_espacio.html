@@ -11,7 +11,7 @@
         <title>Perfil del Espacio</title>
     </head>
     <body>
-        <div class="marcoEstudios" id="marco_estudios"></div>
+        <div class="marcoEspacios" id="marco_espacios"></div>
         <div class="fondoReservas" id="fondo_reservas"></div>
         <div class="cuadroCalendario" id="cuadro_calendario">
             <button class="botonCerrarCalendario" onclick="cerrarCalendario()">X</button>
@@ -46,9 +46,12 @@
             </table>
         </div>
         <div class="cuadroHorarios" id="cuadro_horarios">
-            <button class="botonVolverACalendarios" onclick="ocultarHorarios(true)">&#171</button>
-            <button class="botonCerrarHorarios" onclick="ocultarHorarios(false)">X</button>
             <table class="horasResevas" id="horas_reservas">
+                <caption>
+                    <button class="botonVolverACalendarios" onclick="ocultarHorarios(true)">&#171</button>
+                    <button class="botonCerrarHorarios" onclick="ocultarHorarios(false)">X</button>
+                    Elija la hora de su reserva
+                </caption>
                 <tbody class="contenidoHoras" id="contenido_horas"></tbody>
             </table>
         </div>

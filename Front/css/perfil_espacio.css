@@ -1,9 +1,9 @@
-.marcoEstudios {
+.marcoEspacios {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
 
-.cartaEstudio {
+.cartaEspacio {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -17,7 +17,7 @@
     text-align: center;
 }
 
-.cartaEstudio img{
+.cartaEspacio img{
     width: 250px;
     height: 250px;
     border-radius: 15px;
@@ -109,8 +109,8 @@
 .cuadroHorarios {
     display:none;
     z-index: 2;
-    width: 300px;
-    height: 300px;
+    width: auto;
+    height: 100px;
     background-color: white;
     color: black;
     position: fixed;
@@ -124,4 +124,13 @@
     padding: 2px 5px;
     background-color: rgb(95, 95, 95);
     cursor: default;
+}
+
+.horasDisponibles {
+    background-color: green !important;
+    cursor: pointer !important;
+}
+
+.horasDisponibles:hover {
+    background-color: darkgreen !important; 
 }

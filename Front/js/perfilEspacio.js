@@ -2,45 +2,45 @@ let hoy = new Date();
 
 document.addEventListener("DOMContentLoaded", async function(){
     const url = `http://localhost:3000/espacios/`;
-    const container = document.getElementById("marco_estudios");
+    const container = document.getElementById("marco_espacios");
     container.innerHTML = "";
     
     try{
-        const estudios = await fetch(url, {
+        const espacios = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type":"application/json",
             }
         })    
-        const estudiosJson = await estudios.json();
-        estudiosJson.forEach(estudio =>{
-            const idEstudio = estudio.id;
+        const espaciosJson = await espacios.json();
+        espaciosJson.forEach(espacio =>{
+            const idEspacio = espacio.id;
 
             const carta = document.createElement("div");
-            carta.className = "cartaEstudio";
+            carta.className = "cartaEspacio";
         
-            const fotoEstudio = document.createElement("img");
-            fotoEstudio.src = estudio.linkfotoespacio;
-            fotoEstudio.className = "fotoEstudio";
+            const fotoespacio = document.createElement("img");
+            fotoespacio.src = espacio.linkfotoespacio;
+            fotoespacio.className = "fotoEspacio";
     
             const nombre = document.createElement("p");
-            nombre.textContent = estudio.nombre;
+            nombre.textContent = espacio.nombre;
 
             const barrio = document.createElement("p");
-            barrio.textContent = estudio.ubicacion;
+            barrio.textContent = espacio.ubicacion;
 
             const precio = document.createElement("p");
-            precio.textContent = `$${estudio.precioporhora}/h`;
+            precio.textContent = `$${espacio.precioporhora}/h`;
 
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
             botonReserva.id = "botonReservar";
             botonReserva.addEventListener('click', function(){
-                mostrarCalendario(idEstudio);
+                mostrarCalendario(idEspacio);
             });
 
-            carta.appendChild(fotoEstudio);
+            carta.appendChild(fotoespacio);
             carta.appendChild(nombre);
             carta.appendChild(barrio);
             carta.appendChild(precio);
@@ -56,25 +56,57 @@ document.addEventListener("DOMContentLoaded", async function(){
     }
 })
 
-async function armarHorarios(diaSeleccionado, hora, idEstudio){
+async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, horaSeleccionada, idEspacio){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const anoSQL = anoSeleccionado;
+    const mesSQL = ("0" + mesSeleccionado).slice(-2);   //necesito que si o si el mes y el dia tengan dos caracteres para que lo lea bien sql, DATE tiene formato YYYY-MM-DD.
+    const diaSQL = ("0" + diaSeleccionado).slice(-2);
+    const fechaReservaSQL = `${anoSQL}-${mesSQL}-${diaSQL}`;
+    
+    try {
+        const response = await fetch("http://localhost:3000/reservas", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_usuario: idUsuario,
+                id_espacio:idEspacio,
+                fecha_reserva: fechaReservaSQL,
+                hora_reserva: horaSeleccionada
+            })
+        });
+        const datos = await response.json()
+        if (response.ok){
+            alert(datos.message);
+        }
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
     let contenidoHoras = document.getElementById('contenido_horas');
-    const url = `http://localhost:3000/espacios/${idEstudio}`;
+    const url = `http://localhost:3000/espacios/${idEspacio}`;
     try{
-        const estudio = await fetch(url, {
+        const espacio = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type" : "application/json",
             }
         })
-        const estudioJson = await estudio.json();
+        const espacioJson = await espacio.json();
 
-        const horaApertura = estudioJson.horarioapertura;
-        const horaCierre = estudioJson.horariocierre;
+        const horaApertura = espacioJson.horarioapertura;
+        const horaCierre = espacioJson.horariocierre;
 
         let contenidoTemporal = "<tr>";
 
         for (let i = horaApertura; i <= horaCierre; i++){
-            contenidoTemporal += "<td>" + i + "</td>";
+            if ((hora + 1) < i){
+                contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + i + ", " + idEspacio + ")'>" + i + "</td>";
+            }
         }
         contenidoTemporal += "</tr>";
 
@@ -86,13 +118,13 @@ async function armarHorarios(diaSeleccionado, hora, idEstudio){
     }
 }
 
-function mostrarHorarios(diaSeleccionado, hora, idEstudio){
+function mostrarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
     let calendario = document.getElementById('cuadro_calendario');
     let horarios = document.getElementById('cuadro_horarios');
     calendario.style.display = 'none';
     horarios.style.display = 'flex';
 
-    armarHorarios(diaSeleccionado, hora, idEstudio);
+    armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio);
 }
 
 function ocultarHorarios(vuelveCalendario){
@@ -108,12 +140,11 @@ function ocultarHorarios(vuelveCalendario){
     }
 }
 
-function armarCalendario(ano, mes, hora, idEstudio){
+function armarCalendario(ano, mes, hora, idEspacio){
     let meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     let ubicacionCalendario = document.getElementById('ubicacion_en_calendario');
     let contenidoCalendario = document.getElementById('contenido_calendario');
     let hoyParaComparar = new Date().setHours(0,0,0,0);
-    console.log(hora);
     let primerDiaMesSemana = (new Date(ano, mes, 1)).getDay();
     if (primerDiaMesSemana === 0) {    //en js el 0 significa domingo, no lunes.
         primerDiaMesSemana = 7;
@@ -143,7 +174,7 @@ function armarCalendario(ano, mes, hora, idEstudio){
                 contenidoTemporal += "<td class='diasAnteriores'>" + diaTemporal + "</td>";
             }
             else{
-                contenidoTemporal += "<td class='diasPosteriores' onclick='mostrarHorarios(" + diaTemporal + ", " + hora + ", " + idEstudio + ")'>" + diaTemporal + "</td>";
+                contenidoTemporal += "<td class='diasPosteriores' onclick='mostrarHorarios(" + diaTemporal + ", " + (mes + 1) + ", " + ano + ", " + hora + ", " + idEspacio + ")'>" + diaTemporal + "</td>";
             }
             diaTemporal++;
         }
@@ -170,16 +201,16 @@ function armarCalendario(ano, mes, hora, idEstudio){
         anoAnterior = ano - 1;
     }
 
-    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ", " + idEstudio + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + idEstudio + ")'>&#187</button>";
+    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ", " + idEspacio + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + idEspacio + ")'>&#187</button>";
 
 }
 
-function mostrarCalendario(idEstudio){
+function mostrarCalendario(idEspacio){
     let calendario = document.getElementById('cuadro_calendario');
     let fondo = document.getElementById('fondo_reservas');
     calendario.style.display = 'flex';
     fondo.style.display = 'block';
-    armarCalendario(hoy.getFullYear(), hoy.getMonth(), hoy.getHours(), idEstudio);
+    armarCalendario(hoy.getFullYear(), hoy.getMonth(), hoy.getHours(), idEspacio);
 }
 
 function cerrarCalendario(){

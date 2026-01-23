@@ -85,11 +85,11 @@ CREATE TABLE contactos_espacios (
     FOREIGN KEY (id_contacto_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );
 
-CREATE TABLE reservas_usuario (
+CREATE TABLE reservas (
     id_usuario INT,
     id_espacio INT,
     fecha_reserva DATE,
-    hora_reserva TIME,
+    hora_reserva INT,
     PRIMARY KEY (id_usuario, id_espacio),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE
