@@ -62,7 +62,7 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
     const mesSQL = ("0" + mesSeleccionado).slice(-2);   //necesito que si o si el mes y el dia tengan dos caracteres para que lo lea bien sql, DATE tiene formato YYYY-MM-DD.
     const diaSQL = ("0" + diaSeleccionado).slice(-2);
     const fechaReservaSQL = `${anoSQL}-${mesSQL}-${diaSQL}`;
-    
+
     try {
         const response = await fetch("http://localhost:3000/reservas", {
             method: 'POST',
@@ -98,14 +98,21 @@ async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, 
         })
         const espacioJson = await espacio.json();
 
-        const horaApertura = espacioJson.horarioapertura;
-        const horaCierre = espacioJson.horariocierre;
+        let horaApertura = espacioJson.horarioapertura;
+        let horaCierre = espacioJson.horariocierre;
+
+        let fechaSeleccionada = new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado);
+        let hoySinHora = new Date();
+        hoySinHora.setHours(0,0,0,0);
 
         let contenidoTemporal = "<tr>";
-
-        for (let i = horaApertura; i <= horaCierre; i++){
-            if ((hora + 1) < i){
+        console.log(hora);
+        for (let i = horaApertura; i < horaCierre; i++){
+            if ((((hora + 1) < i) && (fechaSeleccionada === hoySinHora)) || (fechaSeleccionada > hoySinHora)){
                 contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + i + ", " + idEspacio + ")'>" + i + "</td>";
+            }
+            else {
+                contenidoTemporal += "<td class='horasAnteriores'>" + i + "</td>";
             }
         }
         contenidoTemporal += "</tr>";

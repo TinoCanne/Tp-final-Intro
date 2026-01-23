@@ -90,7 +90,7 @@ CREATE TABLE reservas (
     id_espacio INT,
     fecha_reserva DATE,
     hora_reserva INT,
-    PRIMARY KEY (id_usuario, id_espacio),
+    PRIMARY KEY (id_espacio, fecha_reserva, hora_reserva),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );
