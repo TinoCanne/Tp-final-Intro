@@ -408,7 +408,7 @@ app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
     try{
         const query_obtener_id_espacio = `SELECT id FROM espacios WHERE id_dueño = ${req.params.id_usuario}`;
         const result = await pool.query(query_obtener_id_espacio);
-        res.json(result.rows[0]);
+        res.json(result.rows);
     }
     catch(err){
         console.error(err);

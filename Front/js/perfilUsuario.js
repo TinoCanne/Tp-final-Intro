@@ -436,14 +436,16 @@ async function cargarDatosEspacio(){
         }
         
         const datosId = await responseIdEspacios.json(); 
-        const id = datosId.id;
+        console.log(datosId);
 
-        if (id) {
-            const response = await fetch(`http://localhost:3000/espacios/${id}`);
+        if (datosId[0]) {
+            const primerId = datosId[0].id;
+            const response = await fetch(`http://localhost:3000/espacios/${primerId}`);
         
             if(!response.ok) throw new Error("Error al cargar detalles");
 
             const datos = await response.json();
+            const botonMostrarTodosEspacios = document.getElementById('mostrarTodosEspacios');
 
             document.getElementById('nombreEspacio').textContent = datos.nombre;
             document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
@@ -541,38 +543,22 @@ async function eliminarEspacio(){
     }
 }
 
-function ocultarCrearEspacio(){
-    const divCrearEspacio = document.getElementById('crearEspacio');
-    const divSeccionEspacio = document.getElementById('seccionEspacio');
-    const divBotonMostrarCrearEspacio = document.getElementById('botonMostrarCrearEspacio');
-    divCrearEspacio.classList.add("hiddenEspacio");
-    divSeccionEspacio.classList.remove("seccionEspacio");
-    divBotonMostrarCrearEspacio.textContent = "Crea otro espacio Jameet!";
-    divBotonMostrarCrearEspacio.onclick = mostrarCrearEspacio();
-}
-
-function mostrarCrearEspacio(){
-    const divCrearEspacio = document.getElementById('crearEspacio');
-    const divSeccionEspacio = document.getElementById('seccionEspacio');
-    const divBotonMostrarCrearEspacio = document.getElementById('botonMostrarCrearEspacio');
-    divCrearEspacio.classList.remove("hiddenEspacio");
-    divSeccionEspacio.classList.add("seccionEspacio");
-    divBotonMostrarCrearEspacio.textContent = "Ocultar Crear Espacio";
-    divBotonMostrarCrearEspacio.onclick = ocultarCrearEspacio();
-}
-
 function ocultarMostrarCrearEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
-    const btn = document.getElementById('ocultarMostrarCrearEspacio()');
+    const botonVerCrearEspacio = document.getElementById('ocultarMostrarCrearEspacio');
     
     if (divCrearEspacio.classList.contains('hiddenEspacio')) {
         
         divCrearEspacio.classList.remove('hiddenEspacio'); 
-        btn.textContent = "Ocultar formulario crear espacio"; 
+        botonVerCrearEspacio.textContent = "Ocultar formulario crear espacio"; 
         
     } else {
         
         divCrearEspacio.classList.add('hiddenEspacio'); 
-        btn.textContent = "Crea otro Espacio Jameet!"; 
+        botonVerCrearEspacio.textContent = "Crea otro Espacio Jameet!"; 
     }
+}
+
+async function mostrarTodosEspacios(idsEspacios){
+
 }
