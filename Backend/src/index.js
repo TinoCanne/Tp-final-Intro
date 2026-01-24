@@ -9,9 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
+    connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
 });
 
 // Devolver todos los usuarios
@@ -255,7 +254,7 @@ app.patch("/bandas", async(req, res) =>{
     }
 });
 
-// Devolver todos los generos de una banda
+// Devolver todos los generos de una banda segun el id.
 app.get("/generos_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
@@ -571,6 +570,28 @@ app.post("/reservas", async(req, res) => {
         res.status(500).json({error: "DB error en el metodo POST: reservas"})
     }
 });
+
+app.get("/reservas", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: reservas"});
+    }
+});
+
+app.get("/reservas/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas WHERE id_usuario = ${req.params.id_usuario}`);
+                res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/:id_usuario" });
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

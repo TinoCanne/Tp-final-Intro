@@ -79,9 +79,40 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
         const datos = await response.json()
         if (response.ok){
             alert(datos.message);
+            ocultarHorarios(false);
         }
     }
     catch(err) {
+        alert("algo salio mal con tu reserva");
+        console.log(err);
+    }
+}
+
+async function EstaReservada(fechaSeleccionada, horaSeleccionada, idEspacio){
+    const url = `http://localhost:3000/reservas/`;
+    try {
+        const reservas = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type" : "application/json",
+            }
+        })
+        const reservasJson = await reservas.json();
+        let reservaEncontrada = false;
+        let fechaSeleccionadaString = fechaSeleccionada.toLocaleDateString('sv-SE');
+        reservasJson.forEach(reserva => {
+            let idEspacioReserva = reserva.id_espacio;
+            let fechaReserva = (reserva.fecha_reserva).split('T')[0];
+            let horaReserva = reserva.hora_reserva;
+
+            if ((idEspacioReserva === idEspacio) && (fechaReserva === fechaSeleccionadaString) && (horaReserva === horaSeleccionada)){
+                reservaEncontrada = true;
+            }
+        })
+        return reservaEncontrada;
+    }
+    catch(err) {
+        alert("error en la comparacion con reservas");
         console.log(err);
     }
 }
@@ -89,7 +120,7 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
 async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
     let contenidoHoras = document.getElementById('contenido_horas');
     const url = `http://localhost:3000/espacios/${idEspacio}`;
-    try{
+    try {
         const espacio = await fetch(url, {
             method: "GET",
             headers: {
@@ -105,18 +136,24 @@ async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, 
         let hoySinHora = new Date();
         hoySinHora.setHours(0,0,0,0);
 
+        fechaSeleccionadaParaComparar = fechaSeleccionada.getTime();        //no se pueden compara dos datos tipo Date.
+        hoySinHoraParaComparar = hoySinHora.getTime();
+
         let contenidoTemporal = "<tr>";
-        console.log(hora);
         for (let i = horaApertura; i < horaCierre; i++){
-            if ((((hora + 1) < i) && (fechaSeleccionada === hoySinHora)) || (fechaSeleccionada > hoySinHora)){
-                contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + i + ", " + idEspacio + ")'>" + i + "</td>";
+            if ((((hora + 1) < i) && (fechaSeleccionadaParaComparar === hoySinHoraParaComparar)) || (fechaSeleccionadaParaComparar > hoySinHoraParaComparar)){
+                if (await EstaReservada(fechaSeleccionada, i, idEspacio)){
+                    contenidoTemporal += "<td class='horasReservadas'>" + i + "</td>";
+                }
+                else{
+                    contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + i + ", " + idEspacio + ")'>" + i + "</td>";
+                }
             }
             else {
                 contenidoTemporal += "<td class='horasAnteriores'>" + i + "</td>";
             }
         }
         contenidoTemporal += "</tr>";
-
         contenidoHoras.innerHTML = contenidoTemporal;
 
     }

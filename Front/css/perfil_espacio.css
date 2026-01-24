@@ -134,3 +134,8 @@
 .horasDisponibles:hover {
     background-color: darkgreen !important; 
 }
+
+.horasReservadas {
+    background-color: red !important;
+    cursor: default !important;
+}
