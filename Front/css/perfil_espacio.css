@@ -174,9 +174,15 @@
     border-radius: 0;
     border: none;
 }
+
 .diasAnterioresOVacios {
     background-color: rgb(95, 95, 95);
 }
+
+.diasLlenos {
+    background-color: red;
+}
+
 .diasPosteriores {
     background-color: green ;
     cursor: pointer;

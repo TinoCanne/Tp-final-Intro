@@ -204,6 +204,58 @@ function ocultarHorarios(vuelveCalendario, reservaRealizada){
     }
 }
 
+async function encontrarEstadoDelDia(ano, mes, dia, idEspacio) {
+    let estadoDelDia = "";
+    
+    let cantidadHorasAbierto = 0;
+    const url1 = `http://localhost:3000/espacios/${idEspacio}`;
+    try {
+        const espacio = await fetch(url1, {
+            method: 'GET',
+            headers: {
+                "Content-Type" : "application/json",
+            }  
+        })
+        const espacioJson = await espacio.json();
+
+        let horaApertura = espacioJson.horarioapertura;
+        let horaCierre = espacioJson.horariocierre;
+
+        cantidadHorasAbierto = horaCierre - horaApertura;
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+    let fechaCelda = new Date(ano, mes, dia);
+    let fechaCeldaString = fechaCelda.toLocaleDateString('sv-SE');
+    let cantidadReservasDia = 0;
+    const url2 = `http://localhost:3000/reservas/espacios/fecha/${idEspacio}/'${fechaCeldaString}'`;
+    try {
+        const reservas = await fetch(url2, {
+            method: 'GET',
+            headers: {
+                "Content-Type" : "application/json",
+            }
+        })
+        const reservasJson = await reservas.json();
+        reservasJson.forEach(reserva => {
+            cantidadReservasDia++;
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+
+    if (cantidadReservasDia === cantidadHorasAbierto){
+        estadoDelDia = "lleno";
+    }
+    else{
+        estadoDelDia = "disponible";
+    }
+    return estadoDelDia;
+}
+
 async function armarCalendario(ano, mes, hora, idEspacio){
     let meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     let ubicacionCalendario = document.getElementById('ubicacion_en_calendario');
@@ -244,8 +296,6 @@ async function armarCalendario(ano, mes, hora, idEspacio){
     let primerDiaSemanaAbiertoParaComparar = diasSemana.indexOf(primerDiaSemanaAbierto);
     let ultimoDiaSemanaAbiertoParaComparar = diasSemana.indexOf(ultimoDiaSemanaAbierto);
 
-    console.log(primerDiaSemanaAbiertoParaComparar, ultimoDiaSemanaAbiertoParaComparar);
-
     let contenidoTemporal = "";
     let diaTemporal = 0;
     for (let i = 1; i <= cantidadCeldas; i++){  //empieza en 1 porque el primerDiaMes minimo es 1.
@@ -264,8 +314,13 @@ async function armarCalendario(ano, mes, hora, idEspacio){
             if (diaCelda === 0){
                 diaCelda = 7;
             }
+            let estadoDelDia = await encontrarEstadoDelDia(ano, mes, diaTemporal, idEspacio);
+
             if ((fechaCelda < hoyParaComparar) || (primerDiaSemanaAbiertoParaComparar + 1 > diaCelda || (ultimoDiaSemanaAbiertoParaComparar + 1 < diaCelda))){
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
+            }
+            else if(estadoDelDia == "lleno"){
+                contenidoTemporal += "<td class='diasLlenos'>" + diaTemporal + "</td>";  
             }
             else{
                 contenidoTemporal += "<td class='diasPosteriores' onclick='mostrarHorarios(" + diaTemporal + ", " + (mes + 1) + ", " + ano + ", " + hora + ", " + idEspacio + ")'>" + diaTemporal + "</td>";

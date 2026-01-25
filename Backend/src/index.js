@@ -582,14 +582,25 @@ app.get("/reservas", async (req, res) => {
     }
 });
 
-app.get("/reservas/:id_usuario", async (req, res) => {
+app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM reservas WHERE id_usuario = ${req.params.id_usuario}`);
                 res.json(result.rows);
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: reservas/:id_usuario" });
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/usuarios/:id_usuario" });
+    }
+})
+
+app.get("/reservas/espacios/fecha/:id_espacio/:fecha_reserva", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas WHERE id_espacio = ${req.params.id_espacio} AND  fecha_reserva = ${req.params.fecha_reserva}`);
+                res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/:id_espacio" });
     }
 })
 
