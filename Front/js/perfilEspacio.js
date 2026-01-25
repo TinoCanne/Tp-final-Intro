@@ -76,10 +76,8 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
                 hora_reserva: horaSeleccionada
             })
         });
-        const datos = await response.json()
         if (response.ok){
-            alert(datos.message);
-            ocultarHorarios(false);
+            ocultarHorarios(false, true);
         }
     }
     catch(err) {
@@ -163,24 +161,42 @@ async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, 
 }
 
 function mostrarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
-    let calendario = document.getElementById('cuadro_calendario');
     let horarios = document.getElementById('cuadro_horarios');
-    calendario.style.display = 'none';
-    horarios.style.display = 'flex';
-
+    horarios.showModal();
     armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio);
 }
 
-function ocultarHorarios(vuelveCalendario){
-    let horarios = document.getElementById('cuadro_horarios')
-    horarios.style.display = 'none';
-    if (vuelveCalendario){
-        let calendario = document.getElementById('cuadro_calendario');
-        calendario.style.display = 'flex';
+function ocultarHorarios(vuelveCalendario, reservaRealizada){
+    let horarios = document.getElementById('cuadro_horarios');
+    horarios.classList.add("cerrandoCuadro");
+    if (vuelveCalendario) {
+        setTimeout(function animacionCerrando() {
+            horarios.close();
+            horarios.classList.remove("cerrandoCuadro");
+        }, 400);
     }
     else{
-        let fondo = document.getElementById('fondo_reservas');
-        fondo.style.display = 'none';
+        let calendario = document.getElementById('cuadro_calendario');
+        calendario.classList.add("cerrandoCuadro");
+        let textoReservaExitosa = document.getElementById("texto_reserva_exitosa");
+        setTimeout(function animacionCerrando() {
+            horarios.close();
+            calendario.close()
+            horarios.classList.remove("cerrandoCuadro");
+            calendario.classList.remove("cerrandoCuadro")
+        }, 400);
+        if (reservaRealizada) {
+            setTimeout(function animacionReservaExitosa() {
+                textoReservaExitosa.showModal();
+            }, 200);
+        }
+        setTimeout(function tiempoDeLectura() {
+            textoReservaExitosa.classList.add("textoDesapareciendo");
+            setTimeout(function animacionSalidaTextoReservaExitosa() {
+                textoReservaExitosa.close();
+                textoReservaExitosa.classList.remove("textoDesapareciendo");
+            }, 400);
+        }, 1000);
     }
 }
 
@@ -207,7 +223,7 @@ function armarCalendario(ano, mes, hora, idEspacio){
             contenidoTemporal += "<tr>";
         }
         if ((i < primerDiaMesSemana) || (i > ultimaCeldaMes)){
-            contenidoTemporal += "<td> </td>";
+            contenidoTemporal += "<td class='diasAnterioresOVacios'> </td>";
         }
         else{
             if (i === primerDiaMesSemana){
@@ -215,7 +231,7 @@ function armarCalendario(ano, mes, hora, idEspacio){
             }
             let fechaCelda = new Date(ano, mes, diaTemporal);
             if (fechaCelda < hoyParaComparar){
-                contenidoTemporal += "<td class='diasAnteriores'>" + diaTemporal + "</td>";
+                contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
             else{
                 contenidoTemporal += "<td class='diasPosteriores' onclick='mostrarHorarios(" + diaTemporal + ", " + (mes + 1) + ", " + ano + ", " + hora + ", " + idEspacio + ")'>" + diaTemporal + "</td>";
@@ -251,17 +267,30 @@ function armarCalendario(ano, mes, hora, idEspacio){
 
 function mostrarCalendario(idEspacio){
     let calendario = document.getElementById('cuadro_calendario');
-    let fondo = document.getElementById('fondo_reservas');
-    calendario.style.display = 'flex';
-    fondo.style.display = 'block';
+    calendario.showModal();
     armarCalendario(hoy.getFullYear(), hoy.getMonth(), hoy.getHours(), idEspacio);
 }
 
 function cerrarCalendario(){
-    let calendario = document.getElementById('cuadro_calendario')
-    let fondo = document.getElementById('fondo_reservas');
-    calendario.style.display = 'none';
-    fondo.style.display = 'none';
+    let calendario = document.getElementById('cuadro_calendario');
+    calendario.classList.add("cerrandoCuadro");
+    setTimeout(function animacionCerrando() {
+        calendario.close();
+        calendario.classList.remove("cerrandoCuadro");
+    }, 400);
 }
+
+const calendario = document.getElementById('cuadro_calendario');
+const horarios = document.getElementById('cuadro_horarios');
+
+calendario.addEventListener('cancel', function cerrarCalendarioConAnimacion(event) {
+    event.preventDefault();
+    cerrarCalendario();
+})
+horarios.addEventListener('cancel', function cerrarHorariosConAnimacion(event) {
+    event.preventDefault();
+    ocultarHorarios(true, false);
+})
+
 
 

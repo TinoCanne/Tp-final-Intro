@@ -12,8 +12,7 @@
     </head>
     <body>
         <div class="marcoEspacios" id="marco_espacios"></div>
-        <div class="fondoReservas" id="fondo_reservas"></div>
-        <div class="cuadroCalendario" id="cuadro_calendario">
+        <dialog class="cuadroCalendario" id="cuadro_calendario">
             <button class="botonCerrarCalendario" onclick="cerrarCalendario()">X</button>
             <table class="calendarioReservas" id="calendario_reservas">
                 <caption class="ubicacionEnCalendario" id="ubicacion_en_calendario"></caption>
@@ -44,17 +43,20 @@
                 </thead>
                 <tbody class="contenidoCalendario" id="contenido_calendario"></tbody>
             </table>
-        </div>
-        <div class="cuadroHorarios" id="cuadro_horarios">
+        </dialog>
+        <dialog class="cuadroHorarios" id="cuadro_horarios">
             <table class="horasResevas" id="horas_reservas">
                 <caption>
-                    <button class="botonVolverACalendarios" onclick="ocultarHorarios(true)">&#171</button>
-                    <button class="botonCerrarHorarios" onclick="ocultarHorarios(false)">X</button>
+                    <button class="botonVolverACalendarios" onclick="ocultarHorarios(true, false)">&#171</button>
+                    <button class="botonCerrarHorarios" onclick="ocultarHorarios(false, false)">X</button>
                     Elija la hora de su reserva
                 </caption>
                 <tbody class="contenidoHoras" id="contenido_horas"></tbody>
             </table>
-        </div>
+        </dialog>
+        <dialog class="textoReservaExitosa" id="texto_reserva_exitosa">
+            Reservado con exito.
+        </dialog>
     </body>
     <script src="../js/perfilEspacio.js"></script>
 </html>
