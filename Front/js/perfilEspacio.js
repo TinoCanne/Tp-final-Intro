@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", async function(){
             const precio = document.createElement("p");
             precio.textContent = `$${espacio.precioporhora}/h`;
 
+            const diasAbierto = document.createElement("p");
+            diasAbierto.textContent = espacio.diasabierto;
+
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async function(){
             carta.appendChild(nombre);
             carta.appendChild(barrio);
             carta.appendChild(precio);
+            carta.appendChild(diasAbierto);
 
             carta.appendChild(botonReserva);
             container.appendChild(carta);
@@ -200,7 +204,7 @@ function ocultarHorarios(vuelveCalendario, reservaRealizada){
     }
 }
 
-function armarCalendario(ano, mes, hora, idEspacio){
+async function armarCalendario(ano, mes, hora, idEspacio){
     let meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     let ubicacionCalendario = document.getElementById('ubicacion_en_calendario');
     let contenidoCalendario = document.getElementById('contenido_calendario');
@@ -216,6 +220,32 @@ function armarCalendario(ano, mes, hora, idEspacio){
         cantidadCeldas = 35;
     }
 
+    const diasSemana = ["lun", "mar", "mie", "jue", "vie", "sab", "dom"]; 
+    let primerDiaSemanaAbierto = "";
+    let ultimoDiaSemanaAbierto = "";
+    const url = `http://localhost:3000/espacios/${idEspacio}`;
+    try {
+        const espacio = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+            }
+        })
+        const espacioJson = await espacio.json();
+
+        let diasAbierto = (espacioJson.diasabierto).split("-");
+        primerDiaSemanaAbierto = diasAbierto[0];
+        ultimoDiaSemanaAbierto = diasAbierto[1];
+    }
+    catch(err){
+        console.log(err);
+    }
+
+    let primerDiaSemanaAbiertoParaComparar = diasSemana.indexOf(primerDiaSemanaAbierto);
+    let ultimoDiaSemanaAbiertoParaComparar = diasSemana.indexOf(ultimoDiaSemanaAbierto);
+
+    console.log(primerDiaSemanaAbiertoParaComparar, ultimoDiaSemanaAbiertoParaComparar);
+
     let contenidoTemporal = "";
     let diaTemporal = 0;
     for (let i = 1; i <= cantidadCeldas; i++){  //empieza en 1 porque el primerDiaMes minimo es 1.
@@ -230,7 +260,11 @@ function armarCalendario(ano, mes, hora, idEspacio){
                 diaTemporal = 1;
             }
             let fechaCelda = new Date(ano, mes, diaTemporal);
-            if (fechaCelda < hoyParaComparar){
+            let diaCelda = fechaCelda.getDay();
+            if (diaCelda === 0){
+                diaCelda = 7;
+            }
+            if ((fechaCelda < hoyParaComparar) || (primerDiaSemanaAbiertoParaComparar + 1 > diaCelda || (ultimoDiaSemanaAbiertoParaComparar + 1 < diaCelda))){
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
             else{
@@ -238,7 +272,7 @@ function armarCalendario(ano, mes, hora, idEspacio){
             }
             diaTemporal++;
         }
-
+        console
         if ((i % 7) === 0){
             contenidoTemporal += "</tr>"
         }
