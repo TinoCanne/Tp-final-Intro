@@ -7,6 +7,9 @@
 }
 
 .miniCarta{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     border-radius: 10px;
     height: 325px;
     width: 240px;
@@ -46,4 +49,8 @@
 
 .miniCarta p{
     margin-top: 5px;
+}
+
+.miniCarta .botonIndex{
+    justify-self: center;
 }

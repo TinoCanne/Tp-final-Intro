@@ -32,12 +32,22 @@ async function armarCartaUsuario(usuario){
     const foto_usuario = document.createElement("img");
     foto_usuario.src = usuario.linkfotoperfil;
 
+    const id_contacto = document.createElement("input");
+    id_contacto.type = "hidden";
+    id_contacto.value = usuario.id;
+
+    const boton_eliminar = document.createElement("button");
+    boton_eliminar.className = "botonIndex";
+    boton_eliminar.innerText = "Eliminar Contacto"
+
     const nombre = document.createElement("p");
     nombre.textContent = usuario.nombre;
     contacto.innerText = usuario.email;
+    carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
     carta.appendChild(contacto);
+    carta.appendChild(boton_eliminar);
     container.appendChild(carta);
 }
 
