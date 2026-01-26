@@ -17,6 +17,25 @@
     color: rgb(151, 120, 40);
 }
 
+#botonEliminarPerfil {
+  display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonEliminarPerfil:hover {
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+}
+
 #botonDeEdicionBanda {
     display: inline-block;
     margin-top: 8px;
@@ -72,6 +91,25 @@
     border-radius: 10px;
     background-color: white;
     color: rgb(151, 120, 40);
+}
+
+#botonDejarBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonDejarBanda:hover {
+    border-radius: 10px;
+    background-color: red;
+    color: white;
 }
 
 .contenedorBotonEdicionPerfil {
@@ -132,7 +170,6 @@
 
 .spanDatosPerfil {
     font-size: 17px;
-    max-width: 220px;
     text-align: left;
     color: #ffffff;
 }
@@ -140,7 +177,6 @@
 .spanDatosBanda,
 .spanDatosBandaNoEditable {
     font-size: 17px;
-    max-width: 220px;
     text-align: left;
     color: #ffffff;
 }

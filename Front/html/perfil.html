@@ -50,9 +50,9 @@
             </form>
             
 	    <div class="contenedorBotonEdicionPerfil">
-            	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button>
+            	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button> 
+		<button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
 	    </div>
-      <button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
 	</div>
         <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
             <div class="crearBanda">
@@ -94,25 +94,25 @@
             <h2>Mi Banda</h2>
 
             <form class="info">
-            <label class="filaPerfil"><strong>Nombre:</strong></label>
+            <label class="filaPerfil"><strong>Nombre:</strong>
                 <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-            <label class="filaPerfil"><strong>Genero/s:</strong></label>
+            <label class="filaPerfil"><strong>Genero/s:</strong>
                 <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
-            <label class="filaPerfil"><strong>Descripción:</strong></label>
+            <label class="filaPerfil"><strong>Descripción:</strong>
 	    	<span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-            <label class="filaPerfil"><strong>Integrantes:</strong></label>
+            <label class="filaPerfil"><strong>Integrantes:</strong>
                 <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda"></span></label><br>
-            <label class="filaPerfil"><strong>Fecha de creación:</strong></label>
+            <label class="filaPerfil"><strong>Fecha de creación:</strong>
                 <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-            <label class="filaPerfil"><strong>Redes:</strong></label>
+            <label class="filaPerfil"><strong>Redes:</strong>
                 <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
 
             </form>
 
 	    <div class="contenedorBotonEdicionBanda">
 	    	<button id="botonDeEdicionBanda">Editar banda</button>
+	    	<button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
 	    </div>
-	    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
 
 	    </div>
         <div id="crearEspacio" class="hiddenEspacio">
