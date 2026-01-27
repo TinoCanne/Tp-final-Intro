@@ -7,7 +7,7 @@ CREATE TABLE usuarios (
     email VARCHAR(150) UNIQUE NOT NULL,
     biografia VARCHAR(150),
     redSocial VARCHAR(150),
-    linkFotoPerfil VARCHAR(300),
+    linkFotoPerfil TEXT,
     contacto VARCHAR(30)
 );
 
@@ -17,7 +17,8 @@ CREATE TABLE bandas (
     fechaCreacion DATE,
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
-    contraseñaParaIngresar VARCHAR(50)
+    contraseñaParaIngresar VARCHAR(50),
+    linkfotobanda TEXT
 );
 
 CREATE TABLE espacios (

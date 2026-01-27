@@ -637,6 +637,19 @@ app.post("/aceptar_usuarios/", async (req, res) =>{
     console.log("agregado exitoso");
 })
 
+app.get("/username_integrantes_bandas/:idBanda", async (req, res) => {
+    try{
+        const query = `SELECT usuarios.* from usuarios INNER JOIN integrantes_bandas ON usuarios.id = integrantes_bandas.id_integrante WHERE integrantes_bandas.id_banda = ${req.params.idBanda}`
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+
+    catch(error){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
 app.post("/aceptar_banda", async (req, res) => {
     try{
         const query = `INSERT INTO contactos_bandas (id_usuario, id_contacto_bandas) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_banda})`

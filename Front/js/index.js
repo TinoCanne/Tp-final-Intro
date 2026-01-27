@@ -187,13 +187,13 @@ async function cargarMiembrosBanda(idBandaAMostrar) {
 
 async function cargarCartaBanda(Banda){
     const nombre = document.getElementById("nombreBanda");
-    //const foto = document.getElementById("fotoBanda");
+    const foto = document.getElementById("fotoBanda");
     const redes = document.getElementById("redsocialBanda");
     const biografia = document.getElementById("bioBanda");
 
     nombre.innerText = Banda.nombre;
     biografia.innerText = Banda.descripcion;
-    //foto.src = Banda.linkfotoperfil;
+    foto.src = Banda.linkfotobanda;
     redes.innerText = Banda.redsocial;
     cargarMiembrosBanda(Banda.id);
     cargarGenerosBanda(Banda.id);
