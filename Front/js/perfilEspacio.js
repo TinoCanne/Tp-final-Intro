@@ -107,7 +107,7 @@ function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSelecci
     const hora_actual = (new Date()).getHours();
     let contenidoTemporal = "<tr>";
     for (let hora = horarioapertura; hora < horariocierre; hora++){
-        if ((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
+        if (((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar)) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
             if (horaEstaReservada(reservasDia, hora)){
                 contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
             }
