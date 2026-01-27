@@ -237,3 +237,24 @@
     max-width: 600px;
     margin: 80px auto;
 }
+
+.botonNavBar {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s;
+    margin-left: 10px;
+}
+
+.botonNavBar:hover {
+    border-radius: 8px;
+}
