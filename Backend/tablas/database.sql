@@ -24,7 +24,10 @@ CREATE TABLE espacios (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(120) NOT NULL,
     ubicacion VARCHAR(150) NOT NULL,
-    linkFotoEspacio VARCHAR(5000),
+    linkFotoEspacio TEXT,
+    horarioApertura INT,
+    horarioCierre INT,
+    diasAbierto VARCHAR(10),
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
     tamaño VARCHAR(20),
@@ -83,12 +86,14 @@ CREATE TABLE contactos_espacios (
     FOREIGN KEY (id_contacto_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );
 
-CREATE TABLE reservas_usuario (
+CREATE TABLE reservas (
     id_usuario INT,
-    id_espacio INT,
-    fecha_reserva DATE,
-    hora_reserva TIME,
-    PRIMARY KEY (id_usuario, id_espacio),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_espacio) REFERENCES espacios(id)
+    id_espacio INT, 
+    hora_reserva INT,
+    dia_reserva INT,
+    mes_reserva INT,
+    año_reserva INT,
+    PRIMARY KEY (id_espacio, hora_reserva, dia_reserva, mes_reserva, año_reserva),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );

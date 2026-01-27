@@ -9,9 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
+    connectionString: process.env.DATABASE_URL || 'postgres://admin:admin@db:5432/tpDb'
 });
 
 // Devolver todos los usuarios
@@ -255,7 +254,7 @@ app.patch("/bandas", async(req, res) =>{
     }
 });
 
-// Devolver todos los generos de una banda
+// Devolver todos los generos de una banda segun el id.
 app.get("/generos_bandas/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
@@ -553,6 +552,61 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ error: "DB error en el metodo POST: login" });
     }
 });
+
+
+app.post("/reservas", async(req, res) => {
+    try {
+        const id_usuario = parseInt(req.body.id_usuario);
+        const id_espacio = parseInt(req.body.id_espacio);
+        const hora_reserva = parseInt(req.body.hora_reserva);
+        const dia_reserva = parseInt(req.body.dia_reserva);
+        const mes_reserva = parseInt(req.body.mes_reserva);
+        const año_reserva = parseInt(req.body.año_reserva);
+
+        const query_reserva = `INSERT INTO reservas (id_usuario, id_espacio, hora_reserva, dia_reserva, mes_reserva, año_reserva) VALUES (${id_usuario}, ${id_espacio}, ${hora_reserva}, ${dia_reserva}, ${mes_reserva}, ${año_reserva}) `
+        
+        await pool.query(query_reserva);
+        
+        res.json({message: "Reserva realizada con exito"}); 
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo POST: reservas"})
+    }
+});
+
+app.get("/reservas", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: reservas"});
+    }
+});
+
+app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas WHERE id_usuario = ${req.params.id_usuario}`);
+                res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/usuarios/:id_usuario" });
+    }
+})
+
+app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT dia_reserva, hora_reserva FROM reservas WHERE id_espacio = ${req.params.id_espacio} AND mes_reserva = ${req.params.mes} AND año_reserva = ${req.params.año} ORDER BY dia_reserva, hora_reserva;`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/:id_espacio" });
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
