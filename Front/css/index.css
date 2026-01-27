@@ -28,6 +28,30 @@
     margin-top: 15px;
 }
 
+.botonNav {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.botonNav:hover {
+    border-radius: 8px;
+}
+
+.botonNav:first-of-type {
+    margin-left: 10px; 
+}
+
 #instrumento, #generos, #redsocial{
     margin-top: -4px;
     justify-content: center;
