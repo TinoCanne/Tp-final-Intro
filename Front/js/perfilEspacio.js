@@ -97,14 +97,17 @@ function horaEstaReservada(reservasDia, horaSeleccionada){
     return reservasDia.includes(horaSeleccionada);
 }
 
-async function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado){
+function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado){
     const { horarioapertura, horariocierre, id } = espacioSeleccionado;
     let contenidoHoras = document.getElementById('contenido_horas');
     
-    const hora_actual = hoy.getHours();
+    const FechaSeleccionadaParaComparar = (new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado)).getTime();
+    const hoyParaComparar = hoy.setHours(0,0,0,0);
+
+    const hora_actual = (new Date()).getHours();
     let contenidoTemporal = "<tr>";
     for (let hora = horarioapertura; hora < horariocierre; hora++){
-        if (hora > hora_actual){
+        if ((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
             if (horaEstaReservada(reservasDia, hora)){
                 contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
             }
@@ -121,10 +124,10 @@ async function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoS
 
 }
 
-function mostrarHorarios(diaSeleccionado, reservasDia, mesSeleccionado, anoSeleccionado, hora){
+function mostrarHorarios(diaSeleccionado, reservasDia, mesSeleccionado, anoSeleccionado){
     let horarios = document.getElementById('cuadro_horarios');
     horarios.showModal();
-    armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado, hora);
+    armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado);
 }
 
 function ocultarHorarios(vuelveCalendario, reservaRealizada){
