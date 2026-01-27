@@ -72,7 +72,3 @@ async function mostrar_contactos_usuarios(id_usuario){
 function mostrar_contactos_bandas(id_usuario){
 
 }
-
-function mostrarcontactos_espacios(id_usuario){
-    
-}
