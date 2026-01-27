@@ -1,4 +1,6 @@
 let hoy = new Date();
+let espacioSeleccionado = null;
+
 
 document.addEventListener("DOMContentLoaded", async function(){
     const url = `http://localhost:3000/espacios/`;
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function(){
             botonReserva.className = "botonReservar";
             botonReserva.id = "botonReservar";
             botonReserva.addEventListener('click', function(){
-                mostrarCalendario(idEspacio);
+                mostrarCalendario(espacio);
             });
 
             carta.appendChild(fotoespacio);
@@ -62,10 +64,6 @@ document.addEventListener("DOMContentLoaded", async function(){
 
 async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, horaSeleccionada, idEspacio){
     const idUsuario = localStorage.getItem('usuarioId');
-    const anoSQL = anoSeleccionado;
-    const mesSQL = ("0" + mesSeleccionado).slice(-2);   //necesito que si o si el mes y el dia tengan dos caracteres para que lo lea bien sql, DATE tiene formato YYYY-MM-DD.
-    const diaSQL = ("0" + diaSeleccionado).slice(-2);
-    const fechaReservaSQL = `${anoSQL}-${mesSQL}-${diaSQL}`;
 
     try {
         const response = await fetch("http://localhost:3000/reservas", {
@@ -76,8 +74,10 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
             body: JSON.stringify({
                 id_usuario: idUsuario,
                 id_espacio:idEspacio,
-                fecha_reserva: fechaReservaSQL,
-                hora_reserva: horaSeleccionada
+                hora_reserva: horaSeleccionada,
+                dia_reserva: diaSeleccionado,
+                mes_reserva: mesSeleccionado,
+                año_reserva: anoSeleccionado
             })
         });
         if (response.ok){
@@ -90,84 +90,41 @@ async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, hora
     }
 }
 
-async function EstaReservada(fechaSeleccionada, horaSeleccionada, idEspacio){
-    const url = `http://localhost:3000/reservas/`;
-    try {
-        const reservas = await fetch(url, {
-            method: 'GET',
-            headers: {
-                "Content-Type" : "application/json",
-            }
-        })
-        const reservasJson = await reservas.json();
-        let reservaEncontrada = false;
-        let fechaSeleccionadaString = fechaSeleccionada.toLocaleDateString('sv-SE');
-        reservasJson.forEach(reserva => {
-            let idEspacioReserva = reserva.id_espacio;
-            let fechaReserva = (reserva.fecha_reserva).split('T')[0];
-            let horaReserva = reserva.hora_reserva;
-
-            if ((idEspacioReserva === idEspacio) && (fechaReserva === fechaSeleccionadaString) && (horaReserva === horaSeleccionada)){
-                reservaEncontrada = true;
-            }
-        })
-        return reservaEncontrada;
-    }
-    catch(err) {
-        alert("error en la comparacion con reservas");
-        console.log(err);
-    }
+function horaEstaReservada(reservasDia, horaSeleccionada){
+    if (!reservasDia){
+        return false;
+    } 
+    return reservasDia.includes(horaSeleccionada);
 }
 
-async function armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
+async function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado){
+    const { horarioapertura, horariocierre, id } = espacioSeleccionado;
     let contenidoHoras = document.getElementById('contenido_horas');
-    const url = `http://localhost:3000/espacios/${idEspacio}`;
-    try {
-        const espacio = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type" : "application/json",
+    
+    const hora_actual = hoy.getHours();
+    let contenidoTemporal = "<tr>";
+    for (let hora = horarioapertura; hora < horariocierre; hora++){
+        if (hora > hora_actual){
+            if (horaEstaReservada(reservasDia, hora)){
+                contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
             }
-        })
-        const espacioJson = await espacio.json();
-
-        let horaApertura = espacioJson.horarioapertura;
-        let horaCierre = espacioJson.horariocierre;
-
-        let fechaSeleccionada = new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado);
-        let hoySinHora = new Date();
-        hoySinHora.setHours(0,0,0,0);
-
-        fechaSeleccionadaParaComparar = fechaSeleccionada.getTime();        //no se pueden compara dos datos tipo Date.
-        hoySinHoraParaComparar = hoySinHora.getTime();
-
-        let contenidoTemporal = "<tr>";
-        for (let i = horaApertura; i < horaCierre; i++){
-            if ((((hora + 1) < i) && (fechaSeleccionadaParaComparar === hoySinHoraParaComparar)) || (fechaSeleccionadaParaComparar > hoySinHoraParaComparar)){
-                if (await EstaReservada(fechaSeleccionada, i, idEspacio)){
-                    contenidoTemporal += "<td class='horasReservadas'>" + i + "</td>";
-                }
-                else{
-                    contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + i + ", " + idEspacio + ")'>" + i + "</td>";
-                }
-            }
-            else {
-                contenidoTemporal += "<td class='horasAnteriores'>" + i + "</td>";
+            else{
+                contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + hora + ", " + id + ")'>" + hora + "</td>";
             }
         }
-        contenidoTemporal += "</tr>";
-        contenidoHoras.innerHTML = contenidoTemporal;
+        else {
+            contenidoTemporal += "<td class='horasAnteriores'>" + hora + "</td>";
+        }
+    }
+    contenidoTemporal += "</tr>";
+    contenidoHoras.innerHTML = contenidoTemporal;
 
-    }
-    catch(err){
-        console.log(err);
-    }
 }
 
-function mostrarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio){
+function mostrarHorarios(diaSeleccionado, reservasDia, mesSeleccionado, anoSeleccionado, hora){
     let horarios = document.getElementById('cuadro_horarios');
     horarios.showModal();
-    armarHorarios(diaSeleccionado, mesSeleccionado, anoSeleccionado, hora, idEspacio);
+    armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado, hora);
 }
 
 function ocultarHorarios(vuelveCalendario, reservaRealizada){
@@ -204,50 +161,39 @@ function ocultarHorarios(vuelveCalendario, reservaRealizada){
     }
 }
 
-async function encontrarEstadoDelDia(ano, mes, dia, idEspacio) {
-    let estadoDelDia = "";
-    
-    let cantidadHorasAbierto = 0;
-    const url1 = `http://localhost:3000/espacios/${idEspacio}`;
+async function armarDiccionarioReservasMes(idEspacio, año, mes){
+    const url = `http://localhost:3000/reservas/espacios/mes/${idEspacio}/${año}/${mes}`;
     try {
-        const espacio = await fetch(url1, {
-            method: 'GET',
-            headers: {
-                "Content-Type" : "application/json",
-            }  
-        })
-        const espacioJson = await espacio.json();
-
-        let horaApertura = espacioJson.horarioapertura;
-        let horaCierre = espacioJson.horariocierre;
-
-        cantidadHorasAbierto = horaCierre - horaApertura;
-    }
-    catch(err){
-        console.log(err);
-    }
-    
-    let fechaCelda = new Date(ano, mes, dia);
-    let fechaCeldaString = fechaCelda.toLocaleDateString('sv-SE');
-    let cantidadReservasDia = 0;
-    const url2 = `http://localhost:3000/reservas/espacios/fecha/${idEspacio}/'${fechaCeldaString}'`;
-    try {
-        const reservas = await fetch(url2, {
-            method: 'GET',
+        const dataReservas = await fetch(url, {
+            method: "GET",
             headers: {
                 "Content-Type" : "application/json",
             }
         })
-        const reservasJson = await reservas.json();
-        reservasJson.forEach(reserva => {
-            cantidadReservasDia++;
-        })
+        const reservas = await dataReservas.json();
+        let diccionarioHorarios = {};
+        reservas.forEach(reserva => {
+            if(!diccionarioHorarios[reserva.dia_reserva]){
+                diccionarioHorarios[reserva.dia_reserva] = [];
+            }
+            diccionarioHorarios[reserva.dia_reserva].push(reserva.hora_reserva);
+        });
+        return diccionarioHorarios;
     }
+
     catch(err){
         console.log(err);
     }
+}
 
-    if (cantidadReservasDia === cantidadHorasAbierto){
+async function encontrarEstadoDelDia(listaReservasDia, horaApertura, horaCierre) {
+    if (!listaReservasDia) {
+        return "disponible";
+    }
+    let estadoDelDia = "";
+    const cantidadTurnosPosibles = horaCierre - horaApertura;
+    const cantidadTurnosReservados = listaReservasDia.length;
+    if (cantidadTurnosPosibles === cantidadTurnosReservados){
         estadoDelDia = "lleno";
     }
     else{
@@ -256,7 +202,7 @@ async function encontrarEstadoDelDia(ano, mes, dia, idEspacio) {
     return estadoDelDia;
 }
 
-async function armarCalendario(ano, mes, hora, idEspacio){
+async function armarCalendario(ano, mes, hora){
     let meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     let ubicacionCalendario = document.getElementById('ubicacion_en_calendario');
     let contenidoCalendario = document.getElementById('contenido_calendario');
@@ -275,23 +221,12 @@ async function armarCalendario(ano, mes, hora, idEspacio){
     const diasSemana = ["lun", "mar", "mie", "jue", "vie", "sab", "dom"]; 
     let primerDiaSemanaAbierto = "";
     let ultimoDiaSemanaAbierto = "";
-    const url = `http://localhost:3000/espacios/${idEspacio}`;
-    try {
-        const espacio = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type" : "application/json",
-            }
-        })
-        const espacioJson = await espacio.json();
 
-        let diasAbierto = (espacioJson.diasabierto).split("-");
-        primerDiaSemanaAbierto = diasAbierto[0];
-        ultimoDiaSemanaAbierto = diasAbierto[1];
-    }
-    catch(err){
-        console.log(err);
-    }
+    let diasAbierto = (espacioSeleccionado.diasabierto).split("-");
+    primerDiaSemanaAbierto = diasAbierto[0];
+    ultimoDiaSemanaAbierto = diasAbierto[1];
+
+    const diccionarioReservasMes = await armarDiccionarioReservasMes(espacioSeleccionado.id, ano, mes+1);
 
     let primerDiaSemanaAbiertoParaComparar = diasSemana.indexOf(primerDiaSemanaAbierto);
     let ultimoDiaSemanaAbiertoParaComparar = diasSemana.indexOf(ultimoDiaSemanaAbierto);
@@ -314,16 +249,17 @@ async function armarCalendario(ano, mes, hora, idEspacio){
             if (diaCelda === 0){
                 diaCelda = 7;
             }
-            let estadoDelDia = await encontrarEstadoDelDia(ano, mes, diaTemporal, idEspacio);
+            let estadoDelDia = await encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre);
 
-            if ((fechaCelda < hoyParaComparar) || (primerDiaSemanaAbiertoParaComparar + 1 > diaCelda || (ultimoDiaSemanaAbiertoParaComparar + 1 < diaCelda))){
+            if ((fechaCelda < hoyParaComparar) ||(primerDiaSemanaAbiertoParaComparar + 1 > diaCelda || (ultimoDiaSemanaAbiertoParaComparar + 1 < diaCelda))){
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
             else if(estadoDelDia == "lleno"){
                 contenidoTemporal += "<td class='diasLlenos'>" + diaTemporal + "</td>";  
             }
             else{
-                contenidoTemporal += "<td class='diasPosteriores' onclick='mostrarHorarios(" + diaTemporal + ", " + (mes + 1) + ", " + ano + ", " + hora + ", " + idEspacio + ")'>" + diaTemporal + "</td>";
+                let reservasString = JSON.stringify(diccionarioReservasMes[diaTemporal] || []);
+                contenidoTemporal += `<td class='diasPosteriores' onclick='mostrarHorarios(${diaTemporal}, ${reservasString}, ${mes + 1}, ${ano})'>${diaTemporal}</td>`;
             }
             diaTemporal++;
         }
@@ -350,14 +286,15 @@ async function armarCalendario(ano, mes, hora, idEspacio){
         anoAnterior = ano - 1;
     }
 
-    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ", " + idEspacio + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + idEspacio + ")'>&#187</button>";
+    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ", " + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + ")'>&#187</button>";
 
 }
 
-function mostrarCalendario(idEspacio){
+function mostrarCalendario(espacio){
+    espacioSeleccionado = espacio;
     let calendario = document.getElementById('cuadro_calendario');
     calendario.showModal();
-    armarCalendario(hoy.getFullYear(), hoy.getMonth(), hoy.getHours(), idEspacio);
+    armarCalendario(hoy.getFullYear(), hoy.getMonth(), hoy.getHours());
 }
 
 function cerrarCalendario(){

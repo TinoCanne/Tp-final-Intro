@@ -88,10 +88,12 @@ CREATE TABLE contactos_espacios (
 
 CREATE TABLE reservas (
     id_usuario INT,
-    id_espacio INT,
-    fecha_reserva DATE,
+    id_espacio INT, 
     hora_reserva INT,
-    PRIMARY KEY (id_espacio, fecha_reserva, hora_reserva),
+    dia_reserva INT,
+    mes_reserva INT,
+    año_reserva INT,
+    PRIMARY KEY (id_espacio, hora_reserva, dia_reserva, mes_reserva, año_reserva),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE
 );

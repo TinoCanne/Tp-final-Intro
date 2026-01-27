@@ -559,7 +559,11 @@ app.post("/reservas", async(req, res) => {
         const id_usuario = parseInt(req.body.id_usuario);
         const id_espacio = parseInt(req.body.id_espacio);
         const hora_reserva = parseInt(req.body.hora_reserva);
-        const query_reserva = `INSERT INTO reservas (id_usuario, id_espacio, fecha_reserva, hora_reserva) VALUES (${id_usuario}, ${id_espacio}, '${req.body.fecha_reserva}', ${hora_reserva}) `
+        const dia_reserva = parseInt(req.body.dia_reserva);
+        const mes_reserva = parseInt(req.body.mes_reserva);
+        const año_reserva = parseInt(req.body.año_reserva);
+
+        const query_reserva = `INSERT INTO reservas (id_usuario, id_espacio, hora_reserva, dia_reserva, mes_reserva, año_reserva) VALUES (${id_usuario}, ${id_espacio}, ${hora_reserva}, ${dia_reserva}, ${mes_reserva}, ${año_reserva}) `
         
         await pool.query(query_reserva);
         
@@ -593,10 +597,10 @@ app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
     }
 })
 
-app.get("/reservas/espacios/fecha/:id_espacio/:fecha_reserva", async (req, res) => {
+app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM reservas WHERE id_espacio = ${req.params.id_espacio} AND  fecha_reserva = ${req.params.fecha_reserva}`);
-                res.json(result.rows);
+        const result = await pool.query(`SELECT dia_reserva, hora_reserva FROM reservas WHERE id_espacio = ${req.params.id_espacio} AND mes_reserva = ${req.params.mes} AND año_reserva = ${req.params.año} ORDER BY dia_reserva, hora_reserva;`);
+        res.json(result.rows);
     }
     catch(err){
         console.error(err);
