@@ -33,7 +33,8 @@ CREATE TABLE espacios (
     tamaño VARCHAR(20),
     precioPorHora INT,
     id_dueño INT,
-    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE,
+    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE generos_usuarios (
