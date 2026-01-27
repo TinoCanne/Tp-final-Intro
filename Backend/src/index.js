@@ -147,18 +147,6 @@ app.get("/generos_usuarios/:id_usuario", async (req, res) => {
     }
 });
 
-// Devolver todos los instrumentos de los usuarios
-app.get("/instrumentos_usuarios", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM instrumentos`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios" });
-    }
-});
-
 // Devolver todos los instrumentos de un usuario por id
 app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
     try {
@@ -428,42 +416,6 @@ app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
     }
 });
 
-// Devolver todos los generos de un usuario
-app.get("/generos_usuarios/:id_usuario", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM generos_usuarios WHERE id_usuario = ${req.params.id_usuario}`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios/id_usuario" });
-    }
-});
-
-// Devolver todos los generos de todos los usuarios
-app.get("/generos_usuarios", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM generos_usuarios`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
-    }
-});
-
-// Devolver todos los instrumentos de un usuario
-app.get("/instrumentos_usuarios/:id_usuario", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM instrumentos WHERE id_usuario = ${req.params.id_usuario}`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: instrumentos_usuarios/id_usuario" });
-    }
-});
-
 // Devolver todos los intrumentos de todos los usuarios
 app.get("/instrumentos_usuarios", async (req, res) => {
     try {
@@ -553,7 +505,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-
 app.post("/reservas", async(req, res) => {
     try {
         const id_usuario = parseInt(req.body.id_usuario);
@@ -606,9 +557,23 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
         console.error(err);
         res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/:id_espacio" });
     }
+});
+        //devuelve todos los contactos de un usuario dado su id
+app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
+    const q = ` SELECT * FROM contactos_usuarios WHERE id_usuario = ${req.params.id_usuario}`;
+
+    try{
+        const response = await pool.query(q);
+        res.json(response.rows); 
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({ error : "DB error" });
+    }
 })
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en http://localunuhost:" + PORT);
 });
+
