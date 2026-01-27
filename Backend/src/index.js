@@ -573,6 +573,7 @@ app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
     }
 })
 
+//borrar un contacto dado el id del usuario y el del contacto
 app.delete("/eliminar_contacto/:id_usuario/:id_contacto", async(req, res) =>{
     const q = `DELETE FROM contactos_usuarios WHERE id_usuario = ${req.params.id_usuario} AND id_contacto_usuario = ${req.params.id_contacto}`;
 
