@@ -39,6 +39,11 @@ async function armarCartaUsuario(usuario){
     const boton_eliminar = document.createElement("button");
     boton_eliminar.className = "botonIndex";
     boton_eliminar.innerText = "Eliminar Contacto"
+    boton_eliminar.onclick = function(){
+        let user_id = localStorage.getItem("usuarioId");
+        let contact_id = usuario.id;
+        eliminar_contacto(user_id, contact_id);
+    }
 
     const nombre = document.createElement("p");
     nombre.textContent = usuario.nombre;
@@ -105,6 +110,21 @@ async function mostrar_contactos_bandas(id_usuario){
         data_json.forEach(banda => {
             armarCartaBanda(banda);          
         });
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+async function eliminar_contacto(id_usuario, id_contacto){
+    const url = `http://localhost:3000/eliminar_contacto/${id_usuario}/${id_contacto}`;
+    try{
+        const response = await fetch(url, {
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
     }
     catch(err){
         console.log(err);

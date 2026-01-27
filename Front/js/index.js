@@ -221,9 +221,11 @@ async function aceptarBanda(id_banda){
 document.addEventListener("DOMContentLoaded", async () => {
     const botonSiBanda = document.getElementById("botonSiBanda");
     const botonNoBanda = document.getElementById("botonNoBanda");
+    const marco_bandas = document.getElementById("cartaBandas");
+    const estado_marco_bandas = marco_bandas.className;
     const bandas = await devolverBandas();
     console.log(bandas);
-    if (!bandas[numeroBandaMostrada]) {
+    if (!bandas[numeroBandaMostrada] && estado_marco_bandas == "boxCarta") {
         alert("No hay más bandas para mostrar."); 
         return; 
     }
