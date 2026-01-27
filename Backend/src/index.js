@@ -586,7 +586,23 @@ app.get("/pedir_bandas/:id_usuario", async(req, res) => {
     }
 })
 
-app.post("/aceptar_usuarios/", async (req, res)=>{
+app.get("/usuarios_index/:id_usuario", async (req, res) => {
+    try{
+        const query = `SELECT usuarios.* FROM usuarios
+            LEFT JOIN contactos_usuarios  
+            ON usuarios.id = contactos_usuarios.id_contacto_usuario AND contactos_usuarios.id_usuario = ${req.params.id_usuario} 
+            WHERE usuarios.id != ${req.params.id_usuario} 
+            AND contactos_usuarios.id_contacto_usuario IS NULL`;
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
+app.post("/aceptar_usuarios/", async (req, res) =>{
     const q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_usuario});`
     await pool.query(q);
     console.log("agregado exitoso");
