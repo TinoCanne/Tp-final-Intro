@@ -307,3 +307,38 @@
     margin: 0;
     max-width: none;
 }
+
+.popupEspacio {
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    width: 670px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: white; 
+}
+
+.popupEspacio::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(3px); 
+}
+
+#contenedorPopUpEspacio {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.miniCartaEspacio {
+    border-radius: 10px;
+    height: 300px;
+    width: 200px;
+    background-color: rgb(212, 126, 45);
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.miniCartaEspacio img {
+    height: 150px;
+    width: 140px;
+}

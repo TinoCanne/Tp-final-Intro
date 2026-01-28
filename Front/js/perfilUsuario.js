@@ -429,36 +429,35 @@ async function cargarDatosEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
 
     try {
-        // 1. Obtener la lista de espacios del usuario
+        
         const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
         const datosId = await responseIdEspacios.json(); 
 
-        // 2. Si el usuario NO tiene espacios (array vacío o error)
         if (!responseIdEspacios.ok || datosId.length === 0) {
             divEspacio.classList.add("hiddenEspacio");
             divCrearEspacio.classList.remove("hiddenEspacio");
             return; 
         }
 
-        // 3. Determinar qué ID mostrar
-        let idParaMostrar = localStorage.getItem('espacioId');
+        let idEspacioLocalStorage = localStorage.getItem('espacioId');
 
-        // Si no hay nada en storage O el ID guardado ya no existe en la lista del usuario (seguridad)
-        // Usamos el ID del primer espacio que tenga
-        const existeId = datosId.some(e => e.id == idParaMostrar);
+        let existeId = false;
+        datosId.forEach(element => {
+            if(element.id == idEspacioLocalStorage){
+                existeId = true;
+            }
+        });
         
-        if (!idParaMostrar || !existeId) {
-            idParaMostrar = datosId[0].id;
-            localStorage.setItem('espacioId', idParaMostrar);
+        if (!idEspacioLocalStorage || !existeId) {
+            idEspacioLocalStorage = datosId[0].id;
+            localStorage.setItem('espacioId', idEspacioLocalStorage);
         }
 
-        // 4. Fetch de los detalles (SOLO UNA VEZ)
-        const response = await fetch(`http://localhost:3000/espacios/${idParaMostrar}`);
+        const response = await fetch(`http://localhost:3000/espacios/${idEspacioLocalStorage}`);
         if(!response.ok) throw new Error("Error al cargar detalles");
         
         const datos = await response.json();
 
-        // Rellenar HTML
         document.getElementById('nombreEspacio').textContent = datos.nombre;
         document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
         document.getElementById('descripcionEspacio').textContent = datos.descripcion;
@@ -466,7 +465,6 @@ async function cargarDatosEspacio(){
         document.getElementById('tamañoEspacio').textContent = datos.tamaño;
         document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
 
-        // Mostrar sección correcta
         divEspacio.classList.remove("hiddenEspacio");
         divCrearEspacio.classList.add("hiddenEspacio");
 
@@ -568,7 +566,7 @@ async function mostrarTodosEspacios(){
     const idUsuario = localStorage.getItem('usuarioId');
     const popUpEspacios = document.getElementById('popUpEspacios');
     const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
-    divContenedorPopUp.innerHTML = '<button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">Cerrar</button>';
+    divContenedorPopUp.innerHTML = '';
     
     try{
         const dataEspacios = await fetch(`http://localhost:3000/obtener_espacios/${idUsuario}`);
@@ -597,6 +595,7 @@ function seleccionarEstudio(espacio){
 async function armarCartaEspacio(espacio){
     const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
     const cartaEspacio = document.createElement('div');
+    cartaEspacio.className = "miniCartaEspacio";
     const nombreEspacio = document.createElement('h3');
     nombreEspacio.textContent = espacio.nombre;
     const imagenEspacio = document.createElement('img');
