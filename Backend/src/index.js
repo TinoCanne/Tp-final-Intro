@@ -40,7 +40,7 @@ app.post("/usuarios", async (req, res) => {
     try {
         const query_usuario = `INSERT INTO usuarios (nombre, apellido, username, contraseña, email, biografia, redSocial, linkFotoPerfil, contacto)
         VALUES ('${req.body.nombre}', '${req.body.apellido}', '${req.body.username}', '${req.body.contraseña}', '${req.body.email}', '${req.body.biografia}', '${req.body.redesSociales}', '${req.body.linkFoto}', '${req.body.contacto}') RETURNING id`;
-        result_usuario = await pool.query(query_usuario);
+        const result_usuario = await pool.query(query_usuario);
 
         const id = result_usuario.rows[0].id;
 
@@ -120,18 +120,6 @@ app.delete("/usuarios/:id", async (req, res) => {
     catch (err){
         console.error(err);
         res.status(500).send("DB error en el metodo DELETE: usuarios/id");
-    }
-});
-
-// Devolver todos los generos de los usuarios
-app.get("/generos_usuarios", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM generos_usuarios`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
     }
 });
 
@@ -413,6 +401,31 @@ app.get("/obtener_id_espacio/:id_usuario", async (req, res) => {
     catch(err){
         console.error(err);
         res.status(500).json({ error: "DB error en el metodo GET: obtener_id_espacio/id_usuario" });
+    }
+});
+
+// Devuelve el espacio correspondiente al id_usuario
+app.get("/obtener_espacios/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_espacio = `SELECT * FROM espacios WHERE id_dueño = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_espacio);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_espacio/id_usuario" });
+    }
+});
+
+// Devolver todos los generos de todos los usuarios
+app.get("/generos_usuarios", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM generos_usuarios`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: generos_usuarios" });
     }
 });
 
