@@ -68,6 +68,19 @@
     font-family: inherit;
 }
 
+#botonCrearEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
 #botonUnirseBanda:hover {
     border-radius: 10px;
     background-color: white;
@@ -112,6 +125,30 @@
     color: white;
 }
 
+#botonCrearEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonMostrarImagenEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    height: 20px;
+}
+
+#botonMostrarImagenEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
 .contenedorBotonEdicionPerfil {
     padding-left: 17px;
 }
@@ -127,6 +164,14 @@
     padding-right: 50px;
 }
 
+.contenedorBotonCrearEspacio {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding-right: 50px;
+}
+
+
 .opcionesBanda {
     display: flex;
     flex-wrap: wrap;
@@ -140,6 +185,11 @@
     text-align: center;
     font-size: 28px;
     margin-top: 40px;
+}
+
+.contenedorInfoMiniespacio {
+    display: flex;
+    flex-direction: row;
 }
 
 .info {
@@ -181,12 +231,18 @@
     color: #ffffff;
 }
 
-.modo-edicion .spanDatosPerfil {
+.spanDatosEspacio {
+    display: block;
+    overflow-wrap: break-word;
+    max-width: 300px;
+}
+
+.modo-edicion {
     cursor: pointer;
 }
 
-.modo-edicion .spanDatosPerfil:hover {
-    background-color: rgba(255,255,255,0.1);
+.modo-edicion:hover {
+    background-color: rgba(255,255,255,0.1) !important;
     border-radius: 6px;
 }
 
@@ -257,4 +313,87 @@
 
 .botonNavBar:hover {
     border-radius: 8px;
+}
+#seccionEspacio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
+}
+
+#infoEspacio, #crearEspacio {
+    width: 45%;                 
+    background-color: rgba(0,0,0,0.5); 
+    border-radius: 15px;        
+    padding: 20px;
+    box-sizing: border-box;     
+}
+
+.popupEspacio {
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    width: 670px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: white; 
+}
+
+.popupEspacio::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(3px); 
+}
+
+#contenedorPopUpEspacio {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.miniCartaEspacio {
+    border-radius: 10px;
+    height: 300px;
+    width: 200px;
+    background-color: rgb(212, 126, 45);
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.miniCartaEspacio img {
+    height: 150px;
+    width: 140px;
+}
+
+.contenedorFotoDeMuestraEspacio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fotoDeMuestraEspacio {
+    height: 180px;
+    width: auto;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.contenedroInfoMiniespacio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.imagenEspacioMiniespacio {
+    top: 50%;
+    right: 20%;
+    transform: translate(-50%);
+    width: 200px;
+    height: auto;
+    border-radius: 100px;
+    object-fit: cover;
 }

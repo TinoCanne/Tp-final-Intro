@@ -202,7 +202,7 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
-function mostrarImagenPorDefecto() {
+function mostrarImagenPorDefectoUsuario() {
     document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
 
@@ -348,6 +348,7 @@ async function unirseBanda(event) {
         console.error("Error de red:", error);
     }
     event.target.reset();
+    location.reload()
 }
 
 async function crearBanda(event){
@@ -384,11 +385,19 @@ async function crearBanda(event){
         console.error("Error de red:", error);
     }
     event.target.reset();
+    location.reload()
+}
+
+function mostrarImagenCrearEspacio() {
+    let linkFotoCrearEspacio = document.getElementById("linkFotoEspacio").value;
+    let fotoMuestraEspacio = document.getElementById("fotoDeMuestraEspacio");
+    fotoMuestraEspacio.src = linkFotoCrearEspacio;
 }
 
 async function crearEspacio(event){
     event.preventDefault();
     const nombreEspacio = document.getElementById('nombreCrearEspacio').value;
+    const linkFotoEspacio = document.getElementById('linkFotoEspacio').value;
     const ubicacionEspacio = document.getElementById('ubicacionCrearEspacio').value;
     const descripcionEspacio = document.getElementById('descripcionCrearEspacio').value;
     const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
@@ -405,6 +414,7 @@ async function crearEspacio(event){
             body: JSON.stringify({
                 nombre: nombreEspacio,
                 ubicacion: ubicacionEspacio,
+                linkfotoespacio: linkFotoEspacio,
                 descripcion: descripcionEspacio,
                 contacto: contactoEspacio,
                 tamaño: tamañoEspacio,
@@ -414,10 +424,14 @@ async function crearEspacio(event){
         });
 
         const datos = await response.json();
+
+        if (response.ok){
+            event.target.reset();
+            location.reload()
+        }
     } catch (error) {
         console.error("Error de red:", error);
     }
-    event.target.reset();
 }
 
 async function cargarDatosEspacio(){
@@ -426,44 +440,48 @@ async function cargarDatosEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
 
     try {
+        
         const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+        const datosId = await responseIdEspacios.json(); 
 
-        if (!responseIdEspacios.ok) {
-            console.log("No tiene espacio (404), mostrando formulario.");
+        if (!responseIdEspacios.ok || datosId.length === 0) {
             divEspacio.classList.add("hiddenEspacio");
             divCrearEspacio.classList.remove("hiddenEspacio");
             return; 
         }
+
+        let idEspacioLocalStorage = localStorage.getItem('espacioId');
+
+        let existeId = false;
+        datosId.forEach(element => {
+            if(element.id == idEspacioLocalStorage){
+                existeId = true;
+            }
+        });
         
-        const datosId = await responseIdEspacios.json(); 
-        const id = datosId.id;
+        if (!idEspacioLocalStorage || !existeId) {
+            idEspacioLocalStorage = datosId[0].id;
+            localStorage.setItem('espacioId', idEspacioLocalStorage);
+        }
 
-        if (id) {
-            const response = await fetch(`http://localhost:3000/espacios/${id}`);
+        const response = await fetch(`http://localhost:3000/espacios/${idEspacioLocalStorage}`);
+        if(!response.ok) throw new Error("Error al cargar detalles");
         
-            if(!response.ok) throw new Error("Error al cargar detalles");
+        const datos = await response.json();
 
-            const datos = await response.json();
+        document.getElementById('nombreEspacio').textContent = datos.nombre;
+        document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
+        document.getElementById('imagenEspacioMiniespacio').src = datos.linkfotoespacio;
+        document.getElementById('descripcionEspacio').textContent = datos.descripcion;
+        document.getElementById('contactoEspacio').textContent = datos.contacto;
+        document.getElementById('tamañoEspacio').textContent = datos.tamaño;
+        document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
 
-            document.getElementById('nombreEspacio').textContent = datos.nombre;
-            document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
-            document.getElementById('descripcionEspacio').textContent = datos.descripcion;
-            document.getElementById('contactoEspacio').textContent = datos.contacto;
-            document.getElementById('tamañoEspacio').textContent = datos.tamaño;
-            
-            const precio = String(datos.precioporhora || 0);
-            document.getElementById('precioEspacio').textContent = precio;   
-    
-            divEspacio.classList.remove("hiddenEspacio");
-            divCrearEspacio.classList.add("hiddenEspacio");
-        }
-        else {
-            divEspacio.classList.add("hiddenEspacio");
-            divCrearEspacio.classList.remove("hiddenEspacio");
-        }
+        divEspacio.classList.remove("hiddenEspacio");
+        divCrearEspacio.classList.add("hiddenEspacio");
 
     } catch (error) {
-        console.error("Error de red o servidor:", error);
+        console.error("Error:", error);
         divEspacio.classList.add("hiddenEspacio");
         divCrearEspacio.classList.remove("hiddenEspacio");
     }    
@@ -524,19 +542,147 @@ async function dejarBanda() {
     catch(error){
         console.error(error);
     }
+    location.reload()
 }
 
 async function eliminarEspacio(){
     try{
-        const idUsuario = localStorage.getItem('usuarioId');
-        const dataEspacio = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
-        const Espacio = await dataEspacio.json();
-        const idEspacio = Espacio.id;
-        const response = await fetch(`http://localhost:3000/espacios/${idEspacio}` , {
+        const response = await fetch(`http://localhost:3000/espacios/${localStorage.getItem('espacioId')}` , {
             method: 'DELETE'
         });
     }
     catch(error){
         console.error(error);
+    }
+    location.reload()
+    localStorage.removeItem('espacioId');
+}
+
+function ocultarMostrarCrearEspacio(){
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    const botonVerCrearEspacio = document.getElementById('ocultarMostrarCrearEspacio');
+    
+    if (divCrearEspacio.classList.contains('hiddenEspacio')) {
+        
+        divCrearEspacio.classList.remove('hiddenEspacio'); 
+        botonVerCrearEspacio.textContent = "Ocultar formulario crear espacio"; 
+        
+    } else {
+        
+        divCrearEspacio.classList.add('hiddenEspacio'); 
+        botonVerCrearEspacio.textContent = "Crea otro Espacio Jameet!"; 
+    }
+}
+
+async function mostrarTodosEspacios(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const popUpEspacios = document.getElementById('popUpEspacios');
+    const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
+    divContenedorPopUp.innerHTML = '';
+    
+    try{
+        const dataEspacios = await fetch(`http://localhost:3000/obtener_espacios/${idUsuario}`);
+        const Espacios = await dataEspacios.json()
+        Espacios.forEach(espacio => {
+            armarCartaEspacio(espacio);
+        });
+        popUpEspacios.showModal()
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
+function cerrarPopUp(){
+    const popUpEspacios = document.getElementById('popUpEspacios');
+    popUpEspacios.close();
+}
+
+function seleccionarEstudio(espacio){
+    localStorage.setItem('espacioId', espacio.id);
+    cerrarPopUp();
+    location.reload();
+}
+
+async function armarCartaEspacio(espacio){
+    const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
+    const cartaEspacio = document.createElement('div');
+    cartaEspacio.className = "miniCartaEspacio";
+    const nombreEspacio = document.createElement('h3');
+    nombreEspacio.textContent = espacio.nombre;
+    const imagenEspacio = document.createElement('img');
+    imagenEspacio.src = espacio.linkfotoespacio;
+    const botonSeleccionarEspacio = document.createElement('button');
+    botonSeleccionarEspacio.textContent = "Seleccionar y mostrar";
+    botonSeleccionarEspacio.onclick = () => seleccionarEstudio(espacio);
+    cartaEspacio.appendChild(nombreEspacio);
+    cartaEspacio.appendChild(imagenEspacio);
+    cartaEspacio.appendChild(botonSeleccionarEspacio);
+    divContenedorPopUp.appendChild(cartaEspacio);
+}
+
+async function guardarEspacioEditado() {
+    try{
+        let nombreEspacio = document.getElementById("nombreEspacio");
+        let ubicacionEspacio = document.getElementById("ubicacionEspacio");
+        let linkFotoEspacio = document.getElementById("imagenEspacioMiniespacio");
+        let descripcionEspacio = document.getElementById("descripcionEspacio");
+        let contactoEspacio = document.getElementById("contactoEspacio");
+        let tamañoEspacio = document.getElementById("tamañoEspacio");
+        let precioEspacio = document.getElementById("precioEspacio");
+        let idEspacio = localStorage.getItem("espacioId");
+
+        const url = "http://localhost:3000/espacios";
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombreEspacio:nombreEspacio.textContent,
+                ubicacionEspacio:ubicacionEspacio.textContent,
+                linkFotoEspacio:linkFotoEspacio.src,
+                descripcionEspacio:descripcionEspacio.textContent,
+                contactoEspacio:contactoEspacio.textContent,
+                tamañoEspacio:tamañoEspacio.textContent,
+                precioPorHora:precioEspacio.textContent,
+                espacioId:idEspacio
+            })
+        })
+
+    }
+    catch(err){
+        console.error(err);
+    }
+    
+}
+
+function editarEspacio(){
+    const infoEspacio = document.getElementById("infoEspacio")
+    const enEdicion = infoEspacio.classList.toggle("modo-edicion");
+    const datos= document.querySelectorAll(".spanDatosEspacio");
+
+    datos.forEach(elemento => {
+        if (enEdicion){
+            elemento.contentEditable = "true";
+            elemento.addEventListener('keydown', prevenirSaltoDeLinea);
+        }
+        else{
+            elemento.contentEditable = "false";
+            elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
+        }
+    });
+
+    if (!enEdicion){
+        guardarEspacioEditado();
+    }
+}
+
+function mostrarImagenPorDefectoEspacio(creandoEspacio) {
+    if (creandoEspacio){
+        document.getElementById("fotoDeMuestraEspacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
+    else{
+        document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
