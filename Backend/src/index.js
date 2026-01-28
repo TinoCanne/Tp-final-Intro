@@ -499,9 +499,6 @@ app.get("/filtro_espacios", async (req, res) => {
         if (ubicacion != ""){
             query += ` AND ubicacion = '${ubicacion}'`;
         }
-        if (tamaño != ""){
-            query += ` AND tamaño = '${tamaño}'`;
-        }
         if (precioPorHora != ""){
             let precioPorHoraInt = parseInt(precioPorHora);
             query += ` AND precioPorHora <= ${precioPorHoraInt}`;

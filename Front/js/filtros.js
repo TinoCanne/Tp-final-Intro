@@ -92,10 +92,9 @@ async function aplicar_filtros_espacios(event){
     event.preventDefault();
     try{
         const ubicacion = document.getElementById('ubicacion').value;
-        const tamaño = document.getElementById('tamaño').value;
         const precioPorHora = document.getElementById('precioPorHora').value;
 
-        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&tamaño=${tamaño}&precioPorHora=${precioPorHora}`;
+        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}`;
         
         const response = await fetch(url, {
             method: "GET",
@@ -110,5 +109,4 @@ async function aplicar_filtros_espacios(event){
         console.log(error);
     }
     event.target.reset();
-    window.location.href = "perfil_espacio.html";
 }
