@@ -11,6 +11,22 @@
         <title>Perfil del Espacio</title>
     </head>
     <body>
+
+        <button onclick="mostrarReservas()">Mira tus reservas!</button>
+        <dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
+            <table class="misResevas">
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Nombre del espacio</th>
+                <th>Precio por hora</th>                
+                <th>Numero de reserva</th>
+                <caption>
+                    Mis reservas:
+                </caption>
+                <tbody class="contenidoMisReservas" id="contenidoMisReservas"></tbody>
+            </table>
+        </dialog>
+
         <div class="marcoEspacios" id="marco_espacios"></div>
         <dialog class="cuadroCalendario" id="cuadro_calendario">
             <button class="botonCerrarCalendario" onclick="cerrarCalendario()">X</button>
@@ -57,6 +73,7 @@
         <dialog class="textoReservaExitosa" id="texto_reserva_exitosa">
             Reservado con exito.
         </dialog>
+        
     </body>
     <script src="../js/perfilEspacio.js"></script>
 </html>
