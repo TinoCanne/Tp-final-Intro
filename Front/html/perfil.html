@@ -118,20 +118,21 @@
                 <div class="contenedorInfoMiniespacio" id="contenedorInfoMiniespacio">
                     <form class="info">
                         <label><strong>Nombre:</strong></label>
-                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span></label><br>
+                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
                         <label><strong>Ubicacion:</strong></label>
-                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span></label><br>
+                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span><br>
                         <label><strong>Descripción:</strong></label>
-                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span></label><br>
+                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
                         <label><strong>Contacto:</strong></label>
-                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span></label><br>
+                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
                         <label><strong>Tamaño:</strong></label>
-                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span></label><br>
+                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
                         <label><strong>Precio por hora:</strong></label>
-                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span></label><br>
+                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="" onerror="mostrarImagenPorDefectoEspacio(false)">
+                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
+                        <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     </div>
                 </div>
                 <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
@@ -169,7 +170,7 @@
         </div>
 
         <dialog id="popUpEspacios" class="popupEspacio">
-            <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">Cerrar</button>
+            <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">X</button>
             <div id="contenedorPopUpEspacio" class="contenedorPopUp">
                 
             </div>
