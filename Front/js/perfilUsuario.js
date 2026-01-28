@@ -388,9 +388,16 @@ async function crearBanda(event){
     location.reload()
 }
 
+function mostrarImagenCrearEspacio() {
+    let linkFotoCrearEspacio = document.getElementById("linkFotoEspacio").value;
+    let fotoMuestraEspacio = document.getElementById("fotoDeMuestraEspacio");
+    fotoMuestraEspacio.src = linkFotoCrearEspacio;
+}
+
 async function crearEspacio(event){
     event.preventDefault();
     const nombreEspacio = document.getElementById('nombreCrearEspacio').value;
+    const linkFotoEspacio = document.getElementById('linkFotoEspacio').value;
     const ubicacionEspacio = document.getElementById('ubicacionCrearEspacio').value;
     const descripcionEspacio = document.getElementById('descripcionCrearEspacio').value;
     const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
@@ -407,6 +414,7 @@ async function crearEspacio(event){
             body: JSON.stringify({
                 nombre: nombreEspacio,
                 ubicacion: ubicacionEspacio,
+                linkfotoespacio: linkFotoEspacio,
                 descripcion: descripcionEspacio,
                 contacto: contactoEspacio,
                 tamaño: tamañoEspacio,
@@ -416,11 +424,14 @@ async function crearEspacio(event){
         });
 
         const datos = await response.json();
+
+        if (response.ok){
+            event.target.reset();
+            location.reload()
+        }
     } catch (error) {
         console.error("Error de red:", error);
     }
-    event.target.reset();
-    location.reload()
 }
 
 async function cargarDatosEspacio(){
@@ -460,6 +471,7 @@ async function cargarDatosEspacio(){
 
         document.getElementById('nombreEspacio').textContent = datos.nombre;
         document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
+        document.getElementById('imagenEspacioMiniespacio').src = datos.linkfotoespacio;
         document.getElementById('descripcionEspacio').textContent = datos.descripcion;
         document.getElementById('contactoEspacio').textContent = datos.contacto;
         document.getElementById('tamañoEspacio').textContent = datos.tamaño;
@@ -607,4 +619,59 @@ async function armarCartaEspacio(espacio){
     cartaEspacio.appendChild(imagenEspacio);
     cartaEspacio.appendChild(botonSeleccionarEspacio);
     divContenedorPopUp.appendChild(cartaEspacio);
+}
+
+async function guardarEspacioEditado() {
+    try{
+        let nombreEspacio = document.getElementById("nombreEspacio");
+        let ubicacionEspacio = document.getElementById("ubicacionEspacio");
+        let descripcionEspacio = document.getElementById("descripcionEspacio");
+        let contactoEspacio = document.getElementById("contactoEspacio");
+        let tamañoEspacio = document.getElementById("tamañoEspacio");
+        let precioEspacio = document.getElementById("precioEspacio");
+        let idEspacio = localStorage.getItem("espacioId");
+
+        const url = "http://localhost:3000/espacios";
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                nombreEspacio:nombreEspacio.textContent,
+                ubicacionEspacio:ubicacionEspacio.textContent,
+                descripcionEspacio:descripcionEspacio.textContent,
+                contactoEspacio:contactoEspacio.textContent,
+                tamañoEspacio:tamañoEspacio.textContent,
+                precioPorHora:precioEspacio.textContent,
+                espacioId:idEspacio
+            })
+        })
+
+    }
+    catch(err){
+        console.error(err);
+    }
+    
+}
+
+function editarEspacio(){
+    const infoEspacio = document.getElementById("infoEspacio")
+    const enEdicion = infoEspacio.classList.toggle("modo-edicion");
+    const datos= document.querySelectorAll(".spanDatosEspacio");
+
+    datos.forEach(elemento => {
+        if (enEdicion){
+            elemento.contentEditable = "true";
+            elemento.addEventListener('keydown', prevenirSaltoDeLinea);
+        }
+        else{
+            elemento.contentEditable = "false";
+            elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
+        }
+    });
+
+    if (!enEdicion){
+        guardarEspacioEditado();
+    }
 }
