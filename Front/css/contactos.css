@@ -7,6 +7,9 @@
 }
 
 .miniCarta{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     border-radius: 10px;
     height: 325px;
     width: 240px;
@@ -22,6 +25,7 @@
     margin: 10px;
     border-radius: 10px;
     border-style: solid;
+    justify-self: center;
 }
 
 .botoneraContactos{
@@ -41,4 +45,12 @@
 
 .marco #marco_espacios{
     display:none;
+}
+
+.miniCarta p{
+    margin-top: 5px;
+}
+
+.miniCarta .botonIndex{
+    justify-self: center;
 }

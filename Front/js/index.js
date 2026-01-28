@@ -1,85 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const botonSi = document.getElementById("botonSi");
-    const botonNo = document.getElementById("botonNo");
-    let idPersonaActual = parseInt(document.getElementById("idPersona").value);
+const idUsuario = localStorage.getItem('usuarioId');
+let numeroUsuarioMostrado = 0;
+let numeroBandaMostrada = 0;
 
+document.addEventListener("DOMContentLoaded", async () => {
+    const botonSi = document.getElementById("botonSiUsuarios");
+    const botonNo = document.getElementById("botonNoUsuarios");
+    const personas = await devolverPersonas();
+    cargarCartaUsuario(personas[numeroUsuarioMostrado]);
     botonSi.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
+        aceptarPersona(personas[numeroUsuarioMostrado].id);
+        numeroUsuarioMostrado = numeroUsuarioMostrado + 1;
+        if (!personas[numeroUsuarioMostrado]){
+            numeroUsuarioMostrado = 0;
+        };
+        cargarCartaUsuario(personas[numeroUsuarioMostrado]);
     })
     botonNo.addEventListener("click", function(){
-        aceptar_persona(idPersonaActual)
+        numeroUsuarioMostrado = numeroUsuarioMostrado + 1;
+        if (!personas[numeroUsuarioMostrado]){
+            numeroUsuarioMostrado = 0;
+        };
+        cargarCartaUsuario(personas[numeroUsuarioMostrado]);
     });
 })
 
-document.addEventListener("DOMContentLoaded", () => {
-    const id_usuario = localStorage.getItem('usuarioId');
-    if (!id_usuario){
-        window.location.href = "/html/iniciar_sesion.html";
-    }
-})
-
-async function aceptar_persona(){
-
-    const nombre = document.getElementById("nombre");
-    const bio = document.getElementById("bio");
-    const generos = document.getElementById("generos");
-    const foto = document.getElementById("foto");
-    const instrumento = document.getElementById("instrumento");
-    const idPersona = document.getElementById("idPersona");
-    const id_persona_actual = parseInt(idPersona.value);
-    const url = `http://localhost:3000/usuarios/${id_persona_actual+1}`;
-
-    idPersona.value = toString(id_persona_actual+1);
-
+async function devolverPersonas(){
     try{
-        const siguiente_usuario = await fetch(url, {
-            method:"GET", headers: {"Content-Type": "application/json",}
-        });
-
-        const usuario_json = await siguiente_usuario.json();
-        console.log(usuario_json);
-
-        nombre.innerHTML = usuario_json.nombre;
-        bio.innerHTML = usuario_json.biografia;
-        foto.src = usuario_json.foto
-
-        tags.replaceChildren();
-
-        let generos = usuario_json.generosfavoritos.split(",")
-        generos.forEach(genero => {
-            const nuevo_Tag = document.createElement("p");
-            nuevo_Tag.className = "cartaTag";
-            nuevo_Tag.innerHTML = genero;
-            tags.appendChild(nuevo_Tag);
-        });
-
-        idPersona.value = id_persona_actual + 1;
-
+        const response = await fetch(`http://localhost:3000/usuarios_index/${idUsuario}`);
+        const personas = await response.json();
+        return personas;
     }
     catch(error){
         console.log(error);
     }
 }
 
-function mostrarCartaMusico(musico) {
-    document.getElementById("idPersona").value = musico.id;
-    document.getElementById("nombre").textContent = musico.nombre;
-    document.getElementById("instrumento").textContent = musico.instrumentos || "Sin datos";
-    document.getElementById("generos").textContent = musico.generos_favoritos || "Sin datos";
-    document.getElementById("bio").textContent = musico.biografia || "Sin biografía";
-    document.getElementById("redsocial").textContent = musico.redsocial || "No disponible";
-
-    if (musico.linkfotoperfil) {
-        document.getElementById("foto").src = musico.linkfotoperfil;
+document.addEventListener("DOMContentLoaded", () => {
+    const id_usuario = localStorage.getItem('usuarioId');
+    if (!id_usuario){
+        window.location.href = "html/iniciar_sesion.html";
     }
-    
-    cargarInstrumentos(musico.id);
-    cargarGenerosUsuario(musico.id);
+})
+
+//agregar persona a tus contactos
+async function aceptarPersona(id_usuario){
+    const url_agregar = `http://localhost:3000/aceptar_usuarios/`;
+    try{
+        const exito_agregar = await fetch(url_agregar, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                id_usuario:localStorage.getItem("usuarioId"),
+                id_contacto_usuario:id_usuario
+            })
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
-async function cargarInstrumentos(id_usuario) {
+async function cargarInstrumentosUsuario(idUsuarioAMostrar) {
     try {
-        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${idUsuarioAMostrar}`);
         const datos = await response.json();
 
         let instrumentos = "";
@@ -94,9 +79,9 @@ async function cargarInstrumentos(id_usuario) {
     }
 }
 
-async function cargarGenerosUsuario(id_usuario) {
+async function cargarGenerosUsuario(idUsuarioAMostrar) {
     try {
-        const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/generos_usuarios/${idUsuarioAMostrar}`);
         const datos = await response.json();
 
         let generos = "";
@@ -111,6 +96,21 @@ async function cargarGenerosUsuario(id_usuario) {
     }
 }
 
+async function cargarCartaUsuario(Usuario){
+    const nombre = document.getElementById("nombre");
+    const foto = document.getElementById("foto");
+    const redes = document.getElementById("redsocial");
+    const biografia = document.getElementById("bio");
+
+    nombre.innerText = Usuario.nombre;
+    biografia.innerText = Usuario.biografia;
+    foto.src = Usuario.linkfotoperfil;
+    redes.innerText = Usuario.redsocial;
+    cargarInstrumentosUsuario(Usuario.id);
+    cargarGenerosUsuario(Usuario.id);
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const lista = localStorage.getItem("musicos_filtrados");
 
@@ -122,3 +122,127 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarCartaMusico(musicos[0]);
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const botonMostrarUsuarios = document.getElementById("botonBuscarUsuarios");
+    const botonMostrarBandas = document.getElementById("botonBuscarBandas");
+    const cartaUsuario = document.getElementById("cartaUsuarios");
+    const cartaBanda = document.getElementById("cartaBandas");
+    cartaBanda.classList.add("hidden");  
+    cartaUsuario.classList.add("hidden");
+    botonMostrarUsuarios.addEventListener("click", function(){
+        cartaUsuario.classList.remove("hidden");
+        cartaBanda.classList.add("hidden");  
+    });
+    botonMostrarBandas.addEventListener("click", function(){
+        cartaUsuario.classList.add("hidden");
+        cartaBanda.classList.remove("hidden");
+    });
+});
+
+async function devolverBandas(){
+    try{
+        const response = await fetch(`http://localhost:3000/bandas_index/${idUsuario}`);
+        const bandas = await response.json();
+        return bandas;
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+async function cargarGenerosBanda(idBandaAMostrar){
+    try {
+        const response = await fetch(`http://localhost:3000/generos_bandas/${idBandaAMostrar}`);
+        const datos = await response.json();
+
+        let generos = "";
+        datos.forEach(g => {
+            generos += g.genero + " ";
+        });
+
+        document.getElementById("generosBanda").textContent =
+            generos || "Sin datos";
+    } catch (error) {
+        console.error("Error cargando géneros:", error);
+    }
+}
+
+async function cargarMiembrosBanda(idBandaAMostrar) {
+    try {
+        const response = await fetch(`http://localhost:3000/username_integrantes_bandas/${idBandaAMostrar}`);
+        const datos = await response.json();
+
+        let miembros = "";
+        datos.forEach(m => {
+            miembros += m.username + ", ";
+        });
+
+        document.getElementById("miembrosBanda").textContent =
+            miembros || "Sin datos";
+    } catch (error) {
+        console.error("Error cargando miembros:", error);
+    }
+}
+
+async function cargarCartaBanda(Banda){
+    const nombre = document.getElementById("nombreBanda");
+    const foto = document.getElementById("fotoBanda");
+    const redes = document.getElementById("redsocialBanda");
+    const biografia = document.getElementById("bioBanda");
+
+    nombre.innerText = Banda.nombre;
+    biografia.innerText = Banda.descripcion;
+    foto.src = Banda.linkfotobanda;
+    redes.innerText = Banda.redsocial;
+    cargarMiembrosBanda(Banda.id);
+    cargarGenerosBanda(Banda.id);
+}
+
+async function aceptarBanda(id_banda){
+    const url_agregar = `http://localhost:3000/aceptar_banda/`;
+    try{
+        const exito_agregar = await fetch(url_agregar, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                id_usuario:localStorage.getItem("usuarioId"),
+                id_contacto_banda:id_banda
+            })
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const botonSiBanda = document.getElementById("botonSiBanda");
+    const botonNoBanda = document.getElementById("botonNoBanda");
+    const marco_bandas = document.getElementById("cartaBandas");
+    const estado_marco_bandas = marco_bandas.className;
+    const bandas = await devolverBandas();
+    console.log(bandas);
+    if (!bandas[numeroBandaMostrada] && estado_marco_bandas == "boxCarta") {
+        alert("No hay más bandas para mostrar."); 
+        return; 
+    }
+    cargarCartaBanda(bandas[numeroBandaMostrada]);
+    botonSiBanda.addEventListener("click", function(){
+        aceptarBanda(bandas[numeroBandaMostrada].id);
+        numeroBandaMostrada = numeroBandaMostrada + 1;
+        if (!bandas[numeroBandaMostrada]){
+            numeroBandaMostrada = 0;
+        };
+        cargarCartaBanda(bandas[numeroBandaMostrada]);
+    })
+    botonNoBanda.addEventListener("click", function(){
+        numeroBandaMostrada = numeroBandaMostrada + 1;
+        if (!bandas[numeroBandaMostrada]){
+            numeroBandaMostrada = 0;
+        };
+        cargarCartaBanda(bandas[numeroBandaMostrada]);
+    });
+})

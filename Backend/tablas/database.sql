@@ -7,7 +7,7 @@ CREATE TABLE usuarios (
     email VARCHAR(150) UNIQUE NOT NULL,
     biografia VARCHAR(150),
     redSocial VARCHAR(150),
-    linkFotoPerfil VARCHAR(300),
+    linkFotoPerfil TEXT,
     contacto VARCHAR(30)
 );
 
@@ -17,7 +17,8 @@ CREATE TABLE bandas (
     fechaCreacion DATE,
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
-    contraseñaParaIngresar VARCHAR(50)
+    contraseñaParaIngresar VARCHAR(50),
+    linkfotobanda TEXT
 );
 
 CREATE TABLE espacios (
@@ -27,13 +28,14 @@ CREATE TABLE espacios (
     linkFotoEspacio TEXT,
     horarioApertura INT,
     horarioCierre INT,
-    diasAbierto VARCHAR(10),
+    diasAbierto VARCHAR(10), --Dias abiertos tiene formato DDD-DDD en minuscula--
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
     tamaño VARCHAR(20),
     precioPorHora INT,
     id_dueño INT,
-    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE,
+    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE generos_usuarios (

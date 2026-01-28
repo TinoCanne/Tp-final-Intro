@@ -36,3 +36,14 @@ label {
     height: 40px;
     width: 100px;
 }
+
+.container_botones{
+    display: flex;
+
+    justify-content: center;
+    width: 100%;
+}
+
+.botonIndex{
+    margin-right: 10px;
+}
