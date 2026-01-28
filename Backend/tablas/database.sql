@@ -89,6 +89,7 @@ CREATE TABLE contactos_espacios (
 );
 
 CREATE TABLE reservas (
+    id SERIAL,
     id_usuario INT,
     id_espacio INT, 
     hora_reserva INT,
