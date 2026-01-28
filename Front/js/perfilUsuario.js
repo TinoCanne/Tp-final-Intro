@@ -348,6 +348,7 @@ async function unirseBanda(event) {
         console.error("Error de red:", error);
     }
     event.target.reset();
+    location.reload()
 }
 
 async function crearBanda(event){
@@ -384,6 +385,7 @@ async function crearBanda(event){
         console.error("Error de red:", error);
     }
     event.target.reset();
+    location.reload()
 }
 
 async function crearEspacio(event){
@@ -418,6 +420,7 @@ async function crearEspacio(event){
         console.error("Error de red:", error);
     }
     event.target.reset();
+    location.reload()
 }
 
 async function cargarDatosEspacio(){
@@ -426,46 +429,49 @@ async function cargarDatosEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
 
     try {
+        // 1. Obtener la lista de espacios del usuario
         const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+        const datosId = await responseIdEspacios.json(); 
 
-        if (!responseIdEspacios.ok) {
-            console.log("No tiene espacio (404), mostrando formulario.");
+        // 2. Si el usuario NO tiene espacios (array vacío o error)
+        if (!responseIdEspacios.ok || datosId.length === 0) {
             divEspacio.classList.add("hiddenEspacio");
             divCrearEspacio.classList.remove("hiddenEspacio");
             return; 
         }
+
+        // 3. Determinar qué ID mostrar
+        let idParaMostrar = localStorage.getItem('espacioId');
+
+        // Si no hay nada en storage O el ID guardado ya no existe en la lista del usuario (seguridad)
+        // Usamos el ID del primer espacio que tenga
+        const existeId = datosId.some(e => e.id == idParaMostrar);
         
-        const datosId = await responseIdEspacios.json(); 
-        console.log(datosId);
+        if (!idParaMostrar || !existeId) {
+            idParaMostrar = datosId[0].id;
+            localStorage.setItem('espacioId', idParaMostrar);
+        }
 
-        if (datosId[0]) {
-            const primerId = datosId[0].id;
-            const response = await fetch(`http://localhost:3000/espacios/${primerId}`);
+        // 4. Fetch de los detalles (SOLO UNA VEZ)
+        const response = await fetch(`http://localhost:3000/espacios/${idParaMostrar}`);
+        if(!response.ok) throw new Error("Error al cargar detalles");
         
-            if(!response.ok) throw new Error("Error al cargar detalles");
+        const datos = await response.json();
 
-            const datos = await response.json();
-            const botonMostrarTodosEspacios = document.getElementById('mostrarTodosEspacios');
+        // Rellenar HTML
+        document.getElementById('nombreEspacio').textContent = datos.nombre;
+        document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
+        document.getElementById('descripcionEspacio').textContent = datos.descripcion;
+        document.getElementById('contactoEspacio').textContent = datos.contacto;
+        document.getElementById('tamañoEspacio').textContent = datos.tamaño;
+        document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
 
-            document.getElementById('nombreEspacio').textContent = datos.nombre;
-            document.getElementById('ubicacionEspacio').textContent = datos.ubicacion;
-            document.getElementById('descripcionEspacio').textContent = datos.descripcion;
-            document.getElementById('contactoEspacio').textContent = datos.contacto;
-            document.getElementById('tamañoEspacio').textContent = datos.tamaño;
-            
-            const precio = String(datos.precioporhora || 0);
-            document.getElementById('precioEspacio').textContent = precio;   
-    
-            divEspacio.classList.remove("hiddenEspacio");
-            divCrearEspacio.classList.add("hiddenEspacio");
-        }
-        else {
-            divEspacio.classList.add("hiddenEspacio");
-            divCrearEspacio.classList.remove("hiddenEspacio");
-        }
+        // Mostrar sección correcta
+        divEspacio.classList.remove("hiddenEspacio");
+        divCrearEspacio.classList.add("hiddenEspacio");
 
     } catch (error) {
-        console.error("Error de red o servidor:", error);
+        console.error("Error:", error);
         divEspacio.classList.add("hiddenEspacio");
         divCrearEspacio.classList.remove("hiddenEspacio");
     }    
@@ -526,21 +532,20 @@ async function dejarBanda() {
     catch(error){
         console.error(error);
     }
+    location.reload()
 }
 
 async function eliminarEspacio(){
     try{
-        const idUsuario = localStorage.getItem('usuarioId');
-        const dataEspacio = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
-        const Espacio = await dataEspacio.json();
-        const idEspacio = Espacio.id;
-        const response = await fetch(`http://localhost:3000/espacios/${idEspacio}` , {
+        const response = await fetch(`http://localhost:3000/espacios/${localStorage.getItem('espacioId')}` , {
             method: 'DELETE'
         });
     }
     catch(error){
         console.error(error);
     }
+    location.reload()
+    localStorage.removeItem('espacioId');
 }
 
 function ocultarMostrarCrearEspacio(){
@@ -559,6 +564,48 @@ function ocultarMostrarCrearEspacio(){
     }
 }
 
-async function mostrarTodosEspacios(idsEspacios){
+async function mostrarTodosEspacios(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const popUpEspacios = document.getElementById('popUpEspacios');
+    const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
+    divContenedorPopUp.innerHTML = '<button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">Cerrar</button>';
+    
+    try{
+        const dataEspacios = await fetch(`http://localhost:3000/obtener_espacios/${idUsuario}`);
+        const Espacios = await dataEspacios.json()
+        Espacios.forEach(espacio => {
+            armarCartaEspacio(espacio);
+        });
+        popUpEspacios.showModal()
+    }
+    catch(error){
+        console.error(error);
+    }
+}
 
+function cerrarPopUp(){
+    const popUpEspacios = document.getElementById('popUpEspacios');
+    popUpEspacios.close();
+}
+
+function seleccionarEstudio(espacio){
+    localStorage.setItem('espacioId', espacio.id);
+    cerrarPopUp();
+    location.reload();
+}
+
+async function armarCartaEspacio(espacio){
+    const divContenedorPopUp = document.getElementById('contenedorPopUpEspacio');
+    const cartaEspacio = document.createElement('div');
+    const nombreEspacio = document.createElement('h3');
+    nombreEspacio.textContent = espacio.nombre;
+    const imagenEspacio = document.createElement('img');
+    imagenEspacio.src = espacio.linkfotoespacio;
+    const botonSeleccionarEspacio = document.createElement('button');
+    botonSeleccionarEspacio.textContent = "Seleccionar y mostrar";
+    botonSeleccionarEspacio.onclick = () => seleccionarEstudio(espacio);
+    cartaEspacio.appendChild(nombreEspacio);
+    cartaEspacio.appendChild(imagenEspacio);
+    cartaEspacio.appendChild(botonSeleccionarEspacio);
+    divContenedorPopUp.appendChild(cartaEspacio);
 }

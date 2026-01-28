@@ -135,7 +135,7 @@
                 </form>
                 <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
                 <button type="button" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
-                <button type="button" id="mostrarTodosEspacios" >Ver tus espacios</button>
+                <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios(1)">Ver tus espacios</button>
             </div>
 
             <div id="crearEspacio" class="hiddenEspacio">
@@ -160,10 +160,17 @@
                 </form>
             </div>
         </div>
+
+        <dialog id="popUpEspacios" class="popup-style">
+            <div id="contenedorPopUpEspacio" class="popup-content">
+                <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">Cerrar</button>
+            </div>
+        </dialog>
         <script>
             cargarDatosPerfil()
 	    cargarDatosBanda()
             cargarDatosEspacio()
+            
         </script>
     </body>
     
