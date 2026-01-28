@@ -657,10 +657,45 @@ async function guardarEspacioEditado() {
     
 }
 
+function cambiarFotoEspacio(event) {
+    let imagenEspacio = document.getElementById("imagenEspacioMiniespacio");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio");
+    if (event.keyCode === 13){
+        event.preventDefault();
+        if (inputNuevoLink.value !== ""){
+            imagenEspacio.src = inputNuevoLink.value;
+            inputNuevoLink.value = "";
+        }
+        inputNuevoLink.type = "hidden";
+    }
+}
+
+function mostrarInputNuevoLinkEspacio() {
+    let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
+    if (inputNuevoLink.type === "hidden"){
+        inputNuevoLink.type= "url";
+        inputNuevoLink.addEventListener('keydown', cambiarFotoEspacio)
+    }
+    else{
+        inputNuevoLink.type= "hidden";
+    }
+}
+
 function editarEspacio(){
-    const infoEspacio = document.getElementById("infoEspacio")
+    const infoEspacio = document.getElementById("infoEspacio");
+    const imagenEspacio = document.getElementById("imagenEspacioMiniespacio");
     const enEdicion = infoEspacio.classList.toggle("modo-edicion");
-    const datos= document.querySelectorAll(".spanDatosEspacio");
+    const datos = document.querySelectorAll(".spanDatosEspacio");
+    let botonEdicion = document.getElementById("botonEditarEspacio");
+
+    if (enEdicion){
+        botonEdicion.textContent = "Guardar Cambios";
+        imagenEspacio.addEventListener('click', mostrarInputNuevoLinkEspacio);
+    }
+    else{
+        botonEdicion.textContent = "Edita tu espacio!";
+        imagenEspacio.removeEventListener('click', mostrarInputNuevoLinkEspacio);
+    }
 
     datos.forEach(elemento => {
         if (enEdicion){
