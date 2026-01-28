@@ -28,7 +28,7 @@ CREATE TABLE espacios (
     linkFotoEspacio TEXT,
     horarioApertura INT,
     horarioCierre INT,
-    diasAbierto VARCHAR(10),
+    diasAbierto VARCHAR(10), --Dias abiertos tiene formato DDD-DDD en minuscula--
     descripcion VARCHAR(150),
     contacto VARCHAR(100),
     tamaño VARCHAR(20),
