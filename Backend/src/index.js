@@ -368,7 +368,7 @@ app.post("/espacios", async (req, res) => {
     try{
         const precio = parseInt(req.body.precio);
         const idUsuario = parseInt(req.body.idUsuario);
-        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, descripcion, contacto, tamaño, precioPorHora, id_dueño) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, linkfotoespacio, descripcion, contacto, tamaño, precioPorHora, id_dueño) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.linkfotoespacio}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
         await pool.query(query_espacio);
         
         res.json({ message: "Espacio creado" });  
@@ -377,6 +377,22 @@ app.post("/espacios", async (req, res) => {
         res.status(500).json({ error: "DB error en el metodo POST: espacios" });
     }
 });
+
+app.patch("/espacios", async(req, res) => {
+    try {
+        const espacioId = parseInt(req.body.espacioId);
+        const precioPorHora = parseInt(req.body.precioPorHora);
+        const query_espacio = `UPDATE espacios SET nombre = '${req.body.nombreEspacio}', ubicacion = '${req.body.ubicacionEspacio}', descripcion = '${req.body.descripcionEspacio}', contacto = '${req.body.contactoEspacio}', tamaño = '${req.body.tamañoEspacio}', precioporhora = ${precioPorHora}
+        WHERE id = ${espacioId}`;
+        await pool.query(query_espacio);
+
+        res.json({ message: "Espacio editado con exito."});
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo de PATCH: espacios" });
+    }
+})
 
 app.delete("/espacios/:idEspacio", async (req, res) => {
     try{

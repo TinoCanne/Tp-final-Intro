@@ -131,6 +131,25 @@
     color: rgb(151, 120, 40);
 }
 
+#botonMostrarImagenEspacio {
+    display: none;
+    margin-top: 8px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    height: 20px;
+}
+
+#botonMostrarImagenEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+
 .contenedorBotonEdicionPerfil {
     padding-left: 17px;
 }
@@ -208,12 +227,12 @@
     color: #ffffff;
 }
 
-.modo-edicion .spanDatosPerfil {
+.modo-edicion {
     cursor: pointer;
 }
 
-.modo-edicion .spanDatosPerfil:hover {
-    background-color: rgba(255,255,255,0.1);
+.modo-edicion:hover {
+    background-color: rgba(255,255,255,0.1) !important;
     border-radius: 6px;
 }
 
@@ -341,4 +360,29 @@
 .miniCartaEspacio img {
     height: 150px;
     width: 140px;
+}
+
+.contenedorFotoDeMuestraEspacio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fotoDeMuestraEspacio {
+    height: 150px;
+    width: 150px;
+}
+
+.contenedroInfoMiniespacio {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.imagenEspacioMiniespacio {
+    width: 100px;
+    height: auto;
+    border-radius: 100px;
+    object-fit: cover;
 }
