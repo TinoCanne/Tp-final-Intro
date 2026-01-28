@@ -132,7 +132,7 @@
 }
 
 #botonMostrarImagenEspacio {
-    display: none;
+    display: inline-block;
     margin-top: 8px;
     background-color: rgb(151, 120, 40);
     color: white;
@@ -148,7 +148,6 @@
     background-color: white;
     color: rgb(151, 120, 40);
 }
-
 
 .contenedorBotonEdicionPerfil {
     padding-left: 17px;
@@ -188,6 +187,11 @@
     margin-top: 40px;
 }
 
+.contenedorInfoMiniespacio {
+    display: flex;
+    flex-direction: row;
+}
+
 .info {
     list-style: none;
     padding-left: 20px;
@@ -225,6 +229,12 @@
     font-size: 17px;
     text-align: left;
     color: #ffffff;
+}
+
+.spanDatosEspacio {
+    display: block;
+    overflow-wrap: break-word;
+    max-width: 300px;
 }
 
 .modo-edicion {
@@ -307,7 +317,8 @@
 #seccionEspacio {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;   
+    align-items: flex-start;
+    justify-content: center;
     gap: 40px;                  
     width: 100%;
     margin-top: 50px;
@@ -319,12 +330,6 @@
     border-radius: 15px;        
     padding: 20px;
     box-sizing: border-box;     
-}
-
-
-#crearEspacio {
-    margin: 0;
-    max-width: none;
 }
 
 .popupEspacio {
@@ -369,8 +374,10 @@
 }
 
 .fotoDeMuestraEspacio {
-    height: 150px;
-    width: 150px;
+    height: 180px;
+    width: auto;
+    border-radius: 15px;
+    object-fit: cover;
 }
 
 .contenedroInfoMiniespacio {
@@ -378,10 +385,14 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    width: 100%;
 }
 
 .imagenEspacioMiniespacio {
-    width: 100px;
+    top: 50%;
+    right: 20%;
+    transform: translate(-50%);
+    width: 200px;
     height: auto;
     border-radius: 100px;
     object-fit: cover;

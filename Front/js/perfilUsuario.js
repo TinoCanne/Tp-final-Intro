@@ -202,7 +202,7 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
-function mostrarImagenPorDefecto() {
+function mostrarImagenPorDefectoUsuario() {
     document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
 
@@ -625,6 +625,7 @@ async function guardarEspacioEditado() {
     try{
         let nombreEspacio = document.getElementById("nombreEspacio");
         let ubicacionEspacio = document.getElementById("ubicacionEspacio");
+        let linkFotoEspacio = document.getElementById("imagenEspacioMiniespacio");
         let descripcionEspacio = document.getElementById("descripcionEspacio");
         let contactoEspacio = document.getElementById("contactoEspacio");
         let tamañoEspacio = document.getElementById("tamañoEspacio");
@@ -640,6 +641,7 @@ async function guardarEspacioEditado() {
             body:JSON.stringify({
                 nombreEspacio:nombreEspacio.textContent,
                 ubicacionEspacio:ubicacionEspacio.textContent,
+                linkFotoEspacio:linkFotoEspacio.src,
                 descripcionEspacio:descripcionEspacio.textContent,
                 contactoEspacio:contactoEspacio.textContent,
                 tamañoEspacio:tamañoEspacio.textContent,
@@ -673,5 +675,14 @@ function editarEspacio(){
 
     if (!enEdicion){
         guardarEspacioEditado();
+    }
+}
+
+function mostrarImagenPorDefectoEspacio(creandoEspacio) {
+    if (creandoEspacio){
+        document.getElementById("fotoDeMuestraEspacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
+    else{
+        document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
