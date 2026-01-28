@@ -114,48 +114,51 @@
 	    </div>
 
 	    </div>
-        <div id="crearEspacio" class="hiddenEspacio">
-            <h2>Publica tu espacio!</h2>
-	    <br>
-            <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
-		<label><strong>Nombre del espacio:</strong><br>
-                    <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
-	    	<label><strong>Ubicacion:</strong><br>
-                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
-	    	<label><strong>Descripcion: </strong><br>
-                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
-	    	<label><strong>Contacto:</strong><br>
-                    <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
-	   	<label><strong>Tamaño del espacio:</strong><br>
-                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
-	    	<label><strong>Precio por hora:</strong><br>
-                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
-            	<div class="contenedorBotonCrearBanda">    
-	    	    <button id="botonCrearBanda">Publicar espacio</button> 
-            	</div>
-	    </form>
-        </div>
-        <div id="infoEspacio" class="hiddenEspacio">
-    	
-            <h2>Mi espacio</h2>
+        <div id="seccionEspacio">
+            <div id="infoEspacio" class="hiddenEspacio">
+            
+                <h2>Mi espacio</h2>
 
-            <form class="info">
-                <label><strong>Nombre:</strong></label>
+                <form class="info">
+                    <label><strong>Nombre:</strong></label>
                     <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false">AAAA</span></label><br>
-                <label><strong>Ubicacion:</strong></label>
+                    <label><strong>Ubicacion:</strong></label>
                     <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio">Rock, Blues</span></label><br>
-                <label><strong>Descripción:</strong></label>
+                    <label><strong>Descripción:</strong></label>
                     <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false">Hola somos Los Bandidos...</span></label><br>
-                <label><strong>Contacto:</strong></label>
+                    <label><strong>Contacto:</strong></label>
                     <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false">Juan Pedro Manuel</span></label><br>
-                <label><strong>Tamaño:</strong></label>
+                    <label><strong>Tamaño:</strong></label>
                     <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false">Chica</span></label><br>
-                <label><strong>Precio por hora:</strong></label>
+                    <label><strong>Precio por hora:</strong></label>
                     <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false">@losbandidos</span></label><br>
-            </form>
-            <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
+                </form>
+                <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
+                <button type="button" id="ocultarMostrarCrearEspacio()" onclick="ocultarMostrarCrearEspacio()()">Crea otro Espacio Jameet!</button>
+            </div>
 
-	    </div>
+            <div id="crearEspacio" class="hiddenEspacio">
+                <h2>Publica tu espacio!</h2>
+        
+                <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
+                    <label><strong>Nombre del espacio:</strong><br>
+                    <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
+                    <label><strong>Ubicacion:</strong><br>
+                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
+                    <label><strong>Descripcion: </strong><br>
+                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
+                    <label><strong>Contacto:</strong><br>
+                    <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
+                    <label><strong>Tamaño del espacio:</strong><br>
+                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
+                    <label><strong>Precio por hora:</strong><br>
+                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
+                    <div class="contenedorBotonCrearEspacio">    
+                        <button id="botonCrearEspacio">Publicar espacio</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
         <script>
             cargarDatosPerfil()
 	    cargarDatosBanda()

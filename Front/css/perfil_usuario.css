@@ -68,6 +68,19 @@
     font-family: inherit;
 }
 
+#botonCrearEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
 #botonUnirseBanda:hover {
     border-radius: 10px;
     background-color: white;
@@ -112,6 +125,12 @@
     color: white;
 }
 
+#botonCrearEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
 .contenedorBotonEdicionPerfil {
     padding-left: 17px;
 }
@@ -126,6 +145,14 @@
     margin-top: 5px;
     padding-right: 50px;
 }
+
+.contenedorBotonCrearEspacio {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding-right: 50px;
+}
+
 
 .opcionesBanda {
     display: flex;
@@ -238,6 +265,7 @@
     margin: 80px auto;
 }
 
+<<<<<<< HEAD
 .botonNavBar {
     border-radius: 15px;
     border-style: solid;
@@ -258,3 +286,27 @@
 .botonNavBar:hover {
     border-radius: 8px;
 }
+=======
+#seccionEspacio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;   
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
+}
+
+#infoEspacio, #crearEspacio {
+    width: 45%;                 
+    background-color: rgba(0,0,0,0.5); 
+    border-radius: 15px;        
+    padding: 20px;
+    box-sizing: border-box;     
+}
+
+
+#crearEspacio {
+    margin: 0;
+    max-width: none;
+}
+>>>>>>> a43838e (Cambiado el perfil para poder admitir la creacion de mas espacios)

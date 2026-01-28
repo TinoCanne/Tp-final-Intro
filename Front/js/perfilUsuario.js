@@ -540,3 +540,39 @@ async function eliminarEspacio(){
         console.error(error);
     }
 }
+
+function ocultarCrearEspacio(){
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    const divSeccionEspacio = document.getElementById('seccionEspacio');
+    const divBotonMostrarCrearEspacio = document.getElementById('botonMostrarCrearEspacio');
+    divCrearEspacio.classList.add("hiddenEspacio");
+    divSeccionEspacio.classList.remove("seccionEspacio");
+    divBotonMostrarCrearEspacio.textContent = "Crea otro espacio Jameet!";
+    divBotonMostrarCrearEspacio.onclick = mostrarCrearEspacio();
+}
+
+function mostrarCrearEspacio(){
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    const divSeccionEspacio = document.getElementById('seccionEspacio');
+    const divBotonMostrarCrearEspacio = document.getElementById('botonMostrarCrearEspacio');
+    divCrearEspacio.classList.remove("hiddenEspacio");
+    divSeccionEspacio.classList.add("seccionEspacio");
+    divBotonMostrarCrearEspacio.textContent = "Ocultar Crear Espacio";
+    divBotonMostrarCrearEspacio.onclick = ocultarCrearEspacio();
+}
+
+function ocultarMostrarCrearEspacio(){
+    const divCrearEspacio = document.getElementById('crearEspacio');
+    const btn = document.getElementById('ocultarMostrarCrearEspacio()');
+    
+    if (divCrearEspacio.classList.contains('hiddenEspacio')) {
+        
+        divCrearEspacio.classList.remove('hiddenEspacio'); 
+        btn.textContent = "Ocultar formulario crear espacio"; 
+        
+    } else {
+        
+        divCrearEspacio.classList.add('hiddenEspacio'); 
+        btn.textContent = "Crea otro Espacio Jameet!"; 
+    }
+}
