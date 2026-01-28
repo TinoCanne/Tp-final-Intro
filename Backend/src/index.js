@@ -382,7 +382,7 @@ app.patch("/espacios", async(req, res) => {
     try {
         const espacioId = parseInt(req.body.espacioId);
         const precioPorHora = parseInt(req.body.precioPorHora);
-        const query_espacio = `UPDATE espacios SET nombre = '${req.body.nombreEspacio}', ubicacion = '${req.body.ubicacionEspacio}', descripcion = '${req.body.descripcionEspacio}', contacto = '${req.body.contactoEspacio}', tamaño = '${req.body.tamañoEspacio}', precioporhora = ${precioPorHora}
+        const query_espacio = `UPDATE espacios SET nombre = '${req.body.nombreEspacio}', ubicacion = '${req.body.ubicacionEspacio}', linkfotoespacio = '${req.body.linkFotoEspacio}', descripcion = '${req.body.descripcionEspacio}', contacto = '${req.body.contactoEspacio}', tamaño = '${req.body.tamañoEspacio}', precioporhora = ${precioPorHora}
         WHERE id = ${espacioId}`;
         await pool.query(query_espacio);
 
