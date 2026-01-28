@@ -567,9 +567,21 @@ app.get("/reservas", async (req, res) => {
     }
 });
 
+app.delete("/reservas/:idReserva", async (req, res) => {
+    try{
+        const query = `DELETE FROM reservas WHERE id = ${req.params.idReserva}`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo DELETE: reservas/idReserva" });
+    }
+})
+
 app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM reservas WHERE id_usuario = ${req.params.id_usuario}`);
+        const result = await pool.query(`SELECT reservas.*, espacios.nombre, espacios.precioporhora FROM reservas INNER JOIN espacios ON espacios.id = reservas.id_espacio WHERE id_usuario = ${req.params.id_usuario} ORDER BY año_reserva, mes_reserva, dia_reserva, hora_reserva`);
                 res.json(result.rows);
     }
     catch(err){

@@ -321,5 +321,48 @@ horarios.addEventListener('cancel', function cerrarHorariosConAnimacion(event) {
     ocultarHorarios(true, false);
 })
 
+async function eliminarReserva(idReserva){
+    try{
+        url = `http://localhost:3000/reservas/${idReserva}`;
+        await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type" : "application/json",
+            }
+        })
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
+async function armarMisReservas(){
+    idUsuario = localStorage.getItem('usuarioId');
+    contenidoTablaReservas = document.getElementById('contenidoMisReservas');
+    try{
+        const url = `http://localhost:3000/reservas/usuarios/${idUsuario}`;
+        const dataReservas = await fetch(url);
+        const reservas = await dataReservas.json();
+        let contenidoFinal = ``;
+        reservas.forEach(reserva => {
+            contenidoTabla = '';
+            contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.nombre}</td><td>${reserva.precioporhora}</td><td>${reserva.id}</td><td><button onclick="eliminarReserva(${reserva.id})">Cancelar</button></td></tr>`;
+            contenidoFinal += contenidoTabla;
+        })
+        contenidoTablaReservas.innerHTML = contenidoFinal;
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
+function mostrarReservas(){
+    const tablaMisReservas = document.getElementById("cuadroMisReservasId");
+    armarMisReservas();
+    tablaMisReservas.showModal();
+}
+
+function cerrarReservas(){
+    const tablaMisReservas = document.getElementById("cuadroMisReservasId");
+    tablaMisReservas.close();
+}
