@@ -362,3 +362,7 @@ function mostrarReservas(){
     tablaMisReservas.showModal();
 }
 
+function cerrarReservas(){
+    const tablaMisReservas = document.getElementById("cuadroMisReservasId");
+    tablaMisReservas.close();
+}
