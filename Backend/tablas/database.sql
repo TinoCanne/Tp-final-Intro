@@ -18,7 +18,8 @@ CREATE TABLE bandas (
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
     contraseñaParaIngresar VARCHAR(50),
-    linkfotobanda TEXT
+    linkfotobanda TEXT,
+    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE espacios (
@@ -34,8 +35,7 @@ CREATE TABLE espacios (
     tamaño VARCHAR(20),
     precioPorHora INT,
     id_dueño INT,
-    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE,
-    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
+    FOREIGN KEY (id_dueño) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
 CREATE TABLE generos_usuarios (
