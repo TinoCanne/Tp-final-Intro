@@ -4,6 +4,10 @@ let espacioSeleccionado = null;
 
 document.addEventListener("DOMContentLoaded", async function(){
     const url = `http://localhost:3000/espacios/`;
+    crearCartasEspacios(url);
+})
+
+async function crearCartasEspacios(url){
     const container = document.getElementById("marco_espacios");
     container.innerHTML = "";
     
@@ -60,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function(){
     catch(err){
         console.log(err);
     }
-})
+}
 
 async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, horaSeleccionada, idEspacio){
     const idUsuario = localStorage.getItem('usuarioId');
@@ -324,12 +328,16 @@ horarios.addEventListener('cancel', function cerrarHorariosConAnimacion(event) {
 async function eliminarReserva(idReserva){
     try{
         url = `http://localhost:3000/reservas/${idReserva}`;
-        await fetch(url, {
+        const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type" : "application/json",
             }
         })
+        if(response.ok) {
+            await armarMisReservas(); 
+            alert("Reserva cancelada correctamente");
+        }
     }
     catch(error){
         console.log(error);
@@ -365,4 +373,32 @@ function mostrarReservas(){
 function cerrarReservas(){
     const tablaMisReservas = document.getElementById("cuadroMisReservasId");
     tablaMisReservas.close();
+}
+
+function mostrarFiltro(){
+    const filtroEspacio = document.getElementById("filtroEspaciosId");
+    filtroEspacio.showModal();
+}
+
+function cerrarFiltro(){
+    const filtroEspacio = document.getElementById("filtroEspaciosId");
+    filtroEspacio.close();
+}
+
+function aplicarFiltroEspacios(event){
+    event.preventDefault();
+    try{
+        const ubicacion = document.getElementById('ubicacion').value;
+        const precioPorHora = document.getElementById('precioPorHora').value;
+        const horaElegida = document.getElementById('horaAbierto').value;
+
+        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}`;
+        
+        crearCartasEspacios(url);
+    }
+    catch (error){
+        console.log(error);
+    }
+    event.target.reset();
+    cerrarFiltro();
 }

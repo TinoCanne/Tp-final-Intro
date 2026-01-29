@@ -12,6 +12,7 @@
     </head>
     <body>
 
+        <button onclick="mostrarFiltro()">Filtrar</button>
         <button onclick="mostrarReservas()">Mira tus reservas!</button>
         <dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
             <button onclick="cerrarReservas()">Cerrar</button>
@@ -26,6 +27,25 @@
                 </caption>
                 <tbody class="contenidoMisReservas" id="contenidoMisReservas"></tbody>
             </table>
+        </dialog>
+
+        <dialog class="filtroEspacios" id="filtroEspaciosId" >
+            <button onclick="cerrarFiltro()">Cerrar</button>
+            <div id="filtroSalas">
+                    <form onsubmit="aplicarFiltroEspacios(event)">
+                        <br>
+                        <input type="text" placeholder = "Ingrese una ubicacion" id="ubicacion">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio maximo" id="precioPorHora">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese una hora" id="horaAbierto">
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
         </dialog>
 
         <div class="marcoEspacios" id="marco_espacios"></div>

@@ -457,15 +457,19 @@ app.get("/instrumentos_usuarios", async (req, res) => {
     }
 });
 
-app.get("/filtro_musicos", async (req, res) => {
+app.get("/filtro_usuarios", async (req, res) => {
     try{
-        const { genero, instrumento } = req.query;
-        let query = `SELECT * FROM usuarios `;
+        const { genero, instrumento, idUsuario } = req.query;
+        let query = `SELECT usuarios.* FROM usuarios
+            LEFT JOIN contactos_usuarios  
+            ON usuarios.id = contactos_usuarios.id_contacto_usuario AND contactos_usuarios.id_usuario = ${idUsuario} 
+            AND contactos_usuarios.id_contacto_usuario IS NULL`;
         if (genero != ""){
             query += ` JOIN generos_usuarios ON usuarios.id = generos_usuarios.id_usuario AND generos_usuarios.genero = '${genero}'`;
         }
         if (instrumento != "")
             query += ` JOIN instrumentos ON usuarios.id = instrumentos.id_usuario AND instrumentos.instrumento = '${instrumento}'`;
+        query += ` WHERE usuarios.id != ${idUsuario}`;
         const result = await pool.query(query);
         res.json(result.rows);
     }
@@ -477,11 +481,14 @@ app.get("/filtro_musicos", async (req, res) => {
 
 app.get("/filtro_bandas", async (req, res) => {
     try{
-        const { genero } = req.query;
-        let query = `SELECT * FROM bandas`;
+        const { genero, idUsuario } = req.query;
+        let query = `SELECT bandas.* FROM bandas
+            LEFT JOIN contactos_bandas
+            ON bandas.id = contactos_bandas.id_contacto_bandas AND contactos_bandas.id_usuario = ${idUsuario}`;
         if (genero){
             query += ` JOIN generos_bandas ON generos_bandas.id_banda = bandas.id AND generos_bandas.genero = '${genero}'`;
         }
+        query += ` WHERE contactos_bandas.id_contacto_bandas IS NULL`
         const result = await pool.query(query);
         res.json(result.rows);
     }
@@ -494,17 +501,18 @@ app.get("/filtro_bandas", async (req, res) => {
 
 app.get("/filtro_espacios", async (req, res) => {
     try{
-        const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
+        const { ubicacion, precioPorHora, hora } = req.query;
         let query = `SELECT * FROM espacios WHERE 1=1`;
-        if (ubicacion != ""){
+        if (ubicacion){
             query += ` AND ubicacion = '${ubicacion}'`;
         }
-        if (tamaño != ""){
-            query += ` AND tamaño = '${tamaño}'`;
-        }
-        if (precioPorHora != ""){
+        if (precioPorHora){
             let precioPorHoraInt = parseInt(precioPorHora);
             query += ` AND precioPorHora <= ${precioPorHoraInt}`;
+        }
+        if (hora){
+            let horaDeseada = parseInt(hora);
+            query += ` AND horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada}`;
         }
         const result = await pool.query(query);
         res.json(result.rows);
