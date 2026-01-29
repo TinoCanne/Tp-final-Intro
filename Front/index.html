@@ -9,18 +9,34 @@
     </head>
 
     <body>
-	<nav>   
+	    <nav>   
             <img src = "Jameet.png" alt = "logo" class = "logo">
             <a href= "html/perfil.html" class = "botonNav">Mi Perfil</a>
             <a href= "html/contactos.html" class = "botonNav">Contactos</a>
             <a href= "html/perfil_espacio.html" class = "botonNav">Estudios</a>
             <a href= "html/filtros.html" class = "botonNav">Filtrar</a>
         </nav>
-	<h1 class = "h1filtro">Bienvenido a Jameet!</h1>
+	    <h1 class = "h1filtro">Bienvenido a Jameet!</h1>
         <div class="container_botones">
             <button id = "botonBuscarUsuarios" class="botonIndex">Usuarios</button>
             <button id = "botonBuscarBandas" class="botonIndex">Bandas</button>
         </div>
+
+        <button>Filtrar Usuarios</button>
+        <button onclick="mostrarFiltroBandas()">Filtrar Bandas</button>
+
+        <dialog id="popUpFiltrosBandas">
+            <button onclick="ocultarFiltrosBandas()">Cerrar</button>
+            <div id="filtroBandas">
+                <form onsubmit="aplicarFiltrosBandas(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un genero" id="generoBandas">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
 
         <div class = "boxCarta" id="cartaUsuarios">
             <div class = "carta">
@@ -52,16 +68,16 @@
                     <img src = "" alt = "Imagen no disponible" id = "fotoBanda">
                 </div>
                 <div>
-                    <h1 id = "nombreBanda"></h1>
-		    <label><strong>Miembros:</strong></label><br>
-		        <p id = "instrumento"></p><br>
-            	    <label><strong>Generos:</strong></label><br>
-            		<p id="generos"></p><br>
-		    <label><strong>Bio:</strong></label><br>
-			<p id = "bio"></p><br>
-		    <label><strong>Redes:</strong></label><br>
-		    	<p id = "redsocial"></p>
-                </div>
+                <h1 id = "nombreBanda"></h1>
+		        <label><strong>Miembros:</strong></label><br>
+		        <p id = "miembrosBanda"></p><br>
+                <label><strong>Generos:</strong></label><br>
+                <p id="generosBanda"></p><br>
+		        <label><strong>Bio:</strong></label><br>
+			    <p id = "bioBanda"></p><br>
+		        <label><strong>Redes:</strong></label><br>
+		    	<p id = "redsocialBanda"></p>
+            </div>
                 <div>
                     <button id = "botonSiBanda" class="botonIndex">Vamo' Arriba</button>
                     <button id = "botonNoBanda" class="botonIndex">Ni ahí</button>
