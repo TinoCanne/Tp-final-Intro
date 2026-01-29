@@ -87,26 +87,3 @@ async function aplicar_filtros_bandas(event){
     event.target.reset();
     window.location.href = "bandas.html";
 }
-
-async function aplicar_filtros_espacios(event){
-    event.preventDefault();
-    try{
-        const ubicacion = document.getElementById('ubicacion').value;
-        const precioPorHora = document.getElementById('precioPorHora').value;
-
-        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}`;
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-        const data = await response.json();
-        console.log("Results:", data);
-    }
-    catch (error){
-        console.log(error);
-    }
-    event.target.reset();
-}
