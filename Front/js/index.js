@@ -140,9 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-async function devolverBandas(){
+async function devolverBandas(url){
     try{
-        const response = await fetch(`http://localhost:3000/bandas_index/${idUsuario}`);
+        const response = await fetch(url);
         const bandas = await response.json();
         return bandas;
     }
@@ -218,12 +218,12 @@ async function aceptarBanda(id_banda){
     }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function mostrarBandas(url){
     const botonSiBanda = document.getElementById("botonSiBanda");
     const botonNoBanda = document.getElementById("botonNoBanda");
     const marco_bandas = document.getElementById("cartaBandas");
     const estado_marco_bandas = marco_bandas.className;
-    const bandas = await devolverBandas();
+    const bandas = await devolverBandas(url);
     console.log(bandas);
     if (!bandas[numeroBandaMostrada] && estado_marco_bandas == "boxCarta") {
         alert("No hay más bandas para mostrar."); 
@@ -245,4 +245,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
         cargarCartaBanda(bandas[numeroBandaMostrada]);
     });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    mostrarBandas(`http://localhost:3000/bandas_index/${idUsuario}`);
 })
+
+function mostrarFiltroBandas(){
+    const filtroBandas = document.getElementById('popUpFiltrosBandas');
+    filtroBandas.showModal();
+}
+
+function ocultarFiltroBandas(){
+    const filtroBandas = document.getElementById('popUpFiltrosBandas');
+    filtroBandas.close();
+}
+
+async function aplicarFiltrosBandas(event){
+    event.preventDefault();
+    const genero = document.getElementById('generoBandas').value;
+    url = `http://localhost:3000/filtro_bandas?genero=${genero}&idUsuario=${idUsuario}`;
+    mostrarBandas(url);
+    event.target.reset();
+    ocultarFiltroBandas()
+}

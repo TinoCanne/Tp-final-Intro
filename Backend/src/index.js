@@ -477,11 +477,14 @@ app.get("/filtro_musicos", async (req, res) => {
 
 app.get("/filtro_bandas", async (req, res) => {
     try{
-        const { genero } = req.query;
-        let query = `SELECT * FROM bandas`;
+        const { genero, idUsuario } = req.query;
+        let query = `SELECT bandas.* FROM bandas
+            LEFT JOIN contactos_bandas
+            ON bandas.id = contactos_bandas.id_contacto_bandas AND contactos_bandas.id_usuario = ${idUsuario}`;
         if (genero){
             query += ` JOIN generos_bandas ON generos_bandas.id_banda = bandas.id AND generos_bandas.genero = '${genero}'`;
         }
+        query += ` WHERE contactos_bandas.id_contacto_bandas IS NULL`
         const result = await pool.query(query);
         res.json(result.rows);
     }

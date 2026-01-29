@@ -381,7 +381,7 @@ function cerrarFiltro(){
     filtroEspacio.close();
 }
 
-async function aplicarFiltroEspacios(event){
+function aplicarFiltroEspacios(event){
     event.preventDefault();
     try{
         const ubicacion = document.getElementById('ubicacion').value;
