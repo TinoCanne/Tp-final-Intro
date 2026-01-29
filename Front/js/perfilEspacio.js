@@ -376,13 +376,19 @@ function mostrarFiltro(){
     filtroEspacio.showModal();
 }
 
+function cerrarFiltro(){
+    const filtroEspacio = document.getElementById("filtroEspaciosId");
+    filtroEspacio.close();
+}
+
 async function aplicarFiltroEspacios(event){
     event.preventDefault();
     try{
         const ubicacion = document.getElementById('ubicacion').value;
         const precioPorHora = document.getElementById('precioPorHora').value;
+        const horaElegida = document.getElementById('horaAbierto').value;
 
-        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}`;
+        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}`;
         
         crearCartasEspacios(url);
     }
@@ -390,4 +396,5 @@ async function aplicarFiltroEspacios(event){
         console.log(error);
     }
     event.target.reset();
+    cerrarFiltro();
 }

@@ -494,14 +494,18 @@ app.get("/filtro_bandas", async (req, res) => {
 
 app.get("/filtro_espacios", async (req, res) => {
     try{
-        const { ubicacion, horarios, tamaño, precioPorHora } = req.query;
+        const { ubicacion, precioPorHora, hora } = req.query;
         let query = `SELECT * FROM espacios WHERE 1=1`;
-        if (ubicacion != ""){
+        if (ubicacion){
             query += ` AND ubicacion = '${ubicacion}'`;
         }
-        if (precioPorHora != ""){
+        if (precioPorHora){
             let precioPorHoraInt = parseInt(precioPorHora);
             query += ` AND precioPorHora <= ${precioPorHoraInt}`;
+        }
+        if (hora){
+            let horaDeseada = parseInt(hora);
+            query += ` AND horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada}`;
         }
         const result = await pool.query(query);
         res.json(result.rows);
