@@ -328,12 +328,16 @@ horarios.addEventListener('cancel', function cerrarHorariosConAnimacion(event) {
 async function eliminarReserva(idReserva){
     try{
         url = `http://localhost:3000/reservas/${idReserva}`;
-        await fetch(url, {
+        const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type" : "application/json",
             }
         })
+        if(response.ok) {
+            await armarMisReservas(); 
+            alert("Reserva cancelada correctamente");
+        }
     }
     catch(error){
         console.log(error);
