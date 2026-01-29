@@ -457,15 +457,19 @@ app.get("/instrumentos_usuarios", async (req, res) => {
     }
 });
 
-app.get("/filtro_musicos", async (req, res) => {
+app.get("/filtro_usuarios", async (req, res) => {
     try{
-        const { genero, instrumento } = req.query;
-        let query = `SELECT * FROM usuarios `;
+        const { genero, instrumento, idUsuario } = req.query;
+        let query = `SELECT usuarios.* FROM usuarios
+            LEFT JOIN contactos_usuarios  
+            ON usuarios.id = contactos_usuarios.id_contacto_usuario AND contactos_usuarios.id_usuario = ${idUsuario} 
+            AND contactos_usuarios.id_contacto_usuario IS NULL`;
         if (genero != ""){
             query += ` JOIN generos_usuarios ON usuarios.id = generos_usuarios.id_usuario AND generos_usuarios.genero = '${genero}'`;
         }
         if (instrumento != "")
             query += ` JOIN instrumentos ON usuarios.id = instrumentos.id_usuario AND instrumentos.instrumento = '${instrumento}'`;
+        query += ` WHERE usuarios.id != ${idUsuario}`;
         const result = await pool.query(query);
         res.json(result.rows);
     }
