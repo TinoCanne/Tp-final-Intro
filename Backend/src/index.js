@@ -587,6 +587,18 @@ app.delete("/eliminar_contacto/:id_usuario/:id_contacto", async(req, res) =>{
     }
 })
 
+app.delete("/eliminar_contacto_banda/:id_usuario/:id_banda", async(req, res) =>{
+    const q = `DELETE FROM contactos_bandas WHERE id_usuario = ${req.params.id_usuario} AND id_contacto_bandas = ${req.params.id_banda}`;
+
+    try{
+        const response = await pool.query(q);
+        res.send("banda eliminada exitosamente de los contactos");
+    }
+    catch(err){
+        console-log(err);
+    }
+})
+
 app.get("/pedir_bandas/:id_usuario", async(req, res) => {
     const q = `SELECT bandas.* FROM bandas INNER JOIN contactos_bandas ON bandas.id = contactos_bandas.id_contacto_bandas WHERE contactos_bandas.id_usuario = ${req.params.id_usuario}`;
 
