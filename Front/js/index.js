@@ -139,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const botonMostrarUsuarios = document.getElementById("botonBuscarUsuarios");
     const botonMostrarBandas = document.getElementById("botonBuscarBandas");
+    const botonFiltrosUsuarios = document.getElementById("botonFiltroUsuarios");
+    const botonFiltrosBandas = document.getElementById("botonFiltroBandas");
     const cartaUsuario = document.getElementById("cartaUsuarios");
     const cartaBanda = document.getElementById("cartaBandas");
     cartaBanda.classList.add("hidden");  
@@ -146,10 +148,14 @@ document.addEventListener("DOMContentLoaded", () => {
     botonMostrarUsuarios.addEventListener("click", function(){
         cartaUsuario.classList.remove("hidden");
         cartaBanda.classList.add("hidden");  
+        botonFiltrosUsuarios.classList.remove("hidden")
+        botonFiltrosBandas.classList.add("hidden");
     });
     botonMostrarBandas.addEventListener("click", function(){
         cartaUsuario.classList.add("hidden");
         cartaBanda.classList.remove("hidden");
+        botonFiltrosUsuarios.classList.add("hidden")
+        botonFiltrosBandas.classList.remove("hidden");
     });
 });
 
