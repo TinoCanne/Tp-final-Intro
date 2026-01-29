@@ -21,6 +21,22 @@
             <button id = "botonBuscarBandas" class="botonIndex">Bandas</button>
         </div>
 
+        <button>Filtrar Usuarios</button>
+        <button onclick="mostrarFiltroBandas()">Filtrar Bandas</button>
+
+        <dialog id="popUpFiltrosBandas">
+            <button onclick="ocultarFiltrosBandas()">Cerrar</button>
+            <div id="filtroBandas">
+                <form onsubmit="aplicarFiltrosBandas(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un genero" id="generoBandas">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
+
         <div class = "boxCarta" id="cartaUsuarios">
             <div class = "carta">
                 <br>
@@ -52,14 +68,14 @@
                 </div>
                 <div>
                 <h1 id = "nombreBanda"></h1>
-		    <label><strong>Miembros:</strong></label><br>
+		        <label><strong>Miembros:</strong></label><br>
 		        <p id = "miembrosBanda"></p><br>
-                    <label><strong>Generos:</strong></label><br>
-                	<p id="generosBanda"></p><br>
-		    <label><strong>Bio:</strong></label><br>
-			<p id = "bioBanda"></p><br>
-		    <label><strong>Redes:</strong></label><br>
-		        <p id = "redsocialBanda"></p>
+                <label><strong>Generos:</strong></label><br>
+                <p id="generosBanda"></p><br>
+		        <label><strong>Bio:</strong></label><br>
+			    <p id = "bioBanda"></p><br>
+		        <label><strong>Redes:</strong></label><br>
+		    	<p id = "redsocialBanda"></p>
             </div>
                 <div>
                     <button id = "botonSiBanda" class="botonIndex">Vamo' Arriba</button>
