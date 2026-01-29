@@ -91,17 +91,17 @@
             <h2>Mi Banda</h2>
 
             <form class="info">
-                <label class="filaPerfil"><strong>Nombre:</strong></label>
+                <label class="filaPerfil"><strong>Nombre:</strong>
                     <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Genero/s:</strong></label>
+                <label class="filaPerfil"><strong>Genero/s:</strong>
                     <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
-                <label class="filaPerfil"><strong>Descripción:</strong></label>
+                <label class="filaPerfil"><strong>Descripción:</strong>
 	    	        <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Integrantes:</strong></label>
+                <label class="filaPerfil"><strong>Integrantes:</strong>
                     <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda"></span></label><br>
-                <label class="filaPerfil"><strong>Fecha de creación:</strong></label>
+                <label class="filaPerfil"><strong>Fecha de creación:</strong>
                     <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Redes:</strong></label>
+                <label class="filaPerfil"><strong>Redes:</strong>
                     <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
             </form>
 
@@ -114,32 +114,34 @@
         <div id="seccionEspacio">
             <div id="infoEspacio" class="hiddenEspacio">
             
-                <h2>Mi espacio</h2>
+                <h2>Mi espacio</h2><br>
                 <div class="contenedorInfoMiniespacio" id="contenedorInfoMiniespacio">
                     <form class="info">
                         <label><strong>Nombre:</strong></label>
-                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
+                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
                         <label><strong>Ubicacion:</strong></label>
-                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span><br>
+                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span><br><br>
                         <label><strong>Descripción:</strong></label>
-                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
+                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
                         <label><strong>Contacto:</strong></label>
-                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
+                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
                         <label><strong>Tamaño:</strong></label>
-                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
+                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
                         <label><strong>Precio por hora:</strong></label>
-                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span><br>
+                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
                         <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
                         <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     </div>
                 </div>
-                <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
-                <button type="button" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
-                <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
-                <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
-            </div>
+		<div class="contenedorBotonesEspacio">
+                    <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
+		    <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
+		    <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
+                    <button type="button" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
+            	</div>
+	    </div>
 
             <div id="crearEspacio" class="hiddenEspacio">
                 <h2>Publica tu espacio!</h2>

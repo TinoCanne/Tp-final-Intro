@@ -103,68 +103,61 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-async function editar_banda_usuario(event){
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    const botonBanda = document.getElementById("botonDeEdicionBanda");
+    const datosBanda = document.querySelectorAll(".spanDatosBanda");
+    const contenedorBanda = document.getElementById("infoBanda");
 
-    try{
-        const generosBanda = document.getElementById('generosBanda');
-        const descripcionBanda = document.getElementById('descripcionBanda');
-        const redesBanda = document.getElementById('redesBanda');
-        const idUsuario = localStorage.getItem('usuarioId');
-        
-        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`)
-        const data = await responseIdBandas.json();
+    if (!botonBanda || !contenedorBanda) return;
 
-    
-        const idBanda = data.id_banda;
+    botonBanda.onclick = function (event) {
+        const enEdicion = contenedorBanda.classList.toggle("modo-edicion");
 
-        const url = "http://localhost:3000/bandas";
-        const response = await fetch(url, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body:JSON.stringify({
-                descripcion: descripcionBanda.textContent,
-                redes: redesBanda.textContent,
-                generos: generosBanda.textContent,
-                idUsuario: idUsuario,
-                idBanda: idBanda
-            })
+        datosBanda.forEach(elemento => {
+            if (enEdicion) {
+                elemento.contentEditable = "true";
+                elemento.addEventListener("keydown", prevenirSaltoDeLinea);
+            } else {
+                elemento.contentEditable = "false";
+                elemento.removeEventListener("keydown", prevenirSaltoDeLinea);
+            }
         });
-    }
-    catch (error){
-        console.log(error);
-    }
-}
 
+        botonBanda.textContent = enEdicion ? "Guardar cambios" : "Editar banda";
 
-function editorBanda(){
-    document.addEventListener("DOMContentLoaded", function () {
-        const boton= document.getElementById("botonDeEdicionBanda");
-        boton.onclick= function(event){
-            const datos= document.querySelectorAll(".spanDatosBanda");
-            datos.forEach(elemento => {
-                if (elemento.contentEditable === "true"){
-                    elemento.contentEditable = "false";
-                    elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
-                }
-                else{
-                    elemento.contentEditable = "true";
-                    elemento.addEventListener('keydown', prevenirSaltoDeLinea)
-                }
-            })
-            if (boton.textContent === "Editar banda"){
-                boton.textContent = "Guardar cambios";
-            }
-            else{
-                boton.textContent = "Editar banda"
-                editar_banda_usuario(event);
-            }
+        if (!enEdicion) {
+            guardarCambiosBanda(event);
         }
-    })
-}
-editorBanda()
+    };
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const botonEspacio = document.getElementById("botonEditarEspacio");
+    const datosEspacio = document.querySelectorAll(".spanDatosEspacio");
+    const contenedorEspacio = document.getElementById("infoEspacio");
+
+    if (!botonEspacio || !contenedorEspacio) return;
+
+    botonEspacio.onclick = function (event) {
+        const enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+
+        datosEspacio.forEach(elemento => {
+            if (enEdicion) {
+                elemento.contentEditable = "true";
+                elemento.addEventListener("keydown", prevenirSaltoDeLinea);
+            } else {
+                elemento.contentEditable = "false";
+                elemento.removeEventListener("keydown", prevenirSaltoDeLinea);
+            }
+        });
+
+        botonEspacio.textContent = enEdicion ? "Guardar cambios" : "Editar espacio";
+
+        if (!enEdicion) {
+            guardarCambiosEspacio(event);
+        }
+    };
+});
 
 async function cargarGenerosUsuario(id_usuario) {
     try{
@@ -657,6 +650,37 @@ async function guardarEspacioEditado() {
     
 }
 
+async function guardarCambiosBanda(event) {
+    event.preventDefault();
+
+    try {
+        const generosBanda = document.getElementById('generosBanda');
+        const descripcionBanda = document.getElementById('descripcionBanda');
+        const redesBanda = document.getElementById('redesBanda');
+        const idUsuario = localStorage.getItem('usuarioId');
+
+        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
+        const data = await responseIdBandas.json();
+
+        const idBanda = data.id_banda;
+
+        await fetch("http://localhost:3000/bandas", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                descripcion: descripcionBanda.textContent,
+                redes: redesBanda.textContent,
+                generos: generosBanda.textContent,
+                idUsuario,
+                idBanda
+            })
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function cambiarFotoEspacio(event) {
     let imagenEspacio = document.getElementById("imagenEspacioMiniespacio");
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio");
@@ -678,38 +702,6 @@ function mostrarInputNuevoLinkEspacio() {
     }
     else{
         inputNuevoLink.type= "hidden";
-    }
-}
-
-function editarEspacio(){
-    const infoEspacio = document.getElementById("infoEspacio");
-    const imagenEspacio = document.getElementById("imagenEspacioMiniespacio");
-    const enEdicion = infoEspacio.classList.toggle("modo-edicion");
-    const datos = document.querySelectorAll(".spanDatosEspacio");
-    let botonEdicion = document.getElementById("botonEditarEspacio");
-
-    if (enEdicion){
-        botonEdicion.textContent = "Guardar Cambios";
-        imagenEspacio.addEventListener('click', mostrarInputNuevoLinkEspacio);
-    }
-    else{
-        botonEdicion.textContent = "Edita tu espacio!";
-        imagenEspacio.removeEventListener('click', mostrarInputNuevoLinkEspacio);
-    }
-
-    datos.forEach(elemento => {
-        if (enEdicion){
-            elemento.contentEditable = "true";
-            elemento.addEventListener('keydown', prevenirSaltoDeLinea);
-        }
-        else{
-            elemento.contentEditable = "false";
-            elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
-        }
-    });
-
-    if (!enEdicion){
-        guardarEspacioEditado();
     }
 }
 
