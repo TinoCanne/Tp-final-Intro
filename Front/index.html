@@ -22,15 +22,32 @@
             <button id = "botonBuscarBandas" class="botonIndex">Bandas</button>
         </div>
 
-        <button>Filtrar Usuarios</button>
+        <button onclick="mostrarFiltroUsuarios()">Filtrar Usuarios</button>
         <button onclick="mostrarFiltroBandas()">Filtrar Bandas</button>
+        
+        <dialog id="popUpFiltrosUsuarios">
+            <button onclick="ocultarFiltroUsuarios()">Cerrar</button>
+            <div id="filtroUsuarios" >
+                <form onsubmit="aplicarFiltrosUsuarios(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un genero" id="generoUsuariosFiltros">
+                    <br>
+                    <br>
+                    <input type="text" placeholder = "Ingrese un instrumento" id="instrumentoUsuariosFiltros">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
+        
 
         <dialog id="popUpFiltrosBandas">
-            <button onclick="ocultarFiltrosBandas()">Cerrar</button>
+            <button onclick="ocultarFiltroBandas()">Cerrar</button>
             <div id="filtroBandas">
                 <form onsubmit="aplicarFiltrosBandas(event)">
                     <br>
-                    <input type="text" placeholder = "Ingrese un genero" id="generoBandas">
+                    <input type="text" placeholder = "Ingrese un genero" id="generoBandasFiltros">
                     <br>
                     <br>
                     <input type="submit" value="Aplicar filtros">
@@ -42,18 +59,18 @@
             <div class = "carta">
                 <br>
                 <div>
-                    <img src = "" alt = "Imagen no disponible" id = "foto">
+                    <img src = "" alt = "Imagen no disponible" id = "fotoUsuario">
                 </div>
                 <div>
-                    <h1 id = "nombre"></h1>
-		    <label><strong>Instrumentos:</strong></label><br>
-			<p id = "instrumento"></p><br>
-            	    <label><strong>Generos:</strong></label><br>
-            		<p id="generos"></p><br>
-		    <label><strong>Bio:</strong></label><br>
-			<p id = "bio"></p><br>
-		    <label><strong>Redes:</strong></label><br>
-		    	<p id = "redsocial"></p>
+                    <h1 id = "nombreUsuario"></h1>
+                    <label><strong>Instrumentos:</strong></label><br>
+                    <p id = "instrumentosUsuario"></p><br>
+                    <label><strong>Generos:</strong></label><br>
+                    <p id="generosUsuario"></p><br>
+                    <label><strong>Bio:</strong></label><br>
+                    <p id = "bioUsuario"></p><br>
+                    <label><strong>Redes:</strong></label><br>
+                    <p id = "redsocialUsuario"></p>
                 </div>
                 <div>
                     <button id = "botonSiUsuarios" class="botonIndex">Vamo' Arriba</button>
