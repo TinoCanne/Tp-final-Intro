@@ -133,17 +133,94 @@
 
 #botonMostrarImagenEspacio {
     display: inline-block;
-    margin-top: 8px;
+    margin-top: 5px;
+    padding: 5px 10px;
     background-color: rgb(151, 120, 40);
     color: white;
     text-decoration: none;
     border-radius: 20px;
     transition: 0.2s;
     cursor: pointer;
-    height: 20px;
+    font-family: inherit;
 }
 
 #botonMostrarImagenEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonMostrarTodosEspacios {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonMostrarTodosEspacios:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonEditarEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonEditarEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonEliminarEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonEliminarEspacio:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#ocultarMostrarCrearEspacio {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#ocultarMostrarCrearEspacio:hover {
     border-radius: 10px;
     background-color: white;
     color: rgb(151, 120, 40);
@@ -170,7 +247,6 @@
     margin-top: 5px;
     padding-right: 50px;
 }
-
 
 .opcionesBanda {
     display: flex;
@@ -226,7 +302,6 @@
 
 .spanDatosBanda,
 .spanDatosBandaNoEditable {
-    font-size: 17px;
     text-align: left;
     color: #ffffff;
 }
@@ -234,16 +309,43 @@
 .spanDatosEspacio {
     display: block;
     overflow-wrap: break-word;
-    max-width: 300px;
+    font-size: 17px;
+    font-family: inherit;
 }
 
-.modo-edicion {
-    cursor: pointer;
-}
-
-.modo-edicion:hover {
-    background-color: rgba(255,255,255,0.1) !important;
+.modo-edicion .spanDatosPerfil {
+    background-color: rgba(255,255,255,0.12);
     border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosPerfil:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.modo-edicion .spanDatosBanda {
+    background-color: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosBanda:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.modo-edicion .spanDatosEspacio {
+    background-color: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosEspacio:hover {
+    background-color: rgba(255,255,255,0.2);
 }
 
 .hiddenBanda {
@@ -289,16 +391,11 @@
     padding-right: 30px;
 }
 
-#crearEspacio {
-    max-width: 600px;
-    margin: 80px auto;
-}
-
 .botonNavBar {
     border-radius: 15px;
     border-style: solid;
     border-color: white;
-    color:white;
+    color: white;
     background-color: rgb(151, 120, 40);
     cursor: pointer;
     text-decoration: none;
@@ -325,10 +422,11 @@
 }
 
 #infoEspacio, #crearEspacio {
-    width: 45%;                 
-    background-color: rgba(0,0,0,0.5); 
+    width: 46%;                 
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
     padding: 20px;
+    padding-right: 50px;
     box-sizing: border-box;     
 }
 
@@ -398,4 +496,14 @@
     height: 250px;
     border-radius: 15px;
     object-fit: cover;
+}
+
+.contenedorBotonesEspacio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+    width: 100%;
+    flex-wrap: wrap;  
 }
