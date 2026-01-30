@@ -546,8 +546,13 @@ app.post("/login", async (req, res) => {
         
         const query = `SELECT id FROM usuarios WHERE email = '${email}' AND contraseña = '${contraseña}'`;
         const result = await pool.query(query);
-        res.json(result.rows[0]);
+
+        if (result.rows.length === 0) {
+            return res.status(401).json({ error: "Email o contraseña incorrectos" });
+        }
         
+        res.json(result.rows[0]);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "DB error en el metodo POST: login" });
