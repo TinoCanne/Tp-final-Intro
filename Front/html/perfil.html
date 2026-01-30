@@ -20,97 +20,111 @@
 	        <h1 class="h1Perfil">Mi perfil</h1>
 
 	        <div class="contenedorFotoPerfil">
-                    <img class="fotoPerfilGrande" id="linkFotoUsuario" 
-                         src="https://cdn-icons-png.flaticon.com/256/847/847969.png"
-                         alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()"><br>
-                    <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()"><br>
+                <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
 	        </div>
             <form class="info">
                 <label class="filaPerfil"><strong>Nombre:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
+                
                 <label class="filaPerfil"><strong>Apellido:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
+                
                 <label class="filaPerfil"><strong>Nombre de usuario:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
+                
                 <label class="filaPerfil"><strong>Redes sociales:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
+            
                 <label class="filaPerfil"><strong>Email:</strong>
-                    <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
+                <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
+        
                 <label class="filaPerfil"><strong>Instrumentos:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
+    
                 <label class="filaPerfil"><strong>Generos favoritos:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
+    
                 <label class="filaPerfil"><strong>Bio:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
+
                 <label class="filaPerfil"><strong>Contacto:</strong>
-                    <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
             </form>
             
-	    <div class="contenedorBotonEdicionPerfil">
+	        <div class="contenedorBotonEdicionPerfil">
             	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button> 
-		<button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
+		        <button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
+	        </div>
 	    </div>
-	</div>
-        <div class="opcionesBanda" id="opcionesBanda" class="hiddenOpcionesBanda">
-            <div class="crearBanda">
+        
+        <div class="containerBanda" id="divBanda" >
+            <div class="crearBanda" id="divCrearBanda">
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
-                        <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
-		    <label><strong>Red social:</strong><br>
-                        <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
+		            
+                    <label><strong>Red social:</strong><br>
+                    <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
+                    
                     <label><strong>Generos favoritos:</strong>
-                        <input class="inputDatosPerfil" id="generosUsuarioCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda"></input></label><br>
+                    
                     <label><strong>Descripción:</strong>
-                        <input class="inputDatosPerfil" id="descripcionCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="descripcionCrearBanda"></input></label><br>
+                    
                     <label><strong>Contraseña de la banda:</strong>
-                        <input class="inputDatosPerfil" id="contraseñaCrearBanda"></input></label><br>
+                    
+                    <input class="inputDatosPerfil" id="contraseñaCrearBanda"></input></label><br>
                     <div class="contenedorBotonCrearBanda">
-			<button id="botonCrearBanda">Crear banda</button>        
+			            <button id="botonCrearBanda">Crear banda</button>        
                     </div>
-		</form>
+		        </form>
             </div>
 
-            <div class="unirseBanda">
+            <div class="unirseBanda" id="divUnirseBanda">
                 <h2 class="h2perfil">Unete a una banda!</h2>
                 <br>
                 <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
                     <label><strong>Ingrese el nombre de la banda:</strong>
-                        <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
                     <label><strong>Ingrese la contraseña para unirse:</strong>
-                        <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
-		<div class="contenedorBotonUnirseBanda">
-		    <button id="botonUnirseBanda">Unirse a la banda</button>        
-                </div>
-		</form>
+                    <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
+		            <div class="contenedorBotonUnirseBanda">
+		                <button id="botonUnirseBanda">Unirse a la banda</button>        
+                    </div>
+		        </form>
             </div>
-        </div>
-	    <div id="infoBanda" class="hiddenBanda">
+            <div id="infoBanda" class="hidden">
     	
-            <h2>Mi Banda</h2>
+                <h2>Mi Banda</h2>
 
-            <form class="info">
-                <label class="filaPerfil"><strong>Nombre:</strong>
+                <form class="info">
+                    <label class="filaPerfil"><strong>Nombre:</strong>
                     <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Genero/s:</strong>
+                    <label class="filaPerfil"><strong>Genero/s:</strong>
                     <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
-                <label class="filaPerfil"><strong>Descripción:</strong>
-	    	        <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Integrantes:</strong>
-                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" id="integrantesBanda"></span></label><br>
-                <label class="filaPerfil"><strong>Fecha de creación:</strong>
+                    <label class="filaPerfil"><strong>Descripción:</strong>
+                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <label class="filaPerfil"><strong>Integrantes:</strong>
+                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label><br>
+                    <label class="filaPerfil"><strong>Fecha de creación:</strong>
                     <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                <label class="filaPerfil"><strong>Redes:</strong>
+                    <label class="filaPerfil"><strong>Redes:</strong>
                     <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-            </form>
+                </form>
 
-	    <div class="contenedorBotonEdicionBanda">
-	    	<button id="botonDeEdicionBanda">Editar banda</button>
-	    	<button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
-	    </div>
+                <div class="contenedorBotonEdicionBanda">
+                    <button id="botonDeEdicionBanda">Editar banda</button>
+                    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
+                    <button type="button" id="ocultarMostrarCrearBanda" onclick="ocultarMostrarCrearBanda()">Crea otra Banda!</button>
+                    <button type="button" id="ocultarMostrarUnirseBanda" onclick="ocultarMostrarUnirseBanda()">Unete a una banda!</button>
+                </div>
+	        </div>
+        </div>
 
-	    </div>
         <div id="seccionEspacio">
             <div id="infoEspacio" class="hiddenEspacio">
             
@@ -135,13 +149,13 @@
                         <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     </div>
                 </div>
-		<div class="contenedorBotonesEspacio">
+		        <div class="contenedorBotonesEspacio">
                     <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
-		    <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
-		    <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
+		            <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
+		            <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
                     <button type="button" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
             	</div>
-	    </div>
+	        </div>
 
             <div id="crearEspacio" class="hiddenEspacio">
                 <h2>Publica tu espacio!</h2>
@@ -177,12 +191,6 @@
                 
             </div>
         </dialog>
-        <script>
-            cargarDatosPerfil()
-	    cargarDatosBanda()
-            cargarDatosEspacio()
-            
-        </script>
     </body>
     
 </html>
