@@ -121,6 +121,7 @@
                     <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
                     <button type="button" id="ocultarMostrarCrearBanda" onclick="ocultarMostrarCrearBanda()">Crea otra Banda!</button>
                     <button type="button" id="ocultarMostrarUnirseBanda" onclick="ocultarMostrarUnirseBanda()">Unete a una banda!</button>
+                    <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
                 </div>
 	        </div>
         </div>
@@ -186,8 +187,15 @@
         </div>
 
         <dialog id="popUpEspacios" class="popupEspacio">
-            <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUp()">X</button>
+            <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
             <div id="contenedorPopUpEspacio" class="contenedorPopUp">
+                
+            </div>
+        </dialog>
+
+        <dialog id="popUpBandas">
+            <button type="button" id="cerrarPopUpBandas" onclick="cerrarPopUpBanda()">X</button>
+            <div id="contenedorPopUpBandas" class="contenedorPopUp">
                 
             </div>
         </dialog>
