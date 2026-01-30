@@ -379,7 +379,7 @@ app.post("/espacios", async (req, res) => {
     try{
         const precio = parseInt(req.body.precio);
         const idUsuario = parseInt(req.body.idUsuario);
-        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, linkfotoespacio, descripcion, contacto, tamaño, precioPorHora, id_dueño) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.linkfotoespacio}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario})`;
+        const query_espacio = `INSERT INTO espacios (nombre, ubicacion, linkfotoespacio, descripcion, contacto, tamaño, precioPorHora, id_dueño, diasAbierto, horarioCierre, horarioApertura) VALUES ('${req.body.nombre}', '${req.body.ubicacion}', '${req.body.linkfotoespacio}', '${req.body.descripcion}', '${req.body.contacto}', '${req.body.tamaño}', ${precio}, ${idUsuario}, ${req.body.diasAbiertos}, ${req.body.horarioCierre}, ${req.body.horarioApertura})`;
         await pool.query(query_espacio);
         
         res.json({ message: "Espacio creado" });  
