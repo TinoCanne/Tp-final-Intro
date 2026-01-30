@@ -59,6 +59,35 @@
 	    </div>
         
         <div class="containerBanda" id="divBanda" >
+
+            <div id="infoBanda" class="hidden">
+    	
+                <h2>Mi Banda</h2>
+
+                <form class="info">
+                    <label class="filaPerfil"><strong>Nombre:</strong>
+                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <label class="filaPerfil"><strong>Genero/s:</strong>
+                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
+                    <label class="filaPerfil"><strong>Descripción:</strong>
+                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <label class="filaPerfil"><strong>Integrantes:</strong>
+                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label><br>
+                    <label class="filaPerfil"><strong>Fecha de creación:</strong>
+                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <label class="filaPerfil"><strong>Redes:</strong>
+                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                </form>
+
+                <div class="contenedorBotonEdicionBanda">
+                    <button id="botonDeEdicionBanda">Editar banda</button>
+                    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
+                    <button type="button" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
+                    <button type="button" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
+                    <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
+                </div>
+	        </div>
+
             <div class="crearBanda" id="divCrearBanda">
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
@@ -97,33 +126,6 @@
                     </div>
 		        </form>
             </div>
-            <div id="infoBanda" class="hidden">
-    	
-                <h2>Mi Banda</h2>
-
-                <form class="info">
-                    <label class="filaPerfil"><strong>Nombre:</strong>
-                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Genero/s:</strong>
-                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
-                    <label class="filaPerfil"><strong>Descripción:</strong>
-                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Integrantes:</strong>
-                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label><br>
-                    <label class="filaPerfil"><strong>Fecha de creación:</strong>
-                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Redes:</strong>
-                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                </form>
-
-                <div class="contenedorBotonEdicionBanda">
-                    <button id="botonDeEdicionBanda">Editar banda</button>
-                    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
-                    <button type="button" id="ocultarMostrarCrearBanda" onclick="ocultarMostrarCrearBanda()">Crea otra Banda!</button>
-                    <button type="button" id="ocultarMostrarUnirseBanda" onclick="ocultarMostrarUnirseBanda()">Unete a una banda!</button>
-                    <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
-                </div>
-	        </div>
         </div>
 
         <div id="seccionEspacio">
