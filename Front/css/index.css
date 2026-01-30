@@ -49,13 +49,25 @@
     margin-left: 10px; 
 }
 
-#instrumento, #generos, #redsocial{
+#instrumentosUsuario, #generosUsuario, #redsocialUsuario{
     margin-top: -4px;
     justify-content: center;
     display: inline-block;
 }
 
-#bio {
+#bioUsuario {
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#miembrosBanda, #generosBanda, #redsocialBanda{
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#bioBanda {
     margin-top: -4px;
     justify-content: center;
     display: inline-block;
