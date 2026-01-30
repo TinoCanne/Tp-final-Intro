@@ -275,20 +275,15 @@ async function cargarIntegrantesBanda(id_banda){
     }   
 }
 
-async function cargarDatosBanda(){
+async function cargarDatosBanda() {
     const idUsuario = localStorage.getItem('usuarioId');
     const divInfoBanda = document.getElementById('infoBanda');
     const divCrearBanda = document.getElementById('divCrearBanda');
     const divUnirseBanda = document.getElementById('divUnirseBanda');
 
     try {
-        
-        const responseBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
-        let datosBandas = await responseBandas.json(); 
-
-        if (!Array.isArray(datosBandas)) {
-            datosBandas = [datosBandas];
-        }
+        const responseBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        let datosBandas = await responseBandas.json();
 
         if (!responseBandas.ok || datosBandas.length === 0) {
             divInfoBanda.classList.add("hidden");
@@ -298,39 +293,50 @@ async function cargarDatosBanda(){
         }
 
         let idBandaLocalStorage = localStorage.getItem('bandaId');
-
         let existeId = false;
-        datosBandas.forEach(element => {
-            if(element.id_banda == idBandaLocalStorage){
+
+        datosBandas.forEach(banda => {
+            if (banda.id == idBandaLocalStorage) {
                 existeId = true;
             }
         });
-        
+
         if (!idBandaLocalStorage || !existeId) {
-            idBandaLocalStorage = datosBandas[0].id_banda;
+            idBandaLocalStorage = datosBandas[0].id;
             localStorage.setItem('bandaId', idBandaLocalStorage);
         }
 
         const response = await fetch(`http://localhost:3000/bandas/${idBandaLocalStorage}`);
-        const datosBandaAMostrar = (await response.json())[0];
+        
+        if (!response.ok){
+            throw new Error("Error al cargar detalles de la banda");
+        } 
 
-        document.getElementById('nombreBanda').textContent = datosBandaAMostrar.nombre;
-        document.getElementById('descripcionBanda').textContent = datosBandaAMostrar.descripcion;
-        document.getElementById('fechaCreacionBanda').textContent = String(datosBandaAMostrar.fechacreacion);
-        document.getElementById('redesBanda').textContent = datosBandaAMostrar.redsocial;
-        divInfoBanda.classList.remove("hidden");
-        divCrearBanda.classList.add("hidden");
-        divUnirseBanda.classList.add("hidden");
+        let data = await response.json();
+
+        let datosBanda = data;
+        if (Array.isArray(data)){
+            datosBanda = data[0];
+        }
+
+        document.getElementById('nombreBanda').textContent = datosBanda.nombre || "Sin nombre";
+        document.getElementById('descripcionBanda').textContent = datosBanda.descripcion || "";
+        document.getElementById('fechaCreacionBanda').textContent = datosBanda.fechacreacion ? String(datosBanda.fechacreacion).split('T')[0] : "";
+        document.getElementById('redesBanda').textContent = datosBanda.redsocial || "";
 
         cargarGenerosBanda(idBandaLocalStorage);
         cargarIntegrantesBanda(idBandaLocalStorage);
 
+        divInfoBanda.classList.remove("hidden");
+        divCrearBanda.classList.add("hidden");
+        divUnirseBanda.classList.add("hidden");
+
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error en cargarDatosBanda:", error);
         divInfoBanda.classList.add("hidden");
         divCrearBanda.classList.remove("hidden");
         divUnirseBanda.classList.remove("hidden");
-    }    
+    }
 }
 
 async function unirseBanda(event) {
@@ -641,14 +647,50 @@ async function mostrarTodosEspacios(){
     }
 }
 
-function cerrarPopUp(){
+async function mostrarTodasBandas(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const popUpBandas = document.getElementById('popUpBandas');
+    const divContenedorPopUp = document.getElementById('contenedorPopUpBandas');
+    divContenedorPopUp.innerHTML = '';
+    
+    try{
+        const dataBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        let Bandas = await dataBandas.json()
+
+        if (!Array.isArray(Bandas)) {
+            Bandas = Bandas ? [Bandas] : [];
+        }
+
+        Bandas.forEach(banda => {
+                armarCartaBanda(banda);
+            });
+        popUpBandas.showModal()
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
+function cerrarPopUpEspacio(){
     const popUpEspacios = document.getElementById('popUpEspacios');
     popUpEspacios.close();
 }
 
+
+function cerrarPopUpBanda(){
+    const popUpBandas = document.getElementById('popUpBandas');
+    popUpBandas.close();
+}
+
 function seleccionarEstudio(espacio){
     localStorage.setItem('espacioId', espacio.id);
-    cerrarPopUp();
+    cerrarPopUpEspacio();
+    location.reload();
+}
+
+function seleccionarBanda(banda){
+    localStorage.setItem('bandaId', banda.id);
+    cerrarPopUpBanda();
     location.reload();
 }
 
@@ -668,6 +710,24 @@ async function armarCartaEspacio(espacio){
     cartaEspacio.appendChild(botonSeleccionarEspacio);
     divContenedorPopUp.appendChild(cartaEspacio);
 }
+
+async function armarCartaBanda(Banda){
+    const divContenedorPopUp = document.getElementById('contenedorPopUpBandas');
+    const cartaBanda = document.createElement('div');
+    cartaBanda.className = "miniCartaBanda";
+    const nombreBanda = document.createElement('h3');
+    nombreBanda.textContent = Banda.nombre;
+    const imagenBanda = document.createElement('img');
+    imagenBanda.src = Banda.linkfotobanda;
+    const botonSeleccionarBanda = document.createElement('button');
+    botonSeleccionarBanda.textContent = "Seleccionar y mostrar";
+    botonSeleccionarBanda.onclick = () => seleccionarBanda(Banda);
+    cartaBanda.appendChild(nombreBanda);
+    cartaBanda.appendChild(imagenBanda);
+    cartaBanda.appendChild(botonSeleccionarBanda);
+    divContenedorPopUp.appendChild(cartaBanda);
+}
+
 
 async function guardarEspacioEditado() {
     try{
