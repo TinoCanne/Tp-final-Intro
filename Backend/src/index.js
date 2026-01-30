@@ -173,10 +173,9 @@ app.get("/bandas/:id", async (req, res) => {
 app.post("/bandas", async (req, res) => {
     try {
         const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
-        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}')`;
-        await pool.query(query_banda);
+        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}') RETURNING id`;
+        const query_id_banda = await pool.query(query_banda);
 
-        const query_id_banda = `SELECT id from bandas where nombre = '${req.body.nombre}'`;
         const result_id_banda = await pool.query(query_id_banda);
         const id_banda = result_id_banda.rows[0].id;
 
@@ -271,7 +270,19 @@ app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
     try{
         const query_obtener_id_banda = `SELECT id_banda FROM integrantes_bandas WHERE id_integrante = ${req.params.id_usuario}`;
         const result = await pool.query(query_obtener_id_banda);
-        res.json(result.rows[0]);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
+    }
+});
+
+app.get("/obtener_bandas/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_banda = `SELECT bandas.* FROM bandas INNER JOIN integrantes_bandas ON integrantes_bandas.id_banda = bandas.id WHERE id_integrante = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_banda);
+        res.json(result.rows);
     }
     catch(err){
         console.error(err);

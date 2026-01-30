@@ -275,44 +275,67 @@ async function cargarIntegrantesBanda(id_banda){
     }   
 }
 
-async function cargarDatosBanda(){
+async function cargarDatosBanda() {
     const idUsuario = localStorage.getItem('usuarioId');
-    const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`)
-    const data = await responseIdBandas.json();
-    const id = data.id_banda;
-    const divBanda = document.getElementById('infoBanda');
-    const divBandaOpciones = document.getElementById('opcionesBanda');
-    if (id) {
-        try{
-            const response = await fetch(`http://localhost:3000/bandas/${id}`);
-            const datos = await response.json();
+    const divInfoBanda = document.getElementById('infoBanda');
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
 
-            const nombreBanda = document.getElementById('nombreBanda');
-            nombreBanda.textContent = datos.nombre;
+    try {
+        const responseBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        let datosBandas = await responseBandas.json();
 
-            const integrantesBanda = document.getElementById('integrantesBanda');
-            integrantesBanda.textContent = datos.integrantes;
-
-            const descripcionBanda = document.getElementById('descripcionBanda');
-            descripcionBanda.textContent = datos.descripcion;
-            
-            const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
-            fecha = String(datos.fechacreacion);
-            fechaCreacionBanda.textContent = fecha;
-
-            const redesBanda = document.getElementById('redesBanda');
-            redesBanda.textContent = datos.redsocial;
-            divBanda.classList.remove("hiddenBanda");
-            divBandaOpciones.style.display = "none";
-            cargarGenerosBanda(id);
-            cargarIntegrantesBanda(id);
+        if (!responseBandas.ok || datosBandas.length === 0) {
+            divInfoBanda.classList.add("hidden");
+            divCrearBanda.classList.remove("hidden");
+            divUnirseBanda.classList.remove("hidden");
+            return; 
         }
-        catch (error) {
-            console.error("Error:", error);
-        }    
-    }
-    else{
-        divBanda.classList.add("hiddenBanda");
+
+        let idBandaLocalStorage = localStorage.getItem('bandaId');
+        let existeId = false;
+
+        datosBandas.forEach(banda => {
+            if (banda.id == idBandaLocalStorage) {
+                existeId = true;
+            }
+        });
+
+        if (!idBandaLocalStorage || !existeId) {
+            idBandaLocalStorage = datosBandas[0].id;
+            localStorage.setItem('bandaId', idBandaLocalStorage);
+        }
+
+        const response = await fetch(`http://localhost:3000/bandas/${idBandaLocalStorage}`);
+        
+        if (!response.ok){
+            throw new Error("Error al cargar detalles de la banda");
+        } 
+
+        let data = await response.json();
+
+        let datosBanda = data;
+        if (Array.isArray(data)){
+            datosBanda = data[0];
+        }
+
+        document.getElementById('nombreBanda').textContent = datosBanda.nombre || "Sin nombre";
+        document.getElementById('descripcionBanda').textContent = datosBanda.descripcion || "";
+        document.getElementById('fechaCreacionBanda').textContent = datosBanda.fechacreacion ? String(datosBanda.fechacreacion).split('T')[0] : "";
+        document.getElementById('redesBanda').textContent = datosBanda.redsocial || "";
+
+        cargarGenerosBanda(idBandaLocalStorage);
+        cargarIntegrantesBanda(idBandaLocalStorage);
+
+        divInfoBanda.classList.remove("hidden");
+        divCrearBanda.classList.add("hidden");
+        divUnirseBanda.classList.add("hidden");
+
+    } catch (error) {
+        console.error("Error en cargarDatosBanda:", error);
+        divInfoBanda.classList.add("hidden");
+        divCrearBanda.classList.remove("hidden");
+        divUnirseBanda.classList.remove("hidden");
     }
 }
 
@@ -438,8 +461,8 @@ async function cargarDatosEspacio(){
         const datosId = await responseIdEspacios.json(); 
 
         if (!responseIdEspacios.ok || datosId.length === 0) {
-            divEspacio.classList.add("hiddenEspacio");
-            divCrearEspacio.classList.remove("hiddenEspacio");
+            divEspacio.classList.add("hidden");
+            divCrearEspacio.classList.remove("hidden");
             return; 
         }
 
@@ -470,13 +493,13 @@ async function cargarDatosEspacio(){
         document.getElementById('tamañoEspacio').textContent = datos.tamaño;
         document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
 
-        divEspacio.classList.remove("hiddenEspacio");
-        divCrearEspacio.classList.add("hiddenEspacio");
+        divEspacio.classList.remove("hidden");
+        divCrearEspacio.classList.add("hidden");
 
     } catch (error) {
         console.error("Error:", error);
-        divEspacio.classList.add("hiddenEspacio");
-        divCrearEspacio.classList.remove("hiddenEspacio");
+        divEspacio.classList.add("hidden");
+        divCrearEspacio.classList.remove("hidden");
     }    
 }
 
@@ -551,18 +574,52 @@ async function eliminarEspacio(){
     localStorage.removeItem('espacioId');
 }
 
+function ocultarCrearBanda() {
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const botonCrearBanda = document.getElementById('ocultarMostrarCrearBanda');
+    divCrearBanda.classList.add('hidden');   
+    botonCrearBanda.textContent = "Crea otra Banda!";
+    botonCrearBanda.onclick = () => mostrarCrearBanda();
+}
+
+function mostrarCrearBanda() {
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const botonCrearBanda = document.getElementById('ocultarMostrarCrearBanda');
+    divCrearBanda.classList.remove('hidden');   
+    botonCrearBanda.textContent = "Ocultar formulario Crear Banda";
+    botonCrearBanda.onclick = () => ocultarCrearBanda();
+    ocultarUnirseBanda()
+}
+
+function ocultarUnirseBanda(){
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
+    const botonUnirseBanda = document.getElementById('ocultarMostrarUnirseBanda');
+    divUnirseBanda.classList.add('hidden');   
+    botonUnirseBanda.textContent = "Unete a otra Banda!";
+    botonUnirseBanda.onclick = () => mostrarUnirseBanda();
+}
+
+function mostrarUnirseBanda(){
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
+    const botonUnirseBanda = document.getElementById('ocultarMostrarUnirseBanda');
+    divUnirseBanda.classList.remove('hidden');   
+    botonUnirseBanda.textContent = "Ocultar formulario unirse a banda";
+    botonUnirseBanda.onclick = () => ocultarUnirseBanda();
+    ocultarCrearBanda()
+}
+
 function ocultarMostrarCrearEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
     const botonVerCrearEspacio = document.getElementById('ocultarMostrarCrearEspacio');
     
-    if (divCrearEspacio.classList.contains('hiddenEspacio')) {
+    if (divCrearEspacio.classList.contains('hidden')) {
         
-        divCrearEspacio.classList.remove('hiddenEspacio'); 
+        divCrearEspacio.classList.remove('hidden'); 
         botonVerCrearEspacio.textContent = "Ocultar formulario crear espacio"; 
         
     } else {
         
-        divCrearEspacio.classList.add('hiddenEspacio'); 
+        divCrearEspacio.classList.add('hidden'); 
         botonVerCrearEspacio.textContent = "Crea otro Espacio Jameet!"; 
     }
 }
@@ -586,14 +643,50 @@ async function mostrarTodosEspacios(){
     }
 }
 
-function cerrarPopUp(){
+async function mostrarTodasBandas(){
+    const idUsuario = localStorage.getItem('usuarioId');
+    const popUpBandas = document.getElementById('popUpBandas');
+    const divContenedorPopUp = document.getElementById('contenedorPopUpBandas');
+    divContenedorPopUp.innerHTML = '';
+    
+    try{
+        const dataBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        let Bandas = await dataBandas.json()
+
+        if (!Array.isArray(Bandas)) {
+            Bandas = Bandas ? [Bandas] : [];
+        }
+
+        Bandas.forEach(banda => {
+                armarCartaBanda(banda);
+            });
+        popUpBandas.showModal()
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
+function cerrarPopUpEspacio(){
     const popUpEspacios = document.getElementById('popUpEspacios');
     popUpEspacios.close();
 }
 
+
+function cerrarPopUpBanda(){
+    const popUpBandas = document.getElementById('popUpBandas');
+    popUpBandas.close();
+}
+
 function seleccionarEstudio(espacio){
     localStorage.setItem('espacioId', espacio.id);
-    cerrarPopUp();
+    cerrarPopUpEspacio();
+    location.reload();
+}
+
+function seleccionarBanda(banda){
+    localStorage.setItem('bandaId', banda.id);
+    cerrarPopUpBanda();
     location.reload();
 }
 
@@ -613,6 +706,24 @@ async function armarCartaEspacio(espacio){
     cartaEspacio.appendChild(botonSeleccionarEspacio);
     divContenedorPopUp.appendChild(cartaEspacio);
 }
+
+async function armarCartaBanda(Banda){
+    const divContenedorPopUp = document.getElementById('contenedorPopUpBandas');
+    const cartaBanda = document.createElement('div');
+    cartaBanda.className = "miniCartaBanda";
+    const nombreBanda = document.createElement('h3');
+    nombreBanda.textContent = Banda.nombre;
+    const imagenBanda = document.createElement('img');
+    imagenBanda.src = Banda.linkfotobanda;
+    const botonSeleccionarBanda = document.createElement('button');
+    botonSeleccionarBanda.textContent = "Seleccionar y mostrar";
+    botonSeleccionarBanda.onclick = () => seleccionarBanda(Banda);
+    cartaBanda.appendChild(nombreBanda);
+    cartaBanda.appendChild(imagenBanda);
+    cartaBanda.appendChild(botonSeleccionarBanda);
+    divContenedorPopUp.appendChild(cartaBanda);
+}
+
 
 async function guardarEspacioEditado() {
     try{
@@ -713,3 +824,9 @@ function mostrarImagenPorDefectoEspacio(creandoEspacio) {
         document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+    cargarDatosPerfil();
+    cargarDatosBanda();
+    cargarDatosEspacio();
+})
