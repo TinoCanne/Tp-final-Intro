@@ -574,42 +574,38 @@ async function eliminarEspacio(){
     localStorage.removeItem('espacioId');
 }
 
-function ocultarMostrarCrearBanda() {
+function ocultarCrearBanda() {
     const divCrearBanda = document.getElementById('divCrearBanda');
-    const divUnirseBanda = document.getElementById('divUnirseBanda');
     const botonCrearBanda = document.getElementById('ocultarMostrarCrearBanda');
-
-    if (divCrearBanda.classList.contains('hidden')) {
-
-        divCrearBanda.classList.remove('hidden');   
-        divUnirseBanda.classList.add('hidden');  
-        
-        botonCrearBanda.textContent = "Cancelar / Ocultar formulario";
-    } else {
-
-        divCrearBanda.classList.add('hidden');   
-        divUnirseBanda.classList.add('hidden');  
-        botonCrearBanda.textContent = "Crea otra Banda!";
-    }
+    divCrearBanda.classList.add('hidden');   
+    botonCrearBanda.textContent = "Crea otra Banda!";
+    botonCrearBanda.onclick = () => mostrarCrearBanda();
 }
 
-function ocultarMostrarUnirseBanda() {
+function mostrarCrearBanda() {
     const divCrearBanda = document.getElementById('divCrearBanda');
+    const botonCrearBanda = document.getElementById('ocultarMostrarCrearBanda');
+    divCrearBanda.classList.remove('hidden');   
+    botonCrearBanda.textContent = "Ocultar formulario Crear Banda";
+    botonCrearBanda.onclick = () => ocultarCrearBanda();
+    ocultarUnirseBanda()
+}
+
+function ocultarUnirseBanda(){
     const divUnirseBanda = document.getElementById('divUnirseBanda');
     const botonUnirseBanda = document.getElementById('ocultarMostrarUnirseBanda');
+    divUnirseBanda.classList.add('hidden');   
+    botonUnirseBanda.textContent = "Unete a otra Banda!";
+    botonUnirseBanda.onclick = () => mostrarUnirseBanda();
+}
 
-    if (divUnirseBanda.classList.contains('hidden')) {
-
-        divUnirseBanda.classList.remove('hidden');   
-        divCrearBanda.classList.add('hidden');  
-        
-        botonUnirseBanda.textContent = "Cancelar / Ocultar formulario";
-    } else {
-
-        divUnirseBanda.classList.add('hidden');   
-        divCrearBanda.classList.add('hidden');  
-        botonUnirseBanda.textContent = "Unete a otra Banda!";
-    }
+function mostrarUnirseBanda(){
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
+    const botonUnirseBanda = document.getElementById('ocultarMostrarUnirseBanda');
+    divUnirseBanda.classList.remove('hidden');   
+    botonUnirseBanda.textContent = "Ocultar formulario unirse a banda";
+    botonUnirseBanda.onclick = () => ocultarUnirseBanda();
+    ocultarCrearBanda()
 }
 
 function ocultarMostrarCrearEspacio(){
