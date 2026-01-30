@@ -348,10 +348,6 @@
     background-color: rgba(255,255,255,0.2);
 }
 
-.hiddenBanda {
-    display: none;
-}
-
 .contenedorFotoPerfil {
     display: flex;
     justify-content: center;
@@ -369,10 +365,6 @@
     border-radius: 20px;
     display: relative;
     left: 100px;
-}
-
-.hiddenEspacio {
-    display: none;
 }
 
 .inputDatosPerfil {

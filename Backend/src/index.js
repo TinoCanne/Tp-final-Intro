@@ -279,6 +279,18 @@ app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
     }
 });
 
+app.get("/obtener_bandas/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_banda = `SELECT bandas.* FROM bandas INNER JOIN integrantes_bandas ON integrantes_bandas.id_banda = bandas.id WHERE id_integrante = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_banda);
+        res.json(result.rows[0]);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
+    }
+});
+
 app.get("/obtener_cantidad_personas_banda/:id_banda", async (req, res) => {
     try{
         const query = `SELECT COUNT(*) FROM integrantes_bandas WHERE id_banda = ${req.params.id_banda}`;

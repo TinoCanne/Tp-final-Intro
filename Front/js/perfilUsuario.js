@@ -277,43 +277,60 @@ async function cargarIntegrantesBanda(id_banda){
 
 async function cargarDatosBanda(){
     const idUsuario = localStorage.getItem('usuarioId');
-    const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`)
-    const data = await responseIdBandas.json();
-    const id = data.id_banda;
-    const divBanda = document.getElementById('infoBanda');
-    const divBandaOpciones = document.getElementById('opcionesBanda');
-    if (id) {
-        try{
-            const response = await fetch(`http://localhost:3000/bandas/${id}`);
-            const datos = await response.json();
+    const divInfoBanda = document.getElementById('infoBanda');
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
 
-            const nombreBanda = document.getElementById('nombreBanda');
-            nombreBanda.textContent = datos.nombre;
+    try {
+        
+        const responseBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
+        let datosBandas = await responseBandas.json(); 
 
-            const integrantesBanda = document.getElementById('integrantesBanda');
-            integrantesBanda.textContent = datos.integrantes;
-
-            const descripcionBanda = document.getElementById('descripcionBanda');
-            descripcionBanda.textContent = datos.descripcion;
-            
-            const fechaCreacionBanda = document.getElementById('fechaCreacionBanda');
-            fecha = String(datos.fechacreacion);
-            fechaCreacionBanda.textContent = fecha;
-
-            const redesBanda = document.getElementById('redesBanda');
-            redesBanda.textContent = datos.redsocial;
-            divBanda.classList.remove("hiddenBanda");
-            divBandaOpciones.style.display = "none";
-            cargarGenerosBanda(id);
-            cargarIntegrantesBanda(id);
+        if (!Array.isArray(datosBandas)) {
+            datosBandas = [datosBandas];
         }
-        catch (error) {
-            console.error("Error:", error);
-        }    
-    }
-    else{
-        divBanda.classList.add("hiddenBanda");
-    }
+
+        if (!responseBandas.ok || datosBandas.length === 0) {
+            divInfoBanda.classList.add("hidden");
+            divCrearBanda.classList.remove("hidden");
+            divUnirseBanda.classList.remove("hidden");
+            return; 
+        }
+
+        let idBandaLocalStorage = localStorage.getItem('bandaId');
+
+        let existeId = false;
+        datosBandas.forEach(element => {
+            if(element.id_banda == idBandaLocalStorage){
+                existeId = true;
+            }
+        });
+        
+        if (!idBandaLocalStorage || !existeId) {
+            idBandaLocalStorage = datosBandas[0].id_banda;
+            localStorage.setItem('bandaId', idBandaLocalStorage);
+        }
+
+        const response = await fetch(`http://localhost:3000/bandas/${idBandaLocalStorage}`);
+        const datosBandaAMostrar = (await response.json())[0];
+
+        document.getElementById('nombreBanda').textContent = datosBandaAMostrar.nombre;
+        document.getElementById('descripcionBanda').textContent = datosBandaAMostrar.descripcion;
+        document.getElementById('fechaCreacionBanda').textContent = String(datosBandaAMostrar.fechacreacion);
+        document.getElementById('redesBanda').textContent = datosBandaAMostrar.redsocial;
+        divInfoBanda.classList.remove("hidden");
+        divCrearBanda.classList.add("hidden");
+        divUnirseBanda.classList.add("hidden");
+
+        cargarGenerosBanda(idBandaLocalStorage);
+        cargarIntegrantesBanda(idBandaLocalStorage);
+
+    } catch (error) {
+        console.error("Error:", error);
+        divInfoBanda.classList.add("hidden");
+        divCrearBanda.classList.remove("hidden");
+        divUnirseBanda.classList.remove("hidden");
+    }    
 }
 
 async function unirseBanda(event) {
@@ -438,8 +455,8 @@ async function cargarDatosEspacio(){
         const datosId = await responseIdEspacios.json(); 
 
         if (!responseIdEspacios.ok || datosId.length === 0) {
-            divEspacio.classList.add("hiddenEspacio");
-            divCrearEspacio.classList.remove("hiddenEspacio");
+            divEspacio.classList.add("hidden");
+            divCrearEspacio.classList.remove("hidden");
             return; 
         }
 
@@ -470,13 +487,13 @@ async function cargarDatosEspacio(){
         document.getElementById('tamañoEspacio').textContent = datos.tamaño;
         document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
 
-        divEspacio.classList.remove("hiddenEspacio");
-        divCrearEspacio.classList.add("hiddenEspacio");
+        divEspacio.classList.remove("hidden");
+        divCrearEspacio.classList.add("hidden");
 
     } catch (error) {
         console.error("Error:", error);
-        divEspacio.classList.add("hiddenEspacio");
-        divCrearEspacio.classList.remove("hiddenEspacio");
+        divEspacio.classList.add("hidden");
+        divCrearEspacio.classList.remove("hidden");
     }    
 }
 
@@ -551,18 +568,56 @@ async function eliminarEspacio(){
     localStorage.removeItem('espacioId');
 }
 
+function ocultarMostrarCrearBanda() {
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
+    const botonCrearBanda = document.getElementById('ocultarMostrarCrearBanda');
+
+    if (divCrearBanda.classList.contains('hidden')) {
+
+        divCrearBanda.classList.remove('hidden');   
+        divUnirseBanda.classList.add('hidden');  
+        
+        botonCrearBanda.textContent = "Cancelar / Ocultar formulario";
+    } else {
+
+        divCrearBanda.classList.add('hidden');   
+        divUnirseBanda.classList.add('hidden');  
+        botonCrearBanda.textContent = "Crea otra Banda!";
+    }
+}
+
+function ocultarMostrarUnirseBanda() {
+    const divCrearBanda = document.getElementById('divCrearBanda');
+    const divUnirseBanda = document.getElementById('divUnirseBanda');
+    const botonUnirseBanda = document.getElementById('ocultarMostrarUnirseBanda');
+
+    if (divUnirseBanda.classList.contains('hidden')) {
+
+        divUnirseBanda.classList.remove('hidden');   
+        divCrearBanda.classList.add('hidden');  
+        
+        botonUnirseBanda.textContent = "Cancelar / Ocultar formulario";
+    } else {
+
+        divUnirseBanda.classList.add('hidden');   
+        divCrearBanda.classList.add('hidden');  
+        botonUnirseBanda.textContent = "Unete a otra Banda!";
+    }
+}
+
 function ocultarMostrarCrearEspacio(){
     const divCrearEspacio = document.getElementById('crearEspacio');
     const botonVerCrearEspacio = document.getElementById('ocultarMostrarCrearEspacio');
     
-    if (divCrearEspacio.classList.contains('hiddenEspacio')) {
+    if (divCrearEspacio.classList.contains('hidden')) {
         
-        divCrearEspacio.classList.remove('hiddenEspacio'); 
+        divCrearEspacio.classList.remove('hidden'); 
         botonVerCrearEspacio.textContent = "Ocultar formulario crear espacio"; 
         
     } else {
         
-        divCrearEspacio.classList.add('hiddenEspacio'); 
+        divCrearEspacio.classList.add('hidden'); 
         botonVerCrearEspacio.textContent = "Crea otro Espacio Jameet!"; 
     }
 }
@@ -713,3 +768,9 @@ function mostrarImagenPorDefectoEspacio(creandoEspacio) {
         document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+    cargarDatosPerfil();
+    cargarDatosBanda();
+    cargarDatosEspacio();
+})
