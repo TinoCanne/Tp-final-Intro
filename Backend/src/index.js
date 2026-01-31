@@ -523,7 +523,10 @@ app.get("/filtro_espacios", async (req, res) => {
         }
         if (hora){
             let horaDeseada = parseInt(hora);
-            query += ` AND horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada}`;
+            query += ` AND (
+            (horarioApertura < horarioCierre AND(horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada})) or 
+            (horarioApertura > horarioCierre AND (horarioApertura <= ${horaDeseada} OR horarioCierre >= ${horaDeseada}))
+            )  `;
         }
         const result = await pool.query(query);
         res.json(result.rows);
