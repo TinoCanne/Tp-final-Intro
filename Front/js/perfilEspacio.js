@@ -295,7 +295,18 @@ async function armarCalendario(ano, mes, hora){
             }
             let estadoDelDia = await encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre);
 
-            if ((fechaCelda < hoyParaComparar) ||(primerDiaSemanaAbiertoParaComparar + 1 > diaCelda || (ultimoDiaSemanaAbiertoParaComparar + 1 < diaCelda))){
+            let estaAbierto = false;
+
+            if (primerDiaSemanaAbiertoParaComparar <= ultimoDiaSemanaAbiertoParaComparar) {
+                if (diaCelda >= primerDiaSemanaAbiertoParaComparar +1 && diaCelda <= ultimoDiaSemanaAbiertoParaComparar +1 ) {
+                    estaAbierto = true;
+                }
+            } else {
+                if (diaCelda >= primerDiaSemanaAbiertoParaComparar +1  || diaCelda <= ultimoDiaSemanaAbiertoParaComparar +1 ) {
+                    estaAbierto = true;
+                }
+            }
+            if ((fechaCelda < hoyParaComparar) || !estaAbierto) {
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
             else if(estadoDelDia == "lleno"){

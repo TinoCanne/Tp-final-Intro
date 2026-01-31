@@ -421,7 +421,9 @@ async function crearEspacio(event){
     const precioEspacio = document.getElementById('precioPorHoraCrearEspacio').value;
     const horarioApertura = document.getElementById('horarioAperturaCrearEspacio').value;
     const horarioCierre = document.getElementById('horarioCierreCrearEspacio').value;
-    const diasAbiertos = document.getElementById('diasAbiertosCrearEspacio').value;
+    const diaApertura = document.getElementById('diaAperturaCrearEspacio').value;
+    const diaCierre = document.getElementById('diaCierreCrearEspacio').value;
+    const diasAbiertos = diaApertura + '-' + diaCierre;
     const idUsuario = localStorage.getItem('usuarioId');
 
     try {
