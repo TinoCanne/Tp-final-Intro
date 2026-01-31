@@ -360,14 +360,15 @@
 .contenedorFotoPerfil {
     display: flex;
     justify-content: center;
+    overflow: hidden;
     align-items: center;
+    margin-top: 30px;
 }
 .fotoPerfilGrande {
     height: 200px;
     width: 200px;
-    border-radius: 100px;
-    padding-top: 30px;
-    display: flex;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .inputNuevoLink {
@@ -475,7 +476,7 @@
 .fotoDeMuestraEspacio {
     height: 180px;
     width: auto;
-    border-radius: 15px;
+    border-radius: 50%;
     object-fit: cover;
 }
 

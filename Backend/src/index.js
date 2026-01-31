@@ -27,13 +27,31 @@ app.get("/usuarios", async (req, res) => {
 // Devolver un usuario por id
 app.get("/usuarios/:id", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM usuarios where id = ${req.params.id}`);
+        const result = await pool.query(`SELECT * FROM usuarios WHERE id = ${req.params.id}`);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "DB error en el metodo GET: usuarios/id" });
     }
 });
+
+// Devolver un usuario por email
+app.get("/usuarios/email/:email", async (req, res) => {
+    try{
+        const email = req.params.email
+        const result = await pool.query(`SELECT * FROM usuarios WHERE email = '${email}'`);
+        if (result.rows.length === 0){
+            res.status(404).json({error: "Usuario no encontrado"});
+        }
+        else{
+            res.json(result.rows[0]);
+        }
+    }
+    catch (err){
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo GET: usuarios/email"});
+    }
+})
 
 // Crear un usuario 
 app.post("/usuarios", async (req, res) => {
@@ -45,7 +63,7 @@ app.post("/usuarios", async (req, res) => {
         const id = result_usuario.rows[0].id;
 
         let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
-        let instrumentos = req.body.instrumentos.split(" ", 4);
+        let instrumentos = req.body.instrumentos.split(",", 4);
         instrumentos.forEach(instrumento => {
             query_instrumentos += `(${id}, '${instrumento}'),`;
         });
@@ -53,7 +71,7 @@ app.post("/usuarios", async (req, res) => {
         await pool.query(query_instrumentos_limpia);
 
         let query_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
-        let generos = req.body.generos.split(" ", 4);
+        let generos = req.body.generos.split(",", 4);
         generos.forEach(genero => {
             query_generos += `(${id}, '${genero}'),`;
         })
