@@ -104,3 +104,75 @@ function mostrar_imagen() {
     
     document.getElementById("vista_previa").src = url;
 }
+
+
+let nombre = document.getElementById("nombre")
+nombre.addEventListener("invalid", function cargarInvalido() {
+    nombre.style.backgroundColor = "red";
+})
+
+function validarPalabras(input) {
+    const formato = /^[a-zA-zñÑáéíóúÁÉÍÓÚ,\s]*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten letras");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "grey";
+    }
+}
+
+function validarNumeros(input){
+    const formato = /^[0-9+]*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten numeros");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "grey";
+    }
+}
+
+function validarCorreo(input){
+    const formato = /^.*@.*$/
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Ingrese una direccion valida");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "grey";
+    }
+}
+
+function validarContraseña(input){
+    let contraseña = input.value;
+    let mensajeError = "";
+
+    if (contraseña.length < 8){
+        mensajeError = "La contraseña es demasiado corta.";
+    }
+    else if (!(/[A-Z]/.test(contraseña))){
+        mensajeError = "La contraseña debe tener minimo una mayúscula.";
+    }
+    else if (!(/[0-9]/.test(contraseña))){
+        mensajeError = "La contraseña debe tener minimo un número."
+    }
+    else{
+        input.style.backgroundColor = "grey";
+    }
+
+    input.setCustomValidity(mensajeError);
+    if (mensajeError !== ""){
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+}
