@@ -108,11 +108,10 @@
 .fotoDePerfil {
     width: 200px;
     height: 200px;
-<<<<<<< HEAD
     border-radius: 50%;
-=======
     border-radius: 100px;
->>>>>>> dff1286 (arreglados algunos problemas)
+    border-radius: 50%;
+
 }
 
 .errorContraseña {
