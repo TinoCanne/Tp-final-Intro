@@ -45,7 +45,7 @@ app.post("/usuarios", async (req, res) => {
         const id = result_usuario.rows[0].id;
 
         let query_instrumentos = `INSERT INTO instrumentos (id_usuario, instrumento) VALUES `;
-        let instrumentos = req.body.instrumentos.split(" ", 4);
+        let instrumentos = req.body.instrumentos.split(", ", 4);
         instrumentos.forEach(instrumento => {
             query_instrumentos += `(${id}, '${instrumento}'),`;
         });
@@ -53,7 +53,7 @@ app.post("/usuarios", async (req, res) => {
         await pool.query(query_instrumentos_limpia);
 
         let query_generos = `INSERT INTO generos_usuarios (id_usuario, genero) VALUES `;
-        let generos = req.body.generos.split(" ", 4);
+        let generos = req.body.generos.split(", ", 4);
         generos.forEach(genero => {
             query_generos += `(${id}, '${genero}'),`;
         })
