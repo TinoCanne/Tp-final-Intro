@@ -419,6 +419,9 @@ async function crearEspacio(event){
     const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
     const tamañoEspacio = document.getElementById('tamañoCrearEspacio').value;
     const precioEspacio = document.getElementById('precioPorHoraCrearEspacio').value;
+    const horarioApertura = document.getElementById('horarioAperturaCrearEspacio').value;
+    const horarioCierre = document.getElementById('horarioCierreCrearEspacio').value;
+    const diasAbiertos = document.getElementById('diasAbiertosCrearEspacio').value;
     const idUsuario = localStorage.getItem('usuarioId');
 
     try {
@@ -435,7 +438,10 @@ async function crearEspacio(event){
                 contacto: contactoEspacio,
                 tamaño: tamañoEspacio,
                 precio: precioEspacio,
-                idUsuario: idUsuario
+                idUsuario: idUsuario,
+                horarioApertura: horarioApertura,
+                horarioCierre: horarioCierre,
+                diasAbiertos: diasAbiertos
             })
         });
 
