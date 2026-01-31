@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", function(){
     const boton_bandas = document.getElementById("botonBandas");
     const id_usuario = localStorage.getItem('usuarioId');
     const marco_usuario = document.getElementById('marco_usuario');
+    marco_usuario.style.display = "block"
     const marco_bandas = document.getElementById('marco_bandas');
+    marco_bandas.style.display = "none";
     marco_usuario.innerHTML = "";
     marco_bandas.innerHTML = "";
     boton_usuarios.onclick = function(){
@@ -49,9 +51,11 @@ async function armarCartaUsuario(usuario){
     const nombre = document.createElement("p");
     nombre.innerText = usuario.nombre;
     contacto.innerText = usuario.email;
+    const separador = document.createElement("br");
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
+    carta.appendChild(separador);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
     container.appendChild(carta);
