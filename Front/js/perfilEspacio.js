@@ -102,7 +102,7 @@ function horaEstaReservada(reservasDia, horaSeleccionada){
 }
 
 function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSeleccionado){
-    const { horarioapertura, horariocierre, id } = espacioSeleccionado;
+    let { horarioapertura, horariocierre, id } = espacioSeleccionado;
     let contenidoHoras = document.getElementById('contenido_horas');
     
     const FechaSeleccionadaParaComparar = (new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado)).getTime();
