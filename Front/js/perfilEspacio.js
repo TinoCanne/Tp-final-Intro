@@ -108,19 +108,56 @@ function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSelecci
     const FechaSeleccionadaParaComparar = (new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado)).getTime();
     const hoyParaComparar = hoy.setHours(0,0,0,0);
 
+    let pasaDeDia = false;
+    if (horarioapertura > horariocierre){
+        pasaDeDia = true;
+    }
+
+    console.log(horarioapertura, horariocierre);
+
     const hora_actual = (new Date()).getHours();
     let contenidoTemporal = "<tr>";
-    for (let hora = horarioapertura; hora < horariocierre; hora++){
-        if (((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar)) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
-            if (horaEstaReservada(reservasDia, hora)){
-                contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
+    if (!pasaDeDia){
+        for (let hora = horarioapertura; hora < horariocierre; hora++){
+            if (((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar)) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
+                if (horaEstaReservada(reservasDia, hora)){
+                    contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
+                }
+                else{
+                    contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + hora + ", " + id + ")'>" + hora + "</td>";
+                }
             }
-            else{
-                contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + hora + ", " + id + ")'>" + hora + "</td>";
+            else {
+                contenidoTemporal += "<td class='horasAnteriores'>" + hora + "</td>";
             }
         }
-        else {
-            contenidoTemporal += "<td class='horasAnteriores'>" + hora + "</td>";
+    }
+    else {
+        for (let hora = 1; hora < horariocierre; hora++){
+            if (((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar)) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
+                if (horaEstaReservada(reservasDia, hora)){
+                    contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
+                }
+                else{
+                    contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + hora + ", " + id + ")'>" + hora + "</td>";
+                }
+            }
+            else {
+                contenidoTemporal += "<td class='horasAnteriores'>" + hora + "</td>";
+            }
+        }
+        for (let hora = horarioapertura; hora < 25; hora++){
+            if (((hora > hora_actual) && (FechaSeleccionadaParaComparar === hoyParaComparar)) || (FechaSeleccionadaParaComparar > hoyParaComparar)){
+                if (horaEstaReservada(reservasDia, hora)){
+                    contenidoTemporal += "<td class='horasReservadas'>" + hora + "</td>";
+                }
+                else{
+                    contenidoTemporal += "<td class='horasDisponibles' onclick='reservar(" + diaSeleccionado + ", " + mesSeleccionado + ", " + anoSeleccionado + ", " + hora + ", " + id + ")'>" + hora + "</td>";
+                }
+            }
+            else {
+                contenidoTemporal += "<td class='horasAnteriores'>" + hora + "</td>";
+            }   
         }
     }
     contenidoTemporal += "</tr>";
