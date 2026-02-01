@@ -43,7 +43,6 @@ async function armarCartaUsuario(usuario){
         let user_id = localStorage.getItem("usuarioId");
         let contact_id = usuario.id;
         eliminar_contacto(user_id, contact_id);
-        window.location.reload();
     }
 
     const nombre = document.createElement("p");
