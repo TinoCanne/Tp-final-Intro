@@ -21,15 +21,12 @@
             <button id = "botonBuscarBandas" class="botonIndex">Bandas</button>
         </div>
 
-        <button>Filtrar Usuarios</button>
-        <button onclick="mostrarFiltroBandas()">Filtrar Bandas</button>
-
         <dialog id="popUpFiltrosBandas">
-            <button onclick="ocultarFiltrosBandas()">Cerrar</button>
+            <button onclick="ocultarFiltroBandas()">Cerrar</button>
             <div id="filtroBandas">
                 <form onsubmit="aplicarFiltrosBandas(event)">
                     <br>
-                    <input type="text" placeholder = "Ingrese un genero" id="generoBandas">
+                    <input type="text" placeholder = "Ingrese un genero" id="generoBandasFiltros">
                     <br>
                     <br>
                     <input type="submit" value="Aplicar filtros">
