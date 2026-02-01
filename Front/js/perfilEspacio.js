@@ -1,4 +1,3 @@
-let hoy = new Date();
 let espacioSeleccionado = null;
 
 
@@ -106,7 +105,7 @@ function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSelecci
     let contenidoHoras = document.getElementById('contenido_horas');
     
     const FechaSeleccionadaParaComparar = (new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado)).getTime();
-    const hoyParaComparar = hoy.setHours(0,0,0,0);
+    const hoyParaComparar = (new Date()).setHours(0,0,0,0);
 
     let pasaDeDia = false;
     if (horarioapertura > horariocierre){
@@ -242,13 +241,11 @@ function encontrarEstadoDelDia(listaReservasDia, horaApertura, horaCierre, hora,
     if (esHoy){
         horasPasadas += (hora + 1 - horaApertura);
     }
-    const cantidadTurnosReservados = listaReservasDia.length;
-    console.log(horasPasadas, cantidadTurnosPosibles, listaReservasDia.length);
     
     if (hora >= horaCierre - 1){
         estadoDelDia = "pasado";
     }
-    else if (cantidadTurnosPosibles - horasPasadas <= cantidadTurnosReservados){
+    else if (listaReservasDia && (cantidadTurnosPosibles - horasPasadas <= listaReservasDia.length)){
         estadoDelDia = "lleno";
     }
     else{
@@ -290,7 +287,7 @@ async function armarCalendario(ano, mes, hora){
     let contenidoTemporal = "";
     let diaTemporal = 0;
     for (let i = 1; i <= cantidadCeldas; i++){  //empieza en 1 porque el primerDiaMes minimo es 1.
-        if ((i % 7) === 1 ) {
+        if ((i % 7) === 1 ){
             contenidoTemporal += "<tr>";
         }
         if ((i < primerDiaMesSemana) || (i > ultimaCeldaMes)){
@@ -307,6 +304,7 @@ async function armarCalendario(ano, mes, hora){
             }
             let estadoDelDia = ""
             if (hoyParaComparar === (new Date(ano, mes, diaTemporal)).setHours(0,0,0,0)){
+                console.log("entro");
                 estadoDelDia = encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre, hora, true);
             }
             else{
@@ -364,6 +362,7 @@ async function armarCalendario(ano, mes, hora){
 }
 
 function mostrarCalendario(espacio){
+    let hoy = new Date();
     espacioSeleccionado = espacio;
     let calendario = document.getElementById('cuadro_calendario');
     calendario.showModal();
