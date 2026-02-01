@@ -1,4 +1,3 @@
-let hoy = new Date();
 let espacioSeleccionado = null;
 
 
@@ -106,14 +105,12 @@ function armarHorarios(reservasDia, diaSeleccionado, mesSeleccionado, anoSelecci
     let contenidoHoras = document.getElementById('contenido_horas');
     
     const FechaSeleccionadaParaComparar = (new Date(anoSeleccionado, mesSeleccionado - 1, diaSeleccionado)).getTime();
-    const hoyParaComparar = hoy.setHours(0,0,0,0);
+    const hoyParaComparar = (new Date()).setHours(0,0,0,0);
 
     let pasaDeDia = false;
     if (horarioapertura > horariocierre){
         pasaDeDia = true;
     }
-
-    console.log(horarioapertura, horariocierre);
 
     const hora_actual = (new Date()).getHours();
     let contenidoTemporal = "<tr>";
@@ -230,19 +227,31 @@ async function armarDiccionarioReservasMes(idEspacio, año, mes){
     }
 }
 
-async function encontrarEstadoDelDia(listaReservasDia, horaApertura, horaCierre) {
-    if (!listaReservasDia) {
+function encontrarEstadoDelDia(listaReservasDia, horaApertura, horaCierre, hora, esHoy){
+    if (!esHoy && !listaReservasDia){
         return "disponible";
     }
     let estadoDelDia = "";
-    const cantidadTurnosPosibles = horaCierre - horaApertura;
-    const cantidadTurnosReservados = listaReservasDia.length;
-    if (cantidadTurnosPosibles === cantidadTurnosReservados){
+
+    let cantidadTurnosPosibles = horaCierre - horaApertura;
+    if (cantidadTurnosPosibles < 0){
+        cantidadTurnosPosibles += 24;
+    }
+    let horasPasadas = 0;
+    if (esHoy){
+        horasPasadas += (hora + 1 - horaApertura);
+    }
+    
+    if (hora >= horaCierre - 1){
+        estadoDelDia = "pasado";
+    }
+    else if (listaReservasDia && (cantidadTurnosPosibles - horasPasadas <= listaReservasDia.length)){
         estadoDelDia = "lleno";
     }
     else{
         estadoDelDia = "disponible";
     }
+
     return estadoDelDia;
 }
 
@@ -274,11 +283,11 @@ async function armarCalendario(ano, mes, hora){
 
     let primerDiaSemanaAbiertoParaComparar = diasSemana.indexOf(primerDiaSemanaAbierto);
     let ultimoDiaSemanaAbiertoParaComparar = diasSemana.indexOf(ultimoDiaSemanaAbierto);
-
+    
     let contenidoTemporal = "";
     let diaTemporal = 0;
     for (let i = 1; i <= cantidadCeldas; i++){  //empieza en 1 porque el primerDiaMes minimo es 1.
-        if ((i % 7) === 1 ) {
+        if ((i % 7) === 1 ){
             contenidoTemporal += "<tr>";
         }
         if ((i < primerDiaMesSemana) || (i > ultimaCeldaMes)){
@@ -293,7 +302,14 @@ async function armarCalendario(ano, mes, hora){
             if (diaCelda === 0){
                 diaCelda = 7;
             }
-            let estadoDelDia = await encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre);
+            let estadoDelDia = ""
+            if (hoyParaComparar === (new Date(ano, mes, diaTemporal)).setHours(0,0,0,0)){
+                console.log("entro");
+                estadoDelDia = encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre, hora, true);
+            }
+            else{
+                estadoDelDia = encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre, hora, false);    
+            }
 
             let estaAbierto = false;
 
@@ -306,10 +322,10 @@ async function armarCalendario(ano, mes, hora){
                     estaAbierto = true;
                 }
             }
-            if ((fechaCelda < hoyParaComparar) || !estaAbierto) {
+            if ((fechaCelda < hoyParaComparar) || !estaAbierto || estadoDelDia === "pasado") {
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
-            else if(estadoDelDia == "lleno"){
+            else if(estadoDelDia === "lleno"){
                 contenidoTemporal += "<td class='diasLlenos'>" + diaTemporal + "</td>";  
             }
             else{
@@ -341,11 +357,12 @@ async function armarCalendario(ano, mes, hora){
         anoAnterior = ano - 1;
     }
 
-    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ", " + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + ")'>&#187</button>";
+    ubicacionCalendario.innerHTML = "<button onclick='armarCalendario(" + anoAnterior +", " + mesAnterior + ", " + hora + ")'>&#171</button> <div>" + meses[mes] + "/" + ano + "</div> <button class='botonDerecha' onclick='armarCalendario(" + proximoAno + ", " + proximoMes + ", " + hora + ", " + ")'>&#187</button>";
 
 }
 
 function mostrarCalendario(espacio){
+    let hoy = new Date();
     espacioSeleccionado = espacio;
     let calendario = document.getElementById('cuadro_calendario');
     calendario.showModal();
