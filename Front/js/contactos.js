@@ -143,6 +143,9 @@ async function eliminar_contacto(id_usuario, id_contacto){
                 "Content-Type":"application/json"
             }
         })
+        if(response.ok){
+            location.reload();
+        }
     }
     catch(err){
         console.log(err);
@@ -160,7 +163,9 @@ async function eliminar_banda_contactos(id_usuario, id_banda){
                 "Content-Type":"application/json"
             }
         })
-        console.log(response);
+        if(response.ok){
+            location.reload();
+        }
     }
     catch(err){
         console.log(err);
