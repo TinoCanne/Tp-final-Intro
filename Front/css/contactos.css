@@ -7,7 +7,6 @@
 }
 
 .miniCarta{
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     border-radius: 10px;

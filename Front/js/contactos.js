@@ -46,11 +46,13 @@ async function armarCartaUsuario(usuario){
     }
 
     const nombre = document.createElement("p");
-    nombre.textContent = usuario.nombre;
+    nombre.innerText = usuario.nombre;
     contacto.innerText = usuario.email;
+    const separador = document.createElement("br");
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
+    carta.appendChild(separador);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
     container.appendChild(carta);
@@ -63,7 +65,24 @@ async function armarCartaBanda(banda){
 
     const nombre = document.createElement("p");
     nombre.textContent = banda.nombre;
+
+    const foto = document.createElement("img");
+    foto.alt = "Foto no disponible";
+    const contacto_banda = document.createElement("p");
+    contacto_banda.innerText = banda.redSocial;
+
+    const boton_eliminar_banda = document.createElement("button");
+    boton_eliminar_banda.innerText = "eliminar de contactos";
+    boton_eliminar_banda.className = "botonIndex";
+    boton_eliminar_banda.onclick = ()=>{
+        const id_usuario = localStorage.getItem("usuarioId");
+        eliminar_banda_contactos(id_usuario, banda.id);
+    }
+
+    carta.appendChild(foto);
     carta.appendChild(nombre);
+    carta.appendChild(contacto_banda);
+    carta.appendChild(boton_eliminar_banda)
     container.appendChild(carta);
 }
 
@@ -96,7 +115,6 @@ async function mostrar_contactos_bandas(id_usuario){
     const container = document.getElementById("marco_bandas"); 
     container.innerHTML = "";
     const url = `http://localhost:3000/pedir_bandas/${id_usuario}`;
-
     try{
             const data = await fetch(url, {
             method:"GET",
@@ -104,11 +122,11 @@ async function mostrar_contactos_bandas(id_usuario){
                 "Content-Type": "application/json",
             },
         });
-
         const data_json = await data.json();
         console.log(data_json);
+        
         data_json.forEach(banda => {
-            armarCartaBanda(banda);          
+            armarCartaBanda(banda);
         });
     }
     catch(err){
@@ -125,6 +143,29 @@ async function eliminar_contacto(id_usuario, id_contacto){
                 "Content-Type":"application/json"
             }
         })
+        if(response.ok){
+            location.reload();
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+async function eliminar_banda_contactos(id_usuario, id_banda){
+
+    const url = `http://localhost:3000/eliminar_contacto_banda/${id_usuario}/${id_banda}`;
+
+    try{
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+        if(response.ok){
+            location.reload();
+        }
     }
     catch(err){
         console.log(err);
