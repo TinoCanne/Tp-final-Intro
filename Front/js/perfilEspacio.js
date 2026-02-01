@@ -242,7 +242,11 @@ function encontrarEstadoDelDia(listaReservasDia, horaApertura, horaCierre, hora,
         horasPasadas += (hora + 1 - horaApertura);
     }
     
-    if (hora >= horaCierre - 1){
+    if (horaCierre < horaApertura){
+        horaCierre = 24;
+    }
+
+    if (esHoy && (hora >= horaCierre - 1)){
         estadoDelDia = "pasado";
     }
     else if (listaReservasDia && (cantidadTurnosPosibles - horasPasadas <= listaReservasDia.length)){
@@ -304,7 +308,6 @@ async function armarCalendario(ano, mes, hora){
             }
             let estadoDelDia = ""
             if (hoyParaComparar === (new Date(ano, mes, diaTemporal)).setHours(0,0,0,0)){
-                console.log("entro");
                 estadoDelDia = encontrarEstadoDelDia(diccionarioReservasMes[diaTemporal], espacioSeleccionado.horarioapertura, espacioSeleccionado.horariocierre, hora, true);
             }
             else{
@@ -322,7 +325,7 @@ async function armarCalendario(ano, mes, hora){
                     estaAbierto = true;
                 }
             }
-            if ((fechaCelda < hoyParaComparar) || !estaAbierto || estadoDelDia === "pasado") {
+            if ((fechaCelda.getTime() < hoyParaComparar) || !estaAbierto || estadoDelDia === "pasado") {
                 contenidoTemporal += "<td class='diasAnterioresOVacios'>" + diaTemporal + "</td>";
             }
             else if(estadoDelDia === "lleno"){
@@ -390,7 +393,7 @@ horarios.addEventListener('cancel', function cerrarHorariosConAnimacion(event) {
     ocultarHorarios(true, false);
 })
 
-async function eliminarReserva(idReserva){
+async function eliminarReserva(idReserva, expiro){
     try{
         url = `http://localhost:3000/reservas/${idReserva}`;
         const response = await fetch(url, {
@@ -401,7 +404,9 @@ async function eliminarReserva(idReserva){
         })
         if(response.ok) {
             await armarMisReservas(); 
-            alert("Reserva cancelada correctamente");
+            if (!expiro){
+                alert("Reserva cancelada correctamente");
+            }
         }
     }
     catch(error){
@@ -417,10 +422,18 @@ async function armarMisReservas(){
         const dataReservas = await fetch(url);
         const reservas = await dataReservas.json();
         let contenidoFinal = ``;
+        const hoy = new Date()
         reservas.forEach(reserva => {
-            contenidoTabla = '';
-            contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.nombre}</td><td>${reserva.precioporhora}</td><td>${reserva.id}</td><td><button onclick="eliminarReserva(${reserva.id})">Cancelar</button></td></tr>`;
-            contenidoFinal += contenidoTabla;
+            const diaYHoraReserva = (new Date(reserva.año_reserva, reserva.mes_reserva - 1, reserva.dia_reserva));
+            diaYHoraReserva.setHours(reserva.hora_reserva,0,0,0);
+            if (diaYHoraReserva.getTime() < hoy.getTime()){
+                eliminarReserva(reserva.id, true);
+            }
+            else{
+                contenidoTabla = '';
+                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.nombre}</td><td>${reserva.precioporhora}</td><td>${reserva.id}</td><td><button onclick="eliminarReserva(${reserva.id}, false)">Cancelar</button></td></tr>`;
+                contenidoFinal += contenidoTabla;
+            }
         })
         contenidoTablaReservas.innerHTML = contenidoFinal;
     }
