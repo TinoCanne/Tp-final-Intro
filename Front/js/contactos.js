@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", function(){
     const boton_bandas = document.getElementById("botonBandas");
     const id_usuario = localStorage.getItem('usuarioId');
     const marco_usuario = document.getElementById('marco_usuario');
+    marco_usuario.style.display = "block"
     const marco_bandas = document.getElementById('marco_bandas');
+    marco_bandas.style.display = "none";
     marco_usuario.innerHTML = "";
     marco_bandas.innerHTML = "";
     boton_usuarios.onclick = function(){
@@ -43,14 +45,17 @@ async function armarCartaUsuario(usuario){
         let user_id = localStorage.getItem("usuarioId");
         let contact_id = usuario.id;
         eliminar_contacto(user_id, contact_id);
+        window.location.reload();
     }
 
-    const nombre = document.createElement("p");
-    nombre.textContent = usuario.nombre;
+    const nombre = document.createElement("h1");
+    nombre.innerText = usuario.nombre;
     contacto.innerText = usuario.email;
+    const separador = document.createElement("br");
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
+    carta.appendChild(separador);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
     container.appendChild(carta);
@@ -63,7 +68,15 @@ async function armarCartaBanda(banda){
 
     const nombre = document.createElement("p");
     nombre.textContent = banda.nombre;
+
+    const foto = document.createElement("img");
+    foto.alt = "Foto no disponible";
+    const contacto_banda = document.createElement("p");
+    contacto_banda.innerText = banda.redSocial;
+
+    carta.appendChild(foto);
     carta.appendChild(nombre);
+    carta.appendChild(contacto_banda);
     container.appendChild(carta);
 }
 
