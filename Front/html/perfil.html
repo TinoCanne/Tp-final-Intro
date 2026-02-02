@@ -62,28 +62,27 @@
         <div class="containerBanda" id="divBanda">
 
             <div id="infoBanda" class="hidden">
-    	
+            
                 <h2>Mi Banda</h2>
-
                 <form class="info">
                     <label class="filaPerfil"><strong>Nombre:</strong>
-                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                     <label class="filaPerfil"><strong>Genero/s:</strong>
-                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
+                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label>
                     <label class="filaPerfil"><strong>Descripción:</strong>
-                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                     <label class="filaPerfil"><strong>Integrantes:</strong>
-                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label><br>
+                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
                     <label class="filaPerfil"><strong>Fecha de creación:</strong>
-                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                     <label class="filaPerfil"><strong>Redes:</strong>
-                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
+                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                 </form>
-		
-		<div class="contenedorImagenEspacioMiniespacio">
-                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
-                        <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-                </div>
+            
+		        <!-- <div class="contenedorImagenBanda">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)">
+                        <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                </div> -->
 
 
                 <div class="contenedorBotonEdicionBanda">
@@ -93,12 +92,12 @@
                     <button type="button" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
                     <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
                 </div>
-	        </div>
+	    </div>
 
             <div class="crearBanda" id="divCrearBanda">
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
-                <form class="crearBandaForm" onsubmit="crearBanda(event)">
+                <form class="crearBandaForm onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
 		    
@@ -146,17 +145,17 @@
                 <div class="contenedorInfoMiniespacio" id="contenedorInfoMiniespacio">
                     <form class="info">
                         <label><strong>Nombre:</strong></label>
-                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Ubicacion:</strong></label>
-                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span><br><br>
+                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span>
                         <label><strong>Descripción:</strong></label>
-                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Contacto:</strong></label>
-                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Tamaño:</strong></label>
-                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Precio por hora:</strong></label>
-                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
                         <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">

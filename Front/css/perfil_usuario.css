@@ -346,12 +346,17 @@
     font-family: inherit;
 }
 
+.info label {
+    display: block;
+    margin-bottom: 4px;
+
+}
+
 .filaPerfil {
     display: flex;
     align-items: center;
     padding: 12px 0;
     gap: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .filaPerfil strong {
@@ -369,17 +374,21 @@
 
 .spanDatosBanda,
 .spanDatosBandaNoEditable {
-    display: block;
+    display: inline-block;
     overflow-wrap: break-word;
     font-size: 17px;
+    margin-bottom: 15px;
     font-family: inherit;
 }
 
 .spanDatosEspacio {
-    display: block;
+    display: inline-block;
     overflow-wrap: break-word;
     font-size: 17px;
+    vertical-align: top;
     font-family: inherit;
+    margin-bottom: 15px;
+    width: 350px;
 }
 
 .modo-edicion .spanDatosPerfil {
@@ -484,7 +493,7 @@
 }
 
 #infoEspacio, #crearEspacio {
-    width: 46%;                 
+    width: 50%;                 
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
     padding: 20px;
@@ -492,7 +501,8 @@
     box-sizing: border-box;     
 }
 
-#infoBanda, #divCrearBanda {         
+#infoBanda, #divCrearBanda {  
+    width: 50%;       
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
     padding: 20px;
@@ -545,6 +555,12 @@
     width: auto;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.infoBanda {
+    position: relative;
+    display: flex;
+    flex-direction: row;
 }
 
 .contenedorInfoMiniespacio {
