@@ -488,7 +488,7 @@ async function cargarDatosEspacio(){
             localStorage.setItem('espacioId', idEspacioLocalStorage);
         }
 
-        const response = await fetch(`http://localhost:3000/espacios/${idEspacioLocalStorage}`);
+        const response = await fetch(`http://localhost:3000/espacio/${idEspacioLocalStorage}`);
         if(!response.ok) throw new Error("Error al cargar detalles");
         
         const datos = await response.json();
