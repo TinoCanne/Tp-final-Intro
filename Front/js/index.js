@@ -4,11 +4,13 @@ let numeroBandaMostrada = 0;
 let controladorBotonesUsuarios = null;
 let controladorBotonesBandas = null;
 
-document.addEventListener("DOMContentLoaded", async () => {
-    mostrarUsuarios(`http://localhost:3000/usuarios_index/${idUsuario}`)
-})
-
 async function mostrarUsuarios(url){
+    const cartaUsuario = document.getElementById("cartaUsuarios");
+    const botonFiltrosUsuarios = document.getElementById("botonFiltroUsuarios");
+    
+    cartaUsuario.classList.add("hidden");
+    botonFiltrosUsuarios.classList.add("hidden");
+
     if (controladorBotonesUsuarios) {
         controladorBotonesUsuarios.abort();
     }
@@ -18,20 +20,37 @@ async function mostrarUsuarios(url){
     numeroUsuarioMostrado = 0;
     const botonSi = document.getElementById("botonSiUsuarios");
     const botonNo = document.getElementById("botonNoUsuarios");
-    const personas = await devolverPersonas(url);
+    
+    let personas = await devolverPersonas(url);
+
+    if (!personas || personas.length === 0){
+            alert("No se encontraron usuarios."); 
+            return;
+    };
+    cartaUsuario.classList.remove("hidden");
+    botonFiltrosUsuarios.classList.remove("hidden");
     cargarCartaUsuario(personas[numeroUsuarioMostrado]);
+
     botonSi.addEventListener("click", function(){
         aceptarPersona(personas[numeroUsuarioMostrado].id);
-        numeroUsuarioMostrado = numeroUsuarioMostrado + 1;
-        if (!personas[numeroUsuarioMostrado]){
-            numeroUsuarioMostrado = 0;
+        personas.splice(numeroUsuarioMostrado, 1);
+        if (personas.length === 0){ 
+            alert("No hay más usuarios nuevos para mostrar, se mostraran los rechazados."); 
+            cartaUsuario.classList.add("hidden");
+            botonFiltrosUsuarios.classList.add("hidden");
+            return;
         };
         cargarCartaUsuario(personas[numeroUsuarioMostrado]);
     }, { signal : signal });
+
     botonNo.addEventListener("click", function(){
-        numeroUsuarioMostrado = numeroUsuarioMostrado + 1;
-        if (!personas[numeroUsuarioMostrado]){
-            numeroUsuarioMostrado = 0;
+        personas.splice(numeroUsuarioMostrado, 1);
+        
+        if (personas.length === 0){
+            alert("No hay más usuarios nuevos para mostrar, se mostraran los rechazados.");
+            cartaUsuario.classList.add("hidden"); 
+            botonFiltrosUsuarios.classList.add("hidden");
+            return;
         };
         cargarCartaUsuario(personas[numeroUsuarioMostrado]);
     }, { signal : signal });
@@ -47,13 +66,6 @@ async function devolverPersonas(url){
         console.log(error);
     }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    const id_usuario = localStorage.getItem('usuarioId');
-    if (!id_usuario){
-        window.location.href = "html/iniciar_sesion.html";
-    }
-})
 
 //agregar persona a tus contactos
 async function aceptarPersona(id_usuario){
@@ -123,39 +135,32 @@ async function cargarCartaUsuario(Usuario){
     cargarGenerosUsuario(Usuario.id);
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    const lista = localStorage.getItem("musicos_filtrados");
-
-    if (!lista) return;
-
-    const musicos = JSON.parse(lista);
-
-    if (musicos.length > 0) {
-        mostrarCartaMusico(musicos[0]);
+    if (!idUsuario){
+        window.location.href = "html/iniciar_sesion.html";
     }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
     const botonMostrarUsuarios = document.getElementById("botonBuscarUsuarios");
     const botonMostrarBandas = document.getElementById("botonBuscarBandas");
     const botonFiltrosUsuarios = document.getElementById("botonFiltroUsuarios");
     const botonFiltrosBandas = document.getElementById("botonFiltroBandas");
     const cartaUsuario = document.getElementById("cartaUsuarios");
     const cartaBanda = document.getElementById("cartaBandas");
+    
     cartaBanda.classList.add("hidden");  
     cartaUsuario.classList.add("hidden");
+
     botonMostrarUsuarios.addEventListener("click", function(){
-        cartaUsuario.classList.remove("hidden");
         cartaBanda.classList.add("hidden");  
         botonFiltrosUsuarios.classList.remove("hidden")
         botonFiltrosBandas.classList.add("hidden");
+        mostrarUsuarios(`http://localhost:3000/usuarios_index/${idUsuario}`);
     });
+
     botonMostrarBandas.addEventListener("click", function(){
         cartaUsuario.classList.add("hidden");
-        cartaBanda.classList.remove("hidden");
         botonFiltrosUsuarios.classList.add("hidden")
         botonFiltrosBandas.classList.remove("hidden");
+        mostrarBandas(`http://localhost:3000/bandas_index/${idUsuario}`);
     });
 });
 
@@ -238,6 +243,12 @@ async function aceptarBanda(id_banda){
 }
 
 async function mostrarBandas(url){
+    const marco_bandas = document.getElementById("cartaBandas"); 
+    const botonFiltrosBandas = document.getElementById("botonFiltroBandas");
+
+    marco_bandas.classList.add("hidden");
+    botonFiltrosBandas.classList.add("hidden");
+
     if (controladorBotonesBandas) {
         controladorBotonesBandas.abort();
     }
@@ -247,35 +258,41 @@ async function mostrarBandas(url){
     numeroBandaMostrada = 0;
     const botonSiBanda = document.getElementById("botonSiBanda");
     const botonNoBanda = document.getElementById("botonNoBanda");
-    const marco_bandas = document.getElementById("cartaBandas");
-    const estado_marco_bandas = marco_bandas.className;
-    const bandas = await devolverBandas(url);
-    console.log(bandas);
-    if (!bandas[numeroBandaMostrada] && estado_marco_bandas == "boxCarta") {
-        alert("No hay más bandas para mostrar."); 
+
+    let bandas = await devolverBandas(url);
+    
+    if (!bandas || bandas.length === 0) {
+        alert("No se encontraron bandas."); 
         return; 
     }
+
+    marco_bandas.classList.remove("hidden");
+    botonFiltrosBandas.classList.remove("hidden");
     cargarCartaBanda(bandas[numeroBandaMostrada]);
+
     botonSiBanda.addEventListener("click", function(){
         aceptarBanda(bandas[numeroBandaMostrada].id);
-        numeroBandaMostrada = numeroBandaMostrada + 1;
-        if (!bandas[numeroBandaMostrada]){
-            numeroBandaMostrada = 0;
+        bandas.splice(numeroBandaMostrada, 1);
+        if (bandas.length === 0){
+            alert("No hay más bandas nuevas para mostrar, se mostraran las rechazados."); 
+            marco_bandas.classList.add("hidden"); 
+            botonFiltrosBandas.classList.add("hidden");
+            return; 
         };
         cargarCartaBanda(bandas[numeroBandaMostrada]);
     }, { signal:signal })
+
     botonNoBanda.addEventListener("click", function(){
-        numeroBandaMostrada = numeroBandaMostrada + 1;
-        if (!bandas[numeroBandaMostrada]){
-            numeroBandaMostrada = 0;
+        bandas.splice(numeroBandaMostrada, 1);
+        if (bandas.length === 0){
+            alert("No hay más bandas nuevas para mostrar, se mostraran las rechazados."); 
+            marco_bandas.classList.add("hidden"); 
+            botonFiltrosBandas.classList.add("hidden");
+            return; 
         };
         cargarCartaBanda(bandas[numeroBandaMostrada]);
     }, { signal:signal });
 }
-
-document.addEventListener("DOMContentLoaded", async () => {
-    mostrarBandas(`http://localhost:3000/bandas_index/${idUsuario}`);
-})
 
 function mostrarFiltroBandas(){
     const filtroBandas = document.getElementById('popUpFiltrosBandas');
