@@ -64,6 +64,7 @@ async function crearCartasEspacios(url){
                 botonFavorito.onclick = async () => {
                     await sacarEspacioFavorito(espacio.id);
                 };
+                carta.className = "cartaEspacioFavorito";
             }
             
             carta.appendChild(botonFavorito);
@@ -89,7 +90,7 @@ async function agregarEspacioFavorito(idEspacio){
                 id_espacio: idEspacio,
             })
         });
-        window.location.reload();
+        window.location.reload()
     }
     catch(err){
         console.log(err);
@@ -104,7 +105,7 @@ async function sacarEspacioFavorito(idEspacio){
                 'Content-Type': 'application/json'
             }
         });
-        window.location.reload();
+        window.location.reload()
     }
     catch(err){
         console.log(err);
@@ -500,9 +501,9 @@ function aplicarFiltroEspacios(event){
         const ubicacion = document.getElementById('ubicacion').value;
         const precioPorHora = document.getElementById('precioPorHora').value;
         const horaElegida = document.getElementById('horaAbierto').value;
-
-        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}`;
-        
+        const espaciosFavoritos = document.getElementById('soloEspaciosFavoritos').checked;
+        let url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}&idUsuario=${idUsuario}&espaciosFavoritos=${espaciosFavoritos}`;
+    
         crearCartasEspacios(url);
     }
     catch (error){

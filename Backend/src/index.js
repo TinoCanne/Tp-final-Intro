@@ -573,20 +573,27 @@ app.get("/filtro_bandas", async (req, res) => {
 
 app.get("/filtro_espacios", async (req, res) => {
     try{
-        const { ubicacion, precioPorHora, hora } = req.query;
-        let query = `SELECT * FROM espacios WHERE 1=1`;
+        const { ubicacion, precioPorHora, hora, idUsuario, espaciosFavoritos } = req.query;
+        let query = `SELECT espacios.*`;
+        const intIdUsuario = parseInt(idUsuario);
+        if (espaciosFavoritos === 'true'){
+            query += ` , (CASE WHEN contactos_espacios.id_contacto_espacio IS NOT NULL THEN true ELSE false END) AS es_favorito FROM espacios INNER JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio WHERE contactos_espacios.id_usuario = ${intIdUsuario}`;
+        }
+        else{
+            query += `, (CASE WHEN contactos_espacios.id_contacto_espacio IS NOT NULL THEN true ELSE false END) AS es_favorito FROM espacios LEFT JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio AND contactos_espacios.id_usuario = ${intIdUsuario} WHERE 1=1`;
+        }
         if (ubicacion){
-            query += ` AND ubicacion = '${ubicacion}'`;
+            query += ` AND espacios.ubicacion = '${ubicacion}'`;
         }
         if (precioPorHora){
             let precioPorHoraInt = parseInt(precioPorHora);
-            query += ` AND precioPorHora <= ${precioPorHoraInt}`;
+            query += ` AND espacios.precioPorHora <= ${precioPorHoraInt}`;
         }
         if (hora){
             let horaDeseada = parseInt(hora);
             query += ` AND (
-            (horarioApertura < horarioCierre AND(horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada})) or 
-            (horarioApertura > horarioCierre AND (horarioApertura <= ${horaDeseada} OR horarioCierre >= ${horaDeseada}))
+            (espacios.horarioApertura < espacios.horarioCierre AND(espacios.horarioApertura <= ${horaDeseada} AND espacios.horarioCierre > ${horaDeseada})) or 
+            (espacios.horarioApertura > espacios.horarioCierre AND (espacios.horarioApertura <= ${horaDeseada} OR espacios.horarioCierre > ${horaDeseada}))
             )  `;
         }
         const result = await pool.query(query);
