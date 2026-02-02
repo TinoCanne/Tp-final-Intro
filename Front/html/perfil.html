@@ -59,7 +59,7 @@
 	        </div>
 	    </div>
         
-        <div class="containerBanda" id="divBanda" >
+        <div class="containerBanda" id="divBanda">
 
             <div id="infoBanda" class="hidden">
     	
@@ -79,6 +79,12 @@
                     <label class="filaPerfil"><strong>Redes:</strong>
                     <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
                 </form>
+		
+		<div class="contenedorImagenEspacioMiniespacio">
+                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
+                        <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                </div>
+
 
                 <div class="contenedorBotonEdicionBanda">
                     <button id="botonDeEdicionBanda">Editar banda</button>
@@ -95,7 +101,11 @@
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
-		            
+		    
+	    	    <label><strong>Link de la foto de la banda:</strong><br>
+                    <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label><br>
+                    <button type="button" id="botonMostrarImagenEspacio" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
+
                     <label><strong>Red social:</strong><br>
                     <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
                     
@@ -183,7 +193,7 @@
                     <label><strong>Precio por hora:</strong><br>
                     <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
                     <label><strong>Horario de apertura:</strong></label>
-                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio"></input><br><br>
+                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio"></input><br>
                     <label><strong>Horario de cierre:</strong></label>
                     <input class="inputDatosPerfil" id="horarioCierreCrearEspacio"></input><br><br>
                     <label><strong>Que dia abre el estudio?:</strong></label>
