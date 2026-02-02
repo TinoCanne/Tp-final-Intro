@@ -775,10 +775,7 @@ async function guardarCambiosBanda(event) {
         const redesBanda = document.getElementById('redesBanda');
         const idUsuario = localStorage.getItem('usuarioId');
 
-        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
-        const data = await responseIdBandas.json();
-
-        const idBanda = data.id_banda;
+        const idBanda = localStorage.getItem('bandaId');
 
         await fetch("http://localhost:3000/bandas", {
             method: "PATCH",
