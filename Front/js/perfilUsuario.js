@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
         botonEspacio.textContent = enEdicion ? "Guardar cambios" : "Editar espacio";
 
         if (!enEdicion) {
-            guardarCambiosEspacio(event);
+            guardarEspacioEditado(event);
         }
     };
 });
@@ -537,9 +537,7 @@ async function eliminarPerfil() {
 async function dejarBanda() {
     try{
         const idUsuario = localStorage.getItem('usuarioId');
-        const responseIdBandas = await fetch(`http://localhost:3000/obtener_id_banda/${idUsuario}`);
-        const data_banda = await responseIdBandas.json();
-        const idBanda = data_banda.id_banda;
+        const idBanda = localStorage.getItem('bandaId');
         const responseCantidadIntegrantes = await fetch(`http://localhost:3000/obtener_cantidad_personas_banda/${idBanda}`);
         const dataCantidadIntegrantes = await responseCantidadIntegrantes.json();
         const cantidadIntegrantes = dataCantidadIntegrantes.count;
@@ -566,7 +564,6 @@ async function dejarBanda() {
     catch(error){
         console.error(error);
     }
-    location.reload()
 }
 
 async function eliminarEspacio(){
