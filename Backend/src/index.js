@@ -194,8 +194,7 @@ app.post("/bandas", async (req, res) => {
         VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}') RETURNING id`;
         const query_id_banda = await pool.query(query_banda);
 
-        const result_id_banda = await pool.query(query_id_banda);
-        const id_banda = result_id_banda.rows[0].id;
+        const id_banda = query_id_banda.rows[0].id;
 
         let query_generos = `INSERT INTO generos_bandas (id_banda, genero) VALUES `;
         let generos = req.body.generos.split(" ", 4);
