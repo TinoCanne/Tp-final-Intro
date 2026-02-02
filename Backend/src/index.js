@@ -381,16 +381,28 @@ app.get("/espacios", async (req, res) => {
     }
 });
 
-// Devolver un espacio por id
-app.get("/espacios/:id", async (req, res) => {
+// Devolver un espacio por id de espacio
+app.get("/espacio/:idEspacio", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.id}`);
+        const result = await pool.query(`SELECT * FROM espacios where id = ${req.params.idEspacio}`);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: espacios/id" });
+        res.status(500).json({ error: "DB error en el metodo GET: espacios/idEspacio" });
     }
 });
+
+app.get("/espacios/:idUsuario", async (req, res) => {
+    try {
+        const idUsuario = parseInt(req.params.idUsuario);
+        const result = await pool.query(`SELECT espacios.*, (CASE WHEN contactos_espacios.id_contacto_espacio IS NOT NULL THEN true ELSE false END) AS es_favorito FROM espacios LEFT JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio AND contactos_espacios.id_usuario = ${idUsuario}`);
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: espacios" });
+    }
+});
+
 
 // Crear un espacio nuevo
 app.post("/espacios", async (req, res) => {
@@ -465,6 +477,34 @@ app.get("/obtener_espacios/:id_usuario", async (req, res) => {
     }
 });
 
+app.post("/espacios/favorito", async (req, res) => {
+    try{
+        const idUsuario = parseInt(req.body.id_usuario);
+        const idEspacioFavorito = parseInt(req.body.id_espacio); 
+        const query = `INSERT INTO contactos_espacios (id_usuario, id_contacto_espacio) VALUES (${idUsuario}, ${idEspacioFavorito})`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" })
+    }
+});
+
+app.delete("/espacios/favoritos/:id_espacio/:id_usuario", async (req, res) => {
+    try{
+        const idUsuario = parseInt(req.params.id_usuario);
+        const idEspacioFavorito = parseInt(req.params.id_espacio); 
+        const query = `DELETE FROM contactos_espacios WHERE id_usuario = ${idUsuario} AND id_contacto_espacio = ${idEspacioFavorito}`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error" })
+    }
+});
+
 // Devolver todos los generos de todos los usuarios
 app.get("/generos_usuarios", async (req, res) => {
     try {
@@ -533,20 +573,27 @@ app.get("/filtro_bandas", async (req, res) => {
 
 app.get("/filtro_espacios", async (req, res) => {
     try{
-        const { ubicacion, precioPorHora, hora } = req.query;
-        let query = `SELECT * FROM espacios WHERE 1=1`;
+        const { ubicacion, precioPorHora, hora, idUsuario, espaciosFavoritos } = req.query;
+        let query = `SELECT espacios.*`;
+        const intIdUsuario = parseInt(idUsuario);
+        if (espaciosFavoritos === 'true'){
+            query += ` , (CASE WHEN contactos_espacios.id_contacto_espacio IS NOT NULL THEN true ELSE false END) AS es_favorito FROM espacios INNER JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio WHERE contactos_espacios.id_usuario = ${intIdUsuario}`;
+        }
+        else{
+            query += `, (CASE WHEN contactos_espacios.id_contacto_espacio IS NOT NULL THEN true ELSE false END) AS es_favorito FROM espacios LEFT JOIN contactos_espacios ON espacios.id = contactos_espacios.id_contacto_espacio AND contactos_espacios.id_usuario = ${intIdUsuario} WHERE 1=1`;
+        }
         if (ubicacion){
-            query += ` AND ubicacion = '${ubicacion}'`;
+            query += ` AND espacios.ubicacion = '${ubicacion}'`;
         }
         if (precioPorHora){
             let precioPorHoraInt = parseInt(precioPorHora);
-            query += ` AND precioPorHora <= ${precioPorHoraInt}`;
+            query += ` AND espacios.precioPorHora <= ${precioPorHoraInt}`;
         }
         if (hora){
             let horaDeseada = parseInt(hora);
             query += ` AND (
-            (horarioApertura < horarioCierre AND(horarioApertura <= ${horaDeseada} AND horarioCierre >= ${horaDeseada})) or 
-            (horarioApertura > horarioCierre AND (horarioApertura <= ${horaDeseada} OR horarioCierre >= ${horaDeseada}))
+            (espacios.horarioApertura < espacios.horarioCierre AND(espacios.horarioApertura <= ${horaDeseada} AND espacios.horarioCierre > ${horaDeseada})) or 
+            (espacios.horarioApertura > espacios.horarioCierre AND (espacios.horarioApertura <= ${horaDeseada} OR espacios.horarioCierre > ${horaDeseada}))
             )  `;
         }
         const result = await pool.query(query);

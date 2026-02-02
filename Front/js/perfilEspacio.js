@@ -1,8 +1,9 @@
+const idUsuario = localStorage.getItem('usuarioId');
 let espacioSeleccionado = null;
 
 
 document.addEventListener("DOMContentLoaded", async function(){
-    const url = `http://localhost:3000/espacios/`;
+    const url = `http://localhost:3000/espacios/${idUsuario}`;
     crearCartasEspacios(url);
 })
 
@@ -11,15 +12,9 @@ async function crearCartasEspacios(url){
     container.innerHTML = "";
     
     try{
-        const espacios = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type":"application/json",
-            }
-        })    
+        const espacios = await fetch(url);    
         const espaciosJson = await espacios.json();
         espaciosJson.forEach(espacio =>{
-            const idEspacio = espacio.id;
 
             const carta = document.createElement("div");
             carta.className = "cartaEspacio";
@@ -55,6 +50,24 @@ async function crearCartasEspacios(url){
             carta.appendChild(diasAbierto);
 
             carta.appendChild(botonReserva);
+            const botonFavorito = document.createElement('button');
+            if (!espacio.es_favorito){
+                botonFavorito.className = "botonAgregarFavorito";
+                botonFavorito.textContent = "Agregar a favoritos";
+                botonFavorito.onclick = async () => {
+                    await agregarEspacioFavorito(espacio.id);
+                };
+            }
+            if (espacio.es_favorito){
+                botonFavorito.className = "botonSacarFavorito";
+                botonFavorito.textContent = "Sacar de favoritos";
+                botonFavorito.onclick = async () => {
+                    await sacarEspacioFavorito(espacio.id);
+                };
+                carta.className = "cartaEspacioFavorito";
+            }
+            
+            carta.appendChild(botonFavorito);
             container.appendChild(carta);
 
         })
@@ -65,8 +78,41 @@ async function crearCartasEspacios(url){
     }
 }
 
+async function agregarEspacioFavorito(idEspacio){
+    try{
+        await fetch("http://localhost:3000/espacios/favorito", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id_usuario: idUsuario,
+                id_espacio: idEspacio,
+            })
+        });
+        window.location.reload()
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+async function sacarEspacioFavorito(idEspacio){
+    try{
+        await fetch(`http://localhost:3000/espacios/favoritos/${idEspacio}/${idUsuario}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        window.location.reload()
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 async function reservar(diaSeleccionado,  mesSeleccionado, anoSeleccionado, horaSeleccionada, idEspacio){
-    const idUsuario = localStorage.getItem('usuarioId');
 
     try {
         const response = await fetch("http://localhost:3000/reservas", {
@@ -415,7 +461,6 @@ async function eliminarReserva(idReserva, expiro){
 }
 
 async function armarMisReservas(){
-    idUsuario = localStorage.getItem('usuarioId');
     contenidoTablaReservas = document.getElementById('contenidoMisReservas');
     try{
         const url = `http://localhost:3000/reservas/usuarios/${idUsuario}`;
@@ -469,9 +514,9 @@ function aplicarFiltroEspacios(event){
         const ubicacion = document.getElementById('ubicacion').value;
         const precioPorHora = document.getElementById('precioPorHora').value;
         const horaElegida = document.getElementById('horaAbierto').value;
-
-        const url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}`;
-        
+        const espaciosFavoritos = document.getElementById('soloEspaciosFavoritos').checked;
+        let url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}&idUsuario=${idUsuario}&espaciosFavoritos=${espaciosFavoritos}`;
+    
         crearCartasEspacios(url);
     }
     catch (error){

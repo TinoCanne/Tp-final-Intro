@@ -242,3 +242,31 @@
 .horasReservadas {
     background-color: red ;
 }
+
+.cartaEspacioFavorito {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-radius: 15px;
+    height: 500px;
+    width: 300px;
+    background-color: rgba(255, 174, 0, 0.815);
+    text-align: center;
+}
+
+.cartaEspacioFavorito img{
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    display: block;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+.cartelEspacioFavorito {
+    color: black;
+}

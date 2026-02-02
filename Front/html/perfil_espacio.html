@@ -31,8 +31,8 @@
 
         <dialog class="filtroEspacios" id="filtroEspaciosId" >
             <div id="contenedorBotonCerrar">
-		<button onclick="cerrarFiltro()">X</button>
-	    </div>
+		        <button onclick="cerrarFiltro()">X</button>
+	        </div>
             <div id="filtroSalas">
                     <form onsubmit="aplicarFiltroEspacios(event)">
                         <br>
@@ -43,6 +43,10 @@
                         <br>
                         <br>
                         <input type="text" placeholder = "Ingrese una hora" id="horaAbierto">
+                        <br>
+                        <br>
+                        <input type="checkbox" placeholder = "Solo espacios favoritos" id="soloEspaciosFavoritos">
+                        <label for="soloEspaciosFavoritos" class="cartelEspacioFavorito">Solo espacios favoritos</label>
                         <br>
                         <br>
                         <input type="submit" value="Aplicar filtros">
