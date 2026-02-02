@@ -144,7 +144,7 @@ async function eliminar_contacto(id_usuario, id_contacto){
             }
         })
         if(response.ok){
-            location.reload();
+            mostrar_contactos_usuarios(id_usuario);
         }
     }
     catch(err){
@@ -164,7 +164,7 @@ async function eliminar_banda_contactos(id_usuario, id_banda){
             }
         })
         if(response.ok){
-            location.reload();
+            mostrar_contactos_bandas(id_usuario);
         }
     }
     catch(err){
