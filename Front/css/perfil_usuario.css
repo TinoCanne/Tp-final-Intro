@@ -125,6 +125,63 @@
     color: white;
 }
 
+#ocultarMostrarCrearBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#ocultarMostrarCrearBanda:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#ocultarMostrarUnirseBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#ocultarMostrarUnirseBanda:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonMostrarTodasBandas {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonMostrarTodasBandas:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
 #botonCrearEspacio:hover {
     border-radius: 10px;
     background-color: white;
@@ -251,10 +308,11 @@
 .containerBanda{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 50px;
-    font-size: 17px;
-    font-family: inherit;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
 }
 
 .opcionesBanda {
@@ -311,8 +369,10 @@
 
 .spanDatosBanda,
 .spanDatosBandaNoEditable {
-    text-align: left;
-    color: #ffffff;
+    display: block;
+    overflow-wrap: break-word;
+    font-size: 17px;
+    font-family: inherit;
 }
 
 .spanDatosEspacio {
@@ -430,6 +490,13 @@
     padding: 20px;
     padding-right: 50px;
     box-sizing: border-box;     
+}
+
+#infoBanda, #divCrearBanda {         
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .popupEspacio {
