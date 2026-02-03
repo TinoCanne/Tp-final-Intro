@@ -62,27 +62,29 @@
         <div class="containerBanda" id="divBanda">
 
             <div id="infoBanda" class="hidden">
-            
                 <h2>Mi Banda</h2>
-                <form class="info">
-                    <label class="filaPerfil"><strong>Nombre:</strong>
-                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
-                    <label class="filaPerfil"><strong>Genero/s:</strong>
-                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label>
-                    <label class="filaPerfil"><strong>Descripción:</strong>
-                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
-                    <label class="filaPerfil"><strong>Integrantes:</strong>
-                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
-                    <label class="filaPerfil"><strong>Fecha de creación:</strong>
-                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
-                    <label class="filaPerfil"><strong>Redes:</strong>
-                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
-                </form>
-            
-		        <!-- <div class="contenedorImagenBanda">
-                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)">
-                        <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-                </div> -->
+                <div class="contenedorInfoBanda">
+                    <form class="info">
+                        <label class="filaPerfilBanda"><strong>Nombre:</strong>
+                        <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Genero/s:</strong>
+                        <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label>
+                        <label class="filaPerfilBanda"><strong>Descripción:</strong>
+                        <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Integrantes:</strong>
+                        <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
+                        <label class="filaPerfilBanda"><strong>Fecha de creación:</strong>
+                        <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Redes:</strong>
+                        <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                    </form>
+                
+                    <div class="contenedorImagenBanda">
+                            <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)" onclick="mostrarInputNuevoLinkBanda()">
+                            <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    </div>
+
+                </div>
 
 
                 <div class="contenedorBotonEdicionBanda">
@@ -97,6 +99,9 @@
             <div class="crearBanda" id="divCrearBanda">
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(true)"><br>
+                </div>
                 <form class="crearBandaForm onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
@@ -158,7 +163,7 @@
                         <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
+                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)" onclick="mostrarInputNuevoLinkEspacio()">
                         <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     </div>
                 </div>

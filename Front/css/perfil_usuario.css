@@ -349,7 +349,6 @@
 .info label {
     display: block;
     margin-bottom: 4px;
-
 }
 
 .filaPerfil {
@@ -357,6 +356,7 @@
     align-items: center;
     padding: 12px 0;
     gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .filaPerfil strong {
@@ -373,14 +373,7 @@
 }
 
 .spanDatosBanda,
-.spanDatosBandaNoEditable {
-    display: inline-block;
-    overflow-wrap: break-word;
-    font-size: 17px;
-    margin-bottom: 15px;
-    font-family: inherit;
-}
-
+.spanDatosBandaNoEditable,
 .spanDatosEspacio {
     display: inline-block;
     overflow-wrap: break-word;
@@ -502,11 +495,15 @@
 }
 
 #infoBanda, #divCrearBanda {  
-    width: 50%;       
+    width: 53%;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
     padding: 20px;
     box-sizing: border-box;
+}
+
+#infoBanda strong {
+    display: block;
 }
 
 .popupEspacio {
@@ -557,13 +554,8 @@
     object-fit: cover;
 }
 
-.infoBanda {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-}
-
-.contenedorInfoMiniespacio {
+.contenedorInfoMiniespacio,
+.contenedorInfoBanda {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -572,7 +564,8 @@
     min-height: 250px;
 }
 
-.imagenEspacioMiniespacio {
+.imagenEspacioMiniespacio,
+.imagenBanda {
     position: absolute;
     top: 150px;
     right: 20%;
@@ -596,6 +589,11 @@
 #contenedorPopUpBandas {
     display: flex;
     flex-wrap: wrap;
+}
+
+#popUpBandas img {
+    height: 150px;
+    width: 140px;
 }
 
 .miniCartaBanda {

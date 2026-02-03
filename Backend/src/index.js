@@ -222,7 +222,7 @@ app.patch("/bandas", async(req, res) =>{
     try{
         const bandaId = parseInt(req.body.idBanda);
     
-        const query_banda = `UPDATE bandas SET descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}'
+        const query_banda = `UPDATE bandas SET nombre = '${req.body.nombre}', descripcion = '${req.body.descripcion}', redSocial = '${req.body.redes}', linkfotobanda = '${req.body.linkfoto}'
         WHERE id = ${bandaId}`;
         await pool.query(query_banda);
 
