@@ -48,11 +48,9 @@ async function armarCartaUsuario(usuario){
     const nombre = document.createElement("p");
     nombre.innerText = usuario.nombre;
     contacto.innerText = usuario.email;
-    const separador = document.createElement("br");
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
-    carta.appendChild(separador);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
     container.appendChild(carta);
@@ -69,7 +67,7 @@ async function armarCartaBanda(banda){
     const foto = document.createElement("img");
     foto.alt = "Foto no disponible";
     const contacto_banda = document.createElement("p");
-    contacto_banda.innerText = banda.redSocial;
+    contacto_banda.innerText = banda.redsocial;
 
     const boton_eliminar_banda = document.createElement("button");
     boton_eliminar_banda.innerText = "eliminar de contactos";
