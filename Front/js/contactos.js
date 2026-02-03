@@ -48,11 +48,9 @@ async function armarCartaUsuario(usuario){
     const nombre = document.createElement("p");
     nombre.innerText = usuario.nombre;
     contacto.innerText = usuario.email;
-    const separador = document.createElement("br");
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
-    carta.appendChild(separador);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
     container.appendChild(carta);
