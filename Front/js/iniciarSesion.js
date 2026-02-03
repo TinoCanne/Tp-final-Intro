@@ -16,8 +16,8 @@ mostrar_contraseña();
 async function login(event) {
     event.preventDefault();
     try {
-        const email = document.getElementById('email_usuario').value;
-        const contraseña = document.getElementById('contraseña_usuario').value;
+        const email = document.getElementById('email_usuario');
+        const contraseña = document.getElementById('contraseña_usuario');
         
         const url = "http://localhost:3000/login"; 
         
@@ -27,15 +27,17 @@ async function login(event) {
                 "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    email: email,
-                    contraseña: contraseña
+                    email: email.value,
+                    contraseña: contraseña.value
                 }) 
             });
             const data = await response.json();
 
             if (!(response.ok)){
                 let mensajeError = document.getElementById("error_login");
-                event.target.reset();
+                email.style.backgroundColor = "#F44336";
+                contraseña.style.backgroundColor = "#F44336";
+
                 mensajeError.show();
                 mensajeError.classList.add("mensajeEnDesaparicion")
                 setTimeout(function cerrarDialog(){
