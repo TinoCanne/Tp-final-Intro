@@ -532,3 +532,9 @@
     width: 100%;
     margin-top: 10px;
 }
+
+.botonera_perfil .botonIndex{
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
