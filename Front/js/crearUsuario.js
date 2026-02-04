@@ -106,7 +106,7 @@ function mostrar_imagen() {
 }
 
 function validarPalabras(input) {
-    const formato = /^[a-zA-zñÑáéíóúÁÉÍÓÚ,\s]*$/;
+    const formato = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s]*$/;
 
     if (!formato.test(input.value)){
         input.setCustomValidity("Solo se permiten letras.");

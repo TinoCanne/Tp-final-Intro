@@ -74,17 +74,34 @@ document.addEventListener("DOMContentLoaded", function () {
             inputNuevoLink.type= "hidden";
         }
     }
-
+    
     boton.onclick = function(event){
-
-        const enEdicion = perfilContainer.classList.toggle("modo-edicion");
-
+        
+        let enEdicion = perfilContainer.classList.toggle("modo-edicion");
+        const hayError = document.querySelectorAll(".errorFormato")
+        const mensajeError = document.getElementById("mensajeErrorEdicion");
+        
+        if (!enEdicion){
+            if (hayError.length > 0){
+                enEdicion = perfilContainer.classList.toggle("modo-edicion");
+                mensajeError.style.display = "block";
+                return
+            }
+            else{
+                if (mensajeError.style.display !== "none"){
+                    mensajeError.style.display = "none";
+                }
+            }     
+        }
+        boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
+        
         if (enEdicion){
             fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
         }
         else{
             fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
         }
+
         datos.forEach(elemento => {
             if (enEdicion){
                 elemento.contentEditable = "true";
@@ -99,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
 
         if (!enEdicion){
             perfil_usuario(event);
@@ -889,3 +905,29 @@ document.addEventListener("DOMContentLoaded", function(){
     cargarDatosBanda();
     cargarDatosEspacio();
 })
+
+function validarPalabras(input) {
+    const formato = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s]*$/;
+
+    if (!formato.test(input.innerText)){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato");
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarNumeros(input){
+    const formato = /^[0-9+]*$/;
+
+    if (!formato.test(input.innerText)){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato")
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}

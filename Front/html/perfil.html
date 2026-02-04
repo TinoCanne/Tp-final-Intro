@@ -27,10 +27,10 @@
 	        </div>
             <form class="info">
                 <label class="filaPerfil"><strong>Nombre:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="nombre"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="nombre" oninput="validarPalabras(this)"></span></label><br>
                 
                 <label class="filaPerfil"><strong>Apellido:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="apellido"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="apellido" oninput="validarPalabras(this)"></span></label><br>
                 
                 <label class="filaPerfil"><strong>Nombre de usuario:</strong>
                 <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
@@ -39,24 +39,25 @@
                 <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
             
                 <label class="filaPerfil"><strong>Email:</strong>
-                <span class="spanDatosPerfil" name="email" contenteditable="false" id="email"></span></label><br>
+                <span class="spanDatosPerfilNoEditable" name="email" id="email"></span></label><br>
         
                 <label class="filaPerfil"><strong>Instrumentos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario" oninput="validarPalabras(this)"></span></label><br>
     
                 <label class="filaPerfil"><strong>Generos favoritos:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario" oninput="validarPalabras(this)"></span></label><br>
     
                 <label class="filaPerfil"><strong>Bio:</strong>
                 <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
 
                 <label class="filaPerfil"><strong>Contacto:</strong>
-                <span class="spanDatosPerfil" contenteditable="false" id="contacto"></span></label><br>
+                <span class="spanDatosPerfil" contenteditable="false" id="contacto" oninput="validarNumeros(this)"></span></label><br>
             </form>
             
 	        <div class="contenedorBotonEdicionPerfil">
             	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button> 
 		        <button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
+                <span class="mensajeErrorEdicion" id="mensajeErrorEdicion">Hay un error en los datos</span>
 	        </div>
 	    </div>
         
@@ -122,9 +123,9 @@
                     <label><strong>Descripción:</strong>
                     <input class="inputDatosPerfil" id="descripcionCrearBanda"></input></label><br>
                     
-                    <label><strong>Contraseña de la banda:</strong>
-                    
+                    <label><strong>Contraseña de la banda:</strong> 
                     <input class="inputDatosPerfil" id="contraseñaCrearBanda"></input></label><br>
+
                     <div class="contenedorBotonCrearBanda">
 			            <button id="botonCrearBanda">Crear banda</button>        
                     </div>

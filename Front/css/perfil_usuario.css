@@ -371,7 +371,8 @@
     font-weight: 500;
 }
 
-.spanDatosPerfil {
+.spanDatosPerfil,
+.spanDatosPerfilNoEditable {
     font-size: 17px;
     text-align: left;
     color: #ffffff;
@@ -681,4 +682,9 @@
 
 #inputNuevoLinkBanda:hover {
     border-radius: 6px;
+}
+
+.mensajeErrorEdicion{
+    display: none;
+    color: #F44336;
 }
