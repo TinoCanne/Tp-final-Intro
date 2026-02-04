@@ -20,9 +20,9 @@
 	</div>
 	<dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
             <div id="contenedorBotonCerrar">
-		<button onclick="cerrarReservas()">Cerrar</button>
+		<button class="botonCerrarMisReservas"onclick="cerrarReservas()">Cerrar</button>
             </div>
-	    <table class="misResevas">
+	    <table class="misReservas">
                 <th>Hora</th>
                 <th>Fecha</th>
                 <th>Nombre del espacio</th>
@@ -94,7 +94,7 @@
             </table>
         </dialog>
         <dialog class="cuadroHorarios" id="cuadro_horarios">
-            <table class="horasResevas" id="horas_reservas">
+            <table class="horasReservas" id="horas_reservas">
                 <caption>
                     <button class="botonVolverACalendarios" onclick="ocultarHorarios(true, false)">&#171</button>
                     <button class="botonCerrarHorarios" onclick="ocultarHorarios(false, false)">X</button>
