@@ -20,7 +20,7 @@
 	        <h1 class="h1Perfil">Mi perfil</h1>
 
 	        <div class="contenedorFotoPerfil">
-                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()">
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefecto(this)">
                 <div class="contenedorNuevoLinkUsuario">
                     <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                 </div>
@@ -82,9 +82,9 @@
                     </form>
                 
                     <div class="contenedorImagenBanda">
-                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefecto(this)">
                         <div class="contenedorNuevoLink">
-			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" onkeydown="cambiarFotoBanda(event)">
+			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                     	</div>
 		    </div>
 
@@ -104,27 +104,27 @@
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
                 <div class="contenedorFotoDeMuestraEspacio">
-                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(true)"><br>
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
                 </div>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
-                    <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="nombreCrearBanda" required></input></label><br>
 		    
-	    	    <label><strong>Link de la foto de la banda:</strong><br>
+	    	        <label><strong>Link de la foto de la banda:</strong><br>
                     <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label><br>
                     <button type="button" id="botonMostrarImagenEspacio" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
 
                     <label><strong>Red social:</strong><br>
-                    <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil"  id="redSocialCrearBanda" required></input></label><br>
                     
                     <label><strong>Generos favoritos:</strong>
-                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda" required></input></label><br>
                     
                     <label><strong>Descripción:</strong>
-                    <input class="inputDatosPerfil" id="descripcionCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="descripcionCrearBanda" required></input></label><br>
                     
                     <label><strong>Contraseña de la banda:</strong> 
-                    <input class="inputDatosPerfil" id="contraseñaCrearBanda"></input></label><br>
+                    <input class="inputDatosPerfil" id="contraseñaCrearBanda" required></input></label><br>
 
                     <div class="contenedorBotonCrearBanda">
 			            <button id="botonCrearBanda">Crear banda</button>        
@@ -167,9 +167,9 @@
                         <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
+		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefecto(this)">
         		    	<div class="contenedorNuevoLink">
-                            <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                            <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                     	</div>
 		            </div>
                 </div>
@@ -184,30 +184,30 @@
             <div id="crearEspacio" class="hiddenEspacio">
                 <h2>Publica tu espacio!</h2>
                 <div class="contenedorFotoDeMuestraEspacio">
-                    <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoEspacio(true)"><br>
+                    <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
                 </div>
                 <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
-                    <label><strong>Nombre del espacio:</strong><br>
-                    <input class="inputDatosPerfil"  id="nombreCrearEspacio"></input></label><br>
-                    <label><strong>Link de la foto del espacio:</strong><br>
-                    <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label><br>
+                    <label><strong>Nombre del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="nombreCrearEspacio" required></input></label>
+                    <label><strong>Link de la foto del espacio:</strong>
+                    <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label>
                     <button type="button" id="botonMostrarImagenEspacio" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
-                    <label><strong>Ubicacion:</strong><br>
-                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio"></input></label><br>
-                    <label><strong>Descripcion: </strong><br>
-                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio"></input></label><br>
-                    <label><strong>Contacto:</strong><br>
-                    <input class="inputDatosPerfil"  id="contactoCrearEspacio"></input></label><br>
-                    <label><strong>Tamaño del espacio:</strong><br>
-                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio"></input></label><br>
-                    <label><strong>Precio por hora:</strong><br>
-                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
+                    <label><strong>Ubicacion:</strong>
+                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio" required></input></label>
+                    <label><strong>Descripcion: </strong>
+                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio" required></input></label>
+                    <label><strong>Contacto:</strong>
+                    <input class="inputDatosPerfil"  id="contactoCrearEspacio" required></input></label>
+                    <label><strong>Tamaño del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio" required></input></label>
+                    <label><strong>Precio por hora:</strong>
+                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio" oninput="validarNumerosCrear(this)" required></input></label>
                     <label><strong>Horario de apertura:</strong></label>
-                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio"></input><br>
+                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio" oninput="validarHoras(this)" required></input>
                     <label><strong>Horario de cierre:</strong></label>
-                    <input class="inputDatosPerfil" id="horarioCierreCrearEspacio"></input><br><br>
+                    <input class="inputDatosPerfil" id="horarioCierreCrearEspacio" oninput="validarHoras(this)" required></input>
                     <label><strong>Que dia abre el estudio?:</strong></label>
-                    <select name="diaApertura" id="diaAperturaCrearEspacio">
+                    <select name="diaApertura" id="diaAperturaCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
                         <option value="mie">Miercoles</option>
@@ -215,9 +215,9 @@
                         <option value="vie">Viernes</option>
                         <option value="sab">Sabado</option>
                         <option value="dom">Domingo</option>
-                    </select><br>
+                    </select>
                     <label><strong>Que dia cierra el estudio?:</strong></label>
-                    <select name="diaCierre" id="diaCierreCrearEspacio">
+                    <select name="diaCierre" id="diaCierreCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
                         <option value="mie">Miercoles</option>

@@ -80,22 +80,22 @@ document.addEventListener("DOMContentLoaded", function () {
     
     boton.onclick = function(event){
         
-        let enEdicion = perfilContainer.classList.toggle("modo-edicion");
         const hayError = document.querySelectorAll(".errorFormato")
         const mensajeError = document.getElementById("mensajeErrorEdicion");
+        let enEdicion = perfilContainer.classList.toggle("modo-edicion");
+
         
-        if (!enEdicion){
-            if (hayError.length > 0){
-                enEdicion = perfilContainer.classList.toggle("modo-edicion");
-                mensajeError.style.display = "block";
-                return
-            }
-            else{
-                if (mensajeError.style.display !== "none"){
-                    mensajeError.style.display = "none";
-                }
-            }     
+        if (hayError.length > 0){
+            enEdicion = perfilContainer.classList.toggle("modo-edicion");
+            mensajeError.style.display = "block";
+            return
         }
+        else{
+            if (mensajeError.style.display !== "none"){
+                mensajeError.style.display = "none";
+            }
+        }  
+        
         boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
         
         if (enEdicion){
@@ -137,6 +137,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     botonBanda.onclick = function (event) {
         const enEdicion = contenedorBanda.classList.toggle("modo-edicion");
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            enEdicion = contenedorBanda.classList.toggle("modo-edicion");
+            return;
+        }
 
         if (enEdicion){
             fotoBanda.addEventListener('click', mostrarInputNuevoLinkBanda);
@@ -177,6 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     botonEspacio.onclick = function (event) {
         const enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+            return;
+        }
 
         if (enEdicion){
             fotoEstudio.addEventListener('click', mostrarInputNuevoLinkEspacio);
@@ -241,8 +249,8 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
-function mostrarImagenPorDefectoUsuario() {
-    document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+function mostrarImagenPorDefecto(imagen){
+    imagen.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
 
 async function cargarDatosPerfil(){
@@ -850,6 +858,9 @@ function cambiarFotoEspacio(event) {
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio");
     if (event.keyCode === 13){
         event.preventDefault();
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
         }
@@ -863,6 +874,9 @@ function cambiarFotoBanda(event) {
     let inputNuevoLink = document.getElementById("inputNuevoLinkBanda");
     if (event.keyCode === 13){
         event.preventDefault();
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
         }
@@ -891,24 +905,6 @@ function mostrarInputNuevoLinkBanda() {
     }
     else{
         inputNuevoLink.type= "hidden";
-    }
-}
-
-function mostrarImagenPorDefectoEspacio(creandoEspacio) {
-    if (creandoEspacio){
-        document.getElementById("fotoDeMuestraEspacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-    else{
-        document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-}
-
-function mostrarImagenPorDefectoBanda(creandoBanda) {
-    if (creandoBanda){
-        document.getElementById("fotoDeMuestraBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-    else{
-        document.getElementById("imagenBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
 
@@ -953,5 +949,33 @@ function validarUrl(input){
     else{
         input.style.backgroundColor = "";
         input.classList.remove("errorFormato");
+    }
+}
+
+function validarHoras(input){
+    const formato = /^([1-9]|1[0-9]|2[0-4])$/
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten numeros del 1 al 24.");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "";
+    }
+}
+
+function validarNumerosCrear(input){
+    const formato = /^[0-9+]*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten numeros.");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "";
     }
 }
