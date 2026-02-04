@@ -13,6 +13,14 @@
     animation: desaparicionMensajeError 1s forwards !important; 
 }
 
+.foto_de_fondo{
+    background-image: url(https://photos.smugmug.com/Concerts/John-Mayer-Trio/i-9ZmkN54/1/M2BGXK8S84SSdKpJ42BHx5DxvZzDP6ndSpnKrRZJT/L/John%20Mayer%20Trio-1-L.jpg);
+    filter: blur(10px);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
 .errorLogin {
     color: red;
     position: fixed;
