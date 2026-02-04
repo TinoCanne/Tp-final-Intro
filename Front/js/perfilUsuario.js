@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function mostrarInputNuevoLink() {
         if (inputNuevoLink.type === "hidden"){
-            inputNuevoLink.type= "url";
+            inputNuevoLink.type = "url";
             inputNuevoLink.addEventListener('keydown', cambiarFotoPerfil)
         }
         else{
@@ -79,16 +79,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const enEdicion = perfilContainer.classList.toggle("modo-edicion");
 
+        if (enEdicion){
+            fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
+        }
+        else{
+            fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
+        }
         datos.forEach(elemento => {
             if (enEdicion){
                 elemento.contentEditable = "true";
                 elemento.addEventListener('keydown', prevenirSaltoDeLinea);
-                fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
             }
             else{
                 elemento.contentEditable = "false";
                 elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
-                fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
                 if (inputNuevoLink.type !== "hidden"){
                     inputNuevoLink.type = "hidden";
                 }
@@ -107,16 +111,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const botonBanda = document.getElementById("botonDeEdicionBanda");
     const datosBanda = document.querySelectorAll(".spanDatosBanda");
     const contenedorBanda = document.getElementById("infoBanda");
+    const fotoBanda = document.getElementById("imagenBanda");
 
     if (!botonBanda || !contenedorBanda) return;
 
     botonBanda.onclick = function (event) {
         const enEdicion = contenedorBanda.classList.toggle("modo-edicion");
 
+        if (enEdicion){
+            fotoBanda.addEventListener('click', mostrarInputNuevoLinkBanda);
+        }
+        else{
+            fotoBanda.removeEventListener('click', mostrarInputNuevoLinkBanda);
+        }
         datosBanda.forEach(elemento => {
             if (enEdicion) {
                 elemento.contentEditable = "true";
                 elemento.addEventListener("keydown", prevenirSaltoDeLinea);
+                
             } else {
                 elemento.contentEditable = "false";
                 elemento.removeEventListener("keydown", prevenirSaltoDeLinea);
@@ -135,12 +147,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const botonEspacio = document.getElementById("botonEditarEspacio");
     const datosEspacio = document.querySelectorAll(".spanDatosEspacio");
     const contenedorEspacio = document.getElementById("infoEspacio");
+    const fotoEstudio = document.getElementById("imagenEspacioMiniespacio");
 
     if (!botonEspacio || !contenedorEspacio) return;
 
     botonEspacio.onclick = function (event) {
         const enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
 
+        if (enEdicion){
+            fotoEstudio.addEventListener('click', mostrarInputNuevoLinkEspacio);
+        }
+        else{
+            fotoEstudio.removeEventListener('click', mostrarInputNuevoLinkEspacio);
+        }
         datosEspacio.forEach(elemento => {
             if (enEdicion) {
                 elemento.contentEditable = "true";
