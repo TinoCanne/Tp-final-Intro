@@ -20,8 +20,10 @@
 	        <h1 class="h1Perfil">Mi perfil</h1>
 
 	        <div class="contenedorFotoPerfil">
-                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()"><br>
-                <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()">
+                <div class="contenedorNuevoLinkUsuario">
+                    <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                </div>
 	        </div>
             <form class="info">
                 <label class="filaPerfil"><strong>Nombre:</strong>
@@ -79,9 +81,9 @@
                     </form>
                 
                     <div class="contenedorImagenBanda">
-                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)" onclick="mostrarInputNuevoLinkBanda()">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)">
                         <div class="contenedorNuevoLink">
-			    <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     	</div>
 		    </div>
 
@@ -91,9 +93,9 @@
                 <div class="contenedorBotonEdicionBanda">
                     <button id="botonDeEdicionBanda">Editar banda</button>
                     <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
-                    <button type="button" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
                     <button type="button" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
                     <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
+                    <button type="button" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
                 </div>
 	    </div>
 
@@ -164,11 +166,11 @@
                         <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-		    	<img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)" onclick="mostrarInputNuevoLinkEspacio()">
-		    	<div class="contenedorNuevoLink">
+		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
+        		    	<div class="contenedorNuevoLink">
                             <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
                     	</div>
-		    </div>
+		            </div>
                 </div>
 		        <div class="contenedorBotonesEspacio">
                     <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
