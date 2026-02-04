@@ -371,7 +371,8 @@
     font-weight: 500;
 }
 
-.spanDatosPerfil {
+.spanDatosPerfil,
+.spanDatosPerfilNoEditable {
     font-size: 17px;
     text-align: left;
     color: #ffffff;
@@ -386,7 +387,7 @@
     vertical-align: top;
     font-family: inherit;
     margin-bottom: 15px;
-    width: 350px;
+    width: 250px;
 }
 
 .modo-edicion .spanDatosPerfil {
@@ -595,8 +596,8 @@
     top: 150px;
     right: 18%;
     transform: translate(50%, -50%);
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 15px;
     object-fit: cover;
 }
@@ -656,6 +657,8 @@
 }
 
 #inputNuevoLinkEspacio {
+    transform: translate(17%, -50%);
+    width: 200px;
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -663,6 +666,7 @@
     color: white;
     font-size: 15px;
     outline: none;
+    right: 18%;
 }
 
 #inputNuevoLinkEspacio:hover {
@@ -670,6 +674,8 @@
 }
 
 #inputNuevoLinkBanda {
+    transform: translate(17%, -50%);
+    width: 200px;
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -681,4 +687,9 @@
 
 #inputNuevoLinkBanda:hover {
     border-radius: 6px;
+}
+
+.mensajeErrorEdicion{
+    display: none;
+    color: #F44336;
 }

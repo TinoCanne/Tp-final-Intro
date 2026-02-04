@@ -55,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputNuevoLink= document.getElementById("inputNuevoLink");
 
     function cambiarFotoPerfil(event) {
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (event.keyCode === 13){
             event.preventDefault();
             if (inputNuevoLink.value !== ""){
@@ -74,17 +77,34 @@ document.addEventListener("DOMContentLoaded", function () {
             inputNuevoLink.type= "hidden";
         }
     }
-
+    
     boton.onclick = function(event){
+        
+        const hayError = document.querySelectorAll(".errorFormato")
+        const mensajeError = document.getElementById("mensajeErrorEdicion");
+        let enEdicion = perfilContainer.classList.toggle("modo-edicion");
 
-        const enEdicion = perfilContainer.classList.toggle("modo-edicion");
-
+        
+        if (hayError.length > 0){
+            enEdicion = perfilContainer.classList.toggle("modo-edicion");
+            mensajeError.style.display = "block";
+            return
+        }
+        else{
+            if (mensajeError.style.display !== "none"){
+                mensajeError.style.display = "none";
+            }
+        }  
+        
+        boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
+        
         if (enEdicion){
             fotoPerfil.addEventListener('click', mostrarInputNuevoLink);
         }
         else{
             fotoPerfil.removeEventListener('click', mostrarInputNuevoLink);
         }
+
         datos.forEach(elemento => {
             if (enEdicion){
                 elemento.contentEditable = "true";
@@ -93,15 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
             else{
                 elemento.contentEditable = "false";
                 elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
-                if (inputNuevoLink.type !== "hidden"){
-                    inputNuevoLink.type = "hidden";
-                }
             }
         });
-
-        boton.textContent = enEdicion ? "Guardar cambios" : "Editar perfil";
-
+        
+        
         if (!enEdicion){
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             perfil_usuario(event);
         }
     };
@@ -112,11 +131,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const datosBanda = document.querySelectorAll(".spanDatosBanda");
     const contenedorBanda = document.getElementById("infoBanda");
     const fotoBanda = document.getElementById("imagenBanda");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
 
     if (!botonBanda || !contenedorBanda) return;
 
     botonBanda.onclick = function (event) {
         const enEdicion = contenedorBanda.classList.toggle("modo-edicion");
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            enEdicion = contenedorBanda.classList.toggle("modo-edicion");
+            return;
+        }
 
         if (enEdicion){
             fotoBanda.addEventListener('click', mostrarInputNuevoLinkBanda);
@@ -138,6 +162,9 @@ document.addEventListener("DOMContentLoaded", function () {
         botonBanda.textContent = enEdicion ? "Guardar cambios" : "Editar banda";
 
         if (!enEdicion) {
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             guardarCambiosBanda(event);
         }
     };
@@ -148,11 +175,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const datosEspacio = document.querySelectorAll(".spanDatosEspacio");
     const contenedorEspacio = document.getElementById("infoEspacio");
     const fotoEstudio = document.getElementById("imagenEspacioMiniespacio");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
 
     if (!botonEspacio || !contenedorEspacio) return;
 
     botonEspacio.onclick = function (event) {
         const enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+            return;
+        }
 
         if (enEdicion){
             fotoEstudio.addEventListener('click', mostrarInputNuevoLinkEspacio);
@@ -173,6 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
         botonEspacio.textContent = enEdicion ? "Guardar cambios" : "Editar espacio";
 
         if (!enEdicion) {
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             guardarEspacioEditado(event);
         }
     };
@@ -214,8 +249,8 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
-function mostrarImagenPorDefectoUsuario() {
-    document.getElementById("linkFotoUsuario").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+function mostrarImagenPorDefecto(imagen){
+    imagen.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
 
 async function cargarDatosPerfil(){
@@ -827,10 +862,13 @@ function cambiarFotoEspacio(event) {
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio");
     if (event.keyCode === 13){
         event.preventDefault();
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
-            inputNuevoLink.value = "";
         }
+        inputNuevoLink.value = "";
         inputNuevoLink.type = "hidden";
     }
 }
@@ -840,9 +878,11 @@ function cambiarFotoBanda(event) {
     let inputNuevoLink = document.getElementById("inputNuevoLinkBanda");
     if (event.keyCode === 13){
         event.preventDefault();
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
-            inputNuevoLink.value = "";
         }
         inputNuevoLink.type = "hidden";
     }
@@ -850,6 +890,7 @@ function cambiarFotoBanda(event) {
 
 function mostrarInputNuevoLinkEspacio() {
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
+    inputNuevoLink.value = "";
     if (inputNuevoLink.type === "hidden"){
         inputNuevoLink.type= "url";
         inputNuevoLink.addEventListener('keydown', cambiarFotoEspacio)
@@ -861,6 +902,7 @@ function mostrarInputNuevoLinkEspacio() {
 
 function mostrarInputNuevoLinkBanda() {
     let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
+    inputNuevoLink.value = "";
     if (inputNuevoLink.type === "hidden"){
         inputNuevoLink.type= "url";
         inputNuevoLink.addEventListener('keydown', cambiarFotoBanda)
@@ -870,26 +912,74 @@ function mostrarInputNuevoLinkBanda() {
     }
 }
 
-function mostrarImagenPorDefectoEspacio(creandoEspacio) {
-    if (creandoEspacio){
-        document.getElementById("fotoDeMuestraEspacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-    else{
-        document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-}
-
-function mostrarImagenPorDefectoBanda(creandoBanda) {
-    if (creandoBanda){
-        document.getElementById("fotoDeMuestraBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-    else{
-        document.getElementById("imagenBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
-    }
-}
-
 document.addEventListener("DOMContentLoaded", function(){
     cargarDatosPerfil();
     cargarDatosBanda();
     cargarDatosEspacio();
 })
+
+function validarPalabras(input) {
+    const formato = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s]*$/;
+
+    if (!formato.test(input.innerText)){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato");
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarNumeros(input){
+    const formato = /^[0-9+]*$/;
+
+    if (!formato.test(input.innerText)){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato")
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarUrl(input){
+    let valido = input.checkValidity();
+    if (!valido && input.value !== ""){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato");
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarHoras(input){
+    const formato = /^([1-9]|1[0-9]|2[0-4])$/
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten numeros del 1 al 24.");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "";
+    }
+}
+
+function validarNumerosCrear(input){
+    const formato = /^[0-9+]*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Solo se permiten numeros.");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "";
+    }
+}
