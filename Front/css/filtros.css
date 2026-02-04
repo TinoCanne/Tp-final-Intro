@@ -13,9 +13,6 @@
 }
 
 #botonFiltroUsuarios:hover, #botonFiltroBandas:hover {
-    align-self: center;
-    align-content: center;
-    text-align: center;
     border-radius: 10px;
     color:rgb(151, 120, 40);
     background-color: white;
@@ -43,9 +40,6 @@
 }
 
 #botonFiltrarEspacios:hover {
-    align-self: center;
-    align-content: center;
-    text-align: center;
     border-radius: 10px;
     color:rgb(151, 120, 40);
     background-color: white;

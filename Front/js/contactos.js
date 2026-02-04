@@ -37,7 +37,7 @@ async function armarCartaUsuario(usuario){
     id_contacto.value = usuario.id;
 
     const boton_eliminar = document.createElement("button");
-    boton_eliminar.className = "botonIndex";
+    boton_eliminar.className = "botonEliminarContacto";
     boton_eliminar.innerText = "Eliminar Contacto"
     boton_eliminar.onclick = function(){
         let user_id = localStorage.getItem("usuarioId");
@@ -70,8 +70,8 @@ async function armarCartaBanda(banda){
     contacto_banda.innerText = banda.redsocial;
 
     const boton_eliminar_banda = document.createElement("button");
-    boton_eliminar_banda.innerText = "eliminar de contactos";
-    boton_eliminar_banda.className = "botonIndex";
+    boton_eliminar_banda.innerText = "Eliminar de contactos";
+    boton_eliminar_banda.className = "botonEliminarContacto";
     boton_eliminar_banda.onclick = ()=>{
         const id_usuario = localStorage.getItem("usuarioId");
         eliminar_banda_contactos(id_usuario, banda.id);
