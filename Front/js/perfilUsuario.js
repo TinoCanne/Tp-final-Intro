@@ -55,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputNuevoLink= document.getElementById("inputNuevoLink");
 
     function cambiarFotoPerfil(event) {
+        if (inputNuevoLink.classList.contains("errorFormato")){
+            return
+        }
         if (event.keyCode === 13){
             event.preventDefault();
             if (inputNuevoLink.value !== ""){
@@ -110,14 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
             else{
                 elemento.contentEditable = "false";
                 elemento.removeEventListener('keydown', prevenirSaltoDeLinea);
-                if (inputNuevoLink.type !== "hidden"){
-                    inputNuevoLink.type = "hidden";
-                }
             }
         });
-
-
+        
+        
         if (!enEdicion){
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             perfil_usuario(event);
         }
     };
@@ -128,6 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const datosBanda = document.querySelectorAll(".spanDatosBanda");
     const contenedorBanda = document.getElementById("infoBanda");
     const fotoBanda = document.getElementById("imagenBanda");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
 
     if (!botonBanda || !contenedorBanda) return;
 
@@ -154,6 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
         botonBanda.textContent = enEdicion ? "Guardar cambios" : "Editar banda";
 
         if (!enEdicion) {
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             guardarCambiosBanda(event);
         }
     };
@@ -164,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const datosEspacio = document.querySelectorAll(".spanDatosEspacio");
     const contenedorEspacio = document.getElementById("infoEspacio");
     const fotoEstudio = document.getElementById("imagenEspacioMiniespacio");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
 
     if (!botonEspacio || !contenedorEspacio) return;
 
@@ -189,6 +197,9 @@ document.addEventListener("DOMContentLoaded", function () {
         botonEspacio.textContent = enEdicion ? "Guardar cambios" : "Editar espacio";
 
         if (!enEdicion) {
+            if (inputNuevoLink.type !== "hidden"){
+                inputNuevoLink.type = "hidden";
+            }
             guardarEspacioEditado(event);
         }
     };
@@ -841,8 +852,8 @@ function cambiarFotoEspacio(event) {
         event.preventDefault();
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
-            inputNuevoLink.value = "";
         }
+        inputNuevoLink.value = "";
         inputNuevoLink.type = "hidden";
     }
 }
@@ -854,7 +865,6 @@ function cambiarFotoBanda(event) {
         event.preventDefault();
         if (inputNuevoLink.value !== ""){
             imagenEspacio.src = inputNuevoLink.value;
-            inputNuevoLink.value = "";
         }
         inputNuevoLink.type = "hidden";
     }
@@ -862,6 +872,7 @@ function cambiarFotoBanda(event) {
 
 function mostrarInputNuevoLinkEspacio() {
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
+    inputNuevoLink.value = "";
     if (inputNuevoLink.type === "hidden"){
         inputNuevoLink.type= "url";
         inputNuevoLink.addEventListener('keydown', cambiarFotoEspacio)
@@ -873,6 +884,7 @@ function mostrarInputNuevoLinkEspacio() {
 
 function mostrarInputNuevoLinkBanda() {
     let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
+    inputNuevoLink.value = "";
     if (inputNuevoLink.type === "hidden"){
         inputNuevoLink.type= "url";
         inputNuevoLink.addEventListener('keydown', cambiarFotoBanda)
@@ -925,6 +937,18 @@ function validarNumeros(input){
     if (!formato.test(input.innerText)){
         input.style.backgroundColor = "#F44336";
         input.classList.add("errorFormato")
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarUrl(input){
+    let valido = input.checkValidity();
+    if (!valido && input.value !== ""){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato");
     }
     else{
         input.style.backgroundColor = "";

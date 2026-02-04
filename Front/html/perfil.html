@@ -22,7 +22,7 @@
 	        <div class="contenedorFotoPerfil">
                 <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()">
                 <div class="contenedorNuevoLinkUsuario">
-                    <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                 </div>
 	        </div>
             <form class="info">
@@ -76,7 +76,7 @@
                         <label class="filaPerfilBanda"><strong>Integrantes:</strong>
                         <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
                         <label class="filaPerfilBanda"><strong>Fecha de creación:</strong>
-                        <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <span id="fechaCreacionBanda" class="spanDatosBandaNoEditable" contenteditable="false"></span></label>
                         <label class="filaPerfilBanda"><strong>Redes:</strong>
                         <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                     </form>
@@ -84,7 +84,7 @@
                     <div class="contenedorImagenBanda">
                         <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)">
                         <div class="contenedorNuevoLink">
-			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" onkeydown="cambiarFotoBanda(event)">
                     	</div>
 		    </div>
 
