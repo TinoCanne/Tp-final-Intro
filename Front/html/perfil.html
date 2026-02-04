@@ -12,8 +12,7 @@
             <a href="../index.html">
                 <img src="../Jameet.png" alt="logo" class="logo">
             </a>
-            <a href= "contactos.html" class = "botonNav">Contactos</a>
-            <a href= "perfil_espacio.html" class = "botonNav">Estudios</a>
+	    <a href="iniciar_sesion.html" class="botonNavBar">Cerrar Sesion</a>
         </nav>
     
         <div class="perfilContainer" id="perfilContainer">
@@ -80,9 +79,11 @@
                     </form>
                 
                     <div class="contenedorImagenBanda">
-                            <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)" onclick="mostrarInputNuevoLinkBanda()">
-                            <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-                    </div>
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)" onclick="mostrarInputNuevoLinkBanda()">
+                        <div class="contenedorNuevoLink">
+			    <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    	</div>
+		    </div>
 
                 </div>
 
@@ -102,7 +103,7 @@
                 <div class="contenedorFotoDeMuestraEspacio">
                     <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(true)"><br>
                 </div>
-                <form class="crearBandaForm onsubmit="crearBanda(event)">
+                <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
 		    
@@ -163,9 +164,11 @@
                         <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)" onclick="mostrarInputNuevoLinkEspacio()">
-                        <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-                    </div>
+		    	<img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)" onclick="mostrarInputNuevoLinkEspacio()">
+		    	<div class="contenedorNuevoLink">
+                            <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    	</div>
+		    </div>
                 </div>
 		        <div class="contenedorBotonesEspacio">
                     <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
@@ -240,12 +243,6 @@
                 
             </div>
         </dialog>
-
-        <div class="botonera_perfil">
-            <div class="botonIndex">
-                <a href="iniciar_sesion.html">Cerrar sesion</a>
-            </div>
-        </div>
     </body>
     
 </html>

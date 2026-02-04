@@ -260,8 +260,8 @@
 
 #botonEliminarEspacio:hover {
     border-radius: 10px;
-    background-color: white;
-    color: rgb(151, 120, 40);
+    background-color: red;
+    color: white;
 }
 
 #ocultarMostrarCrearEspacio {
@@ -288,7 +288,12 @@
 }
 
 .contenedorBotonEdicionBanda {
-    padding-left: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    
+    flex-wrap: wrap;
 }
 
 .contenedorBotonCrearBanda, .contenedorBotonUnirseBanda {
@@ -425,6 +430,7 @@
     overflow: hidden;
     align-items: center;
     margin-top: 30px;
+    gap: 7px;
 }
 .fotoPerfilGrande {
     height: 200px;
@@ -485,20 +491,38 @@
     margin-top: 50px;
 }
 
-#infoEspacio, #crearEspacio {
-    width: 50%;                 
+#infoEspacio {
+    width: 45%;                 
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
-    padding: 20px;
+    padding: 15px;
     padding-right: 50px;
     box-sizing: border-box;     
 }
 
-#infoBanda, #divCrearBanda {  
-    width: 53%;
+#crearEspacio {
+    width: 45%;                 
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
-    padding: 20px;
+    padding: 15px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+#infoBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+#divCrearBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
     box-sizing: border-box;
 }
 
@@ -607,15 +631,49 @@
     text-align: center;
 }
 
-.botonera_perfil{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
+.contenedorNuevoLink {
+    margin-top: 290px;
+    margin-right: 40px;
 }
 
-.botonera_perfil .botonIndex{
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
+#inputNuevoLink {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLink:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkEspacio {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLinkEspacio:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkBanda {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLinkBanda:hover {
+    border-radius: 6px;
 }
