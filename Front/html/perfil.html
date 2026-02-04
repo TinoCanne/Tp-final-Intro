@@ -20,7 +20,7 @@
 	        <h1 class="h1Perfil">Mi perfil</h1>
 
 	        <div class="contenedorFotoPerfil">
-                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()"><br>
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario()"><br>
                 <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
 	        </div>
             <form class="info">
@@ -231,15 +231,19 @@
         </div>
 
         <dialog id="popUpEspacios" class="popupEspacio">
-            <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
-            <div id="contenedorPopUpEspacio" class="contenedorPopUp">
+            <div id="contenedorBotonCerrar">
+		<button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
+	    </div>
+	    <div id="contenedorPopUpEspacio" class="contenedorPopUp">
                 
             </div>
         </dialog>
 
         <dialog id="popUpBandas">
-            <button type="button" id="cerrarPopUpBandas" onclick="cerrarPopUpBanda()">X</button>
-            <div id="contenedorPopUpBandas" class="contenedorPopUp">
+            <div id="contenedorBotonCerrar">
+		<button type="button" id="cerrarPopUpBandas" onclick="cerrarPopUpBanda()">X</button>
+            </div>
+	    <div id="contenedorPopUpBandas" class="contenedorPopUp">
                 
             </div>
         </dialog>

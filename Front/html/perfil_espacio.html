@@ -14,11 +14,15 @@
     </head>
     <body>
 
-        <button id = "botonFiltrarEspacios" onclick="mostrarFiltro()">Filtrar</button>
-        <button onclick="mostrarReservas()">Mira tus reservas!</button>
-        <dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
-            <button onclick="cerrarReservas()">Cerrar</button>
-            <table class="misResevas">
+	    <div class="contenedorBotonesEspacios">
+            <button id = "botonMirarReservas" onclick="mostrarReservas()">Mira tus reservas!</button>
+	    <button id = "botonFiltrarEspacios" onclick="mostrarFiltro()">Filtrar</button>
+	</div>
+	<dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
+            <div id="contenedorBotonCerrar">
+		<button onclick="cerrarReservas()">Cerrar</button>
+            </div>
+	    <table class="misResevas">
                 <th>Hora</th>
                 <th>Fecha</th>
                 <th>Nombre del espacio</th>

@@ -14,15 +14,9 @@
 }
 
 .botonIndex:hover {
-    align-self: center;
-    align-content: center;
-    text-align: center;
     border-radius: 10px;
-    height: 35px;
-    width: 100px;
     color:rgb(151, 120, 40);
     background-color: white;
-    margin-top: 15px;
 }
 
 .botonNav {

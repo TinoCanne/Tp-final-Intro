@@ -22,8 +22,10 @@
         </div>
 
         <dialog id="popUpFiltrosBandas">
-            <button onclick="ocultarFiltroBandas()">Cerrar</button>
-            <div id="filtroBandas">
+	    <div id="contenedorBotonCerrar">
+                <button onclick="ocultarFiltroBandas()">X</button>
+            </div>
+	    <div id="filtroBandas">
                 <form onsubmit="aplicarFiltrosBandas(event)">
                     <br>
                     <input type="text" placeholder = "Ingrese un genero" id="generoBandasFiltros">

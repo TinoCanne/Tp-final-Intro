@@ -22,8 +22,7 @@
     width: auto;
     max-width: 300px;
     margin-top: 5px;
-    border-radius: 10px;
-    border-style: solid;
+    border-radius: 100%;
 }
 
 .labelIndex {
@@ -38,7 +37,6 @@
 .cartaTag {
     background-color: rgb(151, 120, 40);
     border-radius: 10px;
-    border-color: white;
     width: 100px;
     color: white;
     justify-content: center;
