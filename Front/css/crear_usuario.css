@@ -40,6 +40,12 @@
     transition: 0.2s;
 }
 
+.botoneraCrearUsuario{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 .botonCrearUsuario:hover {
     border-radius: 10px;
     background-color: white;
