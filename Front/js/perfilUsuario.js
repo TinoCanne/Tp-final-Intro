@@ -343,6 +343,7 @@ async function cargarDatosBanda() {
         document.getElementById('fechaCreacionBanda').textContent = datosBanda.fechacreacion ? String(datosBanda.fechacreacion).split('T')[0] : "";
         document.getElementById('redesBanda').textContent = datosBanda.redsocial || "";
         document.getElementById('imagenBanda').src = datosBanda.linkfotobanda;
+        document.getElementById('contraseñaBanda').textContent = datosBanda.contraseñaparaingresar;
 
         cargarGenerosBanda(idBandaLocalStorage);
         cargarIntegrantesBanda(idBandaLocalStorage);
@@ -520,6 +521,9 @@ async function cargarDatosEspacio(){
         document.getElementById('contactoEspacio').textContent = datos.contacto;
         document.getElementById('tamañoEspacio').textContent = datos.tamaño;
         document.getElementById('precioEspacio').textContent = datos.precioporhora || 0;
+        document.getElementById('horaAperturaEspacio').textContent = datos.horarioapertura;
+        document.getElementById('horaCierreEspacio').textContent = datos.horariocierre;
+        document.getElementById('diasAbiertosEspacio').textContent = datos.diasabierto;
 
         divEspacio.classList.remove("hidden");
         divCrearEspacio.classList.add("hidden");
