@@ -12,8 +12,7 @@
             <a href="../index.html">
                 <img src="../Jameet.png" alt="logo" class="logo">
             </a>
-            <a href= "contactos.html" class = "botonNav">Contactos</a>
-            <a href= "perfil_espacio.html" class = "botonNav">Estudios</a>
+	    <a href="iniciar_sesion.html" class="botonNavBar">Cerrar Sesion</a>
         </nav>
     
         <div class="perfilContainer" id="perfilContainer">
@@ -59,26 +58,35 @@
 	        </div>
 	    </div>
         
-        <div class="containerBanda" id="divBanda" >
+        <div class="containerBanda" id="divBanda">
 
             <div id="infoBanda" class="hidden">
-    	
                 <h2>Mi Banda</h2>
+                <div class="contenedorInfoBanda">
+                    <form class="info">
+                        <label class="filaPerfilBanda"><strong>Nombre:</strong>
+                        <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Genero/s:</strong>
+                        <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label>
+                        <label class="filaPerfilBanda"><strong>Descripción:</strong>
+                        <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Integrantes:</strong>
+                        <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
+                        <label class="filaPerfilBanda"><strong>Fecha de creación:</strong>
+                        <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Redes:</strong>
+                        <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                    </form>
+                
+                    <div class="contenedorImagenBanda">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(false)" onclick="mostrarInputNuevoLinkBanda()">
+                        <div class="contenedorNuevoLink">
+			    <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    	</div>
+		    </div>
 
-                <form class="info">
-                    <label class="filaPerfil"><strong>Nombre:</strong>
-                    <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Genero/s:</strong>
-                    <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label><br>
-                    <label class="filaPerfil"><strong>Descripción:</strong>
-                    <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Integrantes:</strong>
-                    <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label><br>
-                    <label class="filaPerfil"><strong>Fecha de creación:</strong>
-                    <span id="fechaCreacionBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                    <label class="filaPerfil"><strong>Redes:</strong>
-                    <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label><br>
-                </form>
+                </div>
+
 
                 <div class="contenedorBotonEdicionBanda">
                     <button id="botonDeEdicionBanda">Editar banda</button>
@@ -87,15 +95,22 @@
                     <button type="button" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
                     <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
                 </div>
-	        </div>
+	    </div>
 
             <div class="crearBanda" id="divCrearBanda">
                 <h2 class="h2perfil">Crea tu banda!</h2>
                 <br>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(true)"><br>
+                </div>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreCrearBanda"></input></label><br>
-		            
+		    
+	    	    <label><strong>Link de la foto de la banda:</strong><br>
+                    <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label><br>
+                    <button type="button" id="botonMostrarImagenEspacio" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
+
                     <label><strong>Red social:</strong><br>
                     <input class="inputDatosPerfil"  id="redSocialCrearBanda"></input></label><br>
                     
@@ -136,22 +151,24 @@
                 <div class="contenedorInfoMiniespacio" id="contenedorInfoMiniespacio">
                     <form class="info">
                         <label><strong>Nombre:</strong></label>
-                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Ubicacion:</strong></label>
-                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span><br><br>
+                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span>
                         <label><strong>Descripción:</strong></label>
-                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Contacto:</strong></label>
-                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Tamaño:</strong></label>
-                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Precio por hora:</strong></label>
-                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span><br><br>
+                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-                        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)">
-                        <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
-                    </div>
+		    	<img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(false)" onclick="mostrarInputNuevoLinkEspacio()">
+		    	<div class="contenedorNuevoLink">
+                            <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink">
+                    	</div>
+		    </div>
                 </div>
 		        <div class="contenedorBotonesEspacio">
                     <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
@@ -183,7 +200,7 @@
                     <label><strong>Precio por hora:</strong><br>
                     <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio"></input></label><br>
                     <label><strong>Horario de apertura:</strong></label>
-                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio"></input><br><br>
+                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio"></input><br>
                     <label><strong>Horario de cierre:</strong></label>
                     <input class="inputDatosPerfil" id="horarioCierreCrearEspacio"></input><br><br>
                     <label><strong>Que dia abre el estudio?:</strong></label>
@@ -226,12 +243,6 @@
                 
             </div>
         </dialog>
-
-        <div class="botonera_perfil">
-            <div class="botonIndex">
-                <a href="iniciar_sesion.html">Cerrar sesion</a>
-            </div>
-        </div>
     </body>
     
 </html>

@@ -125,6 +125,63 @@
     color: white;
 }
 
+#ocultarMostrarCrearBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#ocultarMostrarCrearBanda:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#ocultarMostrarUnirseBanda {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#ocultarMostrarUnirseBanda:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+#botonMostrarTodasBandas {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#botonMostrarTodasBandas:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
 #botonCrearEspacio:hover {
     border-radius: 10px;
     background-color: white;
@@ -203,8 +260,8 @@
 
 #botonEliminarEspacio:hover {
     border-radius: 10px;
-    background-color: white;
-    color: rgb(151, 120, 40);
+    background-color: red;
+    color: white;
 }
 
 #ocultarMostrarCrearEspacio {
@@ -231,7 +288,12 @@
 }
 
 .contenedorBotonEdicionBanda {
-    padding-left: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    
+    flex-wrap: wrap;
 }
 
 .contenedorBotonCrearBanda, .contenedorBotonUnirseBanda {
@@ -251,10 +313,11 @@
 .containerBanda{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 50px;
-    font-size: 17px;
-    font-family: inherit;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
 }
 
 .opcionesBanda {
@@ -288,6 +351,11 @@
     font-family: inherit;
 }
 
+.info label {
+    display: block;
+    margin-bottom: 4px;
+}
+
 .filaPerfil {
     display: flex;
     align-items: center;
@@ -310,16 +378,15 @@
 }
 
 .spanDatosBanda,
-.spanDatosBandaNoEditable {
-    text-align: left;
-    color: #ffffff;
-}
-
+.spanDatosBandaNoEditable,
 .spanDatosEspacio {
-    display: block;
+    display: inline-block;
     overflow-wrap: break-word;
     font-size: 17px;
+    vertical-align: top;
     font-family: inherit;
+    margin-bottom: 15px;
+    width: 350px;
 }
 
 .modo-edicion .spanDatosPerfil {
@@ -337,7 +404,6 @@
 .modo-edicion .spanDatosBanda {
     background-color: rgba(255,255,255,0.12);
     border-radius: 6px;
-    padding-left: 5px;
     padding-right: 5px;
     cursor: text;
 }
@@ -363,6 +429,7 @@
     overflow: hidden;
     align-items: center;
     margin-top: 30px;
+    gap: 7px;
 }
 .fotoPerfilGrande {
     height: 200px;
@@ -423,13 +490,43 @@
     margin-top: 50px;
 }
 
-#infoEspacio, #crearEspacio {
-    width: 46%;                 
+#infoEspacio {
+    width: 45%;                 
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;        
-    padding: 20px;
+    padding: 15px;
     padding-right: 50px;
     box-sizing: border-box;     
+}
+
+#crearEspacio {
+    width: 45%;                 
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+#infoBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+#divCrearBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#infoBanda strong {
+    display: block;
 }
 
 .popupEspacio {
@@ -480,7 +577,8 @@
     object-fit: cover;
 }
 
-.contenedorInfoMiniespacio {
+.contenedorInfoMiniespacio,
+.contenedorInfoBanda {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -489,7 +587,8 @@
     min-height: 250px;
 }
 
-.imagenEspacioMiniespacio {
+.imagenEspacioMiniespacio,
+.imagenBanda {
     position: absolute;
     top: 150px;
     right: 20%;
@@ -515,6 +614,11 @@
     flex-wrap: wrap;
 }
 
+#popUpBandas img {
+    height: 150px;
+    width: 140px;
+}
+
 .miniCartaBanda {
     border-radius: 10px;
     height: 300px;
@@ -526,15 +630,49 @@
     text-align: center;
 }
 
-.botonera_perfil{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
+.contenedorNuevoLink {
+    margin-top: 290px;
+    margin-right: 40px;
 }
 
-.botonera_perfil .botonIndex{
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
+#inputNuevoLink {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLink:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkEspacio {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLinkEspacio:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkBanda {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLinkBanda:hover {
+    border-radius: 6px;
 }

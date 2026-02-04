@@ -323,6 +323,7 @@ async function cargarDatosBanda() {
         document.getElementById('descripcionBanda').textContent = datosBanda.descripcion || "";
         document.getElementById('fechaCreacionBanda').textContent = datosBanda.fechacreacion ? String(datosBanda.fechacreacion).split('T')[0] : "";
         document.getElementById('redesBanda').textContent = datosBanda.redsocial || "";
+        document.getElementById('imagenBanda').src = datosBanda.linkfotobanda;
 
         cargarGenerosBanda(idBandaLocalStorage);
         cargarIntegrantesBanda(idBandaLocalStorage);
@@ -770,9 +771,11 @@ async function guardarCambiosBanda(event) {
     event.preventDefault();
 
     try {
+        const nombreBanda = document.getElementById('nombreBanda');
         const generosBanda = document.getElementById('generosBanda');
         const descripcionBanda = document.getElementById('descripcionBanda');
         const redesBanda = document.getElementById('redesBanda');
+        const imagenBanda = document.getElementById('imagenBanda');
         const idUsuario = localStorage.getItem('usuarioId');
 
         const idBanda = localStorage.getItem('bandaId');
@@ -781,8 +784,10 @@ async function guardarCambiosBanda(event) {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+                nombre: nombreBanda.textContent,
                 descripcion: descripcionBanda.textContent,
                 redes: redesBanda.textContent,
+                linkfoto: imagenBanda.src,
                 generos: generosBanda.textContent,
                 idUsuario,
                 idBanda
@@ -807,11 +812,35 @@ function cambiarFotoEspacio(event) {
     }
 }
 
+function cambiarFotoBanda(event) {
+    let imagenEspacio = document.getElementById("imagenBanda");
+    let inputNuevoLink = document.getElementById("inputNuevoLinkBanda");
+    if (event.keyCode === 13){
+        event.preventDefault();
+        if (inputNuevoLink.value !== ""){
+            imagenEspacio.src = inputNuevoLink.value;
+            inputNuevoLink.value = "";
+        }
+        inputNuevoLink.type = "hidden";
+    }
+}
+
 function mostrarInputNuevoLinkEspacio() {
     let inputNuevoLink = document.getElementById("inputNuevoLinkEspacio"); 
     if (inputNuevoLink.type === "hidden"){
         inputNuevoLink.type= "url";
         inputNuevoLink.addEventListener('keydown', cambiarFotoEspacio)
+    }
+    else{
+        inputNuevoLink.type= "hidden";
+    }
+}
+
+function mostrarInputNuevoLinkBanda() {
+    let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
+    if (inputNuevoLink.type === "hidden"){
+        inputNuevoLink.type= "url";
+        inputNuevoLink.addEventListener('keydown', cambiarFotoBanda)
     }
     else{
         inputNuevoLink.type= "hidden";
@@ -824,6 +853,15 @@ function mostrarImagenPorDefectoEspacio(creandoEspacio) {
     }
     else{
         document.getElementById("imagenEspacioMiniespacio").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
+}
+
+function mostrarImagenPorDefectoBanda(creandoBanda) {
+    if (creandoBanda){
+        document.getElementById("fotoDeMuestraBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
+    else{
+        document.getElementById("imagenBanda").src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
     }
 }
 
