@@ -31,6 +31,9 @@ async function armarCartaUsuario(usuario){
     
     const foto_usuario = document.createElement("img");
     foto_usuario.src = usuario.linkfotoperfil;
+    if (!usuario.linkfotoperfil){
+        foto_usuario.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
 
     const id_contacto = document.createElement("input");
     id_contacto.type = "hidden";
@@ -65,7 +68,11 @@ async function armarCartaBanda(banda){
     nombre.textContent = banda.nombre;
 
     const foto = document.createElement("img");
-    foto.alt = "Foto no disponible";
+    foto.src = banda.linkfotobanda;
+    if (!banda.linkfotobanda){
+        foto.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
+    
     const contacto_banda = document.createElement("p");
     contacto_banda.innerText = banda.redsocial;
 
