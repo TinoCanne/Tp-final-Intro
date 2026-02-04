@@ -23,6 +23,17 @@
     position: center center;
 }
 
+.cajaLogo{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.cajaLogo img{
+    height: 200px;
+    width: 38px;
+}
+
 
 .errorLogin {
     color: red;
