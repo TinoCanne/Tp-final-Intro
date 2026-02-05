@@ -36,4 +36,5 @@ Una vez levantado el docker compose, acceder a `http://localhost:8080` nos lleva
 
 ![alt text](<Screenshot 2026-02-05 143829.png>)  
 
-Si no tienes una cuenta creada, debes crearla antes de poder acceder al resto de la pagina
+Si no tienes una cuenta creada, debes crearla antes de poder acceder al resto de la pagina.  
+una vez en la pagina principal
