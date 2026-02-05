@@ -631,6 +631,8 @@ async function dejarBanda() {
     catch(error){
         console.error(error);
     }
+    location.reload()
+    localStorage.removeItem('bandaId');
 }
 
 async function eliminarEspacio(){
