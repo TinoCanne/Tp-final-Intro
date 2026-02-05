@@ -1042,6 +1042,28 @@ async function eliminarReserva(idReserva){
     }
 }
 
+async function autorizarReserva(idReserva){
+    try{
+        const url = "http://localhost:3000/reservas/autorizar"
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                idReserva: idReserva
+            })
+        });
+        const botonAutorizar = document.getElementById(`botonAutorizarReservasId${idReserva}`);
+        botonAutorizar.textContent = "Autorizada";
+        botonAutorizar.classList.add("reservaAutorizada");
+        botonAutorizar.disabled = true;
+    }
+    catch (error){
+        console.log(error);
+    }
+}
+
 async function armarReservas(){
     contenidoTablaReservas = document.getElementById('contenidoReservasEspacio');
     let id_espacio = localStorage.getItem('espacioId');
@@ -1059,7 +1081,13 @@ async function armarReservas(){
             }
             else{
                 contenidoTabla = '';
-                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.id}</td>`;
+                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.id}</td><td>${reserva.email}</td></tr>`;
+                if(!reserva.reserva_confirmada){
+                    contenidoTabla += `<td><button id="botonAutorizarReservasId${reserva.id}" onclick="autorizarReserva(${reserva.id})">Autorizar</button></td>`;
+                }
+                else if (reserva.reserva_confirmada){
+                    contenidoTabla += `<td><p class="reservaAutorizada">Autorizada<p></td>`
+                }
                 contenidoFinal += contenidoTabla;
             }
         })

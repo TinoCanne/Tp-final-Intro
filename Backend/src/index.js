@@ -844,7 +844,7 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
 
 app.get("/reservas/espacio/:id_espacio", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM reservas WHERE id_espacio = ${req.params.id_espacio}`);
+        const result = await pool.query(`SELECT reservas.*, usuarios.email FROM reservas INNER JOIN usuarios ON usuarios.id = reservas.id_usuario WHERE reservas.id_espacio = ${req.params.id_espacio}`);
         res.json(result.rows);
     }
     catch(err){
@@ -852,7 +852,21 @@ app.get("/reservas/espacio/:id_espacio", async (req, res) => {
         res.status(500).json({error: "DB error en el metodo GET reservas/espacios/:id_espacio"});
     }
 })
-        //devuelve todos los contactos de un usuario dado su id
+
+app.patch("/reservas/autorizar", async (req, res) => {
+    try {
+        const idReserva = req.body.idReserva;
+        const query = `UPDATE reservas SET reserva_confirmada = TRUE WHERE id = ${idReserva} RETURNING *`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo PATCH reservas/autorizar" });
+    }
+});
+
+//devuelve todos los contactos de un usuario dado su id
 app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
     const q = `SELECT usuarios.* FROM usuarios INNER JOIN contactos_usuarios ON usuarios.id = contactos_usuarios.id_contacto_usuario WHERE contactos_usuarios.id_usuario = ${req.params.id_usuario}`;
 

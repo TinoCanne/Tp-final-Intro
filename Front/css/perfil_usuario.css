@@ -522,3 +522,6 @@
     border-radius: 10px;
 }
 
+.reservaAutorizada {
+    background-color: rgba(29, 201, 29, 0.89);
+}
