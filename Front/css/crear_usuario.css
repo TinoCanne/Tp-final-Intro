@@ -123,3 +123,25 @@
 .errorContraseña {
     color: #F51F15;
 }
+
+.seccionIniciarSesion {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+}
+
+.botonLlevarIniciarSesion {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.botonLlevarIniciarSesion:hover {
+    border-radius: 10px;
+}
