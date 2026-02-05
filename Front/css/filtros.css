@@ -46,6 +46,28 @@
     margin-top: 15px;
 }
 
+#filtroUsuarios,
+#filtroBandas,
+#filtroSalas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    width: 670px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: white; 
+}
+
+#filtroUsuarios::backdrop,
+#filtroBandas::backdrop,
+#filtroSalas::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(3px); 
+}
+
 #filtroUsuarios input[type="text"],
 #filtroBandas input[type="text"],
 #filtroSalas input[type="text"] {

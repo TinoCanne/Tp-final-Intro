@@ -274,7 +274,12 @@
     display: block;
 }
 
-.popupEspacio {
+.popupEspacio,
+.popupBandas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: none;
     border-radius: 15px;
     padding: 20px;
@@ -364,17 +369,16 @@
     flex-wrap: wrap;  
 }
 
-#contenedorPopUpBandas {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 #popUpBandas img {
     height: 150px;
     width: 140px;
 }
 
 .dialogConfirmacion[open] {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -461,6 +465,14 @@
 .mensajeErrorEdicion{
     display: none;
     color: #F44336;
+}
+
+.popupReservas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
 }
 
 .reservasEspacio {

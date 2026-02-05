@@ -100,6 +100,7 @@
 .cartaEspacioFavorito p {
     margin: 0;
 }
+
 .cartaEspacio h3{
     margin-top: 10px;
     font-size: 22px;
@@ -424,8 +425,14 @@
 }
 
 .misReservas {
-    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    margin: auto;
     border-collapse: collapse;
+    overflow: hidden;
     font-family: inherit;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 12px;

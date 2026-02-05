@@ -789,6 +789,7 @@ async function armarCartaEspacio(espacio){
     imagenEspacio.src = espacio.linkfotoespacio;
     const botonSeleccionarEspacio = document.createElement('button');
     botonSeleccionarEspacio.textContent = "Seleccionar y mostrar";
+    botonSeleccionarEspacio.classList.add("botonPerfil");
     botonSeleccionarEspacio.onclick = () => seleccionarEstudio(espacio);
     cartaEspacio.appendChild(nombreEspacio);
     cartaEspacio.appendChild(imagenEspacio);
@@ -806,6 +807,7 @@ async function armarCartaBanda(Banda){
     imagenBanda.src = Banda.linkfotobanda;
     const botonSeleccionarBanda = document.createElement('button');
     botonSeleccionarBanda.textContent = "Seleccionar y mostrar";
+    botonSeleccionarBanda.classList.add("botonPerfil");
     botonSeleccionarBanda.onclick = () => seleccionarBanda(Banda);
     cartaBanda.appendChild(nombreBanda);
     cartaBanda.appendChild(imagenBanda);

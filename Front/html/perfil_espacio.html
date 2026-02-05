@@ -19,10 +19,13 @@
 	    <button id = "botonFiltrarEspacios" onclick="mostrarFiltro()">Filtrar</button>
 	</div>
 	<dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
-            <div id="contenedorBotonCerrar">
-		<button class="botonCerrarMisReservas"onclick="cerrarReservas()">Cerrar</button>
-            </div>
-	    <table class="misReservas">
+        <table class="misReservas">
+            <caption>
+                    <div id="contenedorBotonCerrar">
+                        <button class="botonCerrarMisReservas"onclick="cerrarReservas()">Cerrar</button>
+                    </div>
+                    Mis reservas:
+                </caption>
                 <th>Hora</th>
                 <th>Fecha</th>
                 <th>Nombre del espacio</th>
@@ -30,9 +33,6 @@
                 <th>Número de reserva</th>
                 <th></th>
                 <th>Estado</th>
-                <caption>
-                    Mis reservas:
-                </caption>
                 <tbody class="contenidoMisReservas" id="contenidoMisReservas"></tbody>
             </table>
         </dialog>
