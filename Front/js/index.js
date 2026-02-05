@@ -312,7 +312,7 @@ function ocultarFiltroBandas(){
 async function aplicarFiltrosBandas(event){
     event.preventDefault();
     const genero = document.getElementById('generoBandasFiltros').value;
-    const url = `http://localhost:3000/filtro_bandas?genero=${genero}&idUsuario=${idUsuario}`;
+    const url = `http://localhost:3000/bandas/filtros?genero=${genero}&idUsuario=${idUsuario}`;
     mostrarBandas(url);
     event.target.reset();
     ocultarFiltroBandas()

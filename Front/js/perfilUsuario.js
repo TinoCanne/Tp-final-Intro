@@ -529,7 +529,7 @@ async function cargarDatosEspacio(){
 
     try {
         
-        const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+        const responseIdEspacios = await fetch(`http://localhost:3000/usuarios/espacios/ids/${idUsuario}`);
         const datosId = await responseIdEspacios.json(); 
 
         if (!responseIdEspacios.ok || datosId.length === 0) {
@@ -552,7 +552,7 @@ async function cargarDatosEspacio(){
             localStorage.setItem('espacioId', idEspacioLocalStorage);
         }
 
-        const response = await fetch(`http://localhost:3000/espacio/${idEspacioLocalStorage}`);
+        const response = await fetch(`http://localhost:3000/espacios/idEspacio/${idEspacioLocalStorage}`);
         if(!response.ok) throw new Error("Error al cargar detalles");
         
         const datos = await response.json();
@@ -635,7 +635,7 @@ async function dejarBanda() {
 
 async function eliminarEspacio(){
     try{
-        const response = await fetch(`http://localhost:3000/espacios/${localStorage.getItem('espacioId')}` , {
+        const response = await fetch(`http://localhost:3000/espacios/idEspacio/${localStorage.getItem('espacioId')}` , {
             method: 'DELETE'
         });
     }
@@ -703,7 +703,7 @@ async function mostrarTodosEspacios(){
     divContenedorPopUp.innerHTML = '';
     
     try{
-        const dataEspacios = await fetch(`http://localhost:3000/obtener_espacios/${idUsuario}`);
+        const dataEspacios = await fetch(`http://localhost:3000/usuarios/espacios/${idUsuario}`);
         const Espacios = await dataEspacios.json()
         Espacios.forEach(espacio => {
             armarCartaEspacio(espacio);

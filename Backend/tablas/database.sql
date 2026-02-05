@@ -80,7 +80,7 @@ CREATE TABLE contactos_bandas (
     FOREIGN KEY (id_contacto_bandas) REFERENCES bandas(id) ON DELETE CASCADE
 );
 
-CREATE TABLE contactos_espacios (
+CREATE TABLE espacios_favoritos (
     id_usuario INT,
     id_contacto_espacio INT,
     PRIMARY KEY (id_usuario, id_contacto_espacio),

@@ -3,7 +3,7 @@ let espacioSeleccionado = null;
 
 
 document.addEventListener("DOMContentLoaded", async function(){
-    const url = `http://localhost:3000/espacios/${idUsuario}`;
+    const url = `http://localhost:3000/espacios/usuarios/idUsuario/${idUsuario}`;
     crearCartasEspacios(url);
 })
 
@@ -83,7 +83,7 @@ async function crearCartasEspacios(url){
 
 async function agregarEspacioFavorito(idEspacio){
     try{
-        await fetch("http://localhost:3000/espacios/favorito", {
+        await fetch("http://localhost:3000/espacios/favoritos", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -518,7 +518,7 @@ function aplicarFiltroEspacios(event){
         const precioPorHora = document.getElementById('precioPorHora').value;
         const horaElegida = document.getElementById('horaAbierto').value;
         const espaciosFavoritos = document.getElementById('soloEspaciosFavoritos').checked;
-        let url = `http://localhost:3000/filtro_espacios?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}&idUsuario=${idUsuario}&espaciosFavoritos=${espaciosFavoritos}`;
+        let url = `http://localhost:3000/espacios/filtros?ubicacion=${ubicacion}&precioPorHora=${precioPorHora}&hora=${horaElegida}&idUsuario=${idUsuario}&espaciosFavoritos=${espaciosFavoritos}`;
     
         crearCartasEspacios(url);
     }
