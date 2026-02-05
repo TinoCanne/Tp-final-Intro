@@ -261,7 +261,7 @@
     box-sizing: border-box;
 }
 
-#divCrearBanda, 
+.crearBanda, 
 .unirseBanda {  
     width: 45%;
     border: 1px solid rgba(255,255,255,0.1);
@@ -320,6 +320,15 @@
     width: auto;
     border-radius: 50%;
     object-fit: cover;
+    background-color: grey;
+}
+
+.fotoDeMuestraBanda {
+    height: 200px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: grey;
 }
 
 .contenedorInfoMiniespacio,
@@ -332,13 +341,6 @@
     min-height: 250px;
 }
 
-.contenedorImagenEspacioMiniespacio {
-    width: 250px;
-    height: 250px;
-    background-color: white;
-    border-radius: 15px;
-}
-
 .imagenEspacioMiniespacio,
 .imagenBanda {
     position: absolute;
@@ -349,6 +351,7 @@
     height: 200px;
     border-radius: 15px;
     object-fit: cover;
+    background-color: grey;
 }
 
 .contenedorBotonesEspacio {
