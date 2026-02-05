@@ -332,6 +332,13 @@
     min-height: 250px;
 }
 
+.contenedorImagenEspacioMiniespacio {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    border-radius: 15px;
+}
+
 .imagenEspacioMiniespacio,
 .imagenBanda {
     position: absolute;
