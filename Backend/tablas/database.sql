@@ -18,8 +18,7 @@ CREATE TABLE bandas (
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
     contraseñaParaIngresar VARCHAR(50),
-    linkfotobanda TEXT,
-    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
+    linkfotobanda TEXT
 );
 
 CREATE TABLE espacios (
@@ -96,6 +95,7 @@ CREATE TABLE reservas (
     dia_reserva INT,
     mes_reserva INT,
     año_reserva INT,
+    reserva_confirmada BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (id_espacio, hora_reserva, dia_reserva, mes_reserva, año_reserva),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (id_espacio) REFERENCES espacios(id) ON DELETE CASCADE

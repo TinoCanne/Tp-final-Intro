@@ -750,6 +750,11 @@ function cerrarPopUpBanda(){
     popUpBandas.close();
 }
 
+function cerrarPopUpReservas(){
+    const popUpReservas = document.getElementById("popUpReservas");
+    popUpReservas.close();
+}
+
 function seleccionarEstudio(espacio){
     localStorage.setItem('espacioId', espacio.id);
     cerrarPopUpEspacio();
@@ -1017,4 +1022,85 @@ function validarNumerosCrear(input){
         input.setCustomValidity("");
         input.style.backgroundColor = "";
     }
+}
+
+async function eliminarReserva(idReserva){
+    try{
+        url = `http://localhost:3000/reservas/${idReserva}`;
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type" : "application/json",
+            }
+        })
+        if(response.ok) {
+            await armarReservas(); 
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+async function autorizarReserva(idReserva){
+    try{
+        const url = "http://localhost:3000/reservas/autorizar"
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify({
+                idReserva: idReserva
+            })
+        });
+        const botonAutorizar = document.getElementById(`botonAutorizarReservasId${idReserva}`);
+        botonAutorizar.textContent = "Autorizada";
+        botonAutorizar.classList.remove("reservasEspacioBoton");
+        botonAutorizar.classList.add("reservaAutorizada");
+        botonAutorizar.disabled = true;
+    }
+    catch (error){
+        console.log(error);
+    }
+}
+
+async function armarReservas(){
+    contenidoTablaReservas = document.getElementById('contenidoReservasEspacio');
+    let id_espacio = localStorage.getItem('espacioId');
+    try{
+        const url = `http://localhost:3000/espacios/reservas/idEspacio/${id_espacio}`;
+        const dataReservas = await fetch(url);
+        const reservas = await dataReservas.json();
+        let contenidoFinal = ``;
+        const hoy = new Date()
+        reservas.forEach(reserva => {
+            const diaYHoraReserva = (new Date(reserva.año_reserva, reserva.mes_reserva - 1, reserva.dia_reserva));
+            diaYHoraReserva.setHours(reserva.hora_reserva,0,0,0);
+            if (diaYHoraReserva.getTime() < hoy.getTime()){
+                eliminarReserva(reserva.id);
+            }
+            else{
+                contenidoTabla = '';
+                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.id}</td><td>${reserva.email}</td>`;
+                if(!reserva.reserva_confirmada){
+                    contenidoTabla += `<td><button class="reservasEspacioBoton" id="botonAutorizarReservasId${reserva.id}" onclick="autorizarReserva(${reserva.id})">Autorizar</button></td></tr>`;
+                }
+                else if (reserva.reserva_confirmada){
+                    contenidoTabla += `<td><button class="reservaAutorizada">Autorizada</button></td></tr>`
+                }
+                contenidoFinal += contenidoTabla;
+            }
+        })
+        contenidoTablaReservas.innerHTML = contenidoFinal;
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+function mostrarReservas(){
+    const popUpReservas = document.getElementById("popUpReservas");
+    armarReservas()
+    popUpReservas.showModal();
 }

@@ -838,9 +838,147 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/mes" });
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/mes/:id_espacio/:año/:mes" });
     }
 });
+
+app.get("/espacios/reservas/idEspacio/:id_espacio", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT reservas.*, usuarios.email FROM reservas INNER JOIN usuarios ON usuarios.id = reservas.id_usuario WHERE reservas.id_espacio = ${req.params.id_espacio} ORDER BY reservas.año_reserva, reservas.mes_reserva, reservas.dia_reserva, hora_reserva`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo GET reservas/espacios/:id_espacio"});
+    }
+})
+
+app.patch("/reservas/autorizar", async (req, res) => {
+    try {
+        const idReserva = req.body.idReserva;
+        const query = `UPDATE reservas SET reserva_confirmada = TRUE WHERE id = ${idReserva} RETURNING *`;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({error: "DB error en el metodo PATCH reservas/autorizar" });
+    }
+});
+
+//devuelve todos los contactos de un usuario dado su id
+app.get("/pedir_contactos/:id_usuario", async(req, res) =>{
+    const q = `SELECT usuarios.* FROM usuarios INNER JOIN contactos_usuarios ON usuarios.id = contactos_usuarios.id_contacto_usuario WHERE contactos_usuarios.id_usuario = ${req.params.id_usuario}`;
+
+    try{
+        const response = await pool.query(q);
+        res.json(response.rows); 
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
+//borrar un contacto dado el id del usuario y el del contacto
+app.delete("/eliminar_contacto/:id_usuario/:id_contacto", async(req, res) =>{
+    const q = `DELETE FROM contactos_usuarios WHERE id_usuario = ${req.params.id_usuario} AND id_contacto_usuario = ${req.params.id_contacto}`;
+
+    try{
+        const respone = await pool.query(q);
+        res.send("contacto eliminado con exito");
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send(err.message);
+    }
+})
+
+app.delete("/eliminar_contacto_banda/:id_usuario/:id_banda", async(req, res) =>{
+    const q = `DELETE FROM contactos_bandas WHERE id_usuario = ${req.params.id_usuario} AND id_contacto_bandas = ${req.params.id_banda}`;
+    try{
+        const response = await pool.query(q);
+        res.send("banda eliminada exitosamente de los contactos");
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
+app.get("/pedir_bandas/:id_usuario", async(req, res) => {
+    const idUsuario = parseInt(req.params.id_usuario);
+    const q = `SELECT bandas.* FROM bandas INNER JOIN contactos_bandas ON bandas.id = contactos_bandas.id_contacto_bandas WHERE contactos_bandas.id_usuario = ${idUsuario}`;
+
+    try{
+        const response = await pool.query(q);
+        res.json(response.rows)
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
+app.get("/usuarios_index/:id_usuario", async (req, res) => {
+    try{
+        const query = `SELECT usuarios.* FROM usuarios
+            LEFT JOIN contactos_usuarios  
+            ON usuarios.id = contactos_usuarios.id_contacto_usuario AND contactos_usuarios.id_usuario = ${req.params.id_usuario} 
+            WHERE usuarios.id != ${req.params.id_usuario} 
+            AND contactos_usuarios.id_contacto_usuario IS NULL`;
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+app.get("/bandas_index/:id_usuario", async (req, res) => {
+    try{
+        const query = `SELECT bandas.* FROM bandas
+            LEFT JOIN contactos_bandas
+            ON bandas.id = contactos_bandas.id_contacto_bandas AND contactos_bandas.id_usuario = ${req.params.id_usuario} 
+            WHERE contactos_bandas.id_contacto_bandas IS NULL`;
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+});
+
+app.post("/aceptar_usuarios/", async (req, res) =>{
+    const q = `INSERT INTO contactos_usuarios (id_usuario, id_contacto_usuario) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_usuario})`
+    await pool.query(q);
+    console.log("agregado exitoso");
+})
+
+app.get("/username_integrantes_bandas/:idBanda", async (req, res) => {
+    try{
+        const query = `SELECT usuarios.* from usuarios INNER JOIN integrantes_bandas ON usuarios.id = integrantes_bandas.id_integrante WHERE integrantes_bandas.id_banda = ${req.params.idBanda}`
+        const response = await pool.query(query);
+        res.json(response.rows);
+    }
+
+    catch(error){
+        console.log(err)
+        res.status(500).json({ error : "DB error" });
+    }
+})
+
+app.post("/aceptar_banda", async (req, res) => {
+    try{
+        const query = `INSERT INTO contactos_bandas (id_usuario, id_contacto_bandas) VALUES (${req.body.id_usuario}, ${req.body.id_contacto_banda})`
+        await pool.query(query);
+        res.status(200);
+    }
+    catch(error){
+        res.status(500).json({ error : "Error en la db" });
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
