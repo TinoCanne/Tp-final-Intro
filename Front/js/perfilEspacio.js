@@ -38,6 +38,9 @@ async function crearCartasEspacios(url){
             const diasAbierto = document.createElement("p");
             diasAbierto.textContent = espacio.diasabierto;
 
+            const contacto = document.createElement("p");
+            contacto.textContent = espacio.contacto;
+
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
@@ -51,6 +54,7 @@ async function crearCartasEspacios(url){
             carta.appendChild(barrio);
             carta.appendChild(precio);
             carta.appendChild(diasAbierto);
+            carta.appendChild(contacto);
 
             carta.appendChild(botonReserva);
             const botonFavorito = document.createElement('button');
