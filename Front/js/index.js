@@ -197,7 +197,7 @@ async function cargarGenerosBanda(idBandaAMostrar){
 
 async function cargarMiembrosBanda(idBandaAMostrar) {
     try {
-        const response = await fetch(`http://localhost:3000/username_integrantes_bandas/${idBandaAMostrar}`);
+        const response = await fetch(`http://localhost:3000/bandas/integrantes/idBanda/${idBandaAMostrar}`);
         const datos = await response.json();
 
         let miembros = "";

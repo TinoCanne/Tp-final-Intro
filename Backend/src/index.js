@@ -540,7 +540,7 @@ app.get("/bandas/integrantes/cantidad/:id_banda", async (req, res) => {
 });
 
 // Unirse a un banda
-app.post("bandas/unirse", async (req, res) => {
+app.post("/bandas/unirse", async (req, res) => {
     const { nombre, contraseña, idUsuario } = req.body; 
     try {
         const queryVerificacion = `
