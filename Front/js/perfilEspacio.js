@@ -465,9 +465,6 @@ async function eliminarReserva(idReserva, expiro){
         })
         if(response.ok) {
             await armarMisReservas(); 
-            if (!expiro){
-                alert("Reserva cancelada correctamente");
-            }
         }
     }
     catch(error){
