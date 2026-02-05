@@ -19,7 +19,7 @@ async function login(event) {
         const email = document.getElementById('email_usuario');
         const contraseña = document.getElementById('contraseña_usuario');
         
-        const url = "http://localhost:3000/login"; 
+        const url = "http://localhost:3000/usuarios/login"; 
         
         const response = await fetch(url, {
             method: "POST",

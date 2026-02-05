@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function cargarGenerosUsuario(id_usuario) {
     try{
-        const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/usuarios/generos/${id_usuario}`);
         const datos_generos = await response.json();
         let string_generos = '';
         datos_generos.forEach(generos_usuario => {
@@ -234,7 +234,7 @@ async function cargarGenerosUsuario(id_usuario) {
 
 async function cargarInstrumentos(id_usuario) {
     try{
-        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/usuarios/instrumentos/${id_usuario}`);
         const datos_instrumentos = await response.json();
         let string_instrumentos = '';
         datos_instrumentos.forEach(instrumentos_usuario => {
@@ -257,7 +257,7 @@ function mostrarImagenPorDefecto(imagen){
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
     try{
-        const response = await fetch(`http://localhost:3000/usuarios/${id}`);
+        const response = await fetch(`http://localhost:3000/usuarios/id/${id}`);
         const datos = await response.json();
 
         const nombreUsuario = document.getElementById('nombre');
@@ -585,7 +585,7 @@ async function eliminarPerfil() {
         return;
     }
     try {
-        const response = await fetch(`http://localhost:3000/usuarios/${idUsuario}`, {
+        const response = await fetch(`http://localhost:3000/usuarios/id/${idUsuario}`, {
             method: 'DELETE'
         });
         if (!response.ok) {

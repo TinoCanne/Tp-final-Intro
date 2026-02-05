@@ -69,7 +69,7 @@ async function devolverPersonas(url){
 
 //agregar persona a tus contactos
 async function aceptarPersona(id_usuario){
-    const url_agregar = `http://localhost:3000/aceptar_usuarios/`;
+    const url_agregar = `http://localhost:3000/usuarios/contactos/usuarios`;
     try{
         const exito_agregar = await fetch(url_agregar, {
             method:"POST",
@@ -89,7 +89,7 @@ async function aceptarPersona(id_usuario){
 
 async function cargarInstrumentosUsuario(idUsuarioAMostrar) {
     try {
-        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${idUsuarioAMostrar}`);
+        const response = await fetch(`http://localhost:3000/usuarios/instrumentos/${idUsuarioAMostrar}`);
         const datos = await response.json();
 
         let instrumentos = "";
@@ -106,7 +106,7 @@ async function cargarInstrumentosUsuario(idUsuarioAMostrar) {
 
 async function cargarGenerosUsuario(idUsuarioAMostrar) {
     try {
-        const response = await fetch(`http://localhost:3000/generos_usuarios/${idUsuarioAMostrar}`);
+        const response = await fetch(`http://localhost:3000/usuarios/generos/${idUsuarioAMostrar}`);
         const datos = await response.json();
 
         let generos = "";
@@ -156,14 +156,14 @@ document.addEventListener("DOMContentLoaded", () => {
         cartaBanda.classList.add("hidden");  
         botonFiltrosUsuarios.classList.remove("hidden")
         botonFiltrosBandas.classList.add("hidden");
-        mostrarUsuarios(`http://localhost:3000/usuarios_index/${idUsuario}`);
+        mostrarUsuarios(`http://localhost:3000/usuarios/nuevos/usuarios/${idUsuario}`);
     });
 
     botonMostrarBandas.addEventListener("click", function(){
         cartaUsuario.classList.add("hidden");
         botonFiltrosUsuarios.classList.add("hidden")
         botonFiltrosBandas.classList.remove("hidden");
-        mostrarBandas(`http://localhost:3000/bandas_index/${idUsuario}`);
+        mostrarBandas(`http://localhost:3000/usuarios/nuevos/bandas/${idUsuario}`);
     });
 });
 
@@ -229,7 +229,7 @@ async function cargarCartaBanda(Banda){
 }
 
 async function aceptarBanda(id_banda){
-    const url_agregar = `http://localhost:3000/aceptar_banda/`;
+    const url_agregar = `http://localhost:3000/usuarios/contactos/bandas/`;
     try{
         const exito_agregar = await fetch(url_agregar, {
             method:"POST",
@@ -333,7 +333,7 @@ async function aplicarFiltrosUsuarios(event){
     try{
         const genero = document.getElementById('generoUsuariosFiltros').value;
         const instrumento = document.getElementById('instrumentoUsuariosFiltros').value;
-        const url = `http://localhost:3000/filtro_usuarios?genero=${genero}&instrumento=${instrumento}&idUsuario=${idUsuario}`;
+        const url = `http://localhost:3000/usuarios/filtros?genero=${genero}&instrumento=${instrumento}&idUsuario=${idUsuario}`;
         mostrarUsuarios(url);
     }
     catch (error){

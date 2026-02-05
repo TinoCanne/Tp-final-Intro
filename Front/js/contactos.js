@@ -96,7 +96,7 @@ async function mostrar_contactos_usuarios(id_usuario){
     try{
         const container = document.getElementById("marco_usuario"); 
         container.innerHTML = "";
-        const url = `http://localhost:3000/pedir_contactos/${id_usuario}`
+        const url = `http://localhost:3000/usuarios/contactos/usuarios/${id_usuario}`
         const contactos = await fetch(url, {
             method: "GET",
             headers: {
@@ -119,7 +119,7 @@ async function mostrar_contactos_usuarios(id_usuario){
 async function mostrar_contactos_bandas(id_usuario){
     const container = document.getElementById("marco_bandas"); 
     container.innerHTML = "";
-    const url = `http://localhost:3000/pedir_bandas/${id_usuario}`;
+    const url = `http://localhost:3000/usuarios/contactos/bandas/${id_usuario}`;
     try{
             const data = await fetch(url, {
             method:"GET",
@@ -140,7 +140,7 @@ async function mostrar_contactos_bandas(id_usuario){
 }
 
 async function eliminar_contacto(id_usuario, id_contacto){
-    const url = `http://localhost:3000/eliminar_contacto/${id_usuario}/${id_contacto}`;
+    const url = `http://localhost:3000/usuarios/contactos/usuarios/${id_usuario}/${id_contacto}`;
     try{
         const response = await fetch(url, {
             method:"DELETE",
@@ -159,7 +159,7 @@ async function eliminar_contacto(id_usuario, id_contacto){
 
 async function eliminar_banda_contactos(id_usuario, id_banda){
 
-    const url = `http://localhost:3000/eliminar_contacto_banda/${id_usuario}/${id_banda}`;
+    const url = `http://localhost:3000/usuarios/contactos/bandas/${id_usuario}/${id_banda}`;
 
     try{
         const response = await fetch(url, {
