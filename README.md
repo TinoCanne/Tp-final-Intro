@@ -34,22 +34,22 @@ En el caso de querer agregar elementos a la base de datos, debera accederse a po
 ## Funcionamiento de la pagina:  
 Una vez levantado el docker compose, acceder a `http://localhost:8080` nos llevara a la pagina principal en caso de ya tener un usuario creado y una sesion iniciada, o a la pagina de iniciar sesion en el caso de no tener una sesion previa.  
 
-![alt text](<Screenshot 2026-02-05 143829.png>)  
+![alt text](<./fotosReadme/Screenshot 2026-02-05 143829.png>)  
 
 Si no tienes una cuenta creada, debes crearla antes de poder acceder al resto de la pagina.  
 una vez en la pagina principal puedes ver usuarios y bandas con los que puedes interactuar.  
 
-![alt text](<Screenshot 2026-02-05 175004.png>)
+![alt text](<./fotosReadme/Screenshot 2026-02-05 175004.png>)
 
 Cuando decidas aceptar un usuario o seguir a una banda, esta sera agregada a tus contactos, donde podras ver su informacion de contacto.  
 
-![alt text](<Screenshot 2026-02-05 175140.png>)
+![alt text](<./fotosReadme/Screenshot 2026-02-05 175140.png>)
 
 En la pestaña de estudio, puedes ver los estudios disponibles para reservar y administrar (hacer y cancelar) tus reservas.
 
-![alt text](<Screenshot 2026-02-05 190734.png>)
-![alt text](<Screenshot 2026-02-05 190815.png>)
+![alt text](<./fotosReadme/Screenshot 2026-02-05 190734.png>)
+![alt text](<./fotosReadme/Screenshot 2026-02-05 190815.png>)
 
 Desde tu perfil podes publicar espacios para que la gente reserve, indicando su nombre, horariode operacion, etc. Tambien puedes crear y unirte a una banda.
 
-![alt text](<Screenshot 2026-02-05 190856.png>)
+![alt text](<./fotosReadme/Screenshot 2026-02-05 190856.png>)
