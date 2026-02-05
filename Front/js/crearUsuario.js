@@ -42,17 +42,20 @@ async function crear_usuario(event){
     }
 
     try{
-        const nombre = document.getElementById('nombre');
-        const apellido = document.getElementById('apellido');
-        const username = document.getElementById('username');
-        const biografia = document.getElementById('biografia');
-        const redesSociales = document.getElementById('redessociales');
-        const contraseña = document.getElementById('contraseña_usuario');
-        const email = document.getElementById('email');
-        const linkfoto = document.getElementById('linkfoto');
-        const contacto = document.getElementById('contacto');
-        const instrumentos = document.getElementById('instrumentos');
-        const generos = document.getElementById('generosfavoritos')
+        const nombre = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
+        const username = document.getElementById('username').value;
+        const biografia = document.getElementById('biografia').value;
+        const redesSociales = document.getElementById('redessociales').value;
+        const contraseña = document.getElementById('contraseña_usuario').value;
+        const email = document.getElementById('email').value;
+        let linkfoto = document.getElementById('linkfoto').value;
+        const contacto = document.getElementById('contacto').value;
+        const instrumentos = document.getElementById('instrumentos').value;
+        const generos = document.getElementById('generosfavoritos').value;
+        if (!linkfoto){
+            linkfoto = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+        }
 
         const url = "http://localhost:3000/usuarios";
         const response = await fetch(url, {
@@ -61,17 +64,17 @@ async function crear_usuario(event){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                nombre: nombre.value,
-                apellido: apellido.value,
-                username: username.value,
-                contraseña: contraseña.value,
-                email: email.value,
-                biografia: biografia.value,
-                redesSociales: redesSociales.value,
-                linkFoto: linkfoto.value,
-                contacto: contacto.value,
-                instrumentos: instrumentos.value,
-                generos: generos.value
+                nombre: nombre,
+                apellido: apellido,
+                username: username,
+                contraseña: contraseña,
+                email: email,
+                biografia: biografia,
+                redesSociales: redesSociales,
+                linkFoto: linkfoto,
+                contacto: contacto,
+                instrumentos: instrumentos,
+                generos: generos
             })
         });
         if (response.ok){

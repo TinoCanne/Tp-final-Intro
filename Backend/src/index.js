@@ -190,8 +190,8 @@ app.get("/bandas/:id", async (req, res) => {
 // Crear una banda
 app.post("/bandas", async (req, res) => {
     try {
-        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar)
-        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}') RETURNING id`;
+        const query_banda = `INSERT INTO bandas (nombre, fechaCreacion, descripcion, redSocial, contraseñaParaIngresar, linkfotobanda)
+        VALUES ('${req.body.nombre}', '${req.body.fecha}','${req.body.descripcion}', '${req.body.redSocial}', '${req.body.contraseña}', '${req.body.linkFotoBanda}') RETURNING id`;
         const query_id_banda = await pool.query(query_banda);
 
         const id_banda = query_id_banda.rows[0].id;

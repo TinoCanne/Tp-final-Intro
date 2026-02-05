@@ -431,7 +431,10 @@ async function crearBanda(event){
     const generos = document.getElementById('generosUsuarioCrearBanda').value;
     const descripcion = document.getElementById('descripcionCrearBanda').value;
     const contraseñaBanda = document.getElementById('contraseñaCrearBanda').value;
-
+    let linkfotobanda = document.getElementById('linkFotoCrearBanda').value;
+    if(!linkfotobanda){
+        linkfotobanda = "https://cdn-icons-png.flaticon.com/512/681/681494.png";
+    }
     const fechaCompleta = new Date();
     const fechaCreacion = String(fechaCompleta.getFullYear() + '-' + String(fechaCompleta.getMonth() +1) + '-' + String(fechaCompleta.getDate()));
 
@@ -448,7 +451,8 @@ async function crearBanda(event){
                 descripcion: descripcion,
                 redSocial: redSocial,
                 idUsuario: idUsuario,
-                generos: generos
+                generos: generos,
+                linkFotoBanda: linkfotobanda
             })
         });
 
@@ -469,7 +473,7 @@ function mostrarImagenCrearEspacio() {
 async function crearEspacio(event){
     event.preventDefault();
     const nombreEspacio = document.getElementById('nombreCrearEspacio').value;
-    const linkFotoEspacio = document.getElementById('linkFotoEspacio').value;
+    let linkFotoEspacio = document.getElementById('linkFotoEspacio').value;
     const ubicacionEspacio = document.getElementById('ubicacionCrearEspacio').value;
     const descripcionEspacio = document.getElementById('descripcionCrearEspacio').value;
     const contactoEspacio = document.getElementById('contactoCrearEspacio').value;
@@ -481,6 +485,9 @@ async function crearEspacio(event){
     const diaCierre = document.getElementById('diaCierreCrearEspacio').value;
     const diasAbiertos = diaApertura + '-' + diaCierre;
     const idUsuario = localStorage.getItem('usuarioId');
+    if(!linkFotoEspacio){
+        linkFotoEspacio = "https://cdn-icons-png.flaticon.com/512/13163/13163762.png";
+    }
 
     try {
         const response = await fetch("http://localhost:3000/espacios", {
