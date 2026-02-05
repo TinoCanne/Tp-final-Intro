@@ -425,14 +425,8 @@
 }
 
 .misReservas {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    margin: auto;
+    width: 100%;
     border-collapse: collapse;
-    overflow: hidden;
     font-family: inherit;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
@@ -531,4 +525,10 @@
     padding-left: 30px;
     padding-right: 30px;
     font-weight: 500;
+}
+
+.cuadroMisReservas {
+    position: fixed;
+    top: 30%;
+    left: 20%;
 }
