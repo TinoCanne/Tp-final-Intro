@@ -20,7 +20,7 @@
 	        <h1 class="h1Perfil">Mi perfil</h1>
 
 	        <div class="contenedorFotoPerfil">
-                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefecto(this)">
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario(this)">
                 <div class="contenedorNuevoLinkUsuario">
                     <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                 </div>
@@ -84,7 +84,7 @@
                     </form>
                 
                     <div class="contenedorImagenBanda">
-                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefecto(this)">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(this)">
                         <div class="contenedorNuevoLink">
 			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                     	</div>
@@ -103,7 +103,7 @@
                 <h2 class="h2perfil">Cree su banda</h2>
                 <br>
                 <div class="contenedorFotoDeMuestraEspacio">
-                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(this)"><br>
                 </div>
                 <form class="crearBandaForm" onsubmit="crearBanda(event)">
                     <label><strong>Nombre de la banda:</strong>
@@ -134,6 +134,9 @@
             <div class="unirseBanda" id="divUnirseBanda">
                 <h2 class="h2perfil">Únete a una banda</h2>
                 <br>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(this)"><br>
+                </div>
                 <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
                     <label><strong>Ingrese el nombre de la banda:</strong>
                     <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
@@ -172,7 +175,7 @@
                         <span id="diasAbiertosEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
-		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefecto(this)">
+		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(this)">
         		    	<div class="contenedorNuevoLink">
                             <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
                     	</div>
@@ -190,7 +193,7 @@
             <div id="crearEspacio" class="hiddenEspacio">
                 <h2>Publique su espacio</h2>
                 <div class="contenedorFotoDeMuestraEspacio">
-                    <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
+                    <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/512/13163/13163762.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoEspacio(this)"><br>
                 </div>
                 <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
                     <label><strong>Nombre del espacio:</strong>
@@ -208,11 +211,11 @@
                     <input class="inputDatosPerfil"  id="tamañoCrearEspacio" required></input></label>
                     <label><strong>Precio por hora:</strong>
                     <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio" oninput="validarNumerosCrear(this)" required></input></label>
-                    <label><strong>Horario de apertura:</strong></label>
+                    <label><strong>Hora de apertura:</strong></label>
                     <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio" oninput="validarHoras(this)" required></input>
-                    <label><strong>Horario de cierre:</strong></label>
+                    <label><strong>Hora de cierre:</strong></label>
                     <input class="inputDatosPerfil" id="horarioCierreCrearEspacio" oninput="validarHoras(this)" required></input>
-                    <label><strong>¿Qué día abre el estudio?:</strong></label>
+                    <label><strong>¿Cual es el primer día que abre el estudio?:</strong></label>
                     <select name="diaApertura" id="diaAperturaCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
@@ -222,7 +225,8 @@
                         <option value="sab">Sábado</option>
                         <option value="dom">Domingo</option>
                     </select>
-                    <label><strong>¿Qué día cierra el estudio?:</strong></label>
+                    <br>
+                    <label><strong>¿Cual es el ultimo día que abre el estudio?:</strong></label>
                     <select name="diaCierre" id="diaCierreCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
