@@ -250,9 +250,18 @@ async function cargarInstrumentos(id_usuario) {
     }   
 }
 
-function mostrarImagenPorDefecto(imagen){
+function mostrarImagenPorDefectoUsuario(imagen){
     imagen.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
 }
+
+function mostrarImagenPorDefectoBanda(imagen){
+    imagen.src = "https://cdn-icons-png.flaticon.com/512/681/681494.png";
+}
+
+function mostrarImagenPorDefectoEspacio(imagen){
+    imagen.src = "https://cdn-icons-png.https://cdn-icons-png.flaticon.com/512/13163/13163762.png.com/512/681/681494.png";
+}
+
 
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
