@@ -376,7 +376,7 @@
 
 .dialogConfirmacion[open] {
     display: flex;
-    flex-direction: column; /* Para que el texto y los botones queden uno abajo del otro */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 15px;
