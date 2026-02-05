@@ -56,7 +56,7 @@
             
 	        <div class="contenedorBotonEdicionPerfil">
             	<button type="button" class="botonPerfil" id="botonDeEdicionPerfil">Editar perfil</button> 
-		        <button type="button" class="botonPerfil" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
+		        <button type="button" class="botonPerfilEliminar" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
                 <span class="mensajeErrorEdicion" id="mensajeErrorEdicion">Hay un error en los datos</span>
 	        </div>
 	    </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="contenedorBotonEdicionBanda">
                     <button type="button" class="botonPerfil" id="botonDeEdicionBanda">Editar banda</button>
-                    <button type="button" class="botonPerfil" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
+                    <button type="button" class="botonPerfilEliminar" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
                     <button type="button" class="botonPerfil" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
                     <button type="button" class="botonPerfil" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
                     <button type="button" class="botonPerfil" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
@@ -241,11 +241,25 @@
 
         <dialog id="popUpEspacios" class="popupEspacio">
             <div id="contenedorBotonCerrar">
-		<button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
-	    </div>
-	    <div id="contenedorPopUpEspacio" class="contenedorPopUp">
-                
-            </div>
+		        <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
+	        </div>
+	        <div id="contenedorPopUpEspacio" class="contenedorPopUp"></div>
+        </dialog>
+        
+        <dialog id="popUpReservas" class="popUpReservas">
+            <div id="contenedorBotonCerrar">
+		        <button type="button" id="cerrarPopUpReservas" onclick="cerrarPopUpReservas()">X</button>
+	        </div>
+            <table class="reservasEspacio">
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Numero de reserva</th>
+                <th>email usuario</th>
+                <caption>
+                    Reservas:
+                </caption>
+                <tbody class="contenidoReservasEspacio" id="contenidoReservasEspacio"></tbody>
+            </table>
         </dialog>
 
         <dialog id="popUpBandas">

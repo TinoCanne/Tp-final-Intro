@@ -435,3 +435,83 @@
     display: none;
     color: #F44336;
 }
+
+.reservasEspacio {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+}
+
+.reservasEspacio caption {
+    caption-side: top;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.reservasEspacio th {
+    border: none;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 17px;
+}
+
+
+.reservasEspacio td {
+    border: none;
+    padding: 10px 12px;
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+}
+
+.reservasEspacio thead {
+    background-color: rgb(151, 120, 40);
+    color: white;
+}
+
+.reservasEspacio thead th {
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.reservasEspacio tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    transition: background-color 0.15s ease;
+}
+
+.reservasEspacio tbody tr:hover {
+    background-color: rgba(151, 120, 40, 0.08);
+}
+
+.reservasEspacio tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.reservasEspacio tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.reservasEspacio button {
+    padding: 6px 12px;
+    border-radius: 14px;
+    border: none;
+    background-color: #a33;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reservasEspacio button:hover {
+    background-color: #c44;
+    border-radius: 10px;
+}
+
