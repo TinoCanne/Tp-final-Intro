@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/styles.css">
-        <title>¡Cree su nueva cuenta Jameet!</title>
-    </head>
-    <body>
-        <div class="fotoFondoCrearUsiario">
-            <div class="content">
+           <div class="content">
  <h1 class="h1CrearUsuario">Complete el siguiente formulario para crear su cuenta</h1>
         <div class="formCrearUsuario">
             <form onsubmit="crear_usuario(event)">
@@ -46,15 +36,9 @@
             </form>
             <script src="../js/crearUsuario.js"></script>
 
-        </div>
+
         <div class="botoneraCrearUsuario">
             <div class="botonIndex">
                 <a href="iniciar_sesion.html">Volver a iniciar sesion</a>
             </div>
         </div>
-    </div>
-        </div>
-
-    </body>
-    <script src="../js/crearUsuario.js"></script>
-</html>

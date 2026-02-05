@@ -34,3 +34,6 @@ En el caso de querer agregar elementos a la base de datos, debera accederse a po
 ## Funcionamiento de la pagina:  
 Una vez levantado el docker compose, acceder a `http://localhost:8080` nos llevara a la pagina principal en caso de ya tener un usuario creado y una sesion iniciada, o a la pagina de iniciar sesion en el caso de no tener una sesion previa.  
 
+![alt text](<Screenshot 2026-02-05 143829.png>)  
+
+Si no tienes una cuenta creada, debes crearla antes de poder acceder al resto de la pagina

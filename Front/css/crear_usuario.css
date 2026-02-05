@@ -6,7 +6,7 @@
     width: 350px;
     height: 1400px;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.436);
     padding: 30px;
     padding-bottom: 50px;
 }
@@ -156,4 +156,12 @@
 
 .botonLlevarIniciarSesion:hover {
     border-radius: 10px;
+}
+
+.fotoFondoCrearUsiario{
+    background-image: url(https://media.istockphoto.com/id/1020227856/photo/empty-concert-stage-on-music-festival-instruments-silhouettes.jpg?s=612x612&w=0&k=20&c=p1Fd5SV27zTvumgkeXbFD0xQXDZdg9ooIKw0U1SfZxI=);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
 }
