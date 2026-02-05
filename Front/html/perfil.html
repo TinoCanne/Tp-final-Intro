@@ -70,7 +70,7 @@
                         <label class="filaPerfilBanda"><strong>Nombre:</strong>
                         <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                         <label class="filaPerfilBanda"><strong>Genero/s:</strong>
-                        <span class="spanDatosBanda" contenteditable="false" id="generosBanda"></span></label>
+                        <span class="spanDatosBanda" contenteditable="false" id="generosBanda" oninput="validarSeparadoPorComasSpan(this)"></span></label>
                         <label class="filaPerfilBanda"><strong>Descripción:</strong>
                         <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
                         <label class="filaPerfilBanda"><strong>Integrantes:</strong>
@@ -117,7 +117,7 @@
                     <input class="inputDatosPerfil"  id="redSocialCrearBanda" required></input></label><br>
                     
                     <label><strong>Generos favoritos:</strong>
-                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda" required></input></label><br>
+                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda" oninput="validarSeparadoPorComas(this)" required></input></label><br>
                     
                     <label><strong>Descripción:</strong>
                     <input class="inputDatosPerfil" id="descripcionCrearBanda" required></input></label><br>

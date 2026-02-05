@@ -132,12 +132,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const contenedorBanda = document.getElementById("infoBanda");
     const fotoBanda = document.getElementById("imagenBanda");
     let inputNuevoLink = document.getElementById("inputNuevoLinkBanda"); 
+    let generosBanda = document.getElementById("generosBanda");
 
     if (!botonBanda || !contenedorBanda) return;
 
     botonBanda.onclick = function (event) {
-        const enEdicion = contenedorBanda.classList.toggle("modo-edicion");
-        if (inputNuevoLink.classList.contains("errorFormato")){
+        let enEdicion = contenedorBanda.classList.toggle("modo-edicion");
+        if (inputNuevoLink.classList.contains("errorFormato") || generosBanda.classList.contains("errorFormato")){
             enEdicion = contenedorBanda.classList.toggle("modo-edicion");
             return;
         }
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!botonEspacio || !contenedorEspacio) return;
 
     botonEspacio.onclick = function (event) {
-        const enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
+        let enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
         if (inputNuevoLink.classList.contains("errorFormato")){
             enEdicion = contenedorEspacio.classList.toggle("modo-edicion");
             return;
@@ -931,6 +932,33 @@ function validarPalabras(input) {
     if (!formato.test(input.innerText)){
         input.style.backgroundColor = "#F44336";
         input.classList.add("errorFormato");
+    }
+    else{
+        input.style.backgroundColor = "";
+        input.classList.remove("errorFormato");
+    }
+}
+
+function validarSeparadoPorComas(input){
+    const formato = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+(,\s*[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+)*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Introduzca un elemento o varios separados por comas");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "";
+    }
+}
+
+function validarSeparadoPorComasSpan(input){
+    const formato = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+(,\s*[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+)*$/;
+  
+    if (!formato.test(input.innerText)){
+        input.style.backgroundColor = "#F44336";
+        input.classList.add("errorFormato")
     }
     else{
         input.style.backgroundColor = "";
