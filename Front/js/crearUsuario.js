@@ -122,6 +122,20 @@ function validarPalabras(input) {
     }
 }
 
+function validarSeparadoPorComas(input) {
+    const formato = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+(,\s*[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+)*$/;
+
+    if (!formato.test(input.value)){
+        input.setCustomValidity("Introduzca un elemento o varios separados por comas");
+        input.reportValidity();
+        input.style.backgroundColor = "#F44336";
+    }
+    else{
+        input.setCustomValidity("");
+        input.style.backgroundColor = "grey";
+    }
+}
+
 function validarNumeros(input){
     const formato = /^[0-9+]*$/;
 
