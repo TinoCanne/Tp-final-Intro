@@ -130,6 +130,9 @@ async function cargarCartaUsuario(Usuario){
     nombre.innerText = Usuario.nombre;
     biografia.innerText = Usuario.biografia;
     foto.src = Usuario.linkfotoperfil;
+    if(!Usuario.linkfotoperfil){
+        foto.src = "https://cdn-icons-png.flaticon.com/256/847/847969.png";
+    }
     redes.innerText = Usuario.redsocial;
     cargarInstrumentosUsuario(Usuario.id);
     cargarGenerosUsuario(Usuario.id);
@@ -214,7 +217,9 @@ async function cargarCartaBanda(Banda){
     const foto = document.getElementById("fotoBanda");
     const redes = document.getElementById("redsocialBanda");
     const biografia = document.getElementById("bioBanda");
-
+    if(!Banda.linkfotobanda){
+        foto.src = "https://cdn-icons-png.flaticon.com/512/681/681494.png";
+    }
     nombre.innerText = Banda.nombre;
     biografia.innerText = Banda.descripcion;
     foto.src = Banda.linkfotobanda;

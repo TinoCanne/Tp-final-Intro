@@ -21,6 +21,9 @@ async function crearCartasEspacios(url){
         
             const fotoespacio = document.createElement("img");
             fotoespacio.src = espacio.linkfotoespacio;
+            if (!espacio.linkfotoespacio){
+                fotoespacio.src = "https://cdn-icons-png.flaticon.com/512/13163/13163762.png";
+            }
             fotoespacio.className = "fotoEspacio";
     
             const nombre = document.createElement("p");
