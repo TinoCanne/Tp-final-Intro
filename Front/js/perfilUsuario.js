@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function cargarGenerosUsuario(id_usuario) {
     try{
-        const response = await fetch(`http://localhost:3000/generos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/usuarios/generos/${id_usuario}`);
         const datos_generos = await response.json();
         let string_generos = '';
         datos_generos.forEach(generos_usuario => {
@@ -234,7 +234,7 @@ async function cargarGenerosUsuario(id_usuario) {
 
 async function cargarInstrumentos(id_usuario) {
     try{
-        const response = await fetch(`http://localhost:3000/instrumentos_usuarios/${id_usuario}`);
+        const response = await fetch(`http://localhost:3000/usuarios/instrumentos/${id_usuario}`);
         const datos_instrumentos = await response.json();
         let string_instrumentos = '';
         datos_instrumentos.forEach(instrumentos_usuario => {
@@ -257,7 +257,7 @@ function mostrarImagenPorDefecto(imagen){
 async function cargarDatosPerfil(){
     const id = localStorage.getItem('usuarioId');
     try{
-        const response = await fetch(`http://localhost:3000/usuarios/${id}`);
+        const response = await fetch(`http://localhost:3000/usuarios/id/${id}`);
         const datos = await response.json();
 
         const nombreUsuario = document.getElementById('nombre');
@@ -296,7 +296,7 @@ async function cargarDatosPerfil(){
 
 async function cargarGenerosBanda(id_banda){
     try{
-        const response = await fetch(`http://localhost:3000/generos_bandas/${id_banda}`);
+        const response = await fetch(`http://localhost:3000/bandas/generos/idBanda/${id_banda}`);
         const datos_generos = await response.json();
         let string_generos = '';
         datos_generos.forEach(generos_banda => {
@@ -314,7 +314,7 @@ async function cargarGenerosBanda(id_banda){
 
 async function cargarIntegrantesBanda(id_banda){
     try{
-        const response = await fetch(`http://localhost:3000/integrantes_bandas/${id_banda}`);
+        const response = await fetch(`http://localhost:3000/bandas/integrantes/idBanda/${id_banda}`);
         const integrantes = await response.json();
         let string_username_integrantes = '';
         integrantes.forEach(integrante => {
@@ -337,7 +337,7 @@ async function cargarDatosBanda() {
     const divUnirseBanda = document.getElementById('divUnirseBanda');
 
     try {
-        const responseBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        const responseBandas = await fetch(`http://localhost:3000/usuarios/bandas/idUsuario/${idUsuario}`);
         let datosBandas = await responseBandas.json();
 
         if (!responseBandas.ok || datosBandas.length === 0) {
@@ -361,7 +361,7 @@ async function cargarDatosBanda() {
             localStorage.setItem('bandaId', idBandaLocalStorage);
         }
 
-        const response = await fetch(`http://localhost:3000/bandas/${idBandaLocalStorage}`);
+        const response = await fetch(`http://localhost:3000/bandas/id/${idBandaLocalStorage}`);
         
         if (!response.ok){
             throw new Error("Error al cargar detalles de la banda");
@@ -404,7 +404,7 @@ async function unirseBanda(event) {
     const contraseñaBanda = document.getElementById('contraseñaUnirseBanda').value;
 
     try {
-        const response = await fetch("http://localhost:3000/unirse_banda", {
+        const response = await fetch("http://localhost:3000/bandas/unirse", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -529,7 +529,7 @@ async function cargarDatosEspacio(){
 
     try {
         
-        const responseIdEspacios = await fetch(`http://localhost:3000/obtener_id_espacio/${idUsuario}`);
+        const responseIdEspacios = await fetch(`http://localhost:3000/usuarios/espacios/ids/${idUsuario}`);
         const datosId = await responseIdEspacios.json(); 
 
         if (!responseIdEspacios.ok || datosId.length === 0) {
@@ -552,7 +552,7 @@ async function cargarDatosEspacio(){
             localStorage.setItem('espacioId', idEspacioLocalStorage);
         }
 
-        const response = await fetch(`http://localhost:3000/espacio/${idEspacioLocalStorage}`);
+        const response = await fetch(`http://localhost:3000/espacios/idEspacio/${idEspacioLocalStorage}`);
         if(!response.ok) throw new Error("Error al cargar detalles");
         
         const datos = await response.json();
@@ -585,7 +585,7 @@ async function eliminarPerfil() {
         return;
     }
     try {
-        const response = await fetch(`http://localhost:3000/usuarios/${idUsuario}`, {
+        const response = await fetch(`http://localhost:3000/usuarios/id/${idUsuario}`, {
             method: 'DELETE'
         });
         if (!response.ok) {
@@ -605,11 +605,11 @@ async function dejarBanda() {
     try{
         const idUsuario = localStorage.getItem('usuarioId');
         const idBanda = localStorage.getItem('bandaId');
-        const responseCantidadIntegrantes = await fetch(`http://localhost:3000/obtener_cantidad_personas_banda/${idBanda}`);
+        const responseCantidadIntegrantes = await fetch(`http://localhost:3000/bandas/integrantes/cantidad/${idBanda}`);
         const dataCantidadIntegrantes = await responseCantidadIntegrantes.json();
         const cantidadIntegrantes = dataCantidadIntegrantes.count;
         if (parseInt(cantidadIntegrantes) > 1){
-            const response = await fetch(`http://localhost:3000/dejar_banda/${idUsuario}/${idBanda}`, {
+            const response = await fetch(`http://localhost:3000/bandas/salir/${idUsuario}/${idBanda}`, {
                 method: 'DELETE'
             }); 
             if (!response.ok) {
@@ -618,7 +618,7 @@ async function dejarBanda() {
             }
         }
         else if (parseInt(cantidadIntegrantes) == 1){
-            const response = await fetch(`http://localhost:3000/bandas/${idBanda}`, {
+            const response = await fetch(`http://localhost:3000/bandas/id/${idBanda}`, {
                 method: 'DELETE'
             }); 
             if (!response.ok) {
@@ -635,7 +635,7 @@ async function dejarBanda() {
 
 async function eliminarEspacio(){
     try{
-        const response = await fetch(`http://localhost:3000/espacios/${localStorage.getItem('espacioId')}` , {
+        const response = await fetch(`http://localhost:3000/espacios/idEspacio/${localStorage.getItem('espacioId')}` , {
             method: 'DELETE'
         });
     }
@@ -703,7 +703,7 @@ async function mostrarTodosEspacios(){
     divContenedorPopUp.innerHTML = '';
     
     try{
-        const dataEspacios = await fetch(`http://localhost:3000/obtener_espacios/${idUsuario}`);
+        const dataEspacios = await fetch(`http://localhost:3000/usuarios/espacios/${idUsuario}`);
         const Espacios = await dataEspacios.json()
         Espacios.forEach(espacio => {
             armarCartaEspacio(espacio);
@@ -722,7 +722,7 @@ async function mostrarTodasBandas(){
     divContenedorPopUp.innerHTML = '';
     
     try{
-        const dataBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        const dataBandas = await fetch(`http://localhost:3000/usuarios/bandas/idUsuario/${idUsuario}`);
         let Bandas = await dataBandas.json()
 
         if (!Array.isArray(Bandas)) {
