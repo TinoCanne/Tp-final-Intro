@@ -9,31 +9,29 @@
     }
 }
 
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .mensajeEnDesaparicion {
     animation: desaparicionMensajeError 1s forwards !important; 
 }
 
-.foto_de_fondo{
-    height: 100%;
+.fotoDeFondo{
+    height: 100vh;
     width: 100%;
     background-image: url(https://photos.smugmug.com/Concerts/John-Mayer-Trio/i-9ZmkN54/1/M2BGXK8S84SSdKpJ42BHx5DxvZzDP6ndSpnKrRZJT/L/John%20Mayer%20Trio-1-L.jpg);
-    filter: blur(10px);
-    background-size: cover;
     background-repeat: no-repeat;
-    position: center center;
+    background-size: cover;
 }
 
-.cajaLogo{
-    display: flex;
-    width: 100%;
-    justify-content: center;
+.content{
+    padding-top: 50px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(8px);
 }
-
-.cajaLogo img{
-    height: 200px;
-    width: 38px;
-}
-
 
 .errorLogin {
     color: red;
@@ -113,7 +111,7 @@
     width: 350px;
     height: 270px;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.498);
     padding: 30px;
 }
 
@@ -147,7 +145,7 @@
     padding: 10px;
     border-radius: 10px;
     border: none;
-    background-color: gray;
+    background-color: rgb(101, 99, 99);
     color: white;
     font-size: 15px;
     outline: none;
