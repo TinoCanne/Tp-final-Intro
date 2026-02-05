@@ -94,11 +94,11 @@ async function cargarInstrumentosUsuario(idUsuarioAMostrar) {
 
         let instrumentos = "";
         datos.forEach(i => {
-            instrumentos += i.instrumento + " ";
+            instrumentos += i.instrumento + ", ";
         });
 
         document.getElementById("instrumentosUsuario").textContent =
-            instrumentos || "Sin datos";
+            instrumentos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando instrumentos:", error);
     }
@@ -111,11 +111,11 @@ async function cargarGenerosUsuario(idUsuarioAMostrar) {
 
         let generos = "";
         datos.forEach(g => {
-            generos += g.genero + " ";
+            generos += g.genero + ", ";
         });
 
         document.getElementById("generosUsuario").textContent =
-            generos || "Sin datos";
+            generos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando géneros:", error);
     }
@@ -187,11 +187,11 @@ async function cargarGenerosBanda(idBandaAMostrar){
 
         let generos = "";
         datos.forEach(g => {
-            generos += g.genero + " ";
+            generos += g.genero + ", ";
         });
 
         document.getElementById("generosBanda").textContent =
-            generos || "Sin datos";
+            generos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando géneros:", error);
     }
@@ -208,7 +208,7 @@ async function cargarMiembrosBanda(idBandaAMostrar) {
         });
 
         document.getElementById("miembrosBanda").textContent =
-            miembros || "Sin datos";
+            miembros.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando miembros:", error);
     }

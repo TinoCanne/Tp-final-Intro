@@ -53,7 +53,7 @@ async function armarCartaUsuario(usuario){
     nombre.innerText = usuario.nombre + " " + usuario.apellido;
 
     const username = document.createElement("p");
-    username.innerText = usuario.username;
+    username.innerText = '"' + usuario.username + '"';
 
     email.innerText = usuario.email;
     contacto.innerText = "N° Tel: " + usuario.contacto;
