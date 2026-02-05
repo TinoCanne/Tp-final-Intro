@@ -14,7 +14,7 @@
 
 .botonPerfilEliminar:hover {
     border-radius: 10px;
-    background-color: red;
+    background-color: #a33;
     color: white;
 }
 
@@ -372,6 +372,23 @@
 #popUpBandas img {
     height: 150px;
     width: 140px;
+}
+
+.dialogConfirmacion[open] {
+    display: flex;
+    flex-direction: column; /* Para que el texto y los botones queden uno abajo del otro */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background-color: grey;
+}
+
+.dialogConfirmacion::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
 }
 
 .miniCartaBanda {
