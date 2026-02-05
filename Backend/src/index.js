@@ -765,6 +765,37 @@ app.get("/espacios/filtros", async (req, res) => {
     }
 });
 
+
+//---------------------------------------------------------------
+// ENDPOINTS RESERVAS
+//---------------------------------------------------------------
+
+
+// Devuelve todas las reservas de todos los usuarios y espacios
+app.get("/reservas", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM reservas`);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: reservas"});
+    }
+});
+
+// Devuelve todas las reservas de un usuario por su id
+app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT reservas.*, espacios.nombre, espacios.precioporhora FROM reservas INNER JOIN espacios ON espacios.id = reservas.id_espacio WHERE id_usuario = ${req.params.id_usuario} ORDER BY año_reserva, mes_reserva, dia_reserva, hora_reserva`);
+                res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/usuarios/:id_usuario" });
+    }
+})
+
+// Crea una reserva a nombre del usuario y la vincula con el espacio a reservar
 app.post("/reservas", async(req, res) => {
     try {
         const id_usuario = parseInt(req.body.id_usuario);
@@ -786,17 +817,7 @@ app.post("/reservas", async(req, res) => {
     }
 });
 
-app.get("/reservas", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT * FROM reservas`);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: reservas"});
-    }
-});
-
+// Elimina una reserva por su id
 app.delete("/reservas/:idReserva", async (req, res) => {
     try{
         const query = `DELETE FROM reservas WHERE id = ${req.params.idReserva}`;
@@ -809,17 +830,7 @@ app.delete("/reservas/:idReserva", async (req, res) => {
     }
 })
 
-app.get("/reservas/usuarios/:id_usuario", async (req, res) => {
-    try {
-        const result = await pool.query(`SELECT reservas.*, espacios.nombre, espacios.precioporhora FROM reservas INNER JOIN espacios ON espacios.id = reservas.id_espacio WHERE id_usuario = ${req.params.id_usuario} ORDER BY año_reserva, mes_reserva, dia_reserva, hora_reserva`);
-                res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: reservas/usuarios/:id_usuario" });
-    }
-})
-
+// Devuelve las reservas de un espacio de un mes y año especifico
 app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
     try {
         const result = await pool.query(`SELECT dia_reserva, hora_reserva FROM reservas WHERE id_espacio = ${req.params.id_espacio} AND mes_reserva = ${req.params.mes} AND año_reserva = ${req.params.año} ORDER BY dia_reserva, hora_reserva;`);
@@ -827,22 +838,9 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/:id_espacio" });
+        res.status(500).json({ error : "DB error en el metodo GET: reservas/espacios/mes" });
     }
 });
-
-app.get("/username_integrantes_bandas/:idBanda", async (req, res) => {
-    try{
-        const query = `SELECT usuarios.* from usuarios INNER JOIN integrantes_bandas ON usuarios.id = integrantes_bandas.id_integrante WHERE integrantes_bandas.id_banda = ${req.params.idBanda}`
-        const response = await pool.query(query);
-        res.json(response.rows);
-    }
-
-    catch(error){
-        console.log(err)
-        res.status(500).json({ error : "DB error" });
-    }
-})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
