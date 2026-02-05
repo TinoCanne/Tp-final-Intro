@@ -507,7 +507,9 @@
     background-color: rgba(255, 255, 255, 0.12);
 }
 
-.reservasEspacio button {
+.reservasEspacioBoton {
+    width: 120px; 
+    text-align: center; 
     padding: 6px 12px;
     border-radius: 14px;
     border: none;
@@ -517,11 +519,20 @@
     transition: all 0.2s ease;
 }
 
-.reservasEspacio button:hover {
+.reservasEspacioBoton:hover {
     background-color: #c44;
     border-radius: 10px;
 }
 
 .reservaAutorizada {
+    width: 120px; 
+    text-align: center; 
     background-color: rgba(29, 201, 29, 0.89);
+    padding: 6px 12px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
 }

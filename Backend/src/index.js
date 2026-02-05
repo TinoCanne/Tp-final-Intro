@@ -842,9 +842,9 @@ app.get("/reservas/espacios/mes/:id_espacio/:año/:mes", async (req, res) => {
     }
 });
 
-app.get("/reservas/espacio/:id_espacio", async (req, res) => {
+app.get("/espacios/reservas/idEspacio/:id_espacio", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT reservas.*, usuarios.email FROM reservas INNER JOIN usuarios ON usuarios.id = reservas.id_usuario WHERE reservas.id_espacio = ${req.params.id_espacio}`);
+        const result = await pool.query(`SELECT reservas.*, usuarios.email FROM reservas INNER JOIN usuarios ON usuarios.id = reservas.id_usuario WHERE reservas.id_espacio = ${req.params.id_espacio} ORDER BY reservas.año_reserva, reservas.mes_reserva, reservas.dia_reserva, hora_reserva`);
         res.json(result.rows);
     }
     catch(err){

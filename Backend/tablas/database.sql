@@ -18,8 +18,7 @@ CREATE TABLE bandas (
     descripcion VARCHAR(150),
     redSocial VARCHAR(100),
     contraseñaParaIngresar VARCHAR(50),
-    linkfotobanda TEXT,
-    buscanMiembrosNuevos BOOLEAN DEFAULT TRUE
+    linkfotobanda TEXT
 );
 
 CREATE TABLE espacios (

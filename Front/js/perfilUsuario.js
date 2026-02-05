@@ -1056,6 +1056,7 @@ async function autorizarReserva(idReserva){
         });
         const botonAutorizar = document.getElementById(`botonAutorizarReservasId${idReserva}`);
         botonAutorizar.textContent = "Autorizada";
+        botonAutorizar.classList.remove("reservasEspacioBoton");
         botonAutorizar.classList.add("reservaAutorizada");
         botonAutorizar.disabled = true;
     }
@@ -1068,7 +1069,7 @@ async function armarReservas(){
     contenidoTablaReservas = document.getElementById('contenidoReservasEspacio');
     let id_espacio = localStorage.getItem('espacioId');
     try{
-        const url = `http://localhost:3000/reservas/espacio/${id_espacio}`;
+        const url = `http://localhost:3000/espacios/reservas/idEspacio/${id_espacio}`;
         const dataReservas = await fetch(url);
         const reservas = await dataReservas.json();
         let contenidoFinal = ``;
@@ -1081,12 +1082,12 @@ async function armarReservas(){
             }
             else{
                 contenidoTabla = '';
-                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.id}</td><td>${reserva.email}</td></tr>`;
+                contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.id}</td><td>${reserva.email}</td>`;
                 if(!reserva.reserva_confirmada){
-                    contenidoTabla += `<td><button id="botonAutorizarReservasId${reserva.id}" onclick="autorizarReserva(${reserva.id})">Autorizar</button></td>`;
+                    contenidoTabla += `<td><button class="reservasEspacioBoton" id="botonAutorizarReservasId${reserva.id}" onclick="autorizarReserva(${reserva.id})">Autorizar</button></td></tr>`;
                 }
                 else if (reserva.reserva_confirmada){
-                    contenidoTabla += `<td><p class="reservaAutorizada">Autorizada<p></td>`
+                    contenidoTabla += `<td><button class="reservaAutorizada">Autorizada</button></td></tr>`
                 }
                 contenidoFinal += contenidoTabla;
             }
