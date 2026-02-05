@@ -38,6 +38,15 @@ async function crearCartasEspacios(url){
             const diasAbierto = document.createElement("p");
             diasAbierto.textContent = espacio.diasabierto;
 
+            const contacto = document.createElement("p");
+            contacto.textContent = espacio.contacto;
+
+            const descripcion = document.createElement("p");
+            descripcion.innerText = espacio.descripcion;
+
+            const tamaño = document.createElement("p");
+            tamaño.innerText = espacio.tamaño;
+
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
@@ -48,9 +57,12 @@ async function crearCartasEspacios(url){
 
             carta.appendChild(fotoespacio);
             carta.appendChild(nombre);
+            carta.appendChild(descripcion);
             carta.appendChild(barrio);
             carta.appendChild(precio);
             carta.appendChild(diasAbierto);
+            carta.appendChild(contacto);
+            carta.appendChild(tamaño);
 
             carta.appendChild(botonReserva);
             const botonFavorito = document.createElement('button');

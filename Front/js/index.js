@@ -94,11 +94,11 @@ async function cargarInstrumentosUsuario(idUsuarioAMostrar) {
 
         let instrumentos = "";
         datos.forEach(i => {
-            instrumentos += i.instrumento + " ";
+            instrumentos += i.instrumento + ", ";
         });
 
         document.getElementById("instrumentosUsuario").textContent =
-            instrumentos || "Sin datos";
+            instrumentos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando instrumentos:", error);
     }
@@ -111,11 +111,11 @@ async function cargarGenerosUsuario(idUsuarioAMostrar) {
 
         let generos = "";
         datos.forEach(g => {
-            generos += g.genero + " ";
+            generos += g.genero + ", ";
         });
 
         document.getElementById("generosUsuario").textContent =
-            generos || "Sin datos";
+            generos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando géneros:", error);
     }
@@ -123,11 +123,13 @@ async function cargarGenerosUsuario(idUsuarioAMostrar) {
 
 async function cargarCartaUsuario(Usuario){
     const nombre = document.getElementById("nombreUsuario");
+    const username = document.getElementById("usernameUsuario");
     const foto = document.getElementById("fotoUsuario");
     const redes = document.getElementById("redsocialUsuario");
     const biografia = document.getElementById("bioUsuario");
 
-    nombre.innerText = Usuario.nombre;
+    nombre.innerText = Usuario.nombre + " " + Usuario.apellido;
+    username.innerText = '"' + Usuario.username + '"';
     biografia.innerText = Usuario.biografia;
     foto.src = Usuario.linkfotoperfil;
     if(!Usuario.linkfotoperfil){
@@ -185,11 +187,11 @@ async function cargarGenerosBanda(idBandaAMostrar){
 
         let generos = "";
         datos.forEach(g => {
-            generos += g.genero + " ";
+            generos += g.genero + ", ";
         });
 
         document.getElementById("generosBanda").textContent =
-            generos || "Sin datos";
+            generos.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando géneros:", error);
     }
@@ -206,7 +208,7 @@ async function cargarMiembrosBanda(idBandaAMostrar) {
         });
 
         document.getElementById("miembrosBanda").textContent =
-            miembros || "Sin datos";
+            miembros.slice(0, -2) || "Sin datos";
     } catch (error) {
         console.error("Error cargando miembros:", error);
     }
