@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
+
         botonEspacio.textContent = enEdicion ? "Guardar cambios" : "Editar espacio";
 
         if (!enEdicion) {
