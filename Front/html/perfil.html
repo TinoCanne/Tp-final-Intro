@@ -44,7 +44,7 @@
                 <label class="filaPerfil"><strong>Instrumentos:</strong>
                 <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario" oninput="validarPalabras(this)"></span></label><br>
     
-                <label class="filaPerfil"><strong>Generos favoritos:</strong>
+                <label class="filaPerfil"><strong>Géneros favoritos:</strong>
                 <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario" oninput="validarPalabras(this)"></span></label><br>
     
                 <label class="filaPerfil"><strong>Bio:</strong>
@@ -69,7 +69,7 @@
                     <form class="info">
                         <label class="filaPerfilBanda"><strong>Nombre:</strong>
                         <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
-                        <label class="filaPerfilBanda"><strong>Genero/s:</strong>
+                        <label class="filaPerfilBanda"><strong>Género/s:</strong>
                         <span class="spanDatosBanda" contenteditable="false" id="generosBanda" oninput="validarSeparadoPorComasSpan(this)"></span></label>
                         <label class="filaPerfilBanda"><strong>Descripción:</strong>
                         <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
@@ -93,14 +93,14 @@
                 <div class="contenedorBotonEdicionBanda">
                     <button type="button" class="botonPerfil" id="botonDeEdicionBanda">Editar banda</button>
                     <button type="button" class="botonPerfilEliminar" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
-                    <button type="button" class="botonPerfil" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
-                    <button type="button" class="botonPerfil" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
-                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unirse a otra banda</button>
+                    <button type="button" class="botonPerfil" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver mis bandas</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crear otra Banda</button>
                 </div>
 	    </div>
 
             <div class="crearBanda" id="divCrearBanda">
-                <h2 class="h2perfil">Crea tu banda!</h2>
+                <h2 class="h2perfil">Cree su banda</h2>
                 <br>
                 <div class="contenedorFotoDeMuestraEspacio">
                     <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
@@ -116,7 +116,7 @@
                     <label><strong>Red social:</strong><br>
                     <input class="inputDatosPerfil"  id="redSocialCrearBanda" required></input></label><br>
                     
-                    <label><strong>Generos favoritos:</strong>
+                    <label><strong>Géneros favoritos:</strong>
                     <input class="inputDatosPerfil" id="generosUsuarioCrearBanda" oninput="validarSeparadoPorComas(this)" required></input></label><br>
                     
                     <label><strong>Descripción:</strong>
@@ -132,7 +132,7 @@
             </div>
 
             <div class="unirseBanda" id="divUnirseBanda">
-                <h2 class="h2perfil">Unete a una banda!</h2>
+                <h2 class="h2perfil">Únete a una banda</h2>
                 <br>
                 <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
                     <label><strong>Ingrese el nombre de la banda:</strong>
@@ -154,7 +154,7 @@
                     <form class="info">
                         <label><strong>Nombre:</strong></label>
                         <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span>
-                        <label><strong>Ubicacion:</strong></label>
+                        <label><strong>Ubicación:</strong></label>
                         <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span>
                         <label><strong>Descripción:</strong></label>
                         <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span>
@@ -168,7 +168,7 @@
                         <span id="horaAperturaEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                         <label><strong>Hora de cierre:</strong></label>
                         <span id="horaCierreEspacio" class="spanDatosEspacio" contenteditable="false"></span>
-                        <label><strong>Dias abiertos:</strong></label>
+                        <label><strong>Días abiertos:</strong></label>
                         <span id="diasAbiertosEspacio" class="spanDatosEspacio" contenteditable="false"></span>
                     </form>
                     <div class="contenedorImagenEspacioMiniespacio">
@@ -179,16 +179,16 @@
 		            </div>
                 </div>
 		        <div class="contenedorBotonesEspacio">
-                    <button type="button" class="botonPerfil" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
-		            <button type="button" class="botonPerfil" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
-		            <button type="button" class="botonPerfil" id="botonMostrarReservas" onclick="mostrarReservas()">Vea las reservas de este espacio</button>
-		            <button type="button" class="botonPerfilEliminar" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
-                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
-            	</div>
+                            <button type="button" class="botonPerfil" id="botonEditarEspacio" onclick="editarEspacio()" >Editar espacio</button>
+		            <button type="button" class="botonPerfilEliminar" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar espacio</button>
+		            <button type="button" class="botonPerfil" id="botonMostrarReservas" onclick="mostrarReservas()">Ver las reservas de este espacio</button>
+                    	    <button type="button" class="botonPerfil" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver mis espacios</button>
+			    <button type="button" class="botonPerfil" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crar otro espacio</button>
+            	        </div>
 	        </div>
 
             <div id="crearEspacio" class="hiddenEspacio">
-                <h2>Publica tu espacio!</h2>
+                <h2>Publique su espacio</h2>
                 <div class="contenedorFotoDeMuestraEspacio">
                     <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefecto(this)"><br>
                 </div>
@@ -198,9 +198,9 @@
                     <label><strong>Link de la foto del espacio:</strong>
                     <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label>
                     <button type="button" id="botonMostrarImagenEspacio" class="botonPerfil" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
-                    <label><strong>Ubicacion:</strong>
+                    <label><strong>Ubicación:</strong>
                     <input class="inputDatosPerfil"  id="ubicacionCrearEspacio" required></input></label>
-                    <label><strong>Descripcion: </strong>
+                    <label><strong>Descripción: </strong>
                     <input class="inputDatosPerfil"  id="descripcionCrearEspacio" required></input></label>
                     <label><strong>Contacto:</strong>
                     <input class="inputDatosPerfil"  id="contactoCrearEspacio" required></input></label>
@@ -212,24 +212,24 @@
                     <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio" oninput="validarHoras(this)" required></input>
                     <label><strong>Horario de cierre:</strong></label>
                     <input class="inputDatosPerfil" id="horarioCierreCrearEspacio" oninput="validarHoras(this)" required></input>
-                    <label><strong>Que dia abre el estudio?:</strong></label>
+                    <label><strong>¿Qué día abre el estudio?:</strong></label>
                     <select name="diaApertura" id="diaAperturaCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
-                        <option value="mie">Miercoles</option>
+                        <option value="mie">Miércoles</option>
                         <option value="jue">Jueves</option>
                         <option value="vie">Viernes</option>
-                        <option value="sab">Sabado</option>
+                        <option value="sab">Sábado</option>
                         <option value="dom">Domingo</option>
                     </select>
-                    <label><strong>Que dia cierra el estudio?:</strong></label>
+                    <label><strong>¿Qué día cierra el estudio?:</strong></label>
                     <select name="diaCierre" id="diaCierreCrearEspacio" required>
                         <option value="lun" selected>Lunes</option>
                         <option value="mar">Martes</option>
-                        <option value="mie">Miercoles</option>
+                        <option value="mie">Miércoles</option>
                         <option value="jue">Jueves</option>
                         <option value="vie">Viernes</option>
-                        <option value="sab">Sabado</option>
+                        <option value="sab">Sábado</option>
                         <option value="dom">Domingo</option>
                      </select>
                     <div class="contenedorBotonCrearEspacio">    
@@ -253,8 +253,8 @@
             <table class="reservasEspacio">
                 <th>Hora</th>
                 <th>Fecha</th>
-                <th>Numero de reserva</th>
-                <th>email usuario</th>
+                <th>Número de reserva</th>
+                <th>Email usuario</th>
                 <th>Estado</th>
                 <caption>
                     Reservas:
