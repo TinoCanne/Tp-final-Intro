@@ -123,11 +123,13 @@ async function cargarGenerosUsuario(idUsuarioAMostrar) {
 
 async function cargarCartaUsuario(Usuario){
     const nombre = document.getElementById("nombreUsuario");
+    const username = document.getElementById("usernameUsuario");
     const foto = document.getElementById("fotoUsuario");
     const redes = document.getElementById("redsocialUsuario");
     const biografia = document.getElementById("bioUsuario");
 
-    nombre.innerText = Usuario.nombre;
+    nombre.innerText = Usuario.nombre + " " + Usuario.apellido;
+    username.innerText = '"' + Usuario.username + '"';
     biografia.innerText = Usuario.biografia;
     foto.src = Usuario.linkfotoperfil;
     if(!Usuario.linkfotoperfil){

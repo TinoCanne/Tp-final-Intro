@@ -50,12 +50,17 @@ async function armarCartaUsuario(usuario){
     }
 
     const nombre = document.createElement("p");
-    nombre.innerText = usuario.nombre;
+    nombre.innerText = usuario.nombre + " " + usuario.apellido;
+
+    const username = document.createElement("p");
+    username.innerText = usuario.username;
+
     email.innerText = usuario.email;
-    contacto.innerText = usuario.contacto;
+    contacto.innerText = "N° Tel: " + usuario.contacto;
     carta.appendChild(id_contacto);
     carta.appendChild(foto_usuario);
     carta.appendChild(nombre);
+    carta.appendChild(username);
     carta.appendChild(email);
     carta.appendChild(contacto);
     carta.appendChild(boton_eliminar);
@@ -79,8 +84,17 @@ async function armarCartaBanda(banda){
     const redSocial = document.createElement("p");
     redSocial.innerText = banda.redsocial;
 
+    const fechaCreacion = document.createElement("p");
+    const indiceSplitFecha = banda.fechacreacion.indexOf("T");
+    if (indiceSplitFecha !== -1 ){
+        fechaCreacion.innerText = banda.fechacreacion.slice(0, indiceSplitFecha);
+    }
+    else{
+        fechaCreacion.innerText = banda.fechaCreacion;
+    }
+
     const boton_eliminar_banda = document.createElement("button");
-    boton_eliminar_banda.innerText = "Eliminar de contactos";
+    boton_eliminar_banda.innerText = "Eliminar contacto";
     boton_eliminar_banda.className = "botonEliminarContacto";
     boton_eliminar_banda.onclick = ()=>{
         const id_usuario = localStorage.getItem("usuarioId");
@@ -90,6 +104,7 @@ async function armarCartaBanda(banda){
     carta.appendChild(foto);
     carta.appendChild(nombre);
     carta.appendChild(redSocial);
+    carta.appendChild(fechaCreacion);
     carta.appendChild(boton_eliminar_banda)
     container.appendChild(carta);
 }
