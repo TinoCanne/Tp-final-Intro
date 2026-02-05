@@ -26,7 +26,7 @@ async function crearCartasEspacios(url){
             }
             fotoespacio.className = "fotoEspacio";
     
-            const nombre = document.createElement("p");
+            const nombre = document.createElement("h3");
             nombre.textContent = espacio.nombre;
 
             const barrio = document.createElement("p");
@@ -37,6 +37,10 @@ async function crearCartasEspacios(url){
 
             const diasAbierto = document.createElement("p");
             diasAbierto.textContent = espacio.diasabierto;
+            
+            const divDiasYPrecio = document.createElement("div");
+            divDiasYPrecio.classList.add("divDiasPrecioEspacio");
+
 
             const contacto = document.createElement("p");
             contacto.textContent = espacio.contacto;
@@ -46,7 +50,10 @@ async function crearCartasEspacios(url){
 
             const tamaño = document.createElement("p");
             tamaño.innerText = espacio.tamaño;
-
+            
+            const contenedorBotonesCarta = document.createElement('div');
+            contenedorBotonesCarta.className = "contenedorBotonesCarta";
+            
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
@@ -54,17 +61,18 @@ async function crearCartasEspacios(url){
             botonReserva.addEventListener('click', function(){
                 mostrarCalendario(espacio);
             });
-
+            
             carta.appendChild(fotoespacio);
             carta.appendChild(nombre);
             carta.appendChild(descripcion);
             carta.appendChild(barrio);
-            carta.appendChild(precio);
-            carta.appendChild(diasAbierto);
+            divDiasYPrecio.appendChild(diasAbierto);
+            divDiasYPrecio.appendChild(precio);
+            carta.appendChild(divDiasYPrecio);
             carta.appendChild(contacto);
             carta.appendChild(tamaño);
-
             carta.appendChild(botonReserva);
+            
             const botonFavorito = document.createElement('button');
             if (!espacio.es_favorito){
                 botonFavorito.className = "botonAgregarFavorito";
@@ -83,6 +91,10 @@ async function crearCartasEspacios(url){
             }
             
             carta.appendChild(botonFavorito);
+            contenedorBotonesCarta.appendChild(botonReserva);
+            contenedorBotonesCarta.appendChild(botonFavorito);
+            contenedorBotonesCarta.appendChild(botonFavorito);
+            carta.appendChild(contenedorBotonesCarta);
             container.appendChild(carta);
 
         })
