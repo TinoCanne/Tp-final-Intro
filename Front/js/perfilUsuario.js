@@ -595,7 +595,7 @@ async function eliminarPerfil() {
         return;
     }
     try {
-        const response = await fetch(`http://localhost:3000/usuarios/id/${idUsuario}`, {
+        const response = await fetch(`http://localhost:3000/usuarios/${idUsuario}`, {
             method: 'DELETE'
         });
         if (!response.ok) {
