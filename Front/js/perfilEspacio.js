@@ -481,10 +481,10 @@ async function armarMisReservas(){
                 contenidoTabla = '';
                 contenidoTabla += `<tr><td>${reserva.hora_reserva}</td><td>${reserva.dia_reserva}/${reserva.mes_reserva}/${reserva.año_reserva}</td><td>${reserva.nombre}</td><td>${reserva.precioporhora}</td><td>${reserva.id}</td><td><button onclick="eliminarReserva(${reserva.id}, false)">Cancelar</button></td>`;
                 if(reserva.reserva_confirmada){
-                    contenidoTabla += '<td>CONFIRMADA</td></tr>'
+                    contenidoTabla += '<td class="reservaConfirmada">CONFIRMADA</td></tr>'
                 }
                 else if(!reserva.reserva_confirmada){
-                    contenidoTabla += '<td>PENDIENTE</td></tr>'
+                    contenidoTabla += '<td class="reservaPendiente">PENDIENTE</td></tr>'
                 }
                 contenidoFinal += contenidoTabla;
             }

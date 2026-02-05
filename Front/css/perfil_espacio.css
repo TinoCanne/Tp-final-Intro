@@ -381,3 +381,15 @@
 .botonCerrarMisReservas {
     cursor: pointer;
 }
+
+.reservaPendiente {
+    padding: 6px 12px;
+    border-radius: 14px;
+    background-color: yellow;
+}
+
+.reservaConfirmada {
+    padding: 6px 12px;
+    border-radius: 14px;
+    background-color: rgba(29, 201, 29, 0.89);
+}
