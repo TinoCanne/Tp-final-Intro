@@ -50,7 +50,10 @@ async function crearCartasEspacios(url){
 
             const tamaño = document.createElement("p");
             tamaño.innerText = espacio.tamaño;
-
+            
+            const contenedorBotonesCarta = document.createElement('div');
+            contenedorBotonesCarta.className = "contenedorBotonesCarta";
+            
             const botonReserva = document.createElement('button');
             botonReserva.textContent = "Reservar";
             botonReserva.className = "botonReservar";
@@ -58,7 +61,7 @@ async function crearCartasEspacios(url){
             botonReserva.addEventListener('click', function(){
                 mostrarCalendario(espacio);
             });
-
+            
             carta.appendChild(fotoespacio);
             carta.appendChild(nombre);
             carta.appendChild(descripcion);
@@ -68,8 +71,8 @@ async function crearCartasEspacios(url){
             carta.appendChild(divDiasYPrecio);
             carta.appendChild(contacto);
             carta.appendChild(tamaño);
-
             carta.appendChild(botonReserva);
+            
             const botonFavorito = document.createElement('button');
             if (!espacio.es_favorito){
                 botonFavorito.className = "botonAgregarFavorito";
@@ -88,6 +91,10 @@ async function crearCartasEspacios(url){
             }
             
             carta.appendChild(botonFavorito);
+            contenedorBotonesCarta.appendChild(botonReserva);
+            contenedorBotonesCarta.appendChild(botonFavorito);
+            contenedorBotonesCarta.appendChild(botonFavorito);
+            carta.appendChild(contenedorBotonesCarta);
             container.appendChild(carta);
 
         })
