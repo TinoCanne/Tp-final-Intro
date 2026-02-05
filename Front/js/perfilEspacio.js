@@ -26,7 +26,7 @@ async function crearCartasEspacios(url){
             }
             fotoespacio.className = "fotoEspacio";
     
-            const nombre = document.createElement("p");
+            const nombre = document.createElement("h3");
             nombre.textContent = espacio.nombre;
 
             const barrio = document.createElement("p");
@@ -37,6 +37,10 @@ async function crearCartasEspacios(url){
 
             const diasAbierto = document.createElement("p");
             diasAbierto.textContent = espacio.diasabierto;
+            
+            const divDiasYPrecio = document.createElement("div");
+            divDiasYPrecio.classList.add("divDiasPrecioEspacio");
+
 
             const contacto = document.createElement("p");
             contacto.textContent = espacio.contacto;
@@ -59,8 +63,9 @@ async function crearCartasEspacios(url){
             carta.appendChild(nombre);
             carta.appendChild(descripcion);
             carta.appendChild(barrio);
-            carta.appendChild(precio);
-            carta.appendChild(diasAbierto);
+            divDiasYPrecio.appendChild(diasAbierto);
+            divDiasYPrecio.appendChild(precio);
+            carta.appendChild(divDiasYPrecio);
             carta.appendChild(contacto);
             carta.appendChild(tamaño);
 

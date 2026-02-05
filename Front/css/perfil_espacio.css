@@ -78,6 +78,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    gap: 13px;
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
@@ -88,9 +89,19 @@
     text-align: center;
 }
 
+.cartaEspacio h3, 
+.cartaEspacio p {
+    margin: 0;
+}
+.cartaEspacio h3{
+    background-color: grey;
+}
+
 .cartaEspacio img{
-    width: 250px;
-    height: 250px;
+    width: 250;
+    height: 200px;
+    max-width: 250;
+    max-height: 200px;
     border-radius: 15px;
     display: block;
     overflow: hidden;
@@ -392,4 +403,11 @@
     padding: 6px 12px;
     border-radius: 14px;
     background-color: rgba(29, 201, 29, 0.89);
+}
+
+.divDiasPrecioEspacio{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
 }
