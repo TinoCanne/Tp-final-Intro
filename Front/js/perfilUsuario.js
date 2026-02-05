@@ -296,7 +296,7 @@ async function cargarDatosPerfil(){
 
 async function cargarGenerosBanda(id_banda){
     try{
-        const response = await fetch(`http://localhost:3000/generos_bandas/${id_banda}`);
+        const response = await fetch(`http://localhost:3000/bandas/generos/idBanda/${id_banda}`);
         const datos_generos = await response.json();
         let string_generos = '';
         datos_generos.forEach(generos_banda => {
@@ -314,7 +314,7 @@ async function cargarGenerosBanda(id_banda){
 
 async function cargarIntegrantesBanda(id_banda){
     try{
-        const response = await fetch(`http://localhost:3000/integrantes_bandas/${id_banda}`);
+        const response = await fetch(`http://localhost:3000/bandas/integrantes/idBanda/${id_banda}`);
         const integrantes = await response.json();
         let string_username_integrantes = '';
         integrantes.forEach(integrante => {
@@ -337,7 +337,7 @@ async function cargarDatosBanda() {
     const divUnirseBanda = document.getElementById('divUnirseBanda');
 
     try {
-        const responseBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        const responseBandas = await fetch(`http://localhost:3000/usuarios/bandas/idUsuario/${idUsuario}`);
         let datosBandas = await responseBandas.json();
 
         if (!responseBandas.ok || datosBandas.length === 0) {
@@ -361,7 +361,7 @@ async function cargarDatosBanda() {
             localStorage.setItem('bandaId', idBandaLocalStorage);
         }
 
-        const response = await fetch(`http://localhost:3000/bandas/${idBandaLocalStorage}`);
+        const response = await fetch(`http://localhost:3000/bandas/id/${idBandaLocalStorage}`);
         
         if (!response.ok){
             throw new Error("Error al cargar detalles de la banda");
@@ -404,7 +404,7 @@ async function unirseBanda(event) {
     const contraseñaBanda = document.getElementById('contraseñaUnirseBanda').value;
 
     try {
-        const response = await fetch("http://localhost:3000/unirse_banda", {
+        const response = await fetch("http://localhost:3000/bandas/unirse", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -605,11 +605,11 @@ async function dejarBanda() {
     try{
         const idUsuario = localStorage.getItem('usuarioId');
         const idBanda = localStorage.getItem('bandaId');
-        const responseCantidadIntegrantes = await fetch(`http://localhost:3000/obtener_cantidad_personas_banda/${idBanda}`);
+        const responseCantidadIntegrantes = await fetch(`http://localhost:3000/bandas/integrantes/cantidad/${idBanda}`);
         const dataCantidadIntegrantes = await responseCantidadIntegrantes.json();
         const cantidadIntegrantes = dataCantidadIntegrantes.count;
         if (parseInt(cantidadIntegrantes) > 1){
-            const response = await fetch(`http://localhost:3000/dejar_banda/${idUsuario}/${idBanda}`, {
+            const response = await fetch(`http://localhost:3000/bandas/salir/${idUsuario}/${idBanda}`, {
                 method: 'DELETE'
             }); 
             if (!response.ok) {
@@ -618,7 +618,7 @@ async function dejarBanda() {
             }
         }
         else if (parseInt(cantidadIntegrantes) == 1){
-            const response = await fetch(`http://localhost:3000/bandas/${idBanda}`, {
+            const response = await fetch(`http://localhost:3000/bandas/id/${idBanda}`, {
                 method: 'DELETE'
             }); 
             if (!response.ok) {
@@ -722,7 +722,7 @@ async function mostrarTodasBandas(){
     divContenedorPopUp.innerHTML = '';
     
     try{
-        const dataBandas = await fetch(`http://localhost:3000/obtener_bandas/${idUsuario}`);
+        const dataBandas = await fetch(`http://localhost:3000/usuarios/bandas/idUsuario/${idUsuario}`);
         let Bandas = await dataBandas.json()
 
         if (!Array.isArray(Bandas)) {

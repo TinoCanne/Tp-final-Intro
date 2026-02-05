@@ -364,11 +364,23 @@ app.get("/usuarios/nuevos/bandas/:id_usuario", async (req, res) => {
     }
 });
 
+// Devuelve todas las bandas integradas por un usuario buscado por su id
+app.get("/usuarios/bandas/idUsuario/:id_usuario", async (req, res) => {
+    try{
+        const query_obtener_id_banda = `SELECT bandas.* FROM bandas INNER JOIN integrantes_bandas ON integrantes_bandas.id_banda = bandas.id WHERE id_integrante = ${req.params.id_usuario}`;
+        const result = await pool.query(query_obtener_id_banda);
+        res.json(result.rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: "DB error en el metodo GET: usuarios/bandas/idUsuario" });
+    }
+});
 
 
-
-
-
+//---------------------------------------------------------------
+// ENDPOINTS BANDAS 
+//--------------------------------------------------------------- 
 
 
 // Devolver todas las bandas
@@ -382,8 +394,8 @@ app.get("/bandas", async (req, res) => {
     }
 });
 
-// Devolver una banda por id
-app.get("/bandas/:id", async (req, res) => {
+// Devolver una banda por su id
+app.get("/bandas/id/:id", async (req, res) => {
     try {
         const result = await pool.query(`SELECT * FROM bandas where id = ${req.params.id}`);
         res.json(result.rows);
@@ -453,67 +465,43 @@ app.patch("/bandas", async(req, res) =>{
 });
 
 // Devolver todos los generos de una banda segun el id.
-app.get("/generos_bandas/:id_banda", async (req, res) => {
+app.get("/bandas/generos/idBanda/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas WHERE id_banda = ${req.params.id_banda}`);
         res.json(result.rows);
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas/id_banda"});
+        res.status(500).json({ error: "DB error en el metodo GET: bandas/generos/idBanda"});
     }
 });
 
 // Devolver todos los generos de todas las bandas
-app.get("/generos_bandas", async (req, res) => {
+app.get("/bandas/generos", async (req, res) => {
     try{
         const result = await pool.query(`SELECT * FROM generos_bandas`);
         res.json(result.rows);
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: generos_bandas"});
+        res.status(500).json({ error: "DB error en el metodo GET: bandas/generos"});
     }
 });
 
-//Devolver todos los integrantes de una banda
-app.get("/integrantes_bandas/:id_banda", async (req, res) => {
+// Devolver todos los integrantes de una banda
+app.get("/bandas/integrantes/idBanda/:id_banda", async (req, res) => {
     try{
         const result = await pool.query(`select * from usuarios join integrantes_bandas on integrantes_bandas.id_integrante = usuarios.id where integrantes_bandas.id_banda = ${req.params.id_banda}`);
         res.json(result.rows);
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: integrantes_bandas/id_banda" });
+        res.status(500).json({ error: "DB error en el metodo GET: bandas/integrantes/idBanda" });
     }
 });
 
-// Devuelve el id_banda correspondiente al id_usuario
-app.get("/obtener_id_banda/:id_usuario", async (req, res) => {
-    try{
-        const query_obtener_id_banda = `SELECT id_banda FROM integrantes_bandas WHERE id_integrante = ${req.params.id_usuario}`;
-        const result = await pool.query(query_obtener_id_banda);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
-    }
-});
-
-app.get("/obtener_bandas/:id_usuario", async (req, res) => {
-    try{
-        const query_obtener_id_banda = `SELECT bandas.* FROM bandas INNER JOIN integrantes_bandas ON integrantes_bandas.id_banda = bandas.id WHERE id_integrante = ${req.params.id_usuario}`;
-        const result = await pool.query(query_obtener_id_banda);
-        res.json(result.rows);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET: obtener_id_banda/id_usuario" });
-    }
-});
-
-app.get("/obtener_cantidad_personas_banda/:id_banda", async (req, res) => {
+// Devuelve la cantidad de integrantes de una banda dada por su id
+app.get("/bandas/integrantes/cantidad/:id_banda", async (req, res) => {
     try{
         const query = `SELECT COUNT(*) FROM integrantes_bandas WHERE id_banda = ${req.params.id_banda}`;
         const result = await pool.query(query);
@@ -521,12 +509,12 @@ app.get("/obtener_cantidad_personas_banda/:id_banda", async (req, res) => {
     }
     catch(err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo GET:obtener_cantidad_personas_banda/id_banda" });
+        res.status(500).json({ error: "DB error en el metodo GET: bandas/integrantes/cantidad" });
     }
 });
 
 // Unirse a un banda
-app.post("/unirse_banda", async (req, res) => {
+app.post("bandas/unirse", async (req, res) => {
     const { nombre, contraseña, idUsuario } = req.body; 
     try {
         const queryVerificacion = `
@@ -547,11 +535,12 @@ app.post("/unirse_banda", async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo POST: unirse_banda" });
+        res.status(500).json({ error: "DB error en el metodo POST: bandas/unirse" });
     }
 });
 
-app.delete("/dejar_banda/:id_usuario/:id_banda", async (req, res) => {
+// Salir de una banda
+app.delete("/bandas/salir/:id_usuario/:id_banda", async (req, res) => {
     try{
         const query = `DELETE FROM integrantes_bandas WHERE id_banda = ${req.params.id_banda} AND id_integrante = ${req.params.id_usuario}`
         await pool.query(query);
@@ -559,11 +548,12 @@ app.delete("/dejar_banda/:id_usuario/:id_banda", async (req, res) => {
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo DELETE: dejar_banda/id_usuario" });
+        res.status(500).json({ error: "DB error en el metodo DELETE: bandas/salir" });
     }
 });
 
-app.delete("/bandas/:id_banda", async (req, res) => {
+// Eliminar una banda dada por su id
+app.delete("/bandas/id/:id_banda", async (req, res) => {
     try{
         const query = `DELETE FROM bandas WHERE id = ${req.params.id_banda}`
         await pool.query(query);
@@ -571,9 +561,15 @@ app.delete("/bandas/:id_banda", async (req, res) => {
     }
     catch (err){
         console.error(err);
-        res.status(500).json({ error: "DB error en el metodo DELETE: bandas/id_banda" });
+        res.status(500).json({ error: "DB error en el metodo DELETE: bandas/id" });
     }
 })
+
+
+//---------------------------------------------------------------
+// ENDPOINTS ESPACIOS 
+//--------------------------------------------------------------- 
+
 
 // Devolver todos los espacios
 app.get("/espacios", async (req, res) => {

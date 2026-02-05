@@ -180,7 +180,7 @@ async function devolverBandas(url){
 
 async function cargarGenerosBanda(idBandaAMostrar){
     try {
-        const response = await fetch(`http://localhost:3000/generos_bandas/${idBandaAMostrar}`);
+        const response = await fetch(`http://localhost:3000/bandas/generos/idBanda/${idBandaAMostrar}`);
         const datos = await response.json();
 
         let generos = "";
