@@ -1,0 +1,558 @@
+.botonPerfil,
+.botonPerfilEliminar {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.botonPerfilEliminar:hover {
+    border-radius: 10px;
+    background-color: #a33;
+    color: white;
+}
+
+.botonPerfil:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+.contenedorBotonEdicionPerfil {
+    padding-left: 17px;
+}
+
+.contenedorBotonEdicionBanda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    
+    flex-wrap: wrap;
+}
+
+.contenedorBotonCrearBanda, .contenedorBotonUnirseBanda {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding-right: 50px;
+}
+
+.contenedorBotonCrearEspacio {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    padding-right: 50px;
+}
+
+.containerBanda{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
+}
+
+.opcionesBanda {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 50px;
+    font-size: 17px;
+    font-family: inherit;
+}
+
+.h1Perfil {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+.contenedorInfoMiniespacio {
+    display: flex;
+    flex-direction: row;
+}
+
+.info {
+    list-style: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    color: white;
+    line-height: 1.7;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.info label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.filaPerfil {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.filaPerfil strong {
+    font-size: 17px;
+    opacity: 0.7;
+    color: #cfcfcf;
+    font-weight: 500;
+}
+
+.spanDatosPerfil,
+.spanDatosPerfilNoEditable {
+    font-size: 17px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.spanDatosBanda,
+.spanDatosBandaNoEditable,
+.spanDatosEspacio {
+    display: inline-block;
+    overflow-wrap: break-word;
+    font-size: 17px;
+    vertical-align: top;
+    font-family: inherit;
+    margin-bottom: 15px;
+    width: 250px;
+}
+
+.modo-edicion .spanDatosPerfil {
+    background-color: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosPerfil:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.modo-edicion .spanDatosBanda {
+    background-color: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosBanda:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.modo-edicion .spanDatosEspacio {
+    background-color: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding-right: 5px;
+    cursor: text;
+}
+
+.modo-edicion .spanDatosEspacio:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.contenedorFotoPerfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 7px;
+}
+.fotoPerfilGrande {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.inputNuevoLink {
+    border-radius: 20px;
+    display: relative;
+    left: 100px;
+}
+
+.inputDatosPerfil {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.h2perfil {
+    text-align: center;
+    padding-right: 30px;
+}
+
+.botonNavBar {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    color: white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s;
+    margin-left: 10px;
+}
+
+.botonNavBar:hover {
+    border-radius: 8px;
+}
+#seccionEspacio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;                  
+    width: 100%;
+    margin-top: 50px;
+}
+
+#infoEspacio {
+    width: 45%;                 
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 50px;
+    box-sizing: border-box;     
+}
+
+#crearEspacio {
+    width: 45%;                 
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+#infoBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.crearBanda, 
+.unirseBanda {  
+    width: 45%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;        
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#infoBanda strong {
+    display: block;
+}
+
+.popupEspacio {
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    width: 670px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: white; 
+}
+
+.popupEspacio::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(3px); 
+}
+
+#contenedorPopUpEspacio {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.miniCartaEspacio {
+    border-radius: 10px;
+    height: 300px;
+    width: 200px;
+    background-color: rgb(212, 126, 45);
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.miniCartaEspacio img {
+    height: 150px;
+    width: 140px;
+}
+
+.contenedorFotoDeMuestraEspacio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fotoDeMuestraEspacio {
+    height: 180px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: grey;
+}
+
+.fotoDeMuestraBanda {
+    height: 200px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: grey;
+}
+
+.contenedorInfoMiniespacio,
+.contenedorInfoBanda {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-height: 250px;
+}
+
+.imagenEspacioMiniespacio,
+.imagenBanda {
+    position: absolute;
+    top: 150px;
+    right: 18%;
+    transform: translate(50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+    background-color: grey;
+}
+
+.contenedorBotonesEspacio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+    width: 100%;
+    flex-wrap: wrap;  
+}
+
+#contenedorPopUpBandas {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#popUpBandas img {
+    height: 150px;
+    width: 140px;
+}
+
+.dialogConfirmacion[open] {
+    display: flex;
+    flex-direction: column; /* Para que el texto y los botones queden uno abajo del otro */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background-color: grey;
+}
+
+.dialogConfirmacion::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+.miniCartaBanda {
+    border-radius: 10px;
+    height: 300px;
+    width: 200px;
+    background-color: rgb(212, 126, 45);
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.contenedorNuevoLinkUsuario {
+    margin-top: 20px;
+}
+
+.contenedorNuevoLink {
+    margin-top: 290px;
+    margin-right: 40px;
+}
+
+#inputNuevoLink {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLink:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkEspacio {
+    transform: translate(17%, -50%);
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    right: 18%;
+}
+
+#inputNuevoLinkEspacio:hover {
+    border-radius: 6px;
+}
+
+#inputNuevoLinkBanda {
+    transform: translate(17%, -50%);
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#inputNuevoLinkBanda:hover {
+    border-radius: 6px;
+}
+
+.mensajeErrorEdicion{
+    display: none;
+    color: #F44336;
+}
+
+.reservasEspacio {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+}
+
+.reservasEspacio caption {
+    caption-side: top;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.reservasEspacio th {
+    border: none;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 17px;
+}
+
+
+.reservasEspacio td {
+    border: none;
+    padding: 10px 12px;
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+}
+
+.reservasEspacio thead {
+    background-color: rgb(151, 120, 40);
+    color: white;
+}
+
+.reservasEspacio thead th {
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.reservasEspacio tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    transition: background-color 0.15s ease;
+}
+
+.reservasEspacio tbody tr:hover {
+    background-color: rgba(151, 120, 40, 0.08);
+}
+
+.reservasEspacio tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.reservasEspacio tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.reservasEspacioBoton {
+    width: 120px; 
+    text-align: center; 
+    padding: 6px 12px;
+    border-radius: 14px;
+    border: none;
+    background-color: #a33;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reservasEspacioBoton:hover {
+    background-color: #c44;
+    border-radius: 10px;
+}
+
+.reservaAutorizada {
+    width: 120px; 
+    text-align: center; 
+    background-color: rgba(29, 201, 29, 0.89);
+    padding: 6px 12px;
+    border-radius: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+}

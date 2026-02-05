@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/styles.css">
+        <title>Iniciar sesión en Jameet</title>
+    </head>
+
+    <body>
+        <div class="fotoDeFondo">
+            <div class="content">
+                    <script>localStorage.removeItem('usuarioId');</script>
+                    <div class="cajaLogo">
+                        <img src="../Jameet_login.png" alt="Iniciar_sesion" class="logo_login">
+                    </div>
+                    <div class="formIniciarSesion">
+                    <form onsubmit="login(event)">
+                        <br>
+                        <label for="email" class="labelIniciarSesion">Ingrese su email</label><br>
+                        <input id="email_usuario" type="email" name="email" required placeholder="Tu_correo@Jameet.com" oninput="this.style.backgroundColor = 'gray'"><br><br>         
+                        <label for="contraseña_usuario" class="labelIniciarSesion">Ingrese su contraseña</label><br>
+                        <input id="contraseña_usuario" type="password" required placeholder="Tu contraseña" oninput="this.style.backgroundColor = 'gray'"><br>
+                        <button class ="botonMostrarContrasenaIniciarSesion" type="button" id="mostrar_contraseña">Mostrar contraseña</button><br><br><br>
+                        <input type="submit" value="Iniciar sesion" class ="botonIniciarSesion">
+                    </form>
+                    <dialog class="errorLogin" id="error_login">Datos incorrectos</dialog>
+                </div>
+                <div class="seccionCrearCuenta">
+                    <p>¿No tenes una cuenta?</p>
+                    <a href="crear_usuario.html" class="botonLlevarCrearCuenta">Crear una cuenta</a>
+                </div>
+            </div>            
+        </div>
+    </body>
+    <script src="../js/iniciarSesion.js"></script>
+</html>

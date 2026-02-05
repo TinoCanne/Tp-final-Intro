@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <nav>
+            <a href="../index.html">
+                <img src="../Jameet.png" alt="logo" class="logo">
+            </a>
+            <a href= "perfil.html" class = "botonNavBar">Mi Perfil</a>
+            <a href= "contactos.html" class = "botonNav">Contactos</a>
+        </nav>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/styles.css">
+        <title>Perfil del Espacio</title>
+    </head>
+    <body>
+
+	    <div class="contenedorBotonesEspacios">
+            <button id = "botonMirarReservas" onclick="mostrarReservas()">Mire sus reservas</button>
+	    <button id = "botonFiltrarEspacios" onclick="mostrarFiltro()">Filtrar</button>
+	</div>
+	<dialog class="cuadroMisReservas" id="cuadroMisReservasId" >
+            <div id="contenedorBotonCerrar">
+		<button class="botonCerrarMisReservas"onclick="cerrarReservas()">Cerrar</button>
+            </div>
+	    <table class="misReservas">
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Nombre del espacio</th>
+                <th>Precio por hora</th>                
+                <th>Número de reserva</th>
+                <th></th>
+                <th>Estado</th>
+                <caption>
+                    Mis reservas:
+                </caption>
+                <tbody class="contenidoMisReservas" id="contenidoMisReservas"></tbody>
+            </table>
+        </dialog>
+
+        <dialog class="filtroEspacios" id="filtroEspaciosId" >
+            <div id="contenedorBotonCerrar">
+		        <button onclick="cerrarFiltro()">X</button>
+	        </div>
+            <div id="filtroSalas">
+                    <form onsubmit="aplicarFiltroEspacios(event)">
+                        <br>
+                        <input type="text" placeholder = "Ingrese una ubicación" id="ubicacion">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese un precio máximo" id="precioPorHora">
+                        <br>
+                        <br>
+                        <input type="text" placeholder = "Ingrese una hora" id="horaAbierto">
+                        <br>
+                        <br>
+                        <input type="checkbox" placeholder = "Solo espacios favoritos" id="soloEspaciosFavoritos">
+                        <label for="soloEspaciosFavoritos" class="cartelEspacioFavorito">Solo espacios favoritos</label>
+                        <br>
+                        <br>
+                        <input type="submit" value="Aplicar filtros">
+                    </form>
+                </div>
+        </dialog>
+
+        <div class="marcoEspacios" id="marco_espacios"></div>
+        <dialog class="cuadroCalendario" id="cuadro_calendario">
+            <button class="botonCerrarCalendario" onclick="cerrarCalendario()">X</button>
+            <table class="calendarioReservas" id="calendario_reservas">
+                <caption class="ubicacionEnCalendario" id="ubicacion_en_calendario"></caption>
+                <thead>
+                    <tr>
+                        <th>
+                            Lun
+                        </th>
+                        <th>
+                            Mar
+                        </th>
+                        <th>
+                            Mie
+                        </th>
+                        <th>
+                            Jue
+                        </th>
+                        <th>
+                            Vie
+                        </th>
+                        <th>
+                            Sab
+                        </th>
+                        <th>
+                            Dom
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="contenidoCalendario" id="contenido_calendario"></tbody>
+            </table>
+        </dialog>
+        <dialog class="cuadroHorarios" id="cuadro_horarios">
+            <table class="horasReservas" id="horas_reservas">
+                <caption>
+                    <button class="botonVolverACalendarios" onclick="ocultarHorarios(true, false)">&#171</button>
+                    <button class="botonCerrarHorarios" onclick="ocultarHorarios(false, false)">X</button>
+                    Elija la hora de su reserva
+                </caption>
+                <tbody class="contenidoHoras" id="contenido_horas"></tbody>
+            </table>
+        </dialog>
+        <dialog class="textoReservaExitosa" id="texto_reserva_exitosa">
+            Reservado con exito.
+        </dialog>
+        
+    </body>
+    <script src="../js/perfilEspacio.js"></script>
+</html>

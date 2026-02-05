@@ -1,0 +1,33 @@
+services:
+  
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: tpDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tablas:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    command: "npm start"
+    ports: 
+      - "3000:3000"
+    volumes:
+    - ./:/app              
+    - /app/node_modules
+
+  web:
+    image: nginx
+    volumes:
+    - ../Front:/usr/share/nginx/html
+    ports:
+    - "8080:80"
+
+volumes:
+  postgres_data:

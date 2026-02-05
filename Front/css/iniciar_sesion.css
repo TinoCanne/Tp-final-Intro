@@ -1,0 +1,162 @@
+@keyframes desaparicionMensajeError {
+    from {
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -80%);
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.mensajeEnDesaparicion {
+    animation: desaparicionMensajeError 1s forwards !important; 
+}
+
+.fotoDeFondo{
+    height: 100vh;
+    width: 100%;
+    background-image: url(https://photos.smugmug.com/Concerts/John-Mayer-Trio/i-9ZmkN54/1/M2BGXK8S84SSdKpJ42BHx5DxvZzDP6ndSpnKrRZJT/L/John%20Mayer%20Trio-1-L.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content{
+    padding-top: 50px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(8px);
+}
+
+.errorLogin {
+    color: red;
+    position: fixed;
+    top: 67%;
+    left: 11%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    pointer-events: none;
+}
+
+.botonIniciarSesion {
+    border-style: none;
+    width: 65%;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    display: block;
+    margin: 0 auto;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.botonIniciarSesion:hover {
+    border-radius: 10px;
+}
+
+.botonMostrarContrasenaIniciarSesion {
+    width: 65%;
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
+    margin-top: 2px;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+.botonMostrarContrasenaIniciarSesion:hover {
+    border-radius: 10px;   
+}
+
+.botonLlevarCrearCuenta {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.botonLlevarCrearCuenta:hover {
+    border-radius: 10px;
+}
+
+.formIniciarSesion {
+    position: relative;
+    margin: 15px auto;
+    border-radius: 15px;
+    display: flex;
+    width: 350px;
+    height: 270px;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.498);
+    padding: 30px;
+}
+
+.seccionCrearCuenta {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+}
+
+.labelIniciarSesion {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.h1IniciarSesion {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+.textInputInicarSesion {
+    width: 150px;
+    height: 5px;
+}
+
+.formIniciarSesion input[type="email"],
+.formIniciarSesion input[type="password"],
+.formIniciarSesion input[type="text"] {
+    width: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(101, 99, 99);
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.cajaLogo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cajaLogo img{
+    height: 55px;
+}

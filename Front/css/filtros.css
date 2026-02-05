@@ -1,0 +1,89 @@
+#botonFiltroUsuarios, #botonFiltroBandas {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 15px;
+    padding: 8px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+#botonFiltroUsuarios:hover, #botonFiltroBandas:hover {
+    border-radius: 10px;
+    color:rgb(151, 120, 40);
+    background-color: white;
+    margin-top: 15px;
+}
+
+.contenedorBotonesFiltros {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#botonFiltrarEspacios {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 15px;
+    padding: 8px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+#botonFiltrarEspacios:hover {
+    border-radius: 10px;
+    color:rgb(151, 120, 40);
+    background-color: white;
+    margin-top: 15px;
+}
+
+#filtroUsuarios input[type="text"],
+#filtroBandas input[type="text"],
+#filtroSalas input[type="text"] {
+    width: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+#filtroUsuarios input[type="submit"],
+#filtroBandas input[type="submit"],
+#filtroSalas input[type="submit"] {
+    border-style: none;
+    width: 65%;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    color: white;
+    display: block;
+    margin: 0 auto;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+#filtroUsuarios input[type="submit"]:hover,
+#filtroBandas input[type="submit"]:hover,
+#filtroSalas input[type="submit"]:hover {
+    border-radius: 10px;
+}
+
+#contenedorBotonCerrar {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}

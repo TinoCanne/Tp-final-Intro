@@ -1,0 +1,76 @@
+.botonIndex {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 15px;
+    height: 35px;
+    width: 100px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+.botonIndex:hover {
+    border-radius: 10px;
+    color:rgb(151, 120, 40);
+    background-color: white;
+}
+
+.botonNav {
+    border-radius: 15px;
+    border-style: solid;
+    border-color: white;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.botonNav:hover {
+    border-radius: 8px;
+}
+
+.botonNav:first-of-type {
+    margin-left: 10px; 
+}
+
+#instrumentosUsuario, #generosUsuario, #redsocialUsuario{
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#bioUsuario {
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#miembrosBanda, #generosBanda, #redsocialBanda{
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+#bioBanda {
+    margin-top: -4px;
+    justify-content: center;
+    display: inline-block;
+}
+
+.carta label {
+    color: rgb(151, 120, 40);
+}
+
+.hidden {
+    display: none;
+}

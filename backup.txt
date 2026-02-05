@@ -1,0 +1,44 @@
+           <div class="content">
+ <h1 class="h1CrearUsuario">Complete el siguiente formulario para crear su cuenta</h1>
+        <div class="formCrearUsuario">
+            <form onsubmit="crear_usuario(event)">
+                <br>
+                <label for="nombre" class="labelCrearUsuario">Ingrese su nombre/s:</label><br>
+                <input type="text" id="nombre" name="nombre" oninput="validarPalabras(this)" required placeholder="Su/s nombre/s"><br><br>
+                <label for="apellido" class="labelCrearUsuario">Ingrese su apellido/s:</label><br>
+                <input type="text" id="apellido" name="apellido" oninput="validarPalabras(this)" required placeholder="Su/s apellido/s"><br><br>
+                <label for="username" class="labelCrearUsuario">Ingrese su nombre de usuario:</label><br>
+                <input type="text" id="username" name="username" required placeholder="Nombre de usuario"><br><br>
+                <label for="instrumentos" class="labelCrearUsuario">Ingrese los instrumentos que toca (MAX 4)(separado por comas):</label><br>
+                <input type="text" id="instrumentos" name="instrumentos" oninput="validarSeparadoPorComas(this)" required placeholder="Su/s instrumento/s"><br><br>
+                <label for="generosfavoritos" class="labelCrearUsuario">Ingrese sus géneros favoritos (MAX 4)(separado por comas):</label><br>
+                <input type="text" id="generosfavoritos" name="generosfavoritos" oninput="validarSeparadoPorComas(this)" required placeholder="Sus géneros favoritos"><br><br>
+                <label for="biografia" class="labelCrearUsuario">Ingrese una breve biografía:</label><br>
+                <input type="text" id="biografia" name="biografia" required placeholder="Hola mi nombre es..."><br><br>
+                <label for="redessociales" class="labelCrearUsuario">Ingrese sus redes sociales:</label><br>
+                <input type="text" id="redessociales" name="redessociales" required placeholder="Sus redes sociales"><br><br>
+                <label for="contacto" class="labelCrearUsuario">Ingrese su número de teléfono (sin guiones):</label><br>
+                <input type="text" id="contacto" name="contacto" oninput="validarNumeros(this)" required placeholder="+54123456789"><br><br>
+                <label for="email" class="labelCrearUsuario">Ingrese su correo electrónico:</label><br>
+		        <input type="email" id="email" name="email" oninput="validarCorreo(this)" required placeholder="Su_correo@Jameet.com"><br><br>
+                <label for="linkfoto" class="labelCrearUsuario">Ingrese su foto de perfil:</label><br>
+                <label for="linkfoto" class="labelCrearUsuario">(Preferiblemente tipo webp)</label><br>
+                <input type="url" id="linkfoto" oninvalid="this.setCustomValidity('Ingrese un url válida'), this.style.backgroundColor = '#F44336'" oninput="this.setCustomValidity(''), this.style.backgroundColor = 'grey'" placeholder="https://ejemplo.com/mi_imagen.webp">
+                <button type="button" id="cargarImagen" class="botonCargarImagen" onclick="mostrar_imagen()">Cargar imagen</button><br><br>
+                <img id="vista_previa" src="https://cdn-icons-png.flaticon.com/256/847/847969.png" alt="vista previa" class="fotoDePerfil" onerror="mostrar_imagen_por_defecto()"><br><br>
+                <label for="contraseña" class="labelCrearUsuario">Cree una contraseña (Debe tener una mínimo 8 caracteres, una mayúscula y un número):</label><br>
+                <input type="password" id="contraseña_usuario" name="contraseña" oninput="validarContraseña(this)" required placeholder="Su contraseña"><br><br>
+                <label for="constraseña" class="labelCrearUsuario">Repita su contraseña:</label><br>
+                <input type="password" id="contraseña_usuario_repetida" name="contraseña" required placeholder="Repita la contraseña"><br>
+                <span id="error_contraseña" class="errorContraseña"></span>
+                <button type="button" id="mostrar_contraseña" class="botonMostrarContrasenaCrearUsuario">Mostrar contraseña</button><br><br>
+                <input type="submit" value="Crear usuario" class="botonCrearUsuario">
+            </form>
+            <script src="../js/crearUsuario.js"></script>
+
+
+        <div class="botoneraCrearUsuario">
+            <div class="botonIndex">
+                <a href="iniciar_sesion.html">Volver a iniciar sesion</a>
+            </div>
+        </div>

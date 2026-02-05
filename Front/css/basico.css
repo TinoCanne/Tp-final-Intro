@@ -1,0 +1,49 @@
+body {
+    background-color: rgb(25,20,20);
+    justify-content: center;
+    color: white;
+}
+
+h1,h2 {
+    text-align: center;
+    color: white;
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: whitesmoke;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    align-content: center;
+    border-radius: 10px;
+    height: 35px;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    color: whitesmoke;
+}
+
+.logo {
+    height: 40px;
+    width: 100px;
+}
+
+.container_botones{
+    display: flex;
+
+    justify-content: center;
+    width: 100%;
+}
+
+.botonIndex{
+    margin-right: 10px;
+}

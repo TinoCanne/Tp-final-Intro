@@ -1,0 +1,77 @@
+.marco{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+
+.miniCarta{
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 10px;
+    width: 240px;
+    background-color: rgba(255, 255, 255, 0.385);
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 5px;
+}
+
+.miniCarta img{
+    height: 170px;
+    width: 215px;
+    margin: 10px;
+    border-radius: 10px;
+    justify-self: center;
+}
+
+.botoneraContactos{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.botoneraContactos .botonIndex{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.marco #marco_bandas{
+    display:none;
+}
+
+.marco #marco_espacios{
+    display:none;
+}
+
+.miniCarta p{
+    margin-top: 5px;
+}
+
+.miniCarta .botonIndex{
+    justify-self: center;
+}
+
+.botonEliminarContacto {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 15px;
+    height: 35px;
+    max-width: 200px;
+    color:white;
+    background-color: rgb(151, 120, 40);
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.botonEliminarContacto:hover {
+    border-radius: 10px;
+    color: rgb(151, 120, 40);
+    background-color: white;
+}

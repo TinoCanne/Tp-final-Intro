@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<html lang="es">
+    <head>
+	<meta charset = "UTF-8">
+        <link rel = "stylesheet" href= "css/styles.css">
+        <link rel = "stylesheet" href= "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <title>Jameet</title>
+    </head>
+
+    <body>
+	    <nav>   
+            <img src = "Jameet.png" alt = "logo" class = "logo">
+	        <a href= "html/perfil.html" class = "botonNav">Mi Perfil</a>
+            <a href= "html/contactos.html" class = "botonNav">Contactos</a>
+            <a href= "html/perfil_espacio.html" class = "botonNav">Estudios</a>
+        </nav>
+	    <h1 class = "h1filtro">Bienvenido a Jameet!</h1>
+        <div class="container_botones">
+            <button id = "botonBuscarUsuarios" class="botonIndex">Usuarios</button>
+            <button id = "botonBuscarBandas" class="botonIndex">Bandas</button>
+        </div>
+
+        <dialog id="popUpFiltrosBandas">
+	    <div id="contenedorBotonCerrar">
+                <button onclick="ocultarFiltroBandas()">X</button>
+            </div>
+	    <div id="filtroBandas">
+                <form onsubmit="aplicarFiltrosBandas(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un genero" id="generoBandasFiltros">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
+
+        <div class = "boxCarta" id="cartaUsuarios">
+            <div class = "carta">
+                <br>
+                <div>
+                    <img id = "fotoUsuario">
+                </div>
+                <div>
+                    <h1 id = "nombreUsuario"></h1>
+                    <h4 id = "usernameUsuario"></h4>
+		    <label><strong>Instrumentos:</strong></label><br>
+                    <p id = "instrumentosUsuario"></p><br>
+                    <label><strong>Géneros:</strong></label><br>
+                    <p id = "generosUsuario"></p><br>
+                    <label><strong>Bio:</strong></label><br>
+                    <p id = "bioUsuario"></p><br>
+                    <label><strong>Redes:</strong></label><br>
+                    <p id = "redsocialUsuario"></p>
+                </div>
+                <div>
+                    <button id = "botonSiUsuarios" class="botonIndex">Vamo' Arriba</button>
+                    <button id = "botonNoUsuarios" class="botonIndex">Ni ahí</button>
+                </div>
+            </div>
+        </div>
+        <div class="boxCarta" id="cartaBandas">
+            <div class = "carta">
+                <br>
+                <div>
+                    <img id = "fotoBanda">
+                </div>
+                <div>
+                <h1 id = "nombreBanda"></h1>
+		        <label><strong>Miembros:</strong></label><br>
+		        <p id = "miembrosBanda"></p><br>
+                <label><strong>Géneros:</strong></label><br>
+                <p id="generosBanda"></p><br>
+		        <label><strong>Bio:</strong></label><br>
+			    <p id = "bioBanda"></p><br>
+		        <label><strong>Redes:</strong></label><br>
+		    	<p id = "redsocialBanda"></p>
+            </div>
+                <div>
+                    <button id = "botonSiBanda" class="botonIndex">Vamo' Arriba</button>
+                    <button id = "botonNoBanda" class="botonIndex">Ni ahí</button>
+                </div>
+            </div>
+        </div>
+	
+	<div class="contenedorBotonesFiltros">
+	    <button onclick="mostrarFiltroUsuarios()" id="botonFiltroUsuarios" class="hidden">Filtrar Usuarios</button>
+            <button onclick="mostrarFiltroBandas()" id="botonFiltroBandas" class="hidden">Filtrar Bandas</button>
+	</div>
+        <dialog id="popUpFiltrosUsuarios">
+            <div id="contenedorBotonCerrar">
+		<button onclick="ocultarFiltroUsuarios()">X</button>
+            </div>
+	    <div id="filtroUsuarios" >
+                <form onsubmit="aplicarFiltrosUsuarios(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un género" id="generoUsuariosFiltros">
+                    <br>
+                    <br>
+                    <input type="text" placeholder = "Ingrese un instrumento" id="instrumentoUsuariosFiltros">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
+
+
+        <dialog id="popUpFiltrosBandas">
+	    <div id="contenedorBotonCerrar">
+                <button onclick="ocultarFiltroBandas()">X</button>
+            </div>
+	    <div id="filtroBandas">
+                <form onsubmit="aplicarFiltrosBandas(event)">
+                    <br>
+                    <input type="text" placeholder = "Ingrese un género" id="generoBandasFiltros">
+                    <br>
+                    <br>
+                    <input type="submit" value="Aplicar filtros">
+                </form>
+            </div>
+        </dialog>
+
+        <script src = "js/index.js"></script>
+    </body>
+
+</html>

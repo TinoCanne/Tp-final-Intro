@@ -1,0 +1,167 @@
+.formCrearUsuario {
+    position: relative;
+    margin: 40px auto;
+    border-radius: 15px;
+    display: flex;
+    width: 350px;
+    height: 1400px;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.436);
+    padding: 30px;
+    padding-bottom: 50px;
+}
+
+.formCrearUsuario input[type="email"],
+.formCrearUsuario input[type="password"],
+.formCrearUsuario input[type="text"],
+.formCrearUsuario input[type="url"] {
+    width: 91%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: gray;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.botonCrearUsuario {
+    border-style: none;
+    width: 65%;
+    height: 35px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    display: block;
+    margin: 40px auto;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.botoneraCrearUsuario{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.botoneraCrearUsuario .botonIndex{
+    padding:5px;
+    margin-bottom:20px;
+}
+
+.botonCrearUsuario:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: grey;
+}
+
+.botonMostrarContrasenaCrearUsuario {
+    width: 55%;
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
+    font-family: inherit;
+    margin-top: 3px;
+    transition: 0.2s;
+}
+
+.botonMostrarContrasenaCrearUsuario:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+.botonCargarImagen {
+    width: 55%;
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(151, 120, 40);
+    align-self: center;
+    align-content: center;
+    text-align: center;
+    border-color: white;
+    height: 35px;
+    color: white;
+    font-family: inherit;
+    margin-top: 3px;
+    transition: 0.2s;
+}
+
+.botonCargarImagen:hover {
+    border-radius: 10px;
+    background-color: white;
+    color: rgb(151, 120, 40);
+}
+
+.labelCrearUsuario {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.h1CrearUsuario {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+.textInputCrearUsuario {
+    width: 150px;
+    height: 5px;
+}
+
+.fotoDePerfil {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-radius: 100px;
+    border-radius: 50%;
+
+}
+
+.errorContraseña {
+    color: #F51F15;
+}
+
+.seccionIniciarSesion {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+}
+
+.botonLlevarIniciarSesion {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.21);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.botonLlevarIniciarSesion:hover {
+    border-radius: 10px;
+}
+
+.fotoFondoCrearUsiario{
+    background-image: url(https://media.istockphoto.com/id/1020227856/photo/empty-concert-stage-on-music-festival-instruments-silhouettes.jpg?s=612x612&w=0&k=20&c=p1Fd5SV27zTvumgkeXbFD0xQXDZdg9ooIKw0U1SfZxI=);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil del Usuario</title>
+        <link rel="stylesheet" href="../css/styles.css">
+	<script src="../js/perfilUsuario.js"></script>
+    </head>
+    
+  <body>
+        <nav>
+            <a href="../index.html">
+                <img src="../Jameet.png" alt="logo" class="logo">
+            </a>
+	    <a href="iniciar_sesion.html" class="botonNavBar">Cerrar Sesion</a>
+        </nav>
+    
+        <div class="perfilContainer" id="perfilContainer">
+
+	        <h1 class="h1Perfil">Mi perfil</h1>
+
+	        <div class="contenedorFotoPerfil">
+                <img class="fotoPerfilGrande" id="linkFotoUsuario" src="" alt="Foto de perfil" onerror="mostrarImagenPorDefectoUsuario(this)">
+                <div class="contenedorNuevoLinkUsuario">
+                    <input type="hidden" name="nuevo_link_foto" id="inputNuevoLink" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
+                </div>
+	        </div>
+            <form class="info">
+                <label class="filaPerfil"><strong>Nombre:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="nombre" oninput="validarPalabras(this)"></span></label><br>
+                
+                <label class="filaPerfil"><strong>Apellido:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="apellido" oninput="validarPalabras(this)"></span></label><br>
+                
+                <label class="filaPerfil"><strong>Nombre de usuario:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="username"></span></label><br>
+                
+                <label class="filaPerfil"><strong>Redes sociales:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="redSocial"></span></label><br>
+            
+                <label class="filaPerfil"><strong>Email:</strong>
+                <span class="spanDatosPerfilNoEditable" name="email" id="email"></span></label><br>
+        
+                <label class="filaPerfil"><strong>Instrumentos:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="instrumentosUsuario" oninput="validarSeparadoPorComasSpan(this)"></span></label><br>
+    
+                <label class="filaPerfil"><strong>Géneros favoritos:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="generosUsuario" oninput="validarSeparadoPorComasSpan(this)"></span></label><br>
+    
+                <label class="filaPerfil"><strong>Bio:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="biografia"></span></label><br>
+
+                <label class="filaPerfil"><strong>Contacto:</strong>
+                <span class="spanDatosPerfil" contenteditable="false" id="contacto" oninput="validarNumeros(this)"></span></label><br>
+            </form>
+            
+            <dialog id="confirmacionEliminarPerfil" class="dialogConfirmacion">
+                <span>¿Estas seguro de que queres eliminar tu perfil?</span>
+                <button id="cancelar" class="botonPerfil" onclick="this.closest('dialog').close()">Cancelar</button>
+                <button id="eliminar" class="botonPerfilEliminar" onclick="eliminarPerfil()">Si</button>
+            </dialog>
+
+	        <div class="contenedorBotonEdicionPerfil">
+            	<button type="button" class="botonPerfil" id="botonDeEdicionPerfil">Editar perfil</button> 
+		        <button type="button" class="botonPerfilEliminar" id="botonEliminarPerfil" onclick="document.getElementById('confirmacionEliminarPerfil').showModal()">Eliminar perfil</button>
+                <span class="mensajeErrorEdicion" id="mensajeErrorEdicion">Hay un error en los datos</span>
+	        </div>
+	    </div>
+        
+        <div class="containerBanda" id="divBanda">
+
+            <div id="infoBanda" class="hidden">
+                <h2>Mi Banda</h2>
+                <div class="contenedorInfoBanda">
+                    <form class="info">
+                        <label class="filaPerfilBanda"><strong>Nombre:</strong>
+                        <span id="nombreBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Género/s:</strong>
+                        <span class="spanDatosBanda" contenteditable="false" id="generosBanda" oninput="validarSeparadoPorComasSpan(this)"></span></label>
+                        <label class="filaPerfilBanda"><strong>Descripción:</strong>
+                        <span id="descripcionBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Integrantes:</strong>
+                        <span id="integrantesBanda" class="spanDatosBandaNoEditable" contenteditable="false" ></span></label>
+                        <label class="filaPerfilBanda"><strong>Fecha de creación:</strong>
+                        <span id="fechaCreacionBanda" class="spanDatosBandaNoEditable" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Redes:</strong>
+                        <span id="redesBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                        <label class="filaPerfilBanda"><strong>Contraseña:</strong>
+                        <span id="contraseñaBanda" class="spanDatosBanda" contenteditable="false"></span></label>
+                    </form>
+                
+                    <div class="contenedorImagenBanda">
+                        <img id="imagenBanda" class="imagenBanda" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoBanda(this)">
+                        <div class="contenedorNuevoLink">
+			                <input type="hidden" id="inputNuevoLinkBanda" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
+                    </div>
+                    
+                    <dialog id="confirmacionAbandonoBanda" class="dialogConfirmacion">
+                        <span>¿Estas seguro de que queres abandonar la banda?</span>
+                        <button id="cancelar" class="botonPerfil" onclick="this.closest('dialog').close()">Cancelar</button>
+                        <button id="eliminar" class="botonPerfilEliminar" onclick="dejarBanda()">Si</button>
+                    </dialog>
+		    </div>
+                </div>
+                <div class="contenedorBotonEdicionBanda">
+                    <button type="button" class="botonPerfil" id="botonDeEdicionBanda">Editar banda</button>
+                    <button type="button" class="botonPerfilEliminar" id="botonDejarBanda" onclick="document.getElementById('confirmacionAbandonoBanda').showModal()">Dejar banda</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unirse a otra banda</button>
+                    <button type="button" class="botonPerfil" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver mis bandas</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crear otra Banda</button>
+                </div>
+	    </div>
+
+            <div class="crearBanda" id="divCrearBanda">
+                <h2 class="h2perfil">Cree su banda</h2>
+                <br>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(this)"><br>
+                </div>
+                <form class="crearBandaForm" onsubmit="crearBanda(event)">
+                    <label><strong>Nombre de la banda:</strong>
+                    <input class="inputDatosPerfil" id="nombreCrearBanda" required></input></label><br>
+		    
+	    	        <label><strong>Link de la foto de la banda:</strong><br>
+                    <input type="url" class="inputDatosPerfil"  id="linkFotoCrearBanda"></input></label><br>
+                    <button type="button" id="botonMostrarImagenEspacio" class="botonPerfil" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
+
+                    <label><strong>Red social:</strong><br>
+                    <input class="inputDatosPerfil"  id="redSocialCrearBanda" required></input></label><br>
+                    
+                    <label><strong>Géneros favoritos:</strong>
+                    <input class="inputDatosPerfil" id="generosUsuarioCrearBanda" oninput="validarSeparadoPorComas(this)" required></input></label><br>
+                    
+                    <label><strong>Descripción:</strong>
+                    <input class="inputDatosPerfil" id="descripcionCrearBanda" required></input></label><br>
+                    
+                    <label><strong>Contraseña de la banda:</strong> 
+                    <input class="inputDatosPerfil" id="contraseñaCrearBanda" required></input></label><br>
+
+                    <div class="contenedorBotonCrearBanda">
+			            <button id="botonCrearBanda" class="botonPerfil">Crear banda</button>        
+                    </div>
+		        </form>
+            </div>
+
+            <div class="unirseBanda" id="divUnirseBanda">
+                <h2 class="h2perfil">Únete a una banda</h2>
+                <br>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraBanda" class="fotoDeMuestraBanda" src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoBanda(this)"><br>
+                </div>
+                <form class="unirseBandaForm" onsubmit="unirseBanda(event)">
+                    <label><strong>Ingrese el nombre de la banda:</strong>
+                    <input class="inputDatosPerfil" id="nombreUnirseBanda"></input></label><br>
+                    <label><strong>Ingrese la contraseña para unirse:</strong>
+                    <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
+		            <div class="contenedorBotonUnirseBanda">
+		                <button class="botonPerfil" id="botonUnirseBanda">Unirse a la banda</button>        
+                    </div>
+		        </form>
+            </div>
+        </div>
+
+        <div id="seccionEspacio">
+            <div id="infoEspacio" class="hiddenEspacio">
+            
+                <h2>Mi espacio</h2><br>
+                <div class="contenedorInfoMiniespacio" id="contenedorInfoMiniespacio">
+                    <form class="info">
+                        <label><strong>Nombre:</strong></label>
+                        <span id="nombreEspacio" class="spanDatosEspacio" contenteditable="false"></span>
+                        <label><strong>Ubicación:</strong></label>
+                        <span class="spanDatosEspacio" contenteditable="false" id="ubicacionEspacio"></span>
+                        <label><strong>Descripción:</strong></label>
+                        <span id="descripcionEspacio" class="spanDatosEspacio" contenteditable="false"></span>
+                        <label><strong>Contacto:</strong></label>
+                        <span id="contactoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
+                        <label><strong>Tamaño:</strong></label>
+                        <span id="tamañoEspacio" class="spanDatosEspacio" contenteditable="false"></span>
+                        <label><strong>Precio por hora:</strong></label>
+                        <span id="precioEspacio" class="spanDatosEspacio" contenteditable="false"></span>
+                        <label><strong>Hora de apertura:</strong></label>
+                        <span id="horaAperturaEspacio" class="spanDatosEspacioNoEditable" contenteditable="false"></span>
+                        <label><strong>Hora de cierre:</strong></label>
+                        <span id="horaCierreEspacio" class="spanDatosEspacioNoEditable" contenteditable="false"></span>
+                        <label><strong>Días abiertos:</strong></label>
+                        <span id="diasAbiertosEspacio" class="spanDatosEspacioNoEditable" contenteditable="false"></span>
+                    </form>
+                    <div class="contenedorImagenEspacioMiniespacio">
+		    	        <img id="imagenEspacioMiniespacio" class="imagenEspacioMiniespacio" src="" alt="Imagen no Encontrada" onerror="mostrarImagenPorDefectoEspacio(this)">
+        		    	<div class="contenedorNuevoLink">
+                            <input type="hidden" id="inputNuevoLinkEspacio" placeholder="Ingresa tu nuevo link de foto:" class="inputNuevoLink" oninput="validarUrl(this)">
+                    	</div>
+		            </div>
+
+                    <dialog id="confirmacionEliminarEspacio" class="dialogConfirmacion">
+                        <span>¿Estas seguro de que queres eliminar este espacio?</span>
+                        <button id="cancelar" class="botonPerfil" onclick="this.closest('dialog').close()">Cancelar</button>
+                        <button id="eliminar" class="botonPerfilEliminar" onclick="eliminarEspacio()">Si</button>
+                    </dialog>
+                </div>
+		        <div class="contenedorBotonesEspacio">
+                    <button type="button" class="botonPerfil" id="botonEditarEspacio" onclick="editarEspacio()" >Editar espacio</button>
+		            <button type="button" class="botonPerfilEliminar" id="botonEliminarEspacio" onclick="document.getElementById('confirmacionEliminarEspacio').showModal()">Eliminar espacio</button>
+		            <button type="button" class="botonPerfil" id="botonMostrarReservas" onclick="mostrarReservas()">Ver las reservas de este espacio</button>
+            	    <button type="button" class="botonPerfil" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver mis espacios</button>
+			        <button type="button" class="botonPerfil" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crar otro espacio</button>
+                </div>
+	        </div>
+
+            <div id="crearEspacio" class="hiddenEspacio">
+                <h2>Publique su espacio</h2>
+                <div class="contenedorFotoDeMuestraEspacio">
+                    <img id="fotoDeMuestraEspacio" class="fotoDeMuestraEspacio" src="https://cdn-icons-png.flaticon.com/512/13163/13163762.png" alt="Imagen no encontrada" onerror="mostrarImagenPorDefectoEspacio(this)"><br>
+                </div>
+                <form class="crearEspacioForm" onsubmit="crearEspacio(event)">
+                    <label><strong>Nombre del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="nombreCrearEspacio" required></input></label>
+                    <label><strong>Link de la foto del espacio:</strong>
+                    <input type="url" class="inputDatosPerfil"  id="linkFotoEspacio"></input></label>
+                    <button type="button" id="botonMostrarImagenEspacio" class="botonPerfil" onclick="mostrarImagenCrearEspacio()">Mostrar imagen</button><br>
+                    <label><strong>Ubicación:</strong>
+                    <input class="inputDatosPerfil"  id="ubicacionCrearEspacio" required></input></label>
+                    <label><strong>Descripción: </strong>
+                    <input class="inputDatosPerfil"  id="descripcionCrearEspacio" required></input></label>
+                    <label><strong>Contacto:</strong>
+                    <input class="inputDatosPerfil"  id="contactoCrearEspacio" required></input></label>
+                    <label><strong>Tamaño del espacio:</strong>
+                    <input class="inputDatosPerfil"  id="tamañoCrearEspacio" required></input></label>
+                    <label><strong>Precio por hora:</strong>
+                    <input class="inputDatosPerfil"  id="precioPorHoraCrearEspacio" oninput="validarNumerosCrear(this)" required></input></label>
+                    <label><strong>Hora de apertura:</strong></label>
+                    <input class="inputDatosPerfil" id="horarioAperturaCrearEspacio" oninput="validarHoras(this)" required></input>
+                    <label><strong>Hora de cierre:</strong></label>
+                    <input class="inputDatosPerfil" id="horarioCierreCrearEspacio" oninput="validarHoras(this)" required></input>
+                    <label><strong>¿Cual es el primer día que abre el estudio?:</strong></label>
+                    <select name="diaApertura" id="diaAperturaCrearEspacio" required>
+                        <option value="lun" selected>Lunes</option>
+                        <option value="mar">Martes</option>
+                        <option value="mie">Miércoles</option>
+                        <option value="jue">Jueves</option>
+                        <option value="vie">Viernes</option>
+                        <option value="sab">Sábado</option>
+                        <option value="dom">Domingo</option>
+                    </select>
+                    <br>
+                    <label><strong>¿Cual es el ultimo día que abre el estudio?:</strong></label>
+                    <select name="diaCierre" id="diaCierreCrearEspacio" required>
+                        <option value="lun" selected>Lunes</option>
+                        <option value="mar">Martes</option>
+                        <option value="mie">Miércoles</option>
+                        <option value="jue">Jueves</option>
+                        <option value="vie">Viernes</option>
+                        <option value="sab">Sábado</option>
+                        <option value="dom">Domingo</option>
+                     </select>
+                    <div class="contenedorBotonCrearEspacio">    
+                        <button type="submit" id="botonCrearEspacio" class="botonPerfil">Publicar espacio</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <dialog id="popUpEspacios" class="popupEspacio">
+            <div id="contenedorBotonCerrar">
+		        <button type="button" id="cerrarPopUpEspacios" onclick="cerrarPopUpEspacio()">X</button>
+	        </div>
+	        <div id="contenedorPopUpEspacio" class="contenedorPopUp"></div>
+        </dialog>
+        
+        <dialog id="popUpReservas" class="popUpReservas">
+            <div id="contenedorBotonCerrar">
+		        <button type="button" id="cerrarPopUpReservas" onclick="cerrarPopUpReservas()">X</button>
+	        </div>
+            <table class="reservasEspacio">
+                <th>Hora</th>
+                <th>Fecha</th>
+                <th>Número de reserva</th>
+                <th>Email usuario</th>
+                <th>Estado</th>
+                <caption>
+                    Reservas:
+                </caption>
+                <tbody class="contenidoReservasEspacio" id="contenidoReservasEspacio"></tbody>
+            </table>
+        </dialog>
+
+        <dialog id="popUpBandas">
+            <div id="contenedorBotonCerrar">
+		<button type="button" id="cerrarPopUpBandas" onclick="cerrarPopUpBanda()">X</button>
+            </div>
+	    <div id="contenedorPopUpBandas" class="contenedorPopUp">
+                
+            </div>
+        </dialog>
+    </body>
+    
+</html>
