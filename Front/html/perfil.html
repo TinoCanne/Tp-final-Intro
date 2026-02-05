@@ -55,8 +55,8 @@
             </form>
             
 	        <div class="contenedorBotonEdicionPerfil">
-            	<button id="botonDeEdicionPerfil" type="button">Editar perfil</button> 
-		        <button type="button" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
+            	<button type="button" class="botonPerfil" id="botonDeEdicionPerfil">Editar perfil</button> 
+		        <button type="button" class="botonPerfil" id="botonEliminarPerfil" onclick="eliminarPerfil()">Eliminar perfil</button>
                 <span class="mensajeErrorEdicion" id="mensajeErrorEdicion">Hay un error en los datos</span>
 	        </div>
 	    </div>
@@ -91,11 +91,11 @@
 		    </div>
                 </div>
                 <div class="contenedorBotonEdicionBanda">
-                    <button id="botonDeEdicionBanda">Editar banda</button>
-                    <button type="button" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
-                    <button type="button" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
-                    <button type="button" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
-                    <button type="button" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
+                    <button type="button" class="botonPerfil" id="botonDeEdicionBanda">Editar banda</button>
+                    <button type="button" class="botonPerfil" id="botonDejarBanda" onclick="dejarBanda()">Dejar banda</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarUnirseBanda" onclick="mostrarUnirseBanda()">Unete a una banda!</button>
+                    <button type="button" class="botonPerfil" id="botonMostrarTodasBandas" onclick="mostrarTodasBandas()">Ver todas tus bandas!</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearBanda" onclick="mostrarCrearBanda()">Crea otra Banda!</button>
                 </div>
 	    </div>
 
@@ -140,7 +140,7 @@
                     <label><strong>Ingrese la contraseña para unirse:</strong>
                     <input class="inputDatosPerfil" id="contraseñaUnirseBanda"></input></label><br>
 		            <div class="contenedorBotonUnirseBanda">
-		                <button id="botonUnirseBanda">Unirse a la banda</button>        
+		                <button class="botonPerfil" id="botonUnirseBanda">Unirse a la banda</button>        
                     </div>
 		        </form>
             </div>
@@ -179,10 +179,11 @@
 		            </div>
                 </div>
 		        <div class="contenedorBotonesEspacio">
-                    <button type="button" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
-		            <button type="button" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
-		            <button type="button" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
-                    <button type="button" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
+                    <button type="button" class="botonPerfil" id="botonEditarEspacio" onclick="editarEspacio()" >Edita tu espacio!</button>
+		            <button type="button" class="botonPerfil" id="botonMostrarTodosEspacios" onclick="mostrarTodosEspacios()">Ver tus espacios</button>
+		            <button type="button" class="botonPerfil" id="botonMostrarReservas" onclick="mostrarReservas()">Vea las reservas de este espacio</button>
+		            <button type="button" class="botonPerfilEliminar" id="botonEliminarEspacio" onclick="eliminarEspacio()">Eliminar Espacio</button>
+                    <button type="button" class="botonPerfil" id="ocultarMostrarCrearEspacio" onclick="ocultarMostrarCrearEspacio()">Crea otro Espacio Jameet!</button>
             	</div>
 	        </div>
 
