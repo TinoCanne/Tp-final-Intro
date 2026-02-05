@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-    <html lang="es">
+<html lang="es">
     <head>
         <nav>
             <a>
@@ -9,27 +8,27 @@
         </nav>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/styles.css">
-        <title>Iniciar sesion en Jameet</title>
+        <title>Iniciar sesión en Jameet</title>
     </head>
 
     <body>
         <script>localStorage.removeItem('usuarioId');</script>
-        <h1 class="h1IniciarSesion">Iniciar sesion</h1>
+        <h1 class="h1IniciarSesion">Iniciar sesión</h1>
         <div class="formIniciarSesion">
             <form onsubmit="login(event)">
                 <br>
-                <label for="email" class="labelIniciarSesion">Ingrese su email</label><br>
+                <label for="email" class="labelIniciarSesion">Ingrese su correo electrónico</label><br>
                 <input id="email_usuario" type="email" name="email" required placeholder="Tu_correo@Jameet.com" oninput="this.style.backgroundColor = 'gray'"><br><br>         
                 <label for="contraseña_usuario" class="labelIniciarSesion">Ingrese su contraseña</label><br>
                 <input id="contraseña_usuario" type="password" required placeholder="Tu contraseña" oninput="this.style.backgroundColor = 'gray'"><br>
                 <button class ="botonMostrarContrasenaIniciarSesion" type="button" id="mostrar_contraseña">Mostrar contraseña</button><br><br><br>
-                <input type="submit" value="Iniciar sesion" class ="botonIniciarSesion">
+                <input type="submit" value="Iniciar sesión" class ="botonIniciarSesion">
             </form>
             <dialog class="errorLogin" id="error_login">Datos incorrectos</dialog>
         </div>
 
 	<div class="seccionCrearCuenta">
-		<p>¿No tenes una cuenta?</p>
+		<p>¿No tenés una cuenta?</p>
 		<a href="crear_usuario.html" class="botonLlevarCrearCuenta">Crear una cuenta</a>
 	</div>
     </body>
