@@ -441,7 +441,7 @@ app.post("/bandas", async (req, res) => {
         const id_banda = query_id_banda.rows[0].id;
 
         let query_generos = `INSERT INTO generos_bandas (id_banda, genero) VALUES `;
-        let generos = req.body.generos.split(" ", 4);
+        let generos = req.body.generos.split(", ", 4);
         generos.forEach(genero => {
             query_generos += `(${id_banda}, '${genero}'),`;
         })
